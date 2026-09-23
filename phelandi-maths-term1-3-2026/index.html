@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Phelandi | Grade 9 Maths Term 1–3 Revision</title>
+<style>
+:root{
+  --navy:#0F172A;
+  --ink:#172033;
+  --muted:#64748B;
+  --cream:#F8FAFC;
+  --white:#FFFFFF;
+  --orange:#E54D2E;
+  --green:#22C55E;
+  --blue:#2563EB;
+  --purple:#7C3AED;
+  --line:#E2E8F0;
+  --soft:#F1F5F9;
+  --warn:#FEF3C7;
+  --danger:#FEE2E2;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:linear-gradient(135deg,#f8fafc 0%,#eef2ff 100%);
+  color:var(--ink);
+}
+button,input{font:inherit}
+.app{min-height:100vh;display:flex;flex-direction:column}
+.topbar{
+  position:sticky;top:0;z-index:20;
+  background:rgba(255,255,255,.94);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{max-width:1120px;margin:auto;padding:12px 18px;display:flex;align-items:center;gap:14px}
+.brand{font-weight:800;color:var(--navy);white-space:nowrap}
+.progress-wrap{flex:1;height:8px;background:#e5e7eb;border-radius:999px;overflow:hidden}
+.progress{height:100%;width:0;background:linear-gradient(90deg,var(--orange),#fb7185);transition:.3s}
+.slide-count{font-size:13px;color:var(--muted);font-weight:700;white-space:nowrap}
+.stage{width:min(1120px,100%);margin:auto;padding:22px 18px 110px}
+.slide{
+  display:none;
+  background:rgba(255,255,255,.97);
+  border:1px solid var(--line);
+  border-radius:26px;
+  padding:clamp(20px,4vw,44px);
+  box-shadow:0 18px 50px rgba(15,23,42,.08);
+  min-height:610px;
+  overflow:hidden;
+}
+.slide.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:.3;transform:translateY(6px)}to{opacity:1;transform:none}}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.14em;font-weight:800;color:var(--orange)}
+h1,h2,h3{color:var(--navy);margin-top:0}
+h1{font-size:clamp(34px,6vw,62px);line-height:1.02;margin-bottom:18px}
+h2{font-size:clamp(28px,4vw,42px);line-height:1.08;margin-bottom:12px}
+h3{font-size:21px;margin-bottom:8px}
+.lead{font-size:clamp(17px,2.2vw,22px);line-height:1.55;color:#334155;max-width:850px}
+.grid-2{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{border:1px solid var(--line);background:var(--cream);border-radius:18px;padding:18px}
+.card strong{color:var(--navy)}
+.pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:7px 11px;font-weight:800;font-size:12px;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+.big-number{font-size:54px;font-weight:900;color:var(--orange);line-height:1}
+.math{font-family:"Cambria Math","STIX Two Math",serif}
+.formula{font-family:"Cambria Math","STIX Two Math",serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--navy);padding:16px 18px;border-left:5px solid var(--orange);background:#fff7ed;border-radius:12px}
+.callout{margin-top:18px;padding:16px 18px;border-radius:16px;background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a}
+.example{margin-top:18px;padding:18px;border:1px dashed #94a3b8;background:#f8fafc;border-radius:16px}
+.steps{display:grid;gap:10px;margin-top:14px}
+.step{display:flex;gap:12px;align-items:flex-start}
+.step b{display:grid;place-items:center;min-width:30px;height:30px;border-radius:50%;background:var(--navy);color:white;font-size:13px}
+.qbox{margin-top:20px;border:2px solid #e2e8f0;border-radius:18px;padding:18px;background:white}
+.qhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.marks{font-size:12px;font-weight:900;background:var(--navy);color:white;border-radius:999px;padding:6px 9px;white-space:nowrap}
+.options{display:grid;gap:10px;margin-top:14px}
+.option{
+  width:100%;text-align:left;border:1px solid #cbd5e1;background:#fff;border-radius:14px;padding:13px 15px;
+  cursor:pointer;min-height:48px;transition:.15s;font-weight:700;color:#334155;
+}
+.option:hover{border-color:#94a3b8;background:#f8fafc}
+.option.correct{border-color:#86efac;background:#f0fdf4;color:#166534}
+.option.wrong{border-color:#fecaca;background:#fef2f2;color:#991b1b}
+.option:disabled{cursor:default}
+.feedback{display:none;margin-top:12px;border-radius:14px;padding:13px 15px;line-height:1.5}
+.feedback.good{display:block;background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+.feedback.bad{display:block;background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
+.answer-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.answer-input{min-height:48px;border:1px solid #cbd5e1;border-radius:12px;padding:0 13px;font-size:16px;min-width:160px;max-width:260px}
+.check-btn,.primary,.secondary{
+  border:0;border-radius:13px;padding:12px 16px;font-weight:800;cursor:pointer;min-height:46px;
+}
+.check-btn,.primary{background:var(--orange);color:white}
+.secondary{background:white;color:var(--navy);border:1px solid #cbd5e1}
+.nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:30;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);
+}
+.nav-inner{max-width:1120px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;gap:12px}
+.nav button{min-width:120px}
+.visual{border:1px solid var(--line);border-radius:18px;background:white;padding:14px}
+svg{max-width:100%;height:auto;display:block}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--muted)}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:5px}
+.term-banner{padding:18px;border-radius:20px;background:linear-gradient(135deg,#0f172a,#1e293b);color:white;margin-bottom:20px}
+.term-banner h2,.term-banner p{color:white;margin-bottom:6px}
+.term-banner p{opacity:.85}
+.table-wrap{overflow-x:auto;border-radius:16px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;min-width:560px}
+th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left}
+th{background:#f8fafc;color:var(--navy)}
+.kpi{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px}
+.kpi .card{min-width:160px;flex:1}
+.score{font-size:34px;font-weight:900;color:var(--orange)}
+.report-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+.report-item{border:1px solid var(--line);border-radius:16px;padding:16px}
+.report-item .bar{height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:8px}
+.report-item .bar span{display:block;height:100%;background:var(--orange)}
+.hidden{display:none!important}
+.name-box{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.name-box input{min-height:50px;min-width:260px;flex:1;border:1px solid #cbd5e1;border-radius:14px;padding:0 14px;font-size:16px}
+.note{font-size:13px;color:var(--muted);line-height:1.5}
+.challenge-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#eef2ff;color:#4338ca;font-size:12px;font-weight:800}
+@media (max-width:800px){
+  .grid-2,.grid-3,.report-grid,.challenge-grid{grid-template-columns:1fr}
+  .slide{min-height:auto;border-radius:20px;padding:22px 16px}
+  .topbar-inner,.stage,.nav-inner{padding-left:12px;padding-right:12px}
+  h1{font-size:38px}
+  h2{font-size:30px}
+  .nav button{min-width:105px}
+  .qhead{flex-direction:column}
+}
+@media print{
+  .topbar,.nav{display:none}
+  body{background:white}
+  .stage{padding:0}
+  .slide{display:none!important;box-shadow:none;border:0}
+  #slide-report{display:block!important}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Victoria Tuition Academy</div>
+      <div class="progress-wrap"><div id="progress" class="progress"></div></div>
+      <div id="slideCount" class="slide-count">1 / 18</div>
+    </div>
+  </div>
+
+  <main class="stage">
+
+    <section class="slide active" data-slide="1">
+      <div class="grid-2">
+        <div>
+          <div class="eyebrow">Grade 9 Mathematics • CAPS • Term 1–3</div>
+          <h1>Maths Revision<br>Mastery Lesson</h1>
+          <p class="lead">A focused one-hour lesson to check what you remember, rebuild the important ideas, and identify exactly what needs more practice.</p>
+          <div class="name-box">
+            <input id="studentName" value="Phelandi" aria-label="Student name" />
+            <button class="primary" id="startBtn">Start lesson</button>
+          </div>
+          <p class="note">Your answers will be used to create a personalised report at the end.</p>
+        </div>
+        <div class="visual">
+          <svg viewBox="0 0 520 390" role="img" aria-label="Maths topics overview">
+            <rect x="34" y="35" width="452" height="320" rx="26" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+            <circle cx="260" cy="190" r="68" fill="#FFF7ED" stroke="#E54D2E" stroke-width="4"/>
+            <text x="260" y="182" text-anchor="middle" font-size="22" font-weight="800" fill="#0F172A">Grade 9</text>
+            <text x="260" y="209" text-anchor="middle" font-size="19" font-weight="700" fill="#E54D2E">Maths</text>
+
+            <rect x="72" y="70" width="145" height="68" rx="18" fill="#EFF6FF" stroke="#93C5FD"/>
+            <text x="145" y="97" text-anchor="middle" font-size="15" font-weight="800" fill="#1E3A8A">TERM 1</text>
+            <text x="145" y="119" text-anchor="middle" font-size="13" fill="#334155">Number + Algebra</text>
+
+            <rect x="303" y="70" width="145" height="68" rx="18" fill="#F5F3FF" stroke="#C4B5FD"/>
+            <text x="375" y="97" text-anchor="middle" font-size="15" font-weight="800" fill="#5B21B6">TERM 2</text>
+            <text x="375" y="119" text-anchor="middle" font-size="13" fill="#334155">Equations + Graphs</text>
+
+            <rect x="188" y="262" width="145" height="68" rx="18" fill="#F0FDF4" stroke="#86EFAC"/>
+            <text x="260" y="289" text-anchor="middle" font-size="15" font-weight="800" fill="#166534">TERM 3</text>
+            <text x="260" y="311" text-anchor="middle" font-size="13" fill="#334155">Geometry + Data</text>
+
+            <line x1="210" y1="135" x2="230" y2="158" stroke="#94A3B8" stroke-width="3"/>
+            <line x1="310" y1="135" x2="290" y2="158" stroke="#94A3B8" stroke-width="3"/>
+            <line x1="260" y1="258" x2="260" y2="235" stroke="#94A3B8" stroke-width="3"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="2">
+      <div class="eyebrow">Lesson map</div>
+      <h2>What we are revising today</h2>
+      <p class="lead">We will sample the major Grade 9 skills from Terms 1–3. The goal is not to rush through everything — it is to find the gaps that matter most.</p>
+      <div class="grid-3" style="margin-top:24px">
+        <div class="card"><div class="pill">Term 1</div><h3 style="margin-top:12px">Number & Algebra</h3><p>Integers, exponents, patterns, functions and algebraic expressions.</p></div>
+        <div class="card"><div class="pill">Term 2</div><h3 style="margin-top:12px">Equations & Graphs</h3><p>Solving equations, linear graphs, gradient and straight-line geometry.</p></div>
+        <div class="card"><div class="pill">Term 3</div><h3 style="margin-top:12px">Geometry & Data</h3><p>2D shapes, area/perimeter, data handling and probability.</p></div>
+      </div>
+      <div class="callout"><strong>Remember:</strong> every question is there to diagnose a skill. If you get one wrong, use the explanation — that is part of the lesson.</div>
+    </section>
+
+    <section class="slide" data-slide="3">
+      <div class="term-banner">
+        <div class="eyebrow" style="color:#FDBA74">TERM 1</div>
+        <h2>Number skills first</h2>
+        <p>Strong algebra depends on strong number sense.</p>
+      </div>
+      <div class="grid-2">
+        <div>
+          <h3>Integers: signs matter</h3>
+          <p>Integers include positive numbers, negative numbers and zero.</p>
+          <div class="formula math">−7 + 12 − 5 = 0</div>
+          <div class="steps">
+            <div class="step"><b>1</b><div>Start at <strong>−7</strong>.</div></div>
+            <div class="step"><b>2</b><div>Add 12 → move 12 steps right → <strong>5</strong>.</div></div>
+            <div class="step"><b>3</b><div>Subtract 5 → move 5 steps left → <strong>0</strong>.</div></div>
+          </div>
+        </div>
+        <div class="visual">
+          <svg viewBox="0 0 620 210" role="img" aria-label="Number line from negative eight to eight">
+            <line x1="42" y1="112" x2="578" y2="112" stroke="#0F172A" stroke-width="3"/>
+            <polygon points="578,112 562,104 562,120" fill="#0F172A"/>
+            <polygon points="42,112 58,104 58,120" fill="#0F172A"/>
+            <g fill="#334155" font-size="14" text-anchor="middle">
+              <script type="application/json" id="noop"></script>
+              <line x1="82" y1="100" x2="82" y2="124" stroke="#64748B"/><text x="82" y="146">−8</text>
+              <line x1="146" y1="100" x2="146" y2="124" stroke="#64748B"/><text x="146" y="146">−6</text>
+              <line x1="210" y1="100" x2="210" y2="124" stroke="#64748B"/><text x="210" y="146">−4</text>
+              <line x1="274" y1="100" x2="274" y2="124" stroke="#64748B"/><text x="274" y="146">−2</text>
+              <line x1="338" y1="100" x2="338" y2="124" stroke="#64748B"/><text x="338" y="146">0</text>
+              <line x1="402" y1="100" x2="402" y2="124" stroke="#64748B"/><text x="402" y="146">2</text>
+              <line x1="466" y1="100" x2="466" y2="124" stroke="#64748B"/><text x="466" y="146">4</text>
+              <line x1="530" y1="100" x2="530" y2="124" stroke="#64748B"/><text x="530" y="146">6</text>
+            </g>
+            <circle cx="114" cy="112" r="9" fill="#E54D2E"/><text x="114" y="84" text-anchor="middle" font-size="14" font-weight="800" fill="#E54D2E">−7</text>
+            <circle cx="498" cy="112" r="9" fill="#2563EB"/><text x="498" y="84" text-anchor="middle" font-size="14" font-weight="800" fill="#2563EB">5</text>
+            <circle cx="338" cy="112" r="9" fill="#22C55E"/><text x="338" y="185" text-anchor="middle" font-size="14" font-weight="800" fill="#166534">0</text>
+          </svg>
+        </div>
+      </div>
+      <div class="qbox" data-qid="q1" data-topic="Number Skills" data-answer="1">
+        <div class="qhead"><h3>Quick check: Calculate −9 + 14 − 3.</h3><span class="marks">2 marks</span></div>
+        <div class="options">
+          <button class="option" data-choice="0">A. −2</button>
+          <button class="option" data-choice="1">B. 2</button>
+          <button class="option" data-choice="2">C. 8</button>
+          <button class="option" data-choice="3">D. 20</button>
+        </div>
+        <div class="feedback">−9 + 14 = 5, then 5 − 3 = 2.</div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="4">
+      <div class="eyebrow">Term 1 • Exponents</div>
+      <h2>Exponent laws you must know</h2>
+      <div class="grid-2">
+        <div>
+          <div class="formula math">aᵐ × aⁿ = aᵐ⁺ⁿ</div>
+          <div class="formula math" style="margin-top:12px">aᵐ ÷ aⁿ = aᵐ⁻ⁿ</div>
+          <div class="formula math" style="margin-top:12px">(aᵐ)ⁿ = aᵐⁿ</div>
+          <div class="callout"><strong>Common mistake:</strong> do not multiply exponents when multiplying the same base. You <strong>add</strong> them.</div>
+        </div>
+        <div class="example">
+          <h3>Worked example</h3>
+          <p class="math" style="font-size:26px"><strong>3² × 3⁴ ÷ 3³</strong></p>
+          <div class="steps">
+            <div class="step"><b>1</b><div>Same base → add exponents when multiplying: 3²⁺⁴ = 3⁶</div></div>
+            <div class="step"><b>2</b><div>Divide same base → subtract exponents: 3⁶⁻³ = 3³</div></div>
+            <div class="step"><b>3</b><div>3³ = <strong>27</strong></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="qbox" data-qid="q2" data-topic="Exponents" data-answer="2">
+        <div class="qhead"><h3>Simplify: 2⁵ × 2² ÷ 2³</h3><span class="marks">2 marks</span></div>
+        <div class="options">
+          <button class="option" data-choice="0">A. 2² = 4</button>
+          <button class="option" data-choice="1">B. 2³ = 8</button>
+          <button class="option" data-choice="2">C. 2⁴ = 16</button>
+          <button class="option" data-choice="3">D. 2¹⁰</button>
+        </div>
+        <div class="feedback">5 + 2 − 3 = 4, therefore 2⁴ = 16.</div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="5">
+      <div class="eyebrow">Term 1 • Algebraic expressions</div>
+      <h2>Like terms and distributive law</h2>
+      <div class="grid-2">
+        <div>
+          <h3>1. Collect like terms</h3>
+          <div class="formula math">3x + 5x − 2 = 8x − 2</div>
+          <p>Only terms with exactly the same variable part can be combined.</p>
+          <h3 style="margin-top:20px">2. Remove brackets</h3>
+          <div class="formula math">3(x + 4) = 3x + 12</div>
+        </div>
+        <div class="card">
+          <h3>Exam habit</h3>
+          <p>When simplifying, work in this order:</p>
+          <div class="steps">
+            <div class="step"><b>1</b><div>Remove brackets.</div></div>
+            <div class="step"><b>2</b><div>Collect like terms.</div></div>
+            <div class="step"><b>3</b><div>Write the final expression neatly.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="qbox" data-qid="q3" data-topic="Algebra" data-answer="3">
+        <div class="qhead"><h3>Simplify: 2(3x − 4) + x</h3><span class="marks">3 marks</span></div>
+        <div class="options">
+          <button class="option" data-choice="0">A. 6x − 4</button>
+          <button class="option" data-choice="1">B. 6x − 8</button>
+          <button class="option" data-choice="2">C. 7x + 8</button>
+          <button class="option" data-choice="3">D. 7x − 8</button>
+        </div>
+        <div class="feedback">2(3x − 4) = 6x − 8, then +x gives 7x − 8.</div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="6">
+      <div class="eyebrow">Term 1 • Patterns & functions</div>
+      <h2>From a pattern to a rule</h2>
+      <div class="grid-2">
+        <div>
+          <p class="lead">For a linear number pattern, identify the constant difference first.</p>
+          <div class="formula math">5, 9, 13, 17, ...</div>
+          <p>Difference = <strong>+4</strong>.</p>
+          <p>A possible nth-term rule is:</p>
+          <div class="formula math">Tₙ = 4n + 1</div>
+          <div class="callout">Check: when n = 1, T₁ = 4(1)+1 = 5 ✓</div>
+        </div>
+        <div class="card">
+          <h3>Function machine</h3>
+          <svg viewBox="0 0 520 260" role="img" aria-label="Function machine showing multiply by 3 then subtract 2">
+            <rect x="40" y="92" width="110" height="74" rx="16" fill="#EFF6FF" stroke="#93C5FD"/>
+            <text x="95" y="122" text-anchor="middle" font-size="16" font-weight="800" fill="#1E3A8A">INPUT</text>
+            <text x="95" y="148" text-anchor="middle" font-size="28" font-weight="800" fill="#0F172A">x</text>
+            <polygon points="173,129 205,112 205,146" fill="#94A3B8"/>
+            <rect x="205" y="69" width="150" height="120" rx="22" fill="#FFF7ED" stroke="#FDBA74"/>
+            <text x="280" y="112" text-anchor="middle" font-size="20" font-weight="800" fill="#9A3412">× 3</text>
+            <text x="280" y="150" text-anchor="middle" font-size="20" font-weight="800" fill="#9A3412">− 2</text>
+            <polygon points="378,129 410,112 410,146" fill="#94A3B8"/>
+            <rect x="410" y="92" width="70" height="74" rx="16" fill="#F0FDF4" stroke="#86EFAC"/>
+            <text x="445" y="122" text-anchor="middle" font-size="14" font-weight="800" fill="#166534">OUTPUT</text>
+            <text x="445" y="148" text-anchor="middle" font-size="20" font-weight="800" fill="#0F172A">y</text>
+          </svg>
+          <p class="math" style="text-align:center;font-size:22px"><strong>y = 3x − 2</strong></p>
+        </div>
+      </div>
+      <div class="qbox" data-qid="q4" data-topic="Patterns & Functions" data-answer="1">
+        <div class="qhead"><h3>For y = 3x − 2, find y when x = 5.</h3><span class="marks">2 marks</span></div>
+        <div class="options">
+          <button class="option" data-choice="0">A. 10</button>
+          <button class="option" data-choice="1">B. 13</button>
+          <button class="option" data-choice="2">C. 15</button>
+          <button class="option" data-choice="3">D. 17</button>
+        </div>
+        <div class="feedback">y = 3(5) − 2 = 15 − 2 = 13.</div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="7">
+      <div class="term-banner">
+        <div class="eyebrow" style="color:#C4B5FD">TERM 2</div>
+        <h2>Equations and graphs</h2>
+        <p>This is where algebra starts becoming more visual.</p>
+      </div>
+      <div class="grid-2">
+        <div>
+          <h3>Solving linear equations</h3>
+          <div class="formula math">3x + 5 = 20</div>
+          <div class="steps">
+            <div class="step"><b>1</b><div>Subtract 5 from both sides → 3x = 15</div></div>
+            <div class="step"><b>2</b><div>Divide both sides by 3 → x = 5</div></div>
+          </div>
+          <div class="callout"><strong>Balance rule:</strong> whatever you do to one side of the equation, do to the other side.</div>
+        </div>
+        <div class="card">
+          <h3>Check your answer</h3>
+          <p>Substitute x = 5 into the original equation:</p>
+          <p class="math" style="font-size:28px">3(5) + 5 = 20</p>
+          <p class="math" style="font-size:28px">20 = 20 ✓</p>
+        </div>
+      </div>
+      <div class="qbox" data-qid="q5" data-topic="Equations" data-answer="2">
+        <div class="qhead"><h3>Solve: 4x − 7 = 13</h3><span class="marks">3 marks</span></div>
+        <div class="options">
+          <button class="option" data-choice="0">A. x = 3</button>
+          <button class="option" data-choice="1">B. x = 4</button>
+          <button class="option" data-choice="2">C. x = 5</button>
+          <button class="option" data-choice="3">D. x = 20</button>
+        </div>
+        <div class="feedback">4x − 7 = 13 → 4x = 20 → x = 5.</div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="8">
+      <div class="eyebrow">Term 2 • Linear graphs</div>
+      <h2>Gradient tells us how steep a line is</h2>
+      <div class="grid-2">
+        <div class="visual">
+          <svg viewBox="0 0 520 420" role="img" aria-label="Linear graph through points one two and three six">
+            <line x1="65" y1="350" x2="468" y2="350" stroke="#0F172A" stroke-width="2"/>
+            <line x1="105" y1="385" x2="105" y2="45" stroke="#0F172A" stroke-width="2"/>
+            <polygon points="468,350 455,343 455,357" fill="#0F172A"/>
+            <polygon points="105,45 98,58 112,58" fill="#0F172A"/>
+            <g stroke="#E2E8F0" stroke-width="1">
+              <line x1="145" y1="65" x2="145" y2="350"/><line x1="185" y1="65" x2="185" y2="350"/>
+              <line x1="225" y1="65" x2="225" y2="350"/><line x1="265" y1="65" x2="265" y2="350"/>
+              <line x1="305" y1="65" x2="305" y2="350"/><line x1="345" y1="65" x2="345" y2="350"/>
+              <line x1="385" y1="65" x2="385" y2="350"/><line x1="425" y1="65" x2="425" y2="350"/>
+              <line x1="105" y1="310" x2="445" y2="310"/><line x1="105" y1="270" x2="445" y2="270"/>
+              <line x1="105" y1="230" x2="445" y2="230"/><line x1="105" y1="190" x2="445" y2="190"/>
+              <line x1="105" y1="150" x2="445" y2="150"/><line x1="105" y1="110" x2="445" y2="110"/>
+              <line x1="105" y1="70" x2="445" y2="70"/>
+            </g>
+            <line x1="115" y1="330" x2="385" y2="60" stroke="#2563EB" stroke-width="5"/>
+            <circle cx="145" cy="310" r="8" fill="#E54D2E"/>
+            <circle cx="225" cy="230" r="8" fill="#E54D2E"/>
+            <text x="145" y="292" text-anchor="middle" font-size="14" font-weight="800" fill="#E54D2E">(1,2)</text>
+            <text x="225" y="212" text-anchor="middle" font-size="14" font-weight="800" fill="#E54D2E">(3,6)</text>
+            <text x="480" y="355" font-size="16" font-weight="800">x</text>
+            <text x="94" y="42" font-size="16" font-weight="800">y</text>
+          </svg>
+        </div>
+        <div>
+          <div class="formula math">m = (y₂ − y₁) / (x₂ − x₁)</div>
+          <div class="example">
+            <h3>Using (1,2) and (3,6)</h3>
+            <p class="math" style="font-size:28px">m = (6 − 2)/(3 − 1)</p>
+            <p class="math" style="font-size:28px">m = 4/2 = <strong>2</strong></p>
+          </div>
+          <div class="callout">Positive gradient → line rises from left to right. Negative gradient → line falls.</div>
+        </div>
+      </div>
+      <div class="qbox" data-qid="q6" data-topic="Graphs" data-answer="0">
+        <div class="qhead"><h3>Find the gradient between (2, 1) and (6, 9).</h3><span class="marks">3 marks</span></div>
+        <div class="options">
+          <button class="option" data-choice="0">A. 2</button>
+          <button class="option" data-choice="1">B. 4</button>
+          <button class="option" data-choice="2">C. 8</button>
+          <button class="option" data-choice="3">D. 1/2</button>
+        </div>
+        <div class="feedback">m = (9−1)/(6−2) = 8/4 = 2.</div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="9">
+      <div class="eyebrow">Term 2 • Straight-line geometry</div>
+      <h2>Parallel lines + a transversal</h2>
+      <div class="grid-2">
+        <div class="visual">
+          <svg viewBox="0 0 560 360" role="img" aria-label="Two parallel lines cut by a transversal">
+            <line x1="70" y1="105" x2="500" y2="105" stroke="#0F172A" stroke-width="5"/>
+            <line x1="70" y1="255" x2="500" y2="255" stroke="#0F172A" stroke-width="5"/>
+            <line x1="185" y1="35" x2="370" y2="325" stroke="#2563EB" stroke-width="5"/>
+            <text x="465" y="93" font-size="15" font-weight="800" fill="#0F172A">ℓ₁</text>
+            <text x="465" y="243" font-size="15" font-weight="800" fill="#0F172A">ℓ₂</text>
+            <path d="M226 105 A34 34 0 0 1 207 74" fill="none" stroke="#E54D2E" stroke-width="4"/>
+            <text x="245" y="82" font-size="18" font-weight="800" fill="#E54D2E">68°</text>
+            <path d="M322 255 A34 34 0 0 1 303 224" fill="none" stroke="#22C55E" stroke-width="4"/>
+            <text x="338" y="232" font-size="18" font-weight="800" fill="#166534">x</text>
+          </svg>
+        </div>
+        <div>
+          <div class="card"><strong>Corresponding angles:</strong> equal.</div>
+          <div class="card" style="margin-top:10px"><strong>Alternate angles:</strong> equal.</div>
+          <div class="card" style="margin-top:10px"><strong>Co-interior angles:</strong> add to 180°.</div>
+          <div class="callout">Always write the <strong>reason</strong> in geometry questions. Marks are often awarded for both the answer and the reason.</div>
+        </div>
+      </div>
+      <div class="qbox" data-qid="q7" data-topic="Straight-line Geometry" data-answer="1">
+        <div class="qhead"><h3>If the marked angles are corresponding, find x.</h3><span class="marks">2 marks</span></div>
+        <div class="options">
+          <button class="option" data-choice="0">A. 22°</button>
+          <button class="option" data-choice="1">B. 68°</button>
+          <button class="option" data-choice="2">C. 112°</button>
+          <button class="option" data-choice="3">D. 180°</button>
+        </div>
+        <div class="feedback">Corresponding angles on parallel lines are equal, so x = 68°.</div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="10">
+      <div class="eyebrow">Mid-lesson checkpoint</div>
+      <h2>Can you connect the skills?</h2>
+      <p class="lead">This is a short mixed question. Read it carefully before calculating.</p>
+      <div class="qbox" data-qid="q8" data-topic="Mixed Algebra" data-answer="3">
+        <div class="qhead"><h3>The rule is y = 2x + 1. Which point lies on the graph?</h3><span class="marks">3 marks</span></div>
+        <div class="options">
+          <button class="option" data-choice="0">A. (1, 1)</button>
+          <button class="option" data-choice="1">B. (2, 4)</button>
+          <button class="option" data-choice="2">C. (3, 5)</button>
+          <button class="option" data-choice="3">D. (3, 7)</button>
+        </div>
+        <div class="feedback">Substitute x = 3: y = 2(3) + 1 = 7, so (3,7) lies on the graph.</div>
+      </div>
+      <div class="callout"><strong>Exam strategy:</strong> if a question gives a rule and a coordinate, substitute the x-value and check whether the calculated y matches the point.</div>
+    </section>
+
+    <section class="slide" data-slide="11">
+      <div class="term-banner">
+        <div class="eyebrow" style="color:#86EFAC">TERM 3</div>
+        <h2>Geometry and measurement</h2>
+        <p>Draw, label, use the correct formula, and always include units.</p>
+      </div>
+      <div class="grid-2">
+        <div class="visual">
+          <svg viewBox="0 0 560 390" role="img" aria-label="Triangle with exterior angle 120 degrees and opposite interior angle 50 degrees">
+            <polygon points="125,285 315,85 455,285" fill="#EFF6FF" stroke="#2563EB" stroke-width="4"/>
+            <line x1="455" y1="285" x2="530" y2="285" stroke="#0F172A" stroke-width="4"/>
+            <path d="M455 285 A58 58 0 0 0 420 235" fill="none" stroke="#22C55E" stroke-width="4"/>
+            <text x="395" y="245" font-size="18" font-weight="800" fill="#166534">x</text>
+            <path d="M455 285 A70 70 0 0 1 510 245" fill="none" stroke="#E54D2E" stroke-width="4"/>
+            <text x="492" y="230" font-size="18" font-weight="800" fill="#E54D2E">120°</text>
+            <path d="M125 285 A50 50 0 0 1 157 244" fill="none" stroke="#7C3AED" stroke-width="4"/>
+            <text x="150" y="235" font-size="18" font-weight="800" fill="#5B21B6">50°</text>
+          </svg>
+        </div>
+        <div>
+          <h3>Exterior angle theorem</h3>
+          <p>The exterior angle of a triangle equals the sum of the two opposite interior angles.</p>
+          <div class="formula math">120° = 50° + x</div>
+          <div class="formula math" style="margin-top:10px">x = 70°</div>
+        </div>
+      </div>
+      <div class="qbox" data-qid="q9" data-topic="2D Geometry" data-answer="2">
+        <div class="qhead"><h3>An exterior angle is 135°. One opposite interior angle is 55°. Find the other.</h3><span class="marks">3 marks</span></div>
+        <div class="options">
+          <button class="option" data-choice="0">A. 45°</button>
+          <button class="option" data-choice="1">B. 55°</button>
+          <button class="option" data-choice="2">C. 80°</button>
+          <button class="option" data-choice="3">D. 190°</button>
+        </div>
+        <div class="feedback">135° = 55° + x, so x = 80°.</div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="12">
+      <div class="eyebrow">Term 3 • Area & perimeter</div>
+      <h2>Know what the question is asking</h2>
+      <div class="grid-2">
+        <div>
+          <div class="card"><h3>Perimeter</h3><p>Distance around the outside of a shape.</p><div class="formula math">P = 2ℓ + 2w</div></div>
+          <div class="card" style="margin-top:12px"><h3>Area</h3><p>Space inside a 2D shape.</p><div class="formula math">A = ℓ × w</div></div>
+        </div>
+        <div class="visual">
+          <svg viewBox="0 0 520 330" role="img" aria-label="Rectangle measuring 8 cm by 5 cm">
+            <rect x="100" y="80" width="300" height="170" rx="8" fill="#FFF7ED" stroke="#E54D2E" stroke-width="4"/>
+            <text x="250" y="58" text-anchor="middle" font-size="20" font-weight="800" fill="#0F172A">8 cm</text>
+            <text x="430" y="175" text-anchor="middle" font-size="20" font-weight="800" fill="#0F172A" transform="rotate(90 430 175)">5 cm</text>
+            <text x="250" y="170" text-anchor="middle" font-size="22" font-weight="800" fill="#9A3412">Area = 40 cm²</text>
+          </svg>
+        </div>
+      </div>
+      <div class="qbox" data-qid="q10" data-topic="Measurement" data-answer="0">
+        <div class="qhead"><h3>A rectangle is 8 cm by 5 cm. What is its perimeter?</h3><span class="marks">2 marks</span></div>
+        <div class="options">
+          <button class="option" data-choice="0">A. 26 cm</button>
+          <button class="option" data-choice="1">B. 40 cm</button>
+          <button class="option" data-choice="2">C. 13 cm</button>
+          <button class="option" data-choice="3">D. 80 cm²</button>
+        </div>
+        <div class="feedback">P = 2(8) + 2(5) = 16 + 10 = 26 cm.</div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="13">
+      <div class="eyebrow">Term 3 • Circles</div>
+      <h2>Radius, diameter and area</h2>
+      <div class="grid-2">
+        <div class="visual">
+          <svg viewBox="0 0 480 360" role="img" aria-label="Circle showing radius seven centimetres">
+            <circle cx="240" cy="180" r="125" fill="#EFF6FF" stroke="#2563EB" stroke-width="4"/>
+            <circle cx="240" cy="180" r="6" fill="#0F172A"/>
+            <line x1="240" y1="180" x2="365" y2="180" stroke="#E54D2E" stroke-width="4"/>
+            <text x="302" y="165" text-anchor="middle" font-size="18" font-weight="800" fill="#E54D2E">r = 7 cm</text>
+            <text x="240" y="330" text-anchor="middle" font-size="16" fill="#334155">diameter = 14 cm</text>
+          </svg>
+        </div>
+        <div>
+          <div class="formula math">A = πr²</div>
+          <div class="example">
+            <h3>Worked example</h3>
+            <p class="math" style="font-size:27px">A = (22/7)(7²)</p>
+            <p class="math" style="font-size:27px">A = (22/7)(49)</p>
+            <p class="math" style="font-size:27px">A = <strong>154 cm²</strong></p>
+          </div>
+          <div class="callout">Area uses <strong>square units</strong>: cm², m², mm².</div>
+        </div>
+      </div>
+      <div class="qbox" data-qid="q11" data-topic="Measurement" data-answer="2">
+        <div class="qhead"><h3>Using π = 22/7, find the area of a circle with radius 14 cm.</h3><span class="marks">3 marks</span></div>
+        <div class="options">
+          <button class="option" data-choice="0">A. 88 cm²</button>
+          <button class="option" data-choice="1">B. 308 cm²</button>
+          <button class="option" data-choice="2">C. 616 cm²</button>
+          <button class="option" data-choice="3">D. 1 232 cm²</button>
+        </div>
+        <div class="feedback">A = (22/7)(14²) = (22/7)(196) = 616 cm².</div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="14">
+      <div class="eyebrow">Term 3 • Data handling</div>
+      <h2>Mean, median, mode and range</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Measure</th><th>Meaning</th><th>How to find it</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Mean</strong></td><td>Average</td><td>Add all values ÷ number of values</td></tr>
+            <tr><td><strong>Median</strong></td><td>Middle value</td><td>Order the data first</td></tr>
+            <tr><td><strong>Mode</strong></td><td>Most frequent</td><td>Find the value that appears most</td></tr>
+            <tr><td><strong>Range</strong></td><td>Spread</td><td>Largest − smallest</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="example">
+        <h3>Data set: 4, 6, 6, 8, 11</h3>
+        <p>Mean = (4 + 6 + 6 + 8 + 11) ÷ 5 = <strong>7</strong></p>
+        <p>Median = <strong>6</strong> • Mode = <strong>6</strong> • Range = 11 − 4 = <strong>7</strong></p>
+      </div>
+      <div class="qbox" data-qid="q12" data-topic="Data Handling" data-answer="1">
+        <div class="qhead"><h3>For 3, 5, 5, 8, 9, what is the range?</h3><span class="marks">2 marks</span></div>
+        <div class="options">
+          <button class="option" data-choice="0">A. 4</button>
+          <button class="option" data-choice="1">B. 6</button>
+          <button class="option" data-choice="2">C. 7</button>
+          <button class="option" data-choice="3">D. 9</button>
+        </div>
+        <div class="feedback">Range = largest − smallest = 9 − 3 = 6.</div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="15">
+      <div class="eyebrow">Term 3 • Probability</div>
+      <h2>Compound probability</h2>
+      <p class="lead">When two fair coins are tossed, list the equally likely outcomes systematically.</p>
+      <div class="grid-2">
+        <div class="visual">
+          <svg viewBox="0 0 560 320" role="img" aria-label="Tree diagram for two coin tosses">
+            <circle cx="85" cy="160" r="8" fill="#0F172A"/>
+            <line x1="93" y1="156" x2="230" y2="90" stroke="#64748B" stroke-width="3"/>
+            <line x1="93" y1="164" x2="230" y2="230" stroke="#64748B" stroke-width="3"/>
+            <text x="152" y="105" font-size="16" font-weight="800">H</text>
+            <text x="152" y="226" font-size="16" font-weight="800">T</text>
+
+            <line x1="230" y1="90" x2="400" y2="48" stroke="#64748B" stroke-width="3"/>
+            <line x1="230" y1="90" x2="400" y2="132" stroke="#64748B" stroke-width="3"/>
+            <line x1="230" y1="230" x2="400" y2="188" stroke="#64748B" stroke-width="3"/>
+            <line x1="230" y1="230" x2="400" y2="272" stroke="#64748B" stroke-width="3"/>
+            <text x="310" y="55" font-size="15" font-weight="800">H</text>
+            <text x="310" y="128" font-size="15" font-weight="800">T</text>
+            <text x="310" y="195" font-size="15" font-weight="800">H</text>
+            <text x="310" y="265" font-size="15" font-weight="800">T</text>
+            <text x="425" y="53" font-size="18" font-weight="800" fill="#2563EB">HH</text>
+            <text x="425" y="137" font-size="18" font-weight="800" fill="#2563EB">HT</text>
+            <text x="425" y="193" font-size="18" font-weight="800" fill="#2563EB">TH</text>
+            <text x="425" y="277" font-size="18" font-weight="800" fill="#2563EB">TT</text>
+          </svg>
+        </div>
+        <div>
+          <h3>Probability of exactly one head</h3>
+          <p>Favourable outcomes: <strong>HT, TH</strong></p>
+          <p>Total outcomes: <strong>4</strong></p>
+          <div class="formula math">P(exactly one H) = 2/4 = 1/2</div>
+        </div>
+      </div>
+      <div class="qbox" data-qid="q13" data-topic="Probability" data-answer="0">
+        <div class="qhead"><h3>What is the probability of getting two tails?</h3><span class="marks">2 marks</span></div>
+        <div class="options">
+          <button class="option" data-choice="0">A. 1/4</button>
+          <button class="option" data-choice="1">B. 1/2</button>
+          <button class="option" data-choice="2">C. 3/4</button>
+          <button class="option" data-choice="3">D. 1</button>
+        </div>
+        <div class="feedback">Only TT gives two tails. That is 1 favourable outcome out of 4 → 1/4.</div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="16">
+      <div class="eyebrow">Final challenge</div>
+      <h2>Mixed exam-style mastery check</h2>
+      <p class="lead">These questions combine skills from the three terms. Work carefully and use the method you have revised.</p>
+      <div class="challenge-grid">
+        <div class="qbox" data-qid="q14" data-topic="Final Mixed" data-answer="2">
+          <div class="qhead"><h3>1. Simplify: 5x − 2(x − 3)</h3><span class="marks">3</span></div>
+          <div class="options">
+            <button class="option" data-choice="0">A. 3x − 6</button>
+            <button class="option" data-choice="1">B. 7x − 3</button>
+            <button class="option" data-choice="2">C. 3x + 6</button>
+            <button class="option" data-choice="3">D. 7x + 6</button>
+          </div>
+          <div class="feedback">5x − 2x + 6 = 3x + 6.</div>
+        </div>
+        <div class="qbox" data-qid="q15" data-topic="Final Mixed" data-answer="1">
+          <div class="qhead"><h3>2. If y = −2x + 5, find y when x = 3.</h3><span class="marks">2</span></div>
+          <div class="options">
+            <button class="option" data-choice="0">A. 1</button>
+            <button class="option" data-choice="1">B. −1</button>
+            <button class="option" data-choice="2">C. 6</button>
+            <button class="option" data-choice="3">D. 11</button>
+          </div>
+          <div class="feedback">y = −2(3)+5 = −6+5 = −1.</div>
+        </div>
+        <div class="qbox" data-qid="q16" data-topic="Final Mixed" data-answer="3">
+          <div class="qhead"><h3>3. A triangle has angles 48°, 67° and x. Find x.</h3><span class="marks">2</span></div>
+          <div class="options">
+            <button class="option" data-choice="0">A. 55°</button>
+            <button class="option" data-choice="1">B. 60°</button>
+            <button class="option" data-choice="2">C. 64°</button>
+            <button class="option" data-choice="3">D. 65°</button>
+          </div>
+          <div class="feedback">Angles in a triangle add to 180°. x = 180 − 48 − 67 = 65°.</div>
+        </div>
+        <div class="qbox" data-qid="q17" data-topic="Final Mixed" data-answer="0">
+          <div class="qhead"><h3>4. Mean of 6, 7, 8, 9, 10?</h3><span class="marks">2</span></div>
+          <div class="options">
+            <button class="option" data-choice="0">A. 8</button>
+            <button class="option" data-choice="1">B. 7</button>
+            <button class="option" data-choice="2">C. 9</button>
+            <button class="option" data-choice="3">D. 10</button>
+          </div>
+          <div class="feedback">Total = 40, and 40 ÷ 5 = 8.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="17">
+      <div class="eyebrow">Reflection</div>
+      <h2>Before you see the report…</h2>
+      <p class="lead">Think about what felt easy and what needed more thought. Good revision is not only about the score — it is about knowing what to practise next.</p>
+      <div class="grid-3" style="margin-top:24px">
+        <div class="card"><span class="badge">Confidence check</span><h3 style="margin-top:10px">Term 1</h3><p>Could you work with integers, exponents and algebra without guessing?</p></div>
+        <div class="card"><span class="badge">Confidence check</span><h3 style="margin-top:10px">Term 2</h3><p>Could you solve equations and interpret linear graphs?</p></div>
+        <div class="card"><span class="badge">Confidence check</span><h3 style="margin-top:10px">Term 3</h3><p>Could you apply geometry, measurement, data and probability rules?</p></div>
+      </div>
+      <div class="callout"><strong>Next:</strong> open the final report to see your topic-by-topic performance.</div>
+      <button class="primary" id="showReportBtn" style="margin-top:18px">Generate my report</button>
+    </section>
+
+    <section class="slide" data-slide="18" id="slide-report">
+      <div class="eyebrow">Student report</div>
+      <h2 id="reportName">Phelandi's Grade 9 Maths Report</h2>
+      <p id="reportMessage" class="lead"></p>
+
+      <div class="kpi">
+        <div class="card"><div class="note">Score</div><div class="score" id="reportScore">0 / 41</div></div>
+        <div class="card"><div class="note">Percentage</div><div class="score" id="reportPercent">0%</div></div>
+        <div class="card"><div class="note">Questions completed</div><div class="score" id="reportCompleted">0 / 17</div></div>
+      </div>
+
+      <h3 style="margin-top:28px">Topic breakdown</h3>
+      <div id="topicReport" class="report-grid"></div>
+
+      <div class="grid-2" style="margin-top:20px">
+        <div class="card">
+          <h3>Strengths</h3>
+          <div id="strengthsText">Complete the questions to identify strengths.</div>
+        </div>
+        <div class="card">
+          <h3>Priority revision</h3>
+          <div id="weaknessText">Complete the questions to identify gaps.</div>
+        </div>
+      </div>
+
+      <div class="callout" id="nextSteps"><strong>Next lesson:</strong> complete this lesson so the recommended focus can be generated.</div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+        <button class="primary" id="downloadReport">Download report</button>
+        <button class="secondary" id="printReport">Print / Save PDF</button>
+        <button class="secondary" id="restartLesson">Restart lesson</button>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <button id="prevBtn" class="secondary">← Back</button>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </nav>
+</div>
+
+<script>
+(() => {
+  const slides = [...document.querySelectorAll('.slide')];
+  const totalSlides = slides.length;
+  let current = 0;
+  const maxMarks = 41;
+  const questionBoxes = [...document.querySelectorAll('.qbox[data-qid]')];
+  const answers = {};
+  const topicMarks = {};
+  const topicMax = {};
+
+  questionBoxes.forEach(q => {
+    const topic = q.dataset.topic;
+    const marks = Number(q.querySelector('.marks').textContent.replace(/[^0-9.]/g,'')) || 0;
+    topicMax[topic] = (topicMax[topic] || 0) + marks;
+  });
+
+  function showSlide(i){
+    current = Math.max(0, Math.min(totalSlides-1, i));
+    slides.forEach((s,idx)=>s.classList.toggle('active',idx===current));
+    document.getElementById('slideCount').textContent = `${current+1} / ${totalSlides}`;
+    document.getElementById('progress').style.width = `${((current+1)/totalSlides)*100}%`;
+    document.getElementById('prevBtn').disabled = current===0;
+    document.getElementById('nextBtn').textContent = current===totalSlides-1 ? 'Finish' : 'Next →';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  document.getElementById('prevBtn').addEventListener('click',()=>showSlide(current-1));
+  document.getElementById('nextBtn').addEventListener('click',()=>{
+    if(current===totalSlides-1){ generateReport(); return; }
+    showSlide(current+1);
+  });
+  document.getElementById('startBtn').addEventListener('click',()=>showSlide(1));
+
+  questionBoxes.forEach(qbox => {
+    const buttons = [...qbox.querySelectorAll('.option')];
+    const feedback = qbox.querySelector('.feedback');
+    const correct = Number(qbox.dataset.answer);
+    const qid = qbox.dataset.qid;
+    const topic = qbox.dataset.topic;
+    const marks = Number(qbox.querySelector('.marks').textContent.replace(/[^0-9.]/g,'')) || 0;
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click',()=>{
+        if(answers[qid]) return;
+        const chosen = Number(btn.dataset.choice);
+        const isCorrect = chosen === correct;
+        answers[qid] = {topic, marks: isCorrect ? marks : 0, max: marks, chosen, correct:isCorrect};
+        buttons.forEach((b,idx)=>{
+          b.disabled = true;
+          if(idx===correct) b.classList.add('correct');
+        });
+        if(!isCorrect) btn.classList.add('wrong');
+        feedback.classList.add(isCorrect ? 'good' : 'bad');
+        feedback.innerHTML = `<strong>${isCorrect ? `Correct — ${marks}/${marks} marks.` : `Not quite — 0/${marks} marks.`}</strong><br>${feedback.textContent}`;
+      });
+    });
+  });
+
+  function generateReport(){
+    const name = (document.getElementById('studentName').value || 'Phelandi').trim();
+    const earned = Object.values(answers).reduce((s,a)=>s+a.marks,0);
+    const completed = Object.keys(answers).length;
+    const pct = Math.round((earned/maxMarks)*100);
+
+    document.getElementById('reportName').textContent = `${name}'s Grade 9 Maths Report`;
+    document.getElementById('reportScore').textContent = `${earned} / ${maxMarks}`;
+    document.getElementById('reportPercent').textContent = `${pct}%`;
+    document.getElementById('reportCompleted').textContent = `${completed} / ${questionBoxes.length}`;
+
+    if(completed < questionBoxes.length){
+      document.getElementById('reportMessage').textContent = `You completed ${completed} of ${questionBoxes.length} questions. The report below is based only on the questions answered.`;
+    } else if(pct >= 80){
+      document.getElementById('reportMessage').textContent = 'Strong revision performance. Your foundations are secure enough to move into harder mixed exam-style questions.';
+    } else if(pct >= 60){
+      document.getElementById('reportMessage').textContent = 'A reasonable foundation is present, but some topics need targeted revision before moving to more difficult mixed problems.';
+    } else {
+      document.getElementById('reportMessage').textContent = 'The lesson has identified several foundation gaps. Revising the weakest topics first will make later Grade 9 work much easier.';
+    }
+
+    const stats = {};
+    Object.keys(topicMax).forEach(t => stats[t]={earned:0,max:topicMax[t]});
+    Object.values(answers).forEach(a => {stats[a.topic].earned += a.marks});
+
+    const report = document.getElementById('topicReport');
+    report.innerHTML = '';
+    const strong = [], weak = [], developing = [];
+
+    Object.entries(stats).forEach(([topic,s])=>{
+      const p = s.max ? Math.round((s.earned/s.max)*100) : 0;
+      let label = 'Revisit';
+      if(p>=80){label='Strong'; strong.push(topic);}
+      else if(p>=50){label='Developing'; developing.push(topic);}
+      else weak.push(topic);
+
+      const item = document.createElement('div');
+      item.className='report-item';
+      item.innerHTML = `<div style="display:flex;justify-content:space-between;gap:12px"><strong>${topic}</strong><span class="badge">${label}</span></div>
+        <div class="note" style="margin-top:6px">${s.earned} / ${s.max} marks • ${p}%</div>
+        <div class="bar"><span style="width:${p}%"></span></div>`;
+      report.appendChild(item);
+    });
+
+    document.getElementById('strengthsText').textContent = strong.length ? strong.join(', ') : 'No topic reached the strong band yet — that simply shows us where revision should begin.';
+    document.getElementById('weaknessText').textContent = weak.length ? weak.join(', ') : (developing.length ? developing.join(', ') : 'No major weak area identified in the completed questions.');
+
+    let next = '';
+    if(weak.length){
+      next = `Revise ${weak.slice(0,3).join(', ')} first. Then redo short exam-style questions until methods can be completed without prompts.`;
+    } else if(developing.length){
+      next = `Use harder mixed questions on ${developing.slice(0,3).join(', ')} to move these topics from developing to secure.`;
+    } else {
+      next = 'Move to multi-step Grade 9 exam questions that combine algebra, graphs, geometry and data interpretation.';
+    }
+    document.getElementById('nextSteps').innerHTML = `<strong>What your tutor should do next:</strong> ${next}`;
+
+    showSlide(totalSlides-1);
+  }
+
+  document.getElementById('showReportBtn').addEventListener('click', generateReport);
+
+  document.getElementById('downloadReport').addEventListener('click',()=>{
+    generateReport();
+    const name=(document.getElementById('studentName').value||'Phelandi').trim();
+    const earned=Object.values(answers).reduce((s,a)=>s+a.marks,0);
+    const pct=Math.round((earned/maxMarks)*100);
+    const lines=[
+      'VICTORIA TUITION ACADEMY',
+      'Grade 9 Mathematics — Term 1 to 3 Revision Report',
+      `Student: ${name}`,
+      `Score: ${earned}/${maxMarks} (${pct}%)`,
+      '',
+      'TOPIC BREAKDOWN'
+    ];
+    Object.keys(topicMax).forEach(topic=>{
+      let e=0;
+      Object.values(answers).forEach(a=>{if(a.topic===topic)e+=a.marks});
+      lines.push(`${topic}: ${e}/${topicMax[topic]} (${Math.round((e/topicMax[topic])*100)}%)`);
+    });
+    lines.push('',document.getElementById('nextSteps').innerText);
+    const blob=new Blob([lines.join('\n')],{type:'text/plain'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download=`${name.replace(/\s+/g,'_')}_Grade9_Maths_Term1-3_Report.txt`;
+    document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  });
+
+  document.getElementById('printReport').addEventListener('click',()=>{generateReport();setTimeout(()=>window.print(),150)});
+  document.getElementById('restartLesson').addEventListener('click',()=>location.reload());
+
+  showSlide(0);
+})();
+</script>
+</body>
+</html>
