@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
     private static final String HOME_URL =
-        "https://raw.githack.com/victoriamaistry7-crypto/Victoria-tuition-academy-lessons/main/booking/index.html";
+        "https://victoria-tuition-aca-c3pkmk.craftian.app";
     private static final int FILE_CHOOSER_REQUEST = 7001;
 
     private WebView webView;
