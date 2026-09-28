@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0F172A" />
+  <title>Book a Lesson | Victoria Tuition Academy</title>
+  <meta name="description" content="Request a tutoring lesson with Victoria Tuition Academy." />
+  <style>
+    :root{
+      --navy:#0F172A; --ink:#182033; --muted:#64748B; --line:#E2E8F0;
+      --soft:#F8FAFC; --orange:#E54D2E; --orange2:#FF795B; --green:#22C55E;
+      --white:#fff; --shadow:0 20px 60px rgba(15,23,42,.11);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:
+      radial-gradient(circle at 8% 0%,rgba(229,77,46,.10),transparent 30rem),
+      linear-gradient(180deg,#fff 0%,#f8fafc 100%);
+      color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      min-height:100vh}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    .shell{max-width:920px;margin:auto;padding:22px 16px 72px}
+    .topbar{display:flex;align-items:center;gap:14px;margin:4px 0 26px}
+    .logo{width:48px;height:48px;border-radius:15px;background:var(--navy);color:#fff;
+      display:grid;place-items:center;font-weight:900;letter-spacing:-.04em;box-shadow:0 10px 26px rgba(15,23,42,.18)}
+    .brand h1{font-size:17px;margin:0;color:var(--navy);letter-spacing:-.02em}
+    .brand p{font-size:12px;margin:3px 0 0;color:var(--muted)}
+    .hero{background:var(--navy);border-radius:28px;padding:30px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+    .hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-70px;top:-95px;background:rgba(229,77,46,.28)}
+    .eyebrow{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#FDB4A5}
+    .hero h2{font-size:clamp(30px,6vw,48px);line-height:1.02;letter-spacing:-.045em;margin:9px 0 10px;max-width:650px}
+    .hero p{margin:0;max-width:650px;color:#CBD5E1;font-size:15px;line-height:1.6}
+    .pillrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:19px}
+    .pill{font-size:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);padding:8px 11px;border-radius:999px}
+    .progress-wrap{margin:26px 0 15px}
+    .progress-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+    .progress-meta strong{font-size:13px;color:var(--navy)}
+    .progress-meta span{font-size:12px;color:var(--muted)}
+    .track{height:7px;border-radius:99px;background:#E9EEF5;overflow:hidden}
+    .bar{height:100%;width:14.2857%;background:linear-gradient(90deg,var(--orange),var(--orange2));transition:.25s}
+    .card{background:rgba(255,255,255,.92);border:1px solid rgba(226,232,240,.9);border-radius:26px;padding:clamp(20px,5vw,34px);box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+    .step{display:none}.step.active{display:block;animation:rise .22s ease}
+    @keyframes rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+    .step h3{font-size:25px;letter-spacing:-.03em;color:var(--navy);margin:0 0 5px}
+    .step .lead{margin:0 0 24px;color:var(--muted);font-size:14px;line-height:1.55}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .field{margin-bottom:16px}
+    .field label,.label{display:block;font-size:13px;font-weight:800;color:#334155;margin-bottom:8px}
+    .field small{color:var(--muted);display:block;margin-top:7px;line-height:1.4}
+    input,select,textarea{width:100%;border:1px solid #CBD5E1;background:#fff;border-radius:14px;padding:13px 14px;color:var(--navy);outline:none;transition:.15s}
+    input:focus,select:focus,textarea:focus{border-color:var(--orange);box-shadow:0 0 0 4px rgba(229,77,46,.10)}
+    textarea{min-height:110px;resize:vertical}
+    .choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
+    .choice,.topic{border:1px solid var(--line);background:#fff;border-radius:15px;padding:13px 14px;text-align:left;color:#334155;font-weight:750;transition:.15s}
+    .choice:hover,.topic:hover{border-color:#FDB4A5}
+    .choice.selected,.topic.selected{border-color:var(--orange);background:#FFF4F1;color:#9A341F;box-shadow:0 0 0 3px rgba(229,77,46,.06)}
+    .topic-grid{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 18px}
+    .topic{padding:10px 12px;border-radius:999px;font-size:13px}
+    .note{border-radius:15px;background:#F8FAFC;border:1px solid var(--line);padding:13px 14px;color:#475569;font-size:13px;line-height:1.55;margin:4px 0 18px}
+    .note strong{color:var(--navy)}
+    .review{display:grid;gap:11px}
+    .review-row{display:flex;justify-content:space-between;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)}
+    .review-row:last-child{border-bottom:0}
+    .review-row span{color:var(--muted);font-size:13px}
+    .review-row strong{text-align:right;color:var(--navy);font-size:14px;max-width:62%}
+    .actions{display:flex;justify-content:space-between;gap:12px;margin-top:26px}
+    .btn{border:0;border-radius:14px;padding:13px 18px;font-weight:850;min-height:48px}
+    .btn.primary{background:var(--orange);color:#fff;box-shadow:0 8px 18px rgba(229,77,46,.22)}
+    .btn.primary:hover{filter:brightness(.97)}
+    .btn.secondary{background:#EEF2F7;color:var(--navy)}
+    .btn:disabled{opacity:.45;cursor:not-allowed}
+    .submit{width:100%;font-size:15px}
+    .secure{display:flex;align-items:flex-start;gap:10px;color:var(--muted);font-size:12px;line-height:1.45;margin-top:14px}
+    .dot{width:9px;height:9px;background:var(--green);border-radius:50%;margin-top:4px;flex:0 0 auto}
+    .hidden{display:none!important}
+    .error{font-size:12px;color:#B91C1C;margin-top:-8px;margin-bottom:12px;font-weight:700}
+    .filebox{border:1px dashed #CBD5E1;border-radius:16px;background:#FAFCFF;padding:15px}
+    .filebox input{border:0;padding:0;background:transparent;box-shadow:none}
+    .fine{font-size:11px;color:#94A3B8;text-align:center;margin-top:18px}
+    @media(max-width:650px){
+      .shell{padding:14px 12px 50px}
+      .hero{padding:24px 20px;border-radius:22px}
+      .card{border-radius:22px;padding:22px 18px}
+      .grid,.choices{grid-template-columns:1fr}
+      .actions{position:sticky;bottom:8px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);padding:9px;border:1px solid #E2E8F0;border-radius:18px;z-index:2}
+      .btn{flex:1}
+      .review-row{align-items:flex-start}
+      .review-row strong{max-width:60%}
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="logo">VTA</div>
+    <div class="brand"><h1>Victoria Tuition Academy</h1><p>Better Understanding. Better Results.</p></div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">Lesson request</div>
+    <h2>Tell me what you need help with.</h2>
+    <p>Choose your subject, topic and preferred lesson time. Victoria will review your request and confirm the lesson with you.</p>
+    <div class="pillrow"><span class="pill">Grades 6–12</span><span class="pill">Online & Durban</span><span class="pill">Maths & Science</span></div>
+  </section>
+
+  <div class="progress-wrap">
+    <div class="progress-meta"><strong id="stepTitle">Student details</strong><span id="stepCount">Step 1 of 7</span></div>
+    <div class="track"><div class="bar" id="bar"></div></div>
+  </div>
+
+  <form id="bookingForm" action="https://formsubmit.co/victoriamaistry7@gmail.com" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="_subject" value="New Victoria Tuition Academy lesson request">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_next" id="nextUrl">
+    <input type="hidden" name="_url" id="formUrl">
+    <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off">
+    <input type="hidden" name="Topics" id="topicsHidden">
+    <input type="hidden" name="Lesson format" id="formatHidden">
+    <input type="hidden" name="Requested time" id="timeHidden">
+    <input type="hidden" name="Alternate time allowed" id="alternateHidden">
+
+    <main class="card">
+      <section class="step active" data-step="1">
+        <h3>Who is the lesson for?</h3>
+        <p class="lead">A few details so I know exactly who I’m preparing for.</p>
+        <div class="field">
+          <label for="student">Student full name *</label>
+          <input id="student" name="Student name" required autocomplete="name" placeholder="e.g. Lateya M.">
+        </div>
+        <div class="grid">
+          <div class="field">
+            <label for="grade">Grade *</label>
+            <select id="grade" name="Grade" required>
+              <option value="">Choose grade</option>
+              <option>Grade 6</option><option>Grade 7</option><option>Grade 8</option><option>Grade 9</option>
+              <option>Grade 10</option><option>Grade 11</option><option>Grade 12</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="booker">I am the… *</label>
+            <select id="booker" name="Booking made by" required>
+              <option value="">Select</option><option>Parent / guardian</option><option>Student</option>
+            </select>
+          </div>
+        </div>
+        <div class="field" id="guardianWrap">
+          <label for="guardian">Parent / guardian name</label>
+          <input id="guardian" name="Parent or guardian" placeholder="Parent / guardian name">
+        </div>
+        <div class="grid">
+          <div class="field">
+            <label for="email">Email address *</label>
+            <input id="email" name="email" type="email" required autocomplete="email" placeholder="name@example.com">
+          </div>
+          <div class="field">
+            <label for="phone">WhatsApp / mobile *</label>
+            <input id="phone" name="WhatsApp or mobile" required autocomplete="tel" inputmode="tel" placeholder="e.g. 071 234 5678">
+          </div>
+        </div>
+      </section>
+
+      <section class="step" data-step="2">
+        <h3>Choose the subject</h3>
+        <p class="lead">I’ll adjust the available topics to the student’s grade.</p>
+        <div class="choices" id="subjectChoices"></div>
+        <input type="hidden" id="subject" name="Subject">
+        <div id="subjectError" class="error hidden">Please choose a subject.</div>
+      </section>
+
+      <section class="step" data-step="3">
+        <h3>What should we focus on?</h3>
+        <p class="lead">Select one or more topics. This helps me prepare the lesson before we meet.</p>
+        <div class="topic-grid" id="topicGrid"></div>
+        <div class="field">
+          <label for="focus">What would you most like help with in this lesson? *</label>
+          <textarea id="focus" name="Main help needed" required placeholder="Example: I understand the notes but struggle to answer exam questions on functions."></textarea>
+        </div>
+      </section>
+
+      <section class="step" data-step="4">
+        <h3>How would you like the lesson?</h3>
+        <p class="lead">Choose the format that suits you best.</p>
+        <div class="choices">
+          <button type="button" class="choice format-choice" data-value="Online lesson">Online lesson<br><small>Microsoft Teams / online</small></button>
+          <button type="button" class="choice format-choice" data-value="In-person lesson — Durban">In-person lesson<br><small>Arranged meet-up spot in Durban</small></button>
+        </div>
+        <div id="formatError" class="error hidden">Please choose a lesson format.</div>
+      </section>
+
+      <section class="step" data-step="5">
+        <h3>Choose a preferred time</h3>
+        <p class="lead">This is a request. Victoria will confirm that the time is available before the lesson is booked.</p>
+        <div class="grid">
+          <div class="field">
+            <label for="date">Preferred date *</label>
+            <input type="date" id="date" name="Preferred date" required>
+          </div>
+          <div class="field">
+            <label for="time">Preferred start time *</label>
+            <select id="time" name="Preferred start time" required>
+              <option value="">Choose a date first</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="duration">Lesson duration *</label>
+          <select id="duration" name="Duration" required>
+            <option value="">Choose duration</option><option>1 hour</option><option>2 hours</option>
+          </select>
+        </div>
+        <div class="label">If this time is unavailable, may Victoria suggest the nearest available time? *</div>
+        <div class="choices">
+          <button type="button" class="choice alternate-choice" data-value="Yes">Yes, suggest another time</button>
+          <button type="button" class="choice alternate-choice" data-value="No">No, only this time</button>
+        </div>
+        <div id="alternateError" class="error hidden">Please choose an option.</div>
+      </section>
+
+      <section class="step" data-step="6">
+        <h3>Help me prepare properly</h3>
+        <p class="lead">Send anything that will help me tailor the lesson to the student.</p>
+        <div class="grid">
+          <div class="field">
+            <label for="material">Do you have a test, worksheet or past paper?</label>
+            <select id="material" name="Has learning material">
+              <option>No</option><option>Yes</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="testUpcoming">Upcoming test / exam?</label>
+            <select id="testUpcoming" name="Upcoming test or exam">
+              <option>No</option><option>Yes</option>
+            </select>
+          </div>
+        </div>
+        <div class="field hidden" id="testDateWrap">
+          <label for="testDate">Test / exam date</label>
+          <input type="date" id="testDate" name="Test or exam date">
+        </div>
+        <div class="field hidden" id="attachmentWrap">
+          <label>Optional attachment</label>
+          <div class="filebox">
+            <input type="file" name="attachment" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx">
+            <small>Upload a test, worksheet, photo or past paper. Keep the total file size under 10 MB.</small>
+          </div>
+        </div>
+        <div class="field">
+          <label for="notes">Anything else Victoria should know?</label>
+          <textarea id="notes" name="Additional notes" placeholder="Learning difficulties, school syllabus, what was covered recently, assessment concerns, etc."></textarea>
+        </div>
+      </section>
+
+      <section class="step" data-step="7">
+        <h3>Review your lesson request</h3>
+        <p class="lead">Please check that everything is correct before sending it.</p>
+        <div class="review" id="review"></div>
+        <div class="note"><strong>Important:</strong> submitting this form does not automatically confirm the lesson. Victoria will contact you to confirm the requested time.</div>
+        <button class="btn primary submit" type="submit">Send lesson request</button>
+        <div class="secure"><span class="dot"></span><span>Your request is sent directly to Victoria. No ChatGPT or AI credits are needed when parents use this form.</span></div>
+      </section>
+
+      <div class="actions" id="navActions">
+        <button type="button" class="btn secondary" id="backBtn">Back</button>
+        <button type="button" class="btn primary" id="nextBtn">Continue</button>
+      </div>
+      <p class="fine">Victoria Tuition Academy · Lesson Request Portal</p>
+    </main>
+  </form>
+</div>
+
+<script>
+(() => {
+  const form = document.getElementById('bookingForm');
+  const steps = [...document.querySelectorAll('.step')];
+  const stepNames = ['Student details','Subject','Topics','Lesson format','Date & time','Preparation','Review'];
+  let current = 0, format='', alternate='', selectedTopics = new Set();
+
+  const $ = id => document.getElementById(id);
+  const val = id => $(id)?.value?.trim() || '';
+  const escapeHtml = s => String(s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+
+  const subjectMap = {
+    lower: ['Mathematics','Natural Sciences','Other / not sure'],
+    senior: ['Mathematics','Physical Sciences','Physics','Chemistry','Other / not sure']
+  };
+  const topics = {
+    'Mathematics':['Algebra','Equations & inequalities','Exponents','Number patterns','Functions','Trigonometry','Analytical geometry','Euclidean geometry','Finance','Probability','Statistics','Measurement','Other / not sure'],
+    'Natural Sciences':['Scientific method & variables','Forces & motion','Electricity & circuits','Electric cells','Energy & change','Magnetism','Electrostatics','Matter & materials','Earth systems','Other / not sure'],
+    'Physical Sciences':['Mechanics','Forces / Newton’s laws','Motion equations','Work, energy & power','Momentum','Electricity & circuits','Electrostatics','Waves, sound & light','Chemical reactions','Stoichiometry','Acids & bases','Other / not sure'],
+    'Physics':['Mechanics','Forces / Newton’s laws','Motion equations','Work, energy & power','Momentum','Electricity & circuits','Electrostatics','Waves, sound & light','Other / not sure'],
+    'Chemistry':['Matter & materials','Chemical reactions','Stoichiometry','Atomic structure','Intermolecular forces','Acids & bases','Organic chemistry','Other / not sure'],
+    'Other / not sure':['I’m not sure which topic to choose']
+  };
+
+  function renderSubjects(){
+    const gradeNum = parseInt(val('grade').replace(/\D/g,''),10);
+    const list = gradeNum >= 10 ? subjectMap.senior : subjectMap.lower;
+    $('subjectChoices').innerHTML = list.map(x => '<button type="button" class="choice subject-choice" data-value="'+escapeHtml(x)+'">'+escapeHtml(x)+'</button>').join('');
+    $('subject').value='';
+    document.querySelectorAll('.subject-choice').forEach(b => b.onclick = () => {
+      document.querySelectorAll('.subject-choice').forEach(x=>x.classList.remove('selected'));
+      b.classList.add('selected'); $('subject').value=b.dataset.value; $('subjectError').classList.add('hidden'); renderTopics();
+    });
+  }
+
+  function renderTopics(){
+    selectedTopics.clear();
+    const list = topics[val('subject')] || topics['Other / not sure'];
+    $('topicGrid').innerHTML = list.map(x => '<button type="button" class="topic" data-value="'+escapeHtml(x)+'">'+escapeHtml(x)+'</button>').join('');
+    document.querySelectorAll('.topic').forEach(b => b.onclick = () => {
+      const t=b.dataset.value;
+      if(selectedTopics.has(t)){selectedTopics.delete(t);b.classList.remove('selected')}
+      else{selectedTopics.add(t);b.classList.add('selected')}
+      $('topicsHidden').value=[...selectedTopics].join(', ');
+    });
+  }
+
+  document.querySelectorAll('.format-choice').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('.format-choice').forEach(x=>x.classList.remove('selected'));
+    b.classList.add('selected'); format=b.dataset.value; $('formatHidden').value=format; $('formatError').classList.add('hidden');
+  });
+  document.querySelectorAll('.alternate-choice').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('.alternate-choice').forEach(x=>x.classList.remove('selected'));
+    b.classList.add('selected'); alternate=b.dataset.value; $('alternateHidden').value=alternate; $('alternateError').classList.add('hidden');
+  });
+
+  function setTimes(){
+    const d=val('date'); const select=$('time');
+    if(!d){select.innerHTML='<option value="">Choose a date first</option>'; return}
+    const day=new Date(d+'T12:00:00').getDay();
+    let arr;
+    if(day===6) arr=['09:00','10:00','11:00','15:00','16:00'];
+    else if(day===0) arr=['13:00','14:00','15:00'];
+    else arr=['18:00','19:00'];
+    select.innerHTML='<option value="">Choose time</option>'+arr.map(t=>'<option>'+t+'</option>').join('');
+  }
+  $('date').addEventListener('change',setTimes);
+  $('time').addEventListener('change',()=>{$('timeHidden').value=(val('date')&&val('time'))?val('date')+' '+val('time'):''});
+  $('booker').addEventListener('change',()=>{$('guardianWrap').classList.toggle('hidden',val('booker')==='Student')});
+  $('material').addEventListener('change',()=>{$('attachmentWrap').classList.toggle('hidden',val('material')!=='Yes')});
+  $('testUpcoming').addEventListener('change',()=>{$('testDateWrap').classList.toggle('hidden',val('testUpcoming')!=='Yes')});
+
+  const today=new Date(); today.setMinutes(today.getMinutes()-today.getTimezoneOffset());
+  $('date').min=today.toISOString().slice(0,10);
+  $('testDate').min=today.toISOString().slice(0,10);
+
+  function checkStep(){
+    if(current===0){
+      const required=['student','grade','booker','email','phone'];
+      for(const id of required){ if(!$(id).checkValidity()){ $(id).reportValidity(); return false; } }
+    }
+    if(current===1 && !val('subject')){$('subjectError').classList.remove('hidden');return false}
+    if(current===2 && !$('focus').checkValidity()){$('focus').reportValidity();return false}
+    if(current===3 && !format){$('formatError').classList.remove('hidden');return false}
+    if(current===4){
+      for(const id of ['date','time','duration']){if(!$(id).checkValidity()){ $(id).reportValidity();return false}}
+      if(!alternate){$('alternateError').classList.remove('hidden');return false}
+    }
+    return true;
+  }
+
+  function review(){
+    const rows=[
+      ['Student',val('student')+' · '+val('grade')],
+      ['Contact',val('email')+' · '+val('phone')],
+      ['Subject',val('subject')],
+      ['Topics',[...selectedTopics].join(', ') || 'Not specified'],
+      ['Main focus',val('focus')],
+      ['Format',format],
+      ['Requested time',val('date')+' at '+val('time')],
+      ['Duration',val('duration')],
+      ['Alternative time',alternate],
+      ['Learning material',val('material')],
+      ['Upcoming test / exam',val('testUpcoming')+(val('testDate')?' · '+val('testDate'):'')],
+      ['Extra notes',val('notes') || 'None']
+    ];
+    $('review').innerHTML=rows.map(([a,b])=>'<div class="review-row"><span>'+escapeHtml(a)+'</span><strong>'+escapeHtml(b)+'</strong></div>').join('');
+    $('topicsHidden').value=[...selectedTopics].join(', ') || 'Not specified';
+    $('formatHidden').value=format;
+    $('alternateHidden').value=alternate;
+    $('timeHidden').value=val('date')+' '+val('time');
+  }
+
+  function show(){
+    steps.forEach((s,i)=>s.classList.toggle('active',i===current));
+    $('stepTitle').textContent=stepNames[current];
+    $('stepCount').textContent='Step '+(current+1)+' of '+steps.length;
+    $('bar').style.width=((current+1)/steps.length*100)+'%';
+    $('backBtn').style.visibility=current===0?'hidden':'visible';
+    $('nextBtn').classList.toggle('hidden',current===steps.length-1);
+    $('navActions').classList.toggle('hidden',current===steps.length-1);
+    if(current===1) renderSubjects();
+    if(current===6) review();
+    window.scrollTo({top:Math.max(0,document.querySelector('.progress-wrap').offsetTop-12),behavior:'smooth'});
+  }
+
+  $('nextBtn').onclick=()=>{if(checkStep()){current++;show()}};
+  $('backBtn').onclick=()=>{if(current>0){current--;show()}};
+  form.addEventListener('submit',()=>{
+    $('topicsHidden').value=[...selectedTopics].join(', ') || 'Not specified';
+    $('formatHidden').value=format;
+    $('alternateHidden').value=alternate;
+    $('timeHidden').value=val('date')+' '+val('time');
+  });
+
+  $('formUrl').value=window.location.href;
+  $('nextUrl').value=new URL('thanks.html',window.location.href).href;
+  show();
+})();
+</script>
+</body>
+</html>
