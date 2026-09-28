@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@netlify/functions": "latest",
+    "@netlify/blobs": "latest"
+  }
+}

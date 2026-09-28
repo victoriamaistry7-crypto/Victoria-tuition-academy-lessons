@@ -1,0 +1,6 @@
+[functions]
+directory = "netlify/functions"
+
+[build]
+command = "echo VTA backend ready"
+publish = "public"
