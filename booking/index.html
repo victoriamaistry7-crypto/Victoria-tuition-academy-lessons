@@ -50,9 +50,9 @@
 
 <form id="bookingForm" action="https://formsubmit.co/victoriamaistry7@gmail.com" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="_subject" value="NEW LESSON REQUEST | Victoria Tuition Academy">
-<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_template" value="box">
 <input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_next" id="nextUrl">
+<input type="hidden" name="_next" id="nextUrl">\n<input type="hidden" name="_url" id="formUrl">
 <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off">
 <input type="hidden" name="Booking reference" id="bookingRef">
 <input type="hidden" name="Topics requested" id="topicsHidden">
@@ -264,9 +264,9 @@ function show(){
  window.scrollTo({top:Math.max(0,document.querySelector('.progress-wrap').offsetTop-12),behavior:'smooth'})
 }
 $('nextBtn').onclick=()=>{if(checkStep()){current++;show()}};$('backBtn').onclick=()=>{if(current>0){current--;show()}};
-const previewThanks='https://htmlpreview.github.io/?https://github.com/victoriamaistry7-crypto/Victoria-tuition-academy-lessons/blob/main/booking/thanks.html';
+$('formUrl').value=location.href;\nconst previewThanks='https://htmlpreview.github.io/?https://github.com/victoriamaistry7-crypto/Victoria-tuition-academy-lessons/blob/main/booking/thanks.html';
 $('nextUrl').value=location.hostname==='htmlpreview.github.io'?previewThanks:new URL('thanks.html',location.href).href;
-form.addEventListener('submit',()=>{review()});
+form.addEventListener('submit',()=>{review();$('formUrl').value=location.href});
 show();
 })();
 </script>
