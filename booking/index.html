@@ -104,7 +104,7 @@
 
 <section class="step" data-step="4">
   <h3>Preferred lesson time</h3>
-  <p class="lead">Choose the time you would like. It is a request until Victoria confirms it with you.</p>
+  <p class="lead">Choose the time that suits you. All displayed times can be requested; Victoria will confirm the final booking with you.</p>
   <div class="grid">
     <div class="field"><label for="date">Date *</label><input type="date" id="date" name="Requested date" required></div>
     <div class="field"><label for="duration">Lesson duration *</label><select id="duration" name="Duration" required><option value="">Choose duration</option><option value="60">1 hour</option><option value="120">2 hours</option></select></div>
@@ -114,7 +114,7 @@
   <div class="slots" id="slotGrid"></div>
   
   <div class="error hidden" id="timeUnavailable" style="margin-top:12px">Please choose one of the available times.</div>
-  <div class="note"><strong>Lesson request:</strong> choose the time that suits you best. Victoria will confirm whether that time works before the lesson is booked.</div>
+  <div class="note"><strong>Lesson request:</strong> every displayed time can be selected. Victoria will confirm whether the requested time works before the lesson is booked.</div>
 </section>
 
 <section class="step" data-step="5">
@@ -187,16 +187,8 @@ const topicData={
  'Natural Sciences':['Momentum & impulse','Projectile motion','Work, energy & power','Doppler effect','Electric circuits','Electrodynamics','Photoelectric effect','Matter & materials','Organic chemistry overview','Chemical equilibrium','Acids & bases','Scientific investigations','Other / school-specific']
 }
 }
-const confirmedLessons={};
 const mins=t=>{const [h,m]=t.split(':').map(Number);return h*60+m};
-function isRequestedTimeAvailable(date,time,duration){
- if(!date||!time||!duration)return true;
- const d=new Date(date+'T12:00:00').getDay(),s=mins(time),e=s+duration;
- let open=9*60,close=19*60;
- if(d===0){open=13*60;close=18*60}
- if(s<open||e>close)return false;
- return !(confirmedLessons[date]||[]).some(([a,b])=>s<mins(b)&&e>mins(a));
-}
+function isRequestedTimeAvailable(date,time,duration){return !!date&&!!time&&!!duration}
 function renderSubjects(){
  const grade=val('grade');selectedSubject='';selectedTopics.clear();$('subject').value='';$('topicArea').classList.add('hidden');
  const subjects=['Mathematics','Physics','Natural Sciences'];
@@ -220,9 +212,7 @@ function renderSlots(){
  $('timeUnavailable').classList.add('hidden');
  $('slotGrid').innerHTML='';
  if(!date||!dur){$('slotHint').textContent='Choose a date and lesson duration first.';return}
- const d=new Date(date+'T12:00:00').getDay();
- let open=9*60,close=19*60;
- if(d===0){open=13*60;close=18*60}
+ let open=9*60,close=19*60
  $('slotHint').textContent='Choose the time you would like. Victoria will confirm it with you.';
  const slots=[];
  for(let s=open;s+dur<=close;s+=30){slots.push({time:slotLabel(s),available:true})}
