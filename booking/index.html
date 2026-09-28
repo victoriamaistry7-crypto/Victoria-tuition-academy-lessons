@@ -53,16 +53,15 @@
 </div>
 
 <form id="bookingForm" action="https://formsubmit.co/victoriamaistry18@gmail.com" method="POST" enctype="multipart/form-data">
-  <input type="hidden" name="_subject" value="NEW LESSON REQUEST | Victoria Tuition Academy">
-  <input type="hidden" name="_template" value="box">
+  <input type="hidden" name="_subject" id="emailSubject" value="New Lesson Request | Victoria Tuition Academy">
+  <input type="hidden" name="_template" value="table">
   <input type="hidden" name="_captcha" value="false">
   <input type="hidden" name="_next" id="nextUrl">
   <input type="hidden" name="_url" id="formUrl">
   <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off">
   <input type="hidden" name="Booking reference" id="bookingRef">
   <input type="hidden" name="Topics" id="topicsHidden">
-  <input type="hidden" name="Calendar check" id="calendarCheck">
-
+  
 <main class="card">
 <section class="step active" data-step="1">
   <h3>Student</h3>
@@ -76,7 +75,7 @@
 
 <section class="step" data-step="2">
   <h3>Subject & topic</h3>
-  <p class="lead">I’ll only show subjects and topics that make sense for the grade selected.</p>
+  <p class="lead">Choose Mathematics, Physics or Natural Sciences. The topics underneath are matched to the student’s grade.</p>
   <div class="label">Subject *</div>
   <div class="choices" id="subjectChoices"></div>
   <input type="hidden" id="subject" name="Subject">
@@ -110,10 +109,8 @@
     <div class="field"><label for="date">Date *</label><input type="date" id="date" name="Requested date" required></div>
     <div class="field"><label for="time">Start time *</label><input type="time" id="time" name="Requested start time" required step="900"></div>
   </div>
-  <div class="field"><label for="duration">Lesson duration *</label><select id="duration" name="Duration" required><option value="">Choose duration</option><option value="60">1 hour</option><option value="90">1½ hours</option><option value="120">2 hours</option></select></div>
-  <div class="conflict" id="conflictBox"><strong>This time may already be busy.</strong><br><span id="conflictText"></span> You may still request it; Victoria will confirm the final time with you.</div>
-  <div class="clear-note" id="clearBox"><strong>No clash is showing on Victoria’s current calendar snapshot for this time.</strong><br>This is still a request until Victoria confirms it.</div>
-  <div class="note"><strong>Usual lesson pattern:</strong> weekdays can be requested from 09:00–19:00, with lessons after 17:00 normally online; Saturday lessons after 12:30 are normally online; Sunday lessons are normally online from 13:00–18:00. You can still request another time if needed.</div>
+  <div class="field"><label for="duration">Lesson duration *</label><select id="duration" name="Duration" required><option value="">Choose duration</option><option value="60">1 hour</option><option value="120">2 hours</option></select></div>
+  <div class="error hidden" id="timeUnavailable" style="margin-top:10px">That time is not available. Please choose another time.</div>\n  <div class="note"><strong>Usual lesson pattern:</strong> weekdays can be requested from 09:00–19:00, with lessons after 17:00 normally online; Saturday lessons after 12:30 are normally online; Sunday lessons are normally online from 13:00–18:00. You can still request another time if needed.</div>
 </section>
 
 <section class="step" data-step="5">
@@ -151,49 +148,59 @@ let current=0,selectedSubject='',selectedTopics=new Set();
 
 const topicData={
 'Grade 6':{
- 'Mathematics':['Whole numbers','Fractions','Decimal fractions','Percentages','Numeric patterns','Input-output rules & number sentences','2D shapes & symmetry','3D objects','Perimeter, area & volume','Measurement','Data handling','Probability','Other / school-specific'],
- 'Natural Sciences':['Photosynthesis','Nutrients in food & nutrition','Food processing','Ecosystems & food webs','Solids, liquids & gases','Mixtures & solutions','Dissolving','Water resources & water purification','Electric circuits','Conductors & insulators','Mains electricity','Solar System','Earth & planet movements','Moon movement','Space exploration','Scientific investigations / variables','Other / school-specific']
+ 'Mathematics':['Whole numbers','Factors & multiples','Fractions','Decimal fractions','Percentages','Numeric patterns','Input-output rules','Number sentences','2D shapes & symmetry','3D objects','Perimeter & area','Volume & capacity','Length, mass & time','Data handling','Probability','Other / school-specific'],
+ 'Physics':['Forces in everyday situations','Gravity basics','Energy transfer','Electric circuits','Circuit components','Conductors & insulators','Mains electricity & safety','Scientific investigations & variables','Other / school-specific'],
+ 'Natural Sciences':['Photosynthesis','Nutrients in food','Nutrition','Food processing','Ecosystems','Food chains & food webs','Solids, liquids & gases','Mixtures','Solutions & dissolving','Water resources','Water purification','Electric circuits','Conductors & insulators','Mains electricity','Solar System','Earth, Sun & Moon','Space exploration','Scientific investigations & variables','Other / school-specific']
 },
 'Grade 7':{
- 'Mathematics':['Whole numbers','Exponents','Integers','Common fractions','Decimal fractions','Ratio, rate & percentage','Numeric & geometric patterns','Functions & relationships','Algebraic expressions','Algebraic equations','Geometry of straight lines','2D shapes','Transformations','3D objects','Perimeter & area','Surface area & volume','Data handling','Probability','Other / school-specific'],
- 'Natural Sciences':['Biosphere & biodiversity','Sexual reproduction','Variation','Periodic table introduction','Properties of materials','Separating mixtures','Acids, bases & neutrals','Electric circuits','Potential & kinetic energy','Heat transfer','Insulation & energy saving','Earth, Sun & Moon','Historical astronomy','Scientific investigations / variables','Other / school-specific']
+ 'Mathematics':['Whole numbers','Exponents','Integers','Common fractions','Decimal fractions','Ratio','Rate','Percentage','Numeric patterns','Geometric patterns','Functions & relationships','Algebraic expressions','Algebraic equations','Geometry of straight lines','2D shapes','Transformations','3D objects','Perimeter & area','Surface area & volume','Data handling','Probability','Other / school-specific'],
+ 'Physics':['Forces & energy','Potential energy','Kinetic energy','Energy transfer','Heat transfer','Insulation','Electric circuits','Circuit diagrams','Current basics','Earth, Sun & Moon motion','Scientific investigations & variables','Other / school-specific'],
+ 'Natural Sciences':['Biosphere','Biodiversity','Sexual reproduction','Variation','Periodic table introduction','Properties of materials','Separating mixtures','Acids, bases & neutrals','Electric circuits','Potential & kinetic energy','Heat transfer','Insulation & energy saving','Earth, Sun & Moon','Historical astronomy','Scientific investigations & variables','Other / school-specific']
 },
 'Grade 8':{
- 'Mathematics':['Whole numbers & integers','Exponents','Fractions & decimals','Numeric & geometric patterns','Functions & relationships','Algebraic expressions','Algebraic equations','Graphs','Geometry of straight lines','Construction geometry','2D shapes','Pythagorean theorem','Transformations','3D objects','Area & perimeter','Surface area & volume','Data handling','Probability','Other / school-specific'],
- 'Natural Sciences':['Photosynthesis & respiration','Ecology, ecosystems & food webs','Micro-organisms','Atoms & subatomic particles','Elements, compounds & mixtures','Particle model of matter','Density, mass & volume','Chemical reactions','Static electricity','Electric circuits','Series & parallel circuits','Visible light','Solar System & beyond','Telescopes & space','Scientific investigations / variables','Other / school-specific']
+ 'Mathematics':['Whole numbers','Integers','Exponents','Fractions','Decimals','Numeric patterns','Geometric patterns','Functions & relationships','Algebraic expressions','Algebraic equations','Graphs','Geometry of straight lines','Construction geometry','2D shapes','Pythagorean theorem','Transformations','3D objects','Area & perimeter','Surface area & volume','Data handling','Probability','Other / school-specific'],
+ 'Physics':['Forces & motion basics','Energy transfer','Static electricity','Electric circuits','Series circuits','Parallel circuits','Current & voltage basics','Resistance basics','Visible light','Scientific investigations & variables','Other / school-specific'],
+ 'Natural Sciences':['Photosynthesis & respiration','Ecology','Ecosystems','Food chains & food webs','Micro-organisms','Atoms & subatomic particles','Elements, compounds & mixtures','Particle model of matter','Density, mass & volume','Chemical reactions','Static electricity','Electric circuits','Series & parallel circuits','Visible light','Solar System & beyond','Telescopes & space','Scientific investigations & variables','Other / school-specific']
 },
 'Grade 9':{
- 'Mathematics':['Whole numbers, integers & rational numbers','Exponents','Numeric & geometric patterns','Functions & relationships','Algebraic expressions','Algebraic equations','Graphs','Geometry of straight lines','2D shapes & similarity','Pythagorean theorem','Transformations','3D geometry','Area & perimeter','Surface area & volume','Data handling & statistics','Probability','Other / school-specific'],
- 'Natural Sciences':['Cells as basic units of life','Systems in the human body','Human reproduction','Matter & materials','Atoms, elements & compounds','Chemical reactions','Acids, bases & pH','Forces & motion','Balanced & unbalanced forces','Gravity, mass & weight','Magnetism & magnetic fields','Electrostatics','Electric cells & batteries','Resistance','Series & parallel circuits','Voltage, current & resistance','Electrical safety & power','Earth systems & spheres','Lithosphere & rock cycle','Mining & mineral resources','Atmosphere & greenhouse effect','Stars & the universe','Scientific method, variables & graphs','Other / school-specific']
+ 'Mathematics':['Real numbers','Integers & rational numbers','Exponents','Numeric patterns','Geometric patterns','Functions & relationships','Algebraic expressions','Factorisation','Algebraic equations','Graphs','Geometry of straight lines','2D shapes','Similarity & congruency','Pythagorean theorem','Transformations','3D geometry','Area & perimeter','Surface area & volume','Data handling & statistics','Probability','Other / school-specific'],
+ 'Physics':['Forces & motion','Contact & non-contact forces','Balanced & unbalanced forces','Gravity, mass & weight','Force diagrams','Magnetism & magnetic fields','Electrostatics','Electric cells & batteries','Potential difference','Current','Resistance','Series circuits','Parallel circuits','Electrical power & safety','Motion graphs','Scientific method, variables & graphs','Other / school-specific'],
+ 'Natural Sciences':['Cells as basic units of life','Systems in the human body','Human reproduction','Matter & materials','Atoms, elements & compounds','Chemical reactions','Acids, bases & pH','Forces & motion','Balanced & unbalanced forces','Gravity, mass & weight','Magnetism & magnetic fields','Electrostatics','Electric cells & batteries','Potential difference','Current','Resistance','Series & parallel circuits','Electrical safety & power','Earth systems & spheres','Lithosphere & rock cycle','Mining & mineral resources','Atmosphere & greenhouse effect','Stars & the universe','Scientific method, variables & graphs','Other / school-specific']
 },
 'Grade 10':{
- 'Mathematics':['Algebraic expressions','Exponents & surds','Equations & inequalities','Number patterns','Functions & graphs','Finance, growth & decay','Trigonometry','Analytical geometry','Euclidean geometry','Measurement','Statistics','Probability','Other / school-specific'],
- 'Physics':['Vectors & scalars','Motion in one dimension','Position, displacement & distance','Speed, velocity & acceleration','Motion graphs','Equations of motion','Mechanical energy','Transverse pulses','Transverse & longitudinal waves','Sound','Electromagnetic radiation','Magnetism','Electrostatics','Electric circuits','Current, voltage & resistance','Other / school-specific']
+ 'Mathematics':['Algebraic expressions','Exponents','Surds','Equations','Inequalities','Number patterns','Functions & graphs','Straight-line functions','Parabolas','Hyperbolas','Exponential functions','Finance, growth & decay','Trigonometric ratios','Trig graphs','Trigonometry applications','Analytical geometry','Euclidean geometry','Measurement','Statistics','Probability','Other / school-specific'],
+ 'Physics':['Vectors & scalars','Reference frames','Position, distance & displacement','Speed & velocity','Acceleration','Motion in one dimension','Motion graphs','Equations of motion','Kinetic energy','Potential energy','Mechanical energy','Transverse pulses','Transverse waves','Longitudinal waves','Sound','Electromagnetic radiation','Magnetism','Electrostatics','Electric circuits','Current','Potential difference','Resistance','Resistors in series & parallel','Other / school-specific'],
+ 'Natural Sciences':['Matter & materials','Particle model','Atomic structure','Periodic table','Chemical bonding','Chemical reactions','Energy & motion','Waves & sound','Magnetism','Electrostatics','Electric circuits','Scientific investigations','Other / school-specific']
 },
 'Grade 11':{
- 'Mathematics':['Exponents & surds','Equations & inequalities','Number patterns','Functions & graphs','Finance, growth & decay','Trigonometry','Analytical geometry','Euclidean geometry','Measurement','Statistics','Probability','Other / school-specific'],
- 'Physics':['Vectors in two dimensions','Resultant & vector components','Newton’s laws','Free-body & force diagrams','Friction, tension & normal force','Universal gravitation','Refraction & Snell’s law','Critical angle & total internal reflection','Diffraction','Coulomb’s law','Electric fields','Electromagnetism','Faraday’s law','Electric circuits','Electrical energy & power','Other / school-specific']
+ 'Mathematics':['Exponents & surds','Equations','Inequalities','Number patterns','Functions & graphs','Parabolas','Hyperbolas','Exponential functions','Finance, growth & decay','Trigonometric identities','Trig equations','Trig graphs','Sine rule','Cosine rule','Area rule','Analytical geometry','Euclidean geometry','Measurement','Statistics','Probability','Other / school-specific'],
+ 'Physics':['Vectors in two dimensions','Resultants','Vector components','Newton’s first law','Newton’s second law','Newton’s third law','Free-body diagrams','Weight','Normal force','Friction','Tension','Applied force','Equilibrium','Universal gravitation','Refraction','Snell’s law','Critical angle','Total internal reflection','Diffraction','Coulomb’s law','Electric fields','Magnetic fields around currents','Electromagnetic induction','Faraday’s law','Electric circuits','Electrical energy & power','Other / school-specific'],
+ 'Natural Sciences':['Matter & materials','Molecular structure','Bonding & polarity','Intermolecular forces','States of matter','Density','Kinetic theory of gases','Gas laws','Forces & Newton’s laws','Waves & optics','Electrostatics','Electromagnetism','Electric circuits','Scientific investigations','Other / school-specific']
 },
 'Grade 12':{
- 'Mathematics':['Sequences & series','Functions & inverses','Exponential & logarithmic functions','Finance, growth & decay','Differential calculus','Trigonometry','Analytical geometry','Euclidean geometry','Statistics','Probability','Algebra & equations revision','Other / school-specific'],
- 'Physics':['Momentum & impulse','Conservation of momentum','Vertical projectile motion','Work, energy & power','Doppler effect','Electric circuits & internal resistance','Series-parallel networks','Electrodynamics: generators & motors','Alternating current','Photoelectric effect','Physics exam revision / mixed problems','Other / school-specific']
+ 'Mathematics':['Sequences & series','Functions','Inverse functions','Exponential functions','Logarithmic functions','Finance, growth & decay','Differential calculus','Cubic functions','Optimisation','Trigonometry','Trig identities & equations','Trig graphs','Analytical geometry','Euclidean geometry','Statistics','Probability','Algebra & equations revision','Other / school-specific'],
+ 'Physics':['Momentum & impulse','Newton’s second law in momentum form','Conservation of momentum','Elastic & inelastic collisions','Vertical projectile motion','Projectile graphs','Projectile equations','Work','Energy','Power','Work-energy theorem','Doppler effect','Electric circuits','Internal resistance','Series-parallel networks','Generators','Motors','Alternating current','Photoelectric effect','Emission spectra','Absorption spectra','Mixed exam revision','Other / school-specific'],
+ 'Natural Sciences':['Momentum & impulse','Projectile motion','Work, energy & power','Doppler effect','Electric circuits','Electrodynamics','Photoelectric effect','Matter & materials','Organic chemistry overview','Chemical equilibrium','Acids & bases','Scientific investigations','Other / school-specific']
 }
-};
-
-const busy={
-'2026-09-28':[['08:00','10:00'],['10:15','14:00'],['14:30','16:45'],['17:00','18:00'],['18:15','18:50']],
-'2026-09-29':[['08:00','09:20'],['09:30','11:40'],['12:00','15:15'],['15:30','17:00'],['17:15','18:00']],
-'2026-09-30':[['07:45','08:40'],['09:00','11:00'],['11:10','11:40'],['11:45','14:00'],['14:15','15:45'],['16:00','17:00']],
-'2026-10-01':[['08:00','10:00'],['10:15','14:00'],['14:15','15:15'],['15:30','17:00']],
-'2026-10-02':[['08:00','10:00'],['10:15','14:00'],['14:15','15:30'],['15:45','17:00']],
-'2026-10-03':[['09:00','11:00'],['11:15','12:15']],
-'2026-10-04':[['17:00','17:50'],['18:00','18:30']]
+}
+const confirmedLessons={
+'2026-09-28':[['17:00','18:00']],
+'2026-09-29':[['12:00','14:00']],
+'2026-09-30':[['09:00','11:00']]
 };
 const mins=t=>{const [h,m]=t.split(':').map(Number);return h*60+m};
+function isRequestedTimeAvailable(date,time,duration){
+ if(!date||!time||!duration)return true;
+ const d=new Date(date+'T12:00:00').getDay(),s=mins(time),e=s+duration;
+ let open=9*60,close=19*60;
+ if(d===0){open=13*60;close=18*60}
+ if(s<open||e>close)return false;
+ return !(confirmedLessons[date]||[]).some(([a,b])=>s<mins(b)&&e>mins(a));
+}
 function renderSubjects(){
  const grade=val('grade');selectedSubject='';selectedTopics.clear();$('subject').value='';$('topicArea').classList.add('hidden');
- const subjects=Number(grade.replace(/\D/g,''))<=9?['Mathematics','Natural Sciences']:['Mathematics','Physics'];
- $('subjectChoices').innerHTML=subjects.map(s=>'<button type="button" class="choice subject-choice" data-value="'+esc(s)+'">'+esc(s)+'<small>'+(s==='Physics'?'Physical Sciences — physics topics only':s==='Natural Sciences'?'Grade-specific Natural Sciences':'Grade-specific Mathematics')+'</small></button>').join('');
+ const subjects=['Mathematics','Physics','Natural Sciences'];
+ $('subjectChoices').innerHTML=subjects.map(s=>'<button type="button" class="choice subject-choice" data-value="'+esc(s)+'">'+esc(s)+'<small>'+(s==='Physics'?'Physics topics for the selected grade':s==='Natural Sciences'?'Natural Sciences topics for the selected grade':'Mathematics topics for the selected grade')+'</small></button>').join('');
  document.querySelectorAll('.subject-choice').forEach(b=>b.onclick=()=>{document.querySelectorAll('.subject-choice').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');selectedSubject=b.dataset.value;$('subject').value=selectedSubject;$('subjectError').classList.add('hidden');renderTopics()})
 }
 function renderTopics(){
@@ -201,19 +208,18 @@ function renderTopics(){
  $('topicGrid').innerHTML=list.map(t=>'<button type="button" class="topic" data-value="'+esc(t)+'">'+esc(t)+'</button>').join('');
  const curr=val('curriculum');$('syllabusTag').textContent=grade+' · '+curr+' · '+selectedSubject;
  $('topicArea').classList.remove('hidden');
- document.querySelectorAll('.topic').forEach(b=>b.onclick=()=>{const t=b.dataset.value;if(selectedTopics.has(t)){selectedTopics.delete(t);b.classList.remove('selected')}else{selectedTopics.add(t);b.classList.add('selected')};$('topicsHidden').value=[...selectedTopics].join(', ');$('topicError').classList.add('hidden')})
+ document.querySelectorAll('.topic').forEach(b=>b.onclick=()=>{const t=b.dataset.value;if(selectedTopics.has(t)){selectedTopics.delete(t);b.classList.remove('selected')}else{selectedTopics.add(t);b.classList.add('selected')};$('topicsHidden').value=[...selectedTopics].join(', ');$('emailSubject').value='Lesson Request — '+val('student')+' — '+val('date')+' '+val('time');$('topicError').classList.add('hidden')})
 }
 $('grade').addEventListener('change',()=>{if(current===1)renderSubjects()});
 $('curriculum').addEventListener('change',()=>{if(selectedSubject)renderTopics()});
 
-function checkConflict(){
- const date=val('date'),time=val('time'),dur=Number(val('duration'));$('conflictBox').classList.remove('show');$('clearBox').classList.remove('show');$('calendarCheck').value='';
- if(!date||!time||!dur)return;
- const s=mins(time),e=s+dur;const overlaps=(busy[date]||[]).filter(([a,b])=>s<mins(b)&&e>mins(a));
- if(overlaps.length){const ranges=overlaps.map(x=>x[0]+'–'+x[1]).join(', ');$('conflictText').textContent='Victoria’s current calendar shows an existing commitment during '+ranges+'.';$('conflictBox').classList.add('show');$('calendarCheck').value='Possible clash with existing calendar commitment: '+ranges}
- else{$('clearBox').classList.add('show');$('calendarCheck').value='No clash shown on calendar snapshot checked 28 September 2026'}
+function checkTime(){
+ const date=val('date'),time=val('time'),dur=Number(val('duration'));
+ const okay=isRequestedTimeAvailable(date,time,dur);
+ $('timeUnavailable').classList.toggle('hidden',okay);
+ return okay;
 }
-['date','time','duration'].forEach(id=>$(id).addEventListener('change',checkConflict));
+['date','time','duration'].forEach(id=>$(id).addEventListener('change',checkTime));
 const today=new Date();today.setMinutes(today.getMinutes()-today.getTimezoneOffset());$('date').min=today.toISOString().slice(0,10);
 const maxDate=new Date();maxDate.setDate(maxDate.getDate()+42);maxDate.setMinutes(maxDate.getMinutes()-maxDate.getTimezoneOffset());$('date').max=maxDate.toISOString().slice(0,10);
 
@@ -222,13 +228,12 @@ function validate(){
  if(current===0){for(const id of ['student','grade','curriculum']){if(!$(id).checkValidity()){$(id).reportValidity();return false}}}
  if(current===1){if(!selectedSubject){$('subjectError').classList.remove('hidden');return false}if(selectedTopics.size===0){$('topicError').classList.remove('hidden');return false}}
  if(current===2&&!$('difficulty').checkValidity()){$('difficulty').reportValidity();return false}
- if(current===3){for(const id of ['date','time','duration']){if(!$(id).checkValidity()){$(id).reportValidity();return false}}}
+ if(current===3){for(const id of ['date','time','duration']){if(!$(id).checkValidity()){$(id).reportValidity();return false}}if(!checkTime())return false}
  return true;
 }
 function review(){
- checkConflict();
- const durationLabel=val('duration')==='90'?'1½ hours':val('duration')==='120'?'2 hours':'1 hour';
- const rows=[['Reference',ref],['Student',val('student')],['Grade & curriculum',val('grade')+' · '+val('curriculum')],['Subject',selectedSubject],['Topic(s)',[...selectedTopics].join(', ')],['What help is needed',val('difficulty')],['Requested lesson',val('date')+' at '+val('time')],['Duration',durationLabel],['Calendar note',$('calendarCheck').value||'To be confirmed']];
+ const durationLabel=val('duration')==='120'?'2 hours':'1 hour';
+ const rows=[['Reference',ref],['Student',val('student')],['Grade & curriculum',val('grade')+' · '+val('curriculum')],['Subject',selectedSubject],['Topic(s)',[...selectedTopics].join(', ')],['What help is needed',val('difficulty')],['Requested lesson',val('date')+' at '+val('time')],['Duration',durationLabel]];
  $('review').innerHTML=rows.map(([a,b])=>'<div class="review-row"><span>'+esc(a)+'</span><strong>'+esc(b)+'</strong></div>').join('');
  $('topicsHidden').value=[...selectedTopics].join(', ');
 }
