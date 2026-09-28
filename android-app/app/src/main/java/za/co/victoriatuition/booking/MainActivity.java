@@ -3,10 +3,12 @@ package za.co.victoriatuition.booking;
 import android.app.*;
 import android.content.*;
 import android.graphics.*;
+import android.database.Cursor;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.*;
 import android.provider.Settings;
+import android.provider.OpenableColumns;
 import android.text.InputType;
 import android.view.*;
 import android.widget.*;
@@ -30,6 +32,7 @@ public class MainActivity extends Activity {
     private static final int TEXT = Color.rgb(30,41,59);
     private static final int FILE_PICK = 9001;
     private static final int RATE = 150;
+    private static final int DATA_VERSION = 6;
 
     private SharedPreferences prefs;
     private JSONObject data;
@@ -51,69 +54,120 @@ public class MainActivity extends Activity {
     }
 
     private void seedData() {
+        JSONObject old=null;
         if (prefs.contains("data")) {
-            try { data = new JSONObject(prefs.getString("data","{}")); ensureShape(); return; } catch(Exception ignored) {}
+            try { old=new JSONObject(prefs.getString("data","{}")); } catch(Exception ignored) {}
         }
         try {
-            data = new JSONObject();
-            JSONArray students = new JSONArray();
-
-            JSONObject mitchell = student("mitchell.vta","MitchellVTA26!","Mitchell","Grade 9","IEB","Natural Sciences",4,
-                "Prepare confidently for Grade 9 IEB exams by understanding the science and applying it to exam questions.",
-                arr("Scientific Method & Variables","Forces & Motion","Electric Cells & Circuits","Magnetism & Electrostatics","Motion graphs"));
-            addLesson(mitchell,"2026-09-19","Time not recorded",120,"Natural Sciences","Electric Circuits","Completed","Circuit concepts and application.");
-            addLesson(mitchell,"2026-09-22","Time not recorded",60,"Natural Sciences","Electric Cells as Energy Systems","Completed","Cells, batteries, polarity and circuit investigation skills.");
-            students.put(mitchell);
-
-            JSONObject lateya = student("lateya.vta","LateyaVTA26!","Lateya","Grade 10","CAPS","Mathematics",4,
-                "Move from relying on notes to independently solving Grade 10 exam questions.",
-                arr("Functions & Graphs","Algebra","Trigonometry","Exam technique"));
-            addLesson(lateya,"2026-09-19","Time not recorded",60,"Mathematics","Trigonometry","Completed","SOH-CAH-TOA, graphs, special angles and applications.");
-            addLesson(lateya,"2026-09-28","17:00",60,"Mathematics","Functions","Confirmed","Grade 10 functions understanding and exam preparation.");
-            students.put(lateya);
-
-            JSONObject phelandi = student("phelandi.vta","PhelandiVTA26!","Phelandi","Grade not recorded","Not recorded","Mathematics · Physics / Natural Sciences",6,
-                "Strengthen Physics and Mathematics through worked examples and exam-style practice.",
-                arr("Factors affecting resistance","Equations of motion","Mathematics Term 1–3 revision","Circuit problem solving"));
-            addLesson(phelandi,"2026-09-22","14:00",120,"Physics","Factors Affecting Resistance","Completed","Two-hour Physics catch-up lesson.");
-            addLesson(phelandi,"2026-09-29","12:00",120,"Mathematics + Physics","Maths + Physics revision","Planned","Planned two-hour lesson.");
-            students.put(phelandi);
-
-            JSONObject asimtusi = student("asimtusi.vta","AsimtusiVTA26!","Asimtusi","Grade 10","Not recorded","Physics",4,
-                "Build confidence in Grade 10 Physics through concept mastery and exam-style application.",
-                arr("Motion","Equations of motion","Graphs","Physics exam practice"));
-            addLesson(asimtusi,"2026-09-30","09:00",120,"Physics","Grade 10 Physics","Planned","Planned two-hour lesson.");
-            students.put(asimtusi);
-
-            data.put("students",students);
-
-            JSONArray announcements = new JSONArray();
-            announcements.put(obj("title","Welcome to your VTA portal","message","Your lessons, plan, resources, booking requests and messages now live in one place.","date","28 Sep 2026"));
-            data.put("announcements",announcements);
-
-            JSONArray schedule = new JSONArray();
-            schedule.put(schedule("2026-09-28","17:00","18:00","Lateya — Grade 10 Maths: Functions","Students"));
-            schedule.put(schedule("2026-09-29","12:00","14:00","Phelandi — Maths + Physics","Students"));
-            schedule.put(schedule("2026-09-30","09:00","11:00","Asimtusi — Grade 10 Physics","Students"));
-            data.put("schedule",schedule);
-
-            JSONArray payments = new JSONArray();
-            JSONObject tracey = new JSONObject();
-            tracey.put("payer","Tracey");
-            tracey.put("date","2026-09-15");
-            tracey.put("amount",-1);
-            tracey.put("note","Payment received on the 15th. Amount not yet entered.");
-            payments.put(tracey);
-            data.put("payments",payments);
+            if(old!=null && old.optInt("_dataVersion",0)>=DATA_VERSION){
+                data=old; ensureShape(); return;
+            }
+            JSONObject fresh=buildCanonicalData();
+            if(old!=null) mergeUserContent(old,fresh);
+            fresh.put("_dataVersion",DATA_VERSION);
+            data=fresh;
             save();
-        } catch(Exception ignored) {}
+        } catch(Exception e) {
+            data=new JSONObject();
+            try { data.put("students",new JSONArray()); data.put("announcements",new JSONArray()); data.put("schedule",new JSONArray()); data.put("payments",new JSONArray()); data.put("settings",new JSONObject()); } catch(Exception ignored){}
+            save();
+        }
     }
+
+    private JSONObject buildCanonicalData() throws JSONException {
+        JSONObject fresh=new JSONObject();
+        JSONArray students=new JSONArray();
+
+        JSONObject mitchell=student("mitchell.vta","MitchellVTA26!","Mitchell","Grade 9","IEB","Natural Sciences",4,
+            "Prepare confidently for Grade 9 IEB exams by understanding the science and applying it to exam questions.",
+            arr("Scientific Method & Variables","Forces & Motion","Electric Cells & Circuits","Magnetism & Electrostatics","Motion graphs"));
+        addLesson(mitchell,"2026-09-12","Time not recorded",60,"Natural Sciences","Forces & Motion Masterclass","Completed","Verified lesson record. Focus included gravity/weight, magnetism, resultant forces and motion graphs.");
+        addLesson(mitchell,"2026-09-20","Time not recorded",60,"Natural Sciences","Electric Circuits","Completed","Recorded lesson. Exact start time not retained.");
+        addLesson(mitchell,"2026-09-22","Time not recorded",60,"Natural Sciences","Electric Cells as Energy Systems","Completed","Cells vs batteries, polarity, series/parallel voltage and investigation skills.");
+        students.put(mitchell);
+
+        JSONObject lateya=student("lateya.vta","LateyaVTA26!","Lateya","Grade 10","CAPS","Mathematics",4,
+            "Move from relying on notes to independently solving Grade 10 exam questions.",
+            arr("Functions & Graphs","Algebra","Trigonometry","Exam technique"));
+        addLesson(lateya,"2026-09-19","Time not recorded",60,"Mathematics","Trigonometry","Completed","Recorded Grade 10 trigonometry lesson; exact start time not retained.");
+        addLesson(lateya,"2026-09-28","17:00",60,"Mathematics","Functions","Confirmed","Confirmed Grade 10 Functions lesson.");
+        students.put(lateya);
+
+        JSONObject phelandi=student("phelandi.vta","PhelandiVTA26!","Phelandi","Grade 9","Not recorded","Natural Sciences / Physics · Mathematics",6,
+            "Strengthen Physics/Natural Sciences and Mathematics through worked examples and exam-style practice.",
+            arr("Factors affecting resistance","Equations of motion","Mathematics Term 1–3 revision","Circuit problem solving"));
+        addLesson(phelandi,"2026-09-19","Time not recorded",120,"Natural Sciences / Physics","Physics / Natural Sciences lesson","Completed","Recorded two-hour lesson; exact topic and start time not retained.");
+        addLesson(phelandi,"2026-09-22","14:00",120,"Physics / Natural Sciences","Factors Affecting Resistance","Completed","Verified 14:00–16:00 two-hour Physics lesson.");
+        addLesson(phelandi,"2026-09-23","Time not recorded",60,"Physics / Natural Sciences","Physics follow-up","Completed","Recorded one-hour follow-up; exact start time/topic not retained.");
+        addLesson(phelandi,"2026-09-29","12:00",120,"Mathematics + Physics","Maths + Physics revision","Planned","Confirmed planned two-hour lesson.");
+        students.put(phelandi);
+
+        JSONObject asimtusi=student("asimtusi.vta","AsimtusiVTA26!","Asimtusi","Grade 10","Not recorded","Physics",4,
+            "Build confidence in Grade 10 Physics through concept mastery and exam-style application.",
+            arr("Motion","Equations of motion","Graphs","Physics exam practice"));
+        addLesson(asimtusi,"2026-09-23","Time not recorded",60,"Physics","Physics lesson","Completed","Recorded one-hour lesson; exact topic and start time not retained.");
+        addLesson(asimtusi,"2026-09-30","09:00",120,"Physics","Grade 10 Physics","Planned","Confirmed planned two-hour lesson.");
+        students.put(asimtusi);
+
+        fresh.put("students",students);
+
+        JSONArray announcements=new JSONArray();
+        announcements.put(obj("title","Welcome to your VTA portal","message","Your lessons, plan, resources, booking requests and messages live in one place.","date","28 Sep 2026"));
+        fresh.put("announcements",announcements);
+
+        JSONArray schedule=new JSONArray();
+        schedule.put(schedule("2026-09-28","17:00","18:00","Lateya — Grade 10 Maths: Functions","Students"));
+        schedule.put(schedule("2026-09-29","12:00","14:00","Phelandi — Maths + Physics","Students"));
+        schedule.put(schedule("2026-09-30","09:00","11:00","Asimtusi — Grade 10 Physics","Students"));
+        fresh.put("schedule",schedule);
+
+        JSONArray payments=new JSONArray();
+        JSONObject tracey=new JSONObject();
+        tracey.put("payer","Tracey"); tracey.put("date","2026-09-15"); tracey.put("amount",-1);
+        tracey.put("note","Payment received on the 15th. Amount not entered because the exact amount is not verified in the app record.");
+        payments.put(tracey); fresh.put("payments",payments);
+
+        JSONObject settings=new JSONObject();
+        settings.put("lessonFormat","Detailed cards");
+        settings.put("resourceFormat","Preview cards");
+        settings.put("slotInterval",30);
+        fresh.put("settings",settings);
+        return fresh;
+    }
+
+    private void mergeUserContent(JSONObject old,JSONObject fresh){
+        try{
+            JSONArray oldStudents=old.optJSONArray("students"), newStudents=fresh.optJSONArray("students");
+            if(oldStudents!=null){
+                for(int i=0;i<oldStudents.length();i++){
+                    JSONObject os=oldStudents.optJSONObject(i); if(os==null)continue;
+                    JSONObject ns=null;
+                    for(int j=0;j<newStudents.length();j++)if(os.optString("username").equalsIgnoreCase(newStudents.optJSONObject(j).optString("username"))){ns=newStudents.optJSONObject(j);break;}
+                    if(ns==null){newStudents.put(os);continue;}
+                    for(String key:new String[]{"resources","messages","bookings"}){
+                        JSONArray oa=os.optJSONArray(key), na=ns.optJSONArray(key);
+                        if(oa!=null&&na!=null)for(int x=0;x<oa.length();x++)na.put(oa.opt(x));
+                    }
+                }
+            }
+            JSONArray oldAn=old.optJSONArray("announcements"), newAn=fresh.optJSONArray("announcements");
+            if(oldAn!=null&&newAn!=null)for(int i=0;i<oldAn.length();i++){JSONObject a=oldAn.optJSONObject(i);if(a!=null&&!containsAnnouncement(newAn,a))newAn.put(a);}
+            JSONArray oldPay=old.optJSONArray("payments"), newPay=fresh.optJSONArray("payments");
+            if(oldPay!=null&&newPay!=null)for(int i=0;i<oldPay.length();i++){JSONObject p=oldPay.optJSONObject(i);if(p!=null&&!containsPayment(newPay,p))newPay.put(p);}
+            JSONObject oldSettings=old.optJSONObject("settings");
+            if(oldSettings!=null)fresh.put("settings",new JSONObject(oldSettings.toString()));
+        }catch(Exception ignored){}
+    }
+
+    private boolean containsAnnouncement(JSONArray a,JSONObject x){for(int i=0;i<a.length();i++){JSONObject y=a.optJSONObject(i);if(y!=null&&y.optString("title").equals(x.optString("title"))&&y.optString("date").equals(x.optString("date")))return true;}return false;}
+    private boolean containsPayment(JSONArray a,JSONObject x){for(int i=0;i<a.length();i++){JSONObject y=a.optJSONObject(i);if(y!=null&&y.optString("payer").equals(x.optString("payer"))&&y.optString("date").equals(x.optString("date")))return true;}return false;}
 
     private void ensureShape() throws JSONException {
         if(!data.has("students")) data.put("students",new JSONArray());
         if(!data.has("announcements")) data.put("announcements",new JSONArray());
         if(!data.has("schedule")) data.put("schedule",new JSONArray());
         if(!data.has("payments")) data.put("payments",new JSONArray());
+        if(!data.has("settings")) data.put("settings",new JSONObject());
     }
 
     private JSONObject student(String user,String pass,String name,String grade,String curriculum,String subjects,int target,String goal,JSONArray topics) throws JSONException {
@@ -219,7 +273,7 @@ public class MainActivity extends Activity {
 
         HorizontalScrollView hsv=new HorizontalScrollView(this); hsv.setHorizontalScrollBarEnabled(false);
         LinearLayout nav=row(); nav.setPadding(dp(8),dp(8),dp(8),dp(8)); nav.setBackgroundColor(Color.WHITE);
-        String[] tabs=role.equals("ADMIN")?new String[]{"Home","Students","Schedule","Finance","Messages","Resources"}:new String[]{"Home","Plan","Lessons","Book","Resources","Messages"};
+        String[] tabs=role.equals("ADMIN")?new String[]{"Home","Students","Schedule","Finance","Messages","Resources","Format"}:new String[]{"Home","Plan","Lessons","Book","Resources","Messages"};
         for(String t:tabs){ TextView b=pill(t,Color.WHITE,NAVY); b.setGravity(Gravity.CENTER); b.setPadding(dp(16),dp(12),dp(16),dp(12)); b.setOnClickListener(v->openTab(t)); nav.addView(b,marginRight(6)); }
         hsv.addView(nav); root.addView(hsv);
         setContentView(root);
@@ -235,6 +289,7 @@ public class MainActivity extends Activity {
                 case "Finance": adminFinance(); break;
                 case "Messages": adminMessages(); break;
                 case "Resources": adminResources(); break;
+                case "Format": adminFormat(); break;
                 default: adminHome();
             }
         } else {
@@ -394,15 +449,27 @@ public class MainActivity extends Activity {
     }
 
     private void adminResources(){
-        pageTitle("Resource library","Upload slides, notes, worksheets and links to a student.");
+        pageTitle("Resource library","Upload slides, notes, worksheets and files from your phone, then preview exactly what was saved.");
         Button add=primary("↑ Upload from phone"); add.setOnClickListener(v->chooseStudentForResource()); body.addView(add,marginBottom(14));
         JSONArray students=data.optJSONArray("students"); int total=0;
         for(int i=0;i<students.length();i++){
             JSONObject s=students.optJSONObject(i); JSONArray rs=s.optJSONArray("resources");
-            for(int j=rs.length()-1;j>=0;j--){ total++; JSONObject r=rs.optJSONObject(j); LinearLayout c=card(); c.addView(text(r.optString("title"),15,NAVY,true)); c.addView(text(s.optString("name")+" · "+r.optString("type"),12,ORANGE,true)); if(!r.optString("description").isEmpty())c.addView(text(r.optString("description"),12,MUTED,false)); body.addView(c,marginBottom(8));}
+            for(int j=rs.length()-1;j>=0;j--){
+                total++; JSONObject r=rs.optJSONObject(j); LinearLayout card=card();
+                LinearLayout top=row(); top.addView(pill(r.optString("type"),Color.rgb(245,243,255),PURPLE)); top.addView(text(s.optString("name"),12,MUTED,true),withWeightMargin(1,10)); card.addView(top);
+                card.addView(text(r.optString("title"),16,NAVY,true),marginTopBottom(10,2));
+                if(!r.optString("fileName").isEmpty())card.addView(text(r.optString("fileName"),11,MUTED,false));
+                if(!r.optString("description").isEmpty())card.addView(text(r.optString("description"),12,TEXT,false),marginTopBottom(6,0));
+                LinearLayout actions=row();
+                Button preview=smallButton("Preview"); preview.setOnClickListener(v->previewResource(r)); actions.addView(preview,new LinearLayout.LayoutParams(0,dp(44),1));
+                Button open=smallButton("Open file"); open.setOnClickListener(v->openResource(r.optString("uri"))); actions.addView(open,withWeightMarginHeight(1,8,44));
+                card.addView(actions,marginTopBottom(12,0)); body.addView(card,marginBottom(9));
+            }
         }
         if(total==0) body.addView(emptyCard("No resources uploaded yet."));
     }
+
+    // ---------- STUDENT ----------
 
     // ---------- STUDENT ----------
 
@@ -433,10 +500,8 @@ public class MainActivity extends Activity {
         JSONArray an=data.optJSONArray("announcements");
         for(int i=an.length()-1;i>=0;i--){JSONObject a=an.optJSONObject(i);LinearLayout c=card();c.addView(text(a.optString("title"),15,NAVY,true));c.addView(text(a.optString("message"),12,MUTED,false));body.addView(c,marginBottom(8));}
 
-        section("Shared schedule");
-        JSONArray sc=data.optJSONArray("schedule"); int shared=0;
-        for(int i=0;i<sc.length();i++){JSONObject e=sc.optJSONObject(i);if("Students".equals(e.optString("visibility"))){shared++;LinearLayout c=card();c.addView(text(prettyDate(e.optString("date"))+" · "+e.optString("start"),13,ORANGE,true));c.addView(text(e.optString("title"),14,NAVY,true));body.addView(c,marginBottom(7));}}
-        if(shared==0)body.addView(emptyCard("No shared schedule items."));
+        section("Tutor availability");
+        addAvailabilityPreview();
     }
 
     private void studentPlan(JSONObject s){
@@ -461,7 +526,17 @@ public class MainActivity extends Activity {
         pageTitle("My resources","Everything Victoria has shared for your lessons and exams.");
         JSONArray rs=s.optJSONArray("resources");
         if(rs.length()==0)body.addView(emptyCard("No resources have been added yet."));
-        for(int i=rs.length()-1;i>=0;i--){JSONObject r=rs.optJSONObject(i);LinearLayout c=card();c.addView(pill(r.optString("type"),Color.rgb(245,243,255),PURPLE));c.addView(text(r.optString("title"),16,NAVY,true),marginTopBottom(9,3));c.addView(text(r.optString("description"),12,MUTED,false));Button open=smallButton("Open resource");open.setOnClickListener(v->openResource(r.optString("uri")));c.addView(open,marginTopBottom(10,0));body.addView(c,marginBottom(9));}
+        for(int i=rs.length()-1;i>=0;i--){
+            JSONObject r=rs.optJSONObject(i); LinearLayout card=card();
+            card.addView(pill(r.optString("type"),Color.rgb(245,243,255),PURPLE));
+            card.addView(text(r.optString("title"),16,NAVY,true),marginTopBottom(9,3));
+            if(!r.optString("fileName").isEmpty())card.addView(text(r.optString("fileName"),11,MUTED,false));
+            card.addView(text(r.optString("description"),12,MUTED,false));
+            LinearLayout actions=row();
+            Button preview=smallButton("Preview"); preview.setOnClickListener(v->previewResource(r)); actions.addView(preview,new LinearLayout.LayoutParams(0,dp(44),1));
+            Button open=smallButton("Open"); open.setOnClickListener(v->openResource(r.optString("uri"))); actions.addView(open,withWeightMarginHeight(1,8,44));
+            card.addView(actions,marginTopBottom(10,0)); body.addView(card,marginBottom(9));
+        }
     }
 
     private void studentMessages(JSONObject s){
@@ -497,14 +572,28 @@ public class MainActivity extends Activity {
     }
 
     private void dialogAddLesson(JSONObject fixed){
-        LinearLayout box=formBox(); Spinner studentSpin=studentSpinner(); EditText date=input("Date (YYYY-MM-DD)",false), time=input("Start time (HH:MM)",false), duration=input("Duration in minutes",false), subject=input("Subject",false), topic=input("Topic taught / to teach",false), status=input("Status: Planned / Confirmed / Completed",false), notes=input("Lesson notes",false);
-        duration.setInputType(InputType.TYPE_CLASS_NUMBER); duration.setText("60"); status.setText("Planned");
+        LinearLayout box=formBox(); Spinner studentSpin=studentSpinner();
+        final String[] date={""}, time={""};
+        Button dateBtn=pickerButton("Choose lesson date"); Button timeBtn=pickerButton("Choose start time");
+        dateBtn.setOnClickListener(v->pickDate(dateBtn,date,()->{}));
+        timeBtn.setOnClickListener(v->pickTime(timeBtn,time));
+        Spinner duration=new Spinner(this); duration.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,new String[]{"60 minutes","120 minutes"}));
+        EditText subject=input("Subject",false), topic=input("Topic taught / to teach",false), status=input("Status: Planned / Confirmed / Completed",false), notes=input("Lesson notes",false); status.setText("Planned");
         if(fixed==null)box.addView(studentSpin,marginBottom(8));
-        for(EditText e:new EditText[]{date,time,duration,subject,topic,status,notes})box.addView(e,marginBottom(8));
-        new AlertDialog.Builder(this).setTitle(fixed==null?"Add lesson":"Add lesson for "+fixed.optString("name")).setView(box).setNegativeButton("Cancel",null).setPositiveButton("Save",(d,w)->{
+        box.addView(dateBtn,marginBottom(8)); box.addView(timeBtn,marginBottom(8)); box.addView(duration,marginBottom(8));
+        for(EditText e:new EditText[]{subject,topic,status,notes})box.addView(e,marginBottom(8));
+        AlertDialog dialog=new AlertDialog.Builder(this).setTitle(fixed==null?"Add lesson":"Add lesson for "+fixed.optString("name")).setView(box).setNegativeButton("Cancel",null).setPositiveButton("Save",null).create();
+        dialog.setOnShowListener(x->dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v->{
+            if(date[0].isEmpty()||time[0].isEmpty()){Toast.makeText(this,"Choose a date and time first.",Toast.LENGTH_SHORT).show();return;}
             JSONObject s=fixed!=null?fixed:studentAt(studentSpin.getSelectedItemPosition()); if(s==null)return;
-            try{int mins=Integer.parseInt(duration.getText().toString().trim().isEmpty()?"60":duration.getText().toString().trim());addLesson(s,date.getText().toString(),time.getText().toString(),mins,subject.getText().toString(),topic.getText().toString(),status.getText().toString(),notes.getText().toString());syncLessonToSchedule(s,date.getText().toString(),time.getText().toString(),mins,topic.getText().toString());save();adminSchedule();}catch(Exception ignored){}
-        }).show();
+            try{
+                int mins=duration.getSelectedItemPosition()==1?120:60;
+                addLesson(s,date[0],time[0],mins,subject.getText().toString(),topic.getText().toString(),status.getText().toString(),notes.getText().toString());
+                if(!"Completed".equalsIgnoreCase(status.getText().toString()))syncLessonToSchedule(s,date[0],time[0],mins,topic.getText().toString());
+                save(); dialog.dismiss(); adminSchedule();
+            }catch(Exception ignored){}
+        }));
+        dialog.show();
     }
 
     private void syncLessonToSchedule(JSONObject s,String date,String time,int mins,String topic){
@@ -514,22 +603,52 @@ public class MainActivity extends Activity {
     }
 
     private void dialogScheduleItem(){
-        LinearLayout box=formBox();EditText date=input("Date (YYYY-MM-DD)",false),start=input("Start (HH:MM)",false),end=input("End (HH:MM)",false),title=input("Schedule item",false),vis=input("Visibility: Students or Private",false);vis.setText("Private");
-        for(EditText e:new EditText[]{date,start,end,title,vis})box.addView(e,marginBottom(8));
-        new AlertDialog.Builder(this).setTitle("Add calendar item").setView(box).setNegativeButton("Cancel",null).setPositiveButton("Add",(d,w)->{try{data.optJSONArray("schedule").put(schedule(date.getText().toString(),start.getText().toString(),end.getText().toString(),title.getText().toString(),vis.getText().toString()));save();adminSchedule();}catch(Exception ignored){}}).show();
+        LinearLayout box=formBox(); final String[] date={""},start={""},end={""};
+        Button dateBtn=pickerButton("Choose date"), startBtn=pickerButton("Choose start time"), endBtn=pickerButton("Choose end time");
+        dateBtn.setOnClickListener(v->pickDate(dateBtn,date,()->{})); startBtn.setOnClickListener(v->pickTime(startBtn,start)); endBtn.setOnClickListener(v->pickTime(endBtn,end));
+        EditText title=input("Schedule item",false); Spinner vis=new Spinner(this); vis.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,new String[]{"Private","Students"}));
+        box.addView(dateBtn,marginBottom(8));box.addView(startBtn,marginBottom(8));box.addView(endBtn,marginBottom(8));box.addView(title,marginBottom(8));box.addView(vis);
+        AlertDialog dialog=new AlertDialog.Builder(this).setTitle("Add calendar item").setView(box).setNegativeButton("Cancel",null).setPositiveButton("Add",null).create();
+        dialog.setOnShowListener(x->dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v->{
+            if(date[0].isEmpty()||start[0].isEmpty()||end[0].isEmpty()){Toast.makeText(this,"Choose the date and times.",Toast.LENGTH_SHORT).show();return;}
+            try{data.optJSONArray("schedule").put(schedule(date[0],start[0],end[0],title.getText().toString(),vis.getSelectedItem().toString()));save();dialog.dismiss();adminSchedule();}catch(Exception ignored){}
+        })); dialog.show();
     }
 
     private void dialogBooking(JSONObject s){
         LinearLayout box=formBox();
-        TextView learner=text(s.optString("name")+" · "+s.optString("grade"),13,NAVY,true); learner.setPadding(dp(12),dp(10),dp(12),dp(10)); learner.setBackground(round(Color.rgb(248,250,252),12,1,LINE)); box.addView(learner,marginBottom(8));
-        EditText date=input("Preferred date (YYYY-MM-DD)",false), time=input("Preferred time (HH:MM)",false);
-        Spinner duration=new Spinner(this); duration.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,new String[]{"1 hour","2 hours"}));
-        Spinner subject=new Spinner(this); subject.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,new String[]{"Mathematics","Physics","Natural Sciences"}));
-        EditText topic=input("Topic",false), help=input("What exactly do you need help with?",false);
-        box.addView(date,marginBottom(8)); box.addView(time,marginBottom(8)); box.addView(duration,marginBottom(8)); box.addView(subject,marginBottom(8)); box.addView(topic,marginBottom(8)); box.addView(help,marginBottom(8));
-        new AlertDialog.Builder(this).setTitle("Request a lesson").setMessage("Choose the time you would like. Victoria will confirm whether it works.").setView(box).setNegativeButton("Cancel",null).setPositiveButton("Send request",(d,w)->{
-            try{JSONObject b=new JSONObject();b.put("date",date.getText().toString());b.put("time",time.getText().toString());b.put("duration",duration.getSelectedItem().toString());b.put("subject",subject.getSelectedItem().toString());b.put("topic",topic.getText().toString());b.put("help",help.getText().toString());b.put("status","Pending");s.optJSONArray("bookings").put(b);save();notifyAdmin("New booking request",s.optString("name")+" requested "+date.getText()+" at "+time.getText());studentLessons(s);}catch(Exception ignored){}
-        }).show();
+        TextView learner=text(s.optString("name")+" · "+s.optString("grade"),13,NAVY,true); learner.setPadding(dp(12),dp(10),dp(12),dp(10)); learner.setBackground(round(Color.rgb(248,250,252),12,1,LINE)); box.addView(learner,marginBottom(10));
+
+        final String[] chosenDate={""}, chosenTime={""};
+        Button dateBtn=pickerButton("1. Choose date");
+        box.addView(dateBtn,marginBottom(10));
+
+        TextView durationLabel=text("2. Lesson duration",12,MUTED,true); box.addView(durationLabel);
+        Spinner duration=new Spinner(this); duration.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,new String[]{"1 hour","2 hours"})); box.addView(duration,marginBottom(10));
+
+        TextView timeLabel=text("3. Choose an available time",12,MUTED,true); box.addView(timeLabel);
+        GridLayout slots=new GridLayout(this); slots.setColumnCount(3); box.addView(slots,marginBottom(12));
+
+        Spinner subject=new Spinner(this); subject.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,new String[]{"Mathematics","Physics","Natural Sciences"})); box.addView(subject,marginBottom(8));
+        EditText topic=input("Topic",false), help=input("What exactly do you need help with?",false); box.addView(topic,marginBottom(8));box.addView(help);
+
+        Runnable refresh=()->renderTimeSlots(slots,chosenDate[0],duration.getSelectedItemPosition()==1?120:60,chosenTime);
+        dateBtn.setOnClickListener(v->pickDate(dateBtn,chosenDate,refresh));
+        duration.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener(){
+            public void onItemSelected(android.widget.AdapterView<?> p,View v,int pos,long id){chosenTime[0]="";refresh.run();}
+            public void onNothingSelected(android.widget.AdapterView<?> p){}
+        });
+        renderTimeSlots(slots,"",60,chosenTime);
+
+        AlertDialog dialog=new AlertDialog.Builder(this).setTitle("Request a lesson").setMessage("You will only see free time slots. Other students’ names and schedule details stay private.").setView(box).setNegativeButton("Cancel",null).setPositiveButton("Send request",null).create();
+        dialog.setOnShowListener(x->dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v->{
+            if(chosenDate[0].isEmpty()){Toast.makeText(this,"Choose a date.",Toast.LENGTH_SHORT).show();return;}
+            if(chosenTime[0].isEmpty()){Toast.makeText(this,"Choose an available time.",Toast.LENGTH_SHORT).show();return;}
+            try{
+                JSONObject b=new JSONObject();b.put("date",chosenDate[0]);b.put("time",chosenTime[0]);b.put("duration",duration.getSelectedItem().toString());b.put("subject",subject.getSelectedItem().toString());b.put("topic",topic.getText().toString());b.put("help",help.getText().toString());b.put("status","Pending");
+                s.optJSONArray("bookings").put(b);save();notifyAdmin("New booking request",s.optString("name")+" requested "+chosenDate[0]+" at "+chosenTime[0]);dialog.dismiss();studentLessons(s);
+            }catch(Exception ignored){}
+        })); dialog.show();
     }
 
     private LinearLayout requestCard(JSONObject s,JSONObject b){
@@ -567,21 +686,109 @@ public class MainActivity extends Activity {
     }
 
     private void dialogResourceMeta(JSONObject s){
-        LinearLayout box=formBox();EditText title=input("Resource title",false); Spinner type=new Spinner(this);type.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,new String[]{"Slides","Notes","Worksheet","Video","Interactive Lesson","Other"}));box.addView(title,marginBottom(8));box.addView(type);
-        new AlertDialog.Builder(this).setTitle("Upload for "+s.optString("name")).setMessage("Choose a file from your phone after tapping Continue.").setView(box).setNegativeButton("Cancel",null).setPositiveButton("Continue",(d,w)->{pendingResourceStudent=s;pendingResourceTitle=title.getText().toString();pendingResourceType=type.getSelectedItem().toString();Intent i=new Intent(Intent.ACTION_OPEN_DOCUMENT);i.addCategory(Intent.CATEGORY_OPENABLE);i.setType("*/*");startActivityForResult(i,FILE_PICK);}).show();
+        LinearLayout box=formBox();EditText title=input("Resource title",false); Spinner type=new Spinner(this);type.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,new String[]{"Slides","PDF / Notes","Worksheet","Video","Interactive Lesson","Image","Other"}));box.addView(title,marginBottom(8));box.addView(type);
+        new AlertDialog.Builder(this).setTitle("Upload for "+s.optString("name")).setMessage("Choose the format you want, then select the file from your phone. You’ll get a preview after it saves.").setView(box).setNegativeButton("Cancel",null).setPositiveButton("Choose file",(d,w)->{
+            pendingResourceStudent=s;pendingResourceTitle=title.getText().toString();pendingResourceType=type.getSelectedItem().toString();Intent i=new Intent(Intent.ACTION_OPEN_DOCUMENT);i.addCategory(Intent.CATEGORY_OPENABLE);i.setType("*/*");startActivityForResult(i,FILE_PICK);
+        }).show();
     }
 
     @Override protected void onActivityResult(int requestCode,int resultCode,Intent intent){
         super.onActivityResult(requestCode,resultCode,intent);
         if(requestCode==FILE_PICK && resultCode==RESULT_OK && intent!=null && intent.getData()!=null && pendingResourceStudent!=null){
-            Uri uri=intent.getData(); try{getContentResolver().takePersistableUriPermission(uri,Intent.FLAG_GRANT_READ_URI_PERMISSION);}catch(Exception ignored){}
-            try{JSONObject r=new JSONObject();r.put("title",pendingResourceTitle.isEmpty()?"Resource":pendingResourceTitle);r.put("type",pendingResourceType);r.put("uri",uri.toString());r.put("description","Uploaded from Victoria’s phone.");pendingResourceStudent.optJSONArray("resources").put(r);save();Toast.makeText(this,"Resource added to "+pendingResourceStudent.optString("name"),Toast.LENGTH_SHORT).show();}catch(Exception ignored){}
-            pendingResourceStudent=null;
+            Uri uri=intent.getData();
+            try{getContentResolver().takePersistableUriPermission(uri,Intent.FLAG_GRANT_READ_URI_PERMISSION);}catch(Exception ignored){}
+            try{
+                String fileName=getFileName(uri);
+                JSONObject r=new JSONObject();r.put("title",pendingResourceTitle.isEmpty()?fileName:pendingResourceTitle);r.put("type",pendingResourceType);r.put("uri",uri.toString());r.put("fileName",fileName);r.put("description","Uploaded from Victoria’s phone.");
+                pendingResourceStudent.optJSONArray("resources").put(r);save();
+                JSONObject saved=r; String studentName=pendingResourceStudent.optString("name");
+                pendingResourceStudent=null;
+                adminResources();
+                new AlertDialog.Builder(this).setTitle("Upload saved").setMessage(saved.optString("title")+"\n"+saved.optString("fileName")+"\nAdded to "+studentName+".").setNegativeButton("Close",null).setPositiveButton("Preview",(d,w)->previewResource(saved)).show();
+            }catch(Exception e){Toast.makeText(this,"Could not save this upload.",Toast.LENGTH_SHORT).show();pendingResourceStudent=null;}
         }
     }
 
     private void openResource(String uri){
         try{Intent i=new Intent(Intent.ACTION_VIEW,Uri.parse(uri));i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);startActivity(i);}catch(Exception e){Toast.makeText(this,"This resource is not available on this device.",Toast.LENGTH_SHORT).show();}
+    }
+
+    private void adminFormat(){
+        pageTitle("App format","Choose how lesson and resource information is displayed in your app.");
+        JSONObject settings=data.optJSONObject("settings");
+        LinearLayout lesson=card(); lesson.addView(text("Lesson cards",15,NAVY,true)); lesson.addView(text(settings.optString("lessonFormat","Detailed cards"),12,MUTED,false)); Button lc=smallButton("Change format"); lc.setOnClickListener(v->chooseSetting("lessonFormat",new String[]{"Detailed cards","Compact cards"},"Lesson card format")); lesson.addView(lc,marginTopBottom(10,0)); body.addView(lesson,marginBottom(10));
+        LinearLayout resource=card(); resource.addView(text("Resource display",15,NAVY,true)); resource.addView(text(settings.optString("resourceFormat","Preview cards"),12,MUTED,false)); Button rc=smallButton("Change format"); rc.setOnClickListener(v->chooseSetting("resourceFormat",new String[]{"Preview cards","Compact list"},"Resource format")); resource.addView(rc,marginTopBottom(10,0)); body.addView(resource,marginBottom(10));
+        LinearLayout slot=card(); slot.addView(text("Booking time spacing",15,NAVY,true)); slot.addView(text(settings.optInt("slotInterval",30)+" minute slots",12,MUTED,false)); Button sc=smallButton("Change spacing"); sc.setOnClickListener(v->chooseSlotInterval()); slot.addView(sc,marginTopBottom(10,0)); body.addView(slot);
+        TextView note=text("These settings change the presentation inside the app. Student privacy rules stay the same: they never see another learner’s schedule details.",12,MUTED,false); note.setPadding(0,dp(14),0,0); body.addView(note);
+    }
+
+    private void chooseSetting(String key,String[] options,String title){
+        new AlertDialog.Builder(this).setTitle(title).setItems(options,(d,which)->{try{data.optJSONObject("settings").put(key,options[which]);save();adminFormat();}catch(Exception ignored){}}).show();
+    }
+    private void chooseSlotInterval(){
+        String[] options={"30 minutes","60 minutes"};
+        new AlertDialog.Builder(this).setTitle("Booking slot spacing").setItems(options,(d,which)->{try{data.optJSONObject("settings").put("slotInterval",which==0?30:60);save();adminFormat();}catch(Exception ignored){}}).show();
+    }
+
+    private void addAvailabilityPreview(){
+        Calendar day=Calendar.getInstance();
+        for(int i=0;i<5;i++){
+            String date=new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH).format(day.getTime());
+            int free=countAvailableSlots(date,60);
+            LinearLayout card=card(); LinearLayout row=row(); row.addView(text(prettyDate(date),13,NAVY,true),new LinearLayout.LayoutParams(0,-2,1)); row.addView(pill(free+" free",free>0?GREEN_SOFT:Color.rgb(254,242,242),free>0?Color.rgb(21,128,61):Color.rgb(185,28,28))); card.addView(row); card.addView(text("09:00–19:00 · tap Book to choose a specific time",11,MUTED,false),marginTopBottom(5,0)); body.addView(card,marginBottom(7)); day.add(Calendar.DATE,1);
+        }
+    }
+
+    private int countAvailableSlots(String date,int duration){
+        int interval=data.optJSONObject("settings").optInt("slotInterval",30), n=0;
+        for(int m=9*60;m+duration<=19*60;m+=interval)if(isTimeAvailable(date,m,duration))n++;
+        return n;
+    }
+
+    private void renderTimeSlots(GridLayout grid,String date,int duration,String[] selected){
+        grid.removeAllViews();
+        if(date==null||date.isEmpty()){TextView h=text("Choose a date first.",12,MUTED,false);grid.addView(h);return;}
+        int interval=data.optJSONObject("settings").optInt("slotInterval",30);
+        for(int m=9*60;m+duration<=19*60;m+=interval){
+            final int mins=m; final String label=minutesToTime(m); boolean free=isTimeAvailable(date,m,duration);
+            Button b=new Button(this); b.setAllCaps(false); b.setText(label+"\n"+(free?"Available":"Unavailable")); b.setTextSize(10); b.setPadding(dp(4),dp(6),dp(4),dp(6)); b.setEnabled(free);
+            b.setTextColor(free?NAVY:Color.rgb(148,163,184)); b.setBackground(round(free?Color.WHITE:Color.rgb(241,245,249),12,1,free?LINE:Color.rgb(226,232,240)));
+            GridLayout.LayoutParams lp=new GridLayout.LayoutParams(); lp.width=0; lp.columnSpec=GridLayout.spec(GridLayout.UNDEFINED,1f); lp.setMargins(dp(3),dp(3),dp(3),dp(3)); b.setLayoutParams(lp);
+            if(free)b.setOnClickListener(v->{selected[0]=label;for(int i=0;i<grid.getChildCount();i++){View child=grid.getChildAt(i);if(child instanceof Button){Button bb=(Button)child;if(bb.isEnabled())bb.setBackground(round(Color.WHITE,12,1,LINE));}}b.setBackground(round(ORANGE_SOFT,12,2,ORANGE));});
+            grid.addView(b);
+        }
+    }
+
+    private boolean isTimeAvailable(String date,int start,int duration){
+        int end=start+duration; JSONArray sc=data.optJSONArray("schedule");
+        for(int i=0;i<sc.length();i++){JSONObject e=sc.optJSONObject(i);if(!date.equals(e.optString("date")))continue;int a=timeToMinutes(e.optString("start")),b=timeToMinutes(e.optString("end"));if(a>=0&&b>=0&&start<b&&end>a)return false;}
+        return true;
+    }
+
+    private int timeToMinutes(String t){try{String[] p=t.split(":");return Integer.parseInt(p[0])*60+Integer.parseInt(p[1]);}catch(Exception e){return -1;}}
+    private String minutesToTime(int m){return String.format(Locale.ENGLISH,"%02d:%02d",m/60,m%60);}
+
+    private Button pickerButton(String label){Button b=secondary(label);b.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);return b;}
+    private void pickDate(Button button,String[] holder,Runnable after){
+        Calendar now=Calendar.getInstance();
+        new DatePickerDialog(this,(v,y,m,d)->{holder[0]=String.format(Locale.ENGLISH,"%04d-%02d-%02d",y,m+1,d);button.setText(prettyDate(holder[0]));after.run();},now.get(Calendar.YEAR),now.get(Calendar.MONTH),now.get(Calendar.DAY_OF_MONTH)).show();
+    }
+    private void pickTime(Button button,String[] holder){
+        Calendar now=Calendar.getInstance();
+        new TimePickerDialog(this,(v,h,m)->{holder[0]=String.format(Locale.ENGLISH,"%02d:%02d",h,m);button.setText(holder[0]);},now.get(Calendar.HOUR_OF_DAY),0,true).show();
+    }
+
+    private String getFileName(Uri uri){
+        String name="Uploaded file"; Cursor cursor=null;
+        try{cursor=getContentResolver().query(uri,null,null,null,null);if(cursor!=null&&cursor.moveToFirst()){int idx=cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);if(idx>=0)name=cursor.getString(idx);}}catch(Exception ignored){}finally{if(cursor!=null)cursor.close();}
+        return name;
+    }
+
+    private void previewResource(JSONObject r){
+        LinearLayout box=formBox(); box.addView(pill(r.optString("type"),Color.rgb(245,243,255),PURPLE)); box.addView(text(r.optString("title"),18,NAVY,true),marginTopBottom(10,3));
+        if(!r.optString("fileName").isEmpty())box.addView(text(r.optString("fileName"),12,MUTED,false));
+        box.addView(text(r.optString("description"),12,TEXT,false),marginTopBottom(8,0));
+        new AlertDialog.Builder(this).setTitle("Resource preview").setView(box).setNegativeButton("Close",null).setPositiveButton("Open file",(d,w)->openResource(r.optString("uri"))).show();
     }
 
     // ---------- NOTIFICATIONS ----------
