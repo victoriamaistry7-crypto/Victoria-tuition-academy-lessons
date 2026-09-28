@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#5b21b6">
+<title>Lateya's Grade 10 Algebra Tutor | Victoria Tuition Academy</title>
+<style>
+:root{--bg:#f7f5fb;--card:#fff;--ink:#1f1830;--muted:#6f6880;--purple:#6d28d9;--purple2:#8b5cf6;--soft:#ede9fe;--ok:#166534;--okbg:#dcfce7;--bad:#991b1b;--badbg:#fee2e2;--warn:#92400e;--warnbg:#fef3c7;--line:#e7e0ef;--shadow:0 12px 32px rgba(48,31,76,.09)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}.screen{min-height:100vh}.gate{display:grid;place-items:center;padding:28px 18px;background:linear-gradient(155deg,#211336,#5b21b6 60%,#a78bfa)}
+.gate-card{width:min(100%,430px);background:white;border-radius:28px;padding:28px;box-shadow:0 24px 70px rgba(0,0,0,.25)}.brand{font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--purple)}
+h1{font-size:clamp(1.8rem,7vw,2.7rem);line-height:1.05;margin:.45rem 0 1rem}h2{font-size:1.35rem;line-height:1.2;margin:0 0 .75rem}h3{font-size:1.05rem;margin:0 0 .5rem}.muted{color:var(--muted)}
+label{font-size:.9rem;font-weight:700;display:block;margin:1rem 0 .4rem}.text-input{width:100%;min-height:50px;border:1.5px solid #d8d0e4;border-radius:14px;padding:12px 14px;font-size:16px;outline:none;background:#fff}.text-input:focus{border-color:var(--purple);box-shadow:0 0 0 4px var(--soft)}
+.btn{border:0;border-radius:14px;padding:12px 16px;min-height:46px;font-weight:800}.btn-primary{background:var(--purple);color:white}.btn-secondary{background:var(--soft);color:#4c1d95}.btn-ghost{background:white;border:1px solid var(--line);color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.err{color:var(--bad);font-weight:700;font-size:.9rem;min-height:1.4em}.app{max-width:980px;margin:auto;padding:0 14px 48px}.topbar{position:sticky;top:0;z-index:20;background:rgba(247,245,251,.94);backdrop-filter:blur(12px);padding:12px 0 10px;border-bottom:1px solid rgba(222,214,232,.8)}
+.toprow{display:flex;align-items:center;gap:10px;justify-content:space-between}.mini-brand{font-weight:900;font-size:.92rem}.voice-badge{border:0;background:var(--soft);color:#4c1d95;border-radius:999px;padding:8px 11px;font-weight:800;font-size:.8rem}.progress-shell{margin-top:9px;height:8px;border-radius:999px;background:#e5deec;overflow:hidden}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--purple2));transition:width .3s ease}
+.hero{padding:30px 4px 18px}.eyebrow{display:inline-flex;align-items:center;gap:6px;background:var(--soft);color:#4c1d95;padding:6px 10px;border-radius:999px;font-size:.78rem;font-weight:900}.hero p{font-size:1.02rem;color:var(--muted);max-width:710px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow);margin:14px 0}.tutor-card{border-top:5px solid var(--purple)}.step-label{font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:var(--purple)}
+.math{font-family:"Cambria Math","STIX Two Math",Georgia,serif;font-size:1.24rem;background:#faf8fd;border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin:12px 0;overflow-wrap:anywhere}.worked{border-left:4px solid #7c3aed;background:#faf7ff;padding:13px 14px;border-radius:12px}.why{background:#f0fdf4;border-left:4px solid #22c55e;padding:12px 14px;border-radius:12px;margin:12px 0}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.lesson-nav{display:flex;justify-content:space-between;gap:10px;margin-top:14px}.lesson-nav .btn{flex:1}
+.choice-grid{display:grid;gap:9px;margin:12px 0}.choice{width:100%;text-align:left;border:1.5px solid var(--line);background:white;padding:13px;border-radius:14px;min-height:48px;color:var(--ink)}.choice.selected{border-color:var(--purple);background:var(--soft)}.choice.correct{border-color:#16a34a;background:var(--okbg)}.choice.wrong{border-color:#dc2626;background:var(--badbg)}
+.feedback{padding:12px 14px;border-radius:13px;margin-top:10px;font-weight:650}.feedback.ok{background:var(--okbg);color:var(--ok)}.feedback.bad{background:var(--badbg);color:var(--bad)}.feedback.hint{background:var(--warnbg);color:var(--warn)}
+.module-list{display:grid;gap:10px}.module-btn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:white;border:1px solid var(--line);border-radius:16px;padding:12px}.module-dot{display:grid;place-items:center;width:34px;height:34px;flex:0 0 34px;border-radius:50%;background:#eee7f7;font-weight:900;color:#5b21b6}.module-btn.done .module-dot{background:#dcfce7;color:#166534}.module-btn.locked{opacity:.55}.module-title{font-weight:850}.module-sub{font-size:.78rem;color:var(--muted)}
+.score-row{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid var(--line)}.score-row:last-child{border:0}.big-score{font-size:2.7rem;font-weight:950;color:var(--purple);line-height:1}.pill{display:inline-block;border-radius:999px;padding:5px 9px;background:#f1ecf8;color:#5b21b6;font-size:.76rem;font-weight:850}
+.lock-note{font-size:.83rem;color:var(--muted);margin-top:8px}.footer-note{text-align:center;color:var(--muted);font-size:.8rem;margin-top:26px}
+@media(min-width:720px){.app{padding-left:24px;padding-right:24px}.card{padding:24px}.choice-grid.two{grid-template-columns:1fr 1fr}.hero{padding-top:42px}.module-list{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<section id="gate" class="screen gate">
+  <div class="gate-card">
+    <div class="brand">Victoria Tuition Academy</div>
+    <h1>Lateya's Algebra Tutor</h1>
+    <p class="muted">Private Grade 10 guided lesson. Enter the lesson password to continue.</p>
+    <form id="gateForm">
+      <label for="password">Lesson password</label>
+      <input id="password" class="text-input" type="password" autocomplete="current-password" placeholder="Enter password" required>
+      <p id="gateError" class="err" aria-live="polite"></p>
+      <button class="btn btn-primary" style="width:100%" type="submit">Open lesson</button>
+    </form>
+    <p class="lock-note">This is a practical access gate for the lesson. Do not share the password publicly.</p>
+  </div>
+</section>
+
+<div id="appShell" class="hidden">
+  <div class="app">
+    <header class="topbar">
+      <div class="toprow">
+        <div class="mini-brand">Victoria Tuition Academy</div>
+        <button id="voiceToggle" class="voice-badge" type="button">🔊 Voice: off</button>
+      </div>
+      <div class="progress-shell" aria-label="Course progress"><div id="progressFill" class="progress-fill"></div></div>
+    </header>
+    <main id="main"></main>
+    <div class="footer-note">Grade 10 Mathematics • Guided Algebra Mastery • Progress is saved on this device</div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var PASS_HASH="2de6bab1fc74cc4e4ca469e90e22a37c00db1cb7a5dd2e89a1fee12c3a5f2756";
+var STORAGE_KEY="lateya-algebra-v2";
+var state={voice:false,module:0,step:0,scores:{},attempts:{},completed:{},started:false};
+try{var saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");if(saved)state=Object.assign(state,saved);}catch(e){}
+var modules=[
+{title:"Algebra language & simplifying",subtitle:"Terms, coefficients, like terms, brackets",steps:[
+ {kind:"teach",title:"Read algebra like a sentence",say:"Lateya, algebra becomes easier when you stop seeing one long scary expression. Break it into terms. Terms are separated by plus or minus signs. In 4 x squared minus 3 x plus 7, the three terms are 4 x squared, negative 3 x, and 7. A coefficient is the number multiplying a variable. A constant has no variable.",html:"<p>Break an expression into <b>terms</b>. Terms are separated by + or −.</p><div class='math'>4x² − 3x + 7</div><p><b>Terms:</b> 4x², −3x, 7<br><b>Coefficient of x:</b> −3<br><b>Constant:</b> 7</p><div class='why'><b>Why this matters:</b> you can only combine <em>like terms</em> — same variable, same exponent.</div>"},
+ {kind:"mcq",title:"Quick check",q:"Which terms are like terms?",choices:["3x and 5x²","3x and −8x","4 and 4y","2a and 2b"],answer:1,hint:"Look for exactly the same variable raised to exactly the same power.",explain:"3x and −8x are like terms because both contain x¹."},
+ {kind:"teach",title:"Simplify without changing the value",say:"To simplify, collect like terms. For 5 x plus 3 minus 2 x plus 7, collect the x terms first: 5 x minus 2 x equals 3 x. Then collect constants: 3 plus 7 equals 10. The answer is 3 x plus 10.",html:"<div class='worked'><b>Example:</b><div class='math'>5x + 3 − 2x + 7</div>5x − 2x = 3x<br>3 + 7 = 10<br><b>Answer: 3x + 10</b></div>"},
+ {kind:"input",title:"Your turn",q:"Simplify: 8x + 4 − 3x + 9",answers:["5x+13","5x + 13"],hint:"Group x-terms together, then constants.",explain:"8x − 3x = 5x and 4 + 9 = 13, so the result is 5x + 13."},
+ {kind:"teach",title:"Expanding brackets",say:"A number outside a bracket multiplies every term inside. Think of it as sharing. In 3 times open bracket 2 x minus 5 close bracket, 3 times 2 x is 6 x and 3 times negative 5 is negative 15.",html:"<p>Use the distributive law: multiply the outside factor by <b>every</b> term.</p><div class='math'>3(2x − 5) = 6x − 15</div><div class='why'>A common mistake is multiplying only the first term. The 3 belongs to both terms.</div>"},
+ {kind:"input",title:"Mastery check",q:"Simplify fully: 2(3x + 4) − x",answers:["5x+8","5x + 8"],hint:"Expand first: 2(3x + 4) = 6x + 8. Then collect like terms.",explain:"6x + 8 − x = 5x + 8."}
+]},
+{title:"Exponents",subtitle:"Laws, zero and negative exponents",steps:[
+ {kind:"teach",title:"What an exponent means",say:"An exponent tells you how many times the base is multiplied by itself. x cubed means x times x times x. The exponent laws are shortcuts, but only use them when the bases match.",html:"<div class='math'>x³ = x · x · x</div><p>The exponent laws are shortcuts for repeated multiplication and division. First check: <b>are the bases the same?</b></p>"},
+ {kind:"teach",title:"The core laws",say:"When multiplying the same base, add exponents. When dividing the same base, subtract exponents. When raising a power to another power, multiply the exponents. Any nonzero base to power zero equals one.",html:"<div class='math'>aᵐ · aⁿ = aᵐ⁺ⁿ<br>aᵐ ÷ aⁿ = aᵐ⁻ⁿ<br>(aᵐ)ⁿ = aᵐⁿ<br>a⁰ = 1, for a ≠ 0<br>a⁻ⁿ = 1/aⁿ</div>"},
+ {kind:"mcq",title:"Choose the correct simplification",q:"x³ · x⁵ =",choices:["x⁸","x¹⁵","2x⁸","x²"],answer:0,hint:"Same base and multiplication means add the exponents.",explain:"3 + 5 = 8, therefore x³·x⁵ = x⁸."},
+ {kind:"input",title:"Your turn",q:"Simplify: y⁷ ÷ y³",answers:["y4","y^4","y⁴"],hint:"Same base and division means subtract the powers.",explain:"7 − 3 = 4, so the answer is y⁴."},
+ {kind:"mcq",title:"Negative exponent check",q:"x⁻³ means:",choices:["−x³","1/x³","1/(−x³)","x/3"],answer:1,hint:"A negative exponent means reciprocal, not a negative number.",explain:"x⁻³ = 1/x³, provided x ≠ 0."}
+]},
+{title:"Factorisation",subtitle:"Common factors, squares, trinomials, grouping, cubes",steps:[
+ {kind:"teach",title:"Factorising reverses expansion",say:"Factorising is expansion backwards. Before trying anything fancy, always ask: is there a common factor in every term? For 6 x squared plus 9 x, both terms share 3 x, so we take 3 x outside the bracket.",html:"<div class='math'>6x² + 9x = 3x(2x + 3)</div><div class='why'><b>Habit:</b> common factor first. This prevents many exam mistakes.</div>"},
+ {kind:"input",title:"Common factor",q:"Factorise fully: 12x² − 8x",answers:["4x(3x-2)","4x(3x − 2)"],hint:"What number and variable divide both 12x² and 8x?",explain:"The highest common factor is 4x, giving 4x(3x − 2)."},
+ {kind:"teach",title:"Difference of two squares",say:"If you see one square minus another square, use the difference of squares pattern. A squared minus b squared equals open bracket a minus b close bracket open bracket a plus b close bracket.",html:"<div class='math'>a² − b² = (a − b)(a + b)</div><div class='worked'>x² − 25 = x² − 5² = <b>(x − 5)(x + 5)</b></div>"},
+ {kind:"mcq",title:"Spot the pattern",q:"Factorise: x² − 49",choices:["(x−7)²","(x−7)(x+7)","(x−49)(x+1)","Cannot factorise"],answer:1,hint:"49 is 7².",explain:"x² − 7² = (x−7)(x+7)."},
+ {kind:"teach",title:"Trinomials",say:"For x squared plus 7 x plus 12, find two numbers that multiply to positive 12 and add to positive 7. Those numbers are 3 and 4, so the factors are x plus 3 and x plus 4.",html:"<div class='math'>x² + 7x + 12</div><p>Need two numbers with:<br><b>product = 12</b><br><b>sum = 7</b></p><div class='math'>(x + 3)(x + 4)</div>"},
+ {kind:"input",title:"Trinomial check",q:"Factorise: x² + 5x + 6",answers:["(x+2)(x+3)","(x + 2)(x + 3)","(x+3)(x+2)"],hint:"Which two numbers multiply to 6 and add to 5?",explain:"2 and 3 work, so (x+2)(x+3)."},
+ {kind:"teach",title:"Grouping and cubes",say:"Grade 10 also includes grouping in pairs and sum or difference of cubes. For grouping, factor each pair and look for a repeated bracket. For cubes, remember a cubed minus b cubed equals a minus b times a squared plus a b plus b squared.",html:"<p><b>Grouping:</b></p><div class='math'>ax + ay + bx + by<br>= a(x+y)+b(x+y)<br>= (a+b)(x+y)</div><p><b>Cubes:</b></p><div class='math'>a³ − b³ = (a−b)(a²+ab+b²)<br>a³ + b³ = (a+b)(a²−ab+b²)</div>"},
+ {kind:"mcq",title:"Cube pattern",q:"Which first factor appears in x³ − 8?",choices:["x−2","x+2","x−8","x²−4"],answer:0,hint:"8 = 2³. For a³ − b³, the first factor is a − b.",explain:"x³ − 2³ starts with (x−2)."}
+]},
+{title:"Algebraic fractions",subtitle:"Restrictions, factorise, cancel factors",steps:[
+ {kind:"teach",title:"Never cancel terms — cancel factors",say:"In an algebraic fraction, you may cancel common factors, not pieces joined by plus or minus. First factorise the numerator and denominator. Also state restrictions: any value that makes the original denominator zero is not allowed.",html:"<div class='math'>(x² − 9)/(x² + 3x)</div><p>Factorise first:</p><div class='math'>(x−3)(x+3) / [x(x+3)]</div><p>Cancel the common <b>factor</b> (x+3):</p><div class='math'>(x−3)/x, &nbsp; x ≠ 0, −3</div>"},
+ {kind:"mcq",title:"Cancellation check",q:"In (x+4)/(x+7), can you cancel the x?",choices:["Yes","No"],answer:1,hint:"x is part of a sum, not a factor multiplying the whole numerator and denominator.",explain:"No. Cancellation only works with common factors."},
+ {kind:"input",title:"Simplify",q:"Simplify: (x² − 16)/(x − 4)",answers:["x+4","x + 4"],hint:"Factor x² − 16 as a difference of squares.",explain:"x²−16=(x−4)(x+4). Cancel the common factor x−4, so the simplified expression is x+4, with x≠4."}
+]},
+{title:"Linear equations",subtitle:"Undo operations, brackets and fractions",steps:[
+ {kind:"teach",title:"An equation is a balance",say:"Treat an equation like a balanced scale. Whatever operation you do on the left, do on the right. Your goal is to isolate the variable. For 3 x plus 5 equals 20, subtract 5 from both sides, then divide both sides by 3.",html:"<div class='worked'><div class='math'>3x + 5 = 20<br>3x = 15<br>x = 5</div></div><div class='why'>Do the same operation to both sides. That is why the equality stays true.</div>"},
+ {kind:"input",title:"Solve it",q:"Solve: 5x − 7 = 18",answers:["5","x=5","x = 5"],hint:"Add 7 to both sides first.",explain:"5x=25, then divide by 5: x=5."},
+ {kind:"teach",title:"Brackets first",say:"If an equation has brackets, expand them carefully before collecting x terms. In 2 times x plus 3 equals x plus 9, expand to 2 x plus 6 equals x plus 9. Subtract x, then subtract 6.",html:"<div class='math'>2(x+3)=x+9<br>2x+6=x+9<br>x+6=9<br>x=3</div>"},
+ {kind:"input",title:"Bracket equation",q:"Solve: 3(x − 2) = 12",answers:["6","x=6","x = 6"],hint:"You can divide both sides by 3 first, or expand the bracket.",explain:"x−2=4, therefore x=6."},
+ {kind:"teach",title:"Fractions: clear denominators",say:"When fractions make an equation messy, multiply every term by the lowest common denominator. This turns the fraction equation into a simpler linear equation. Be careful: every term must be multiplied.",html:"<div class='math'>x/3 + 2 = 5<br>×3: &nbsp; x + 6 = 15<br>x = 9</div>"}
+]},
+{title:"Quadratic equations",subtitle:"Factorise, then use the zero-product rule",steps:[
+ {kind:"teach",title:"Get zero on one side",say:"A quadratic equation has an x squared term. In Grade 10, solve these by factorisation. First move everything to one side so the other side is zero. Factorise. Then use the zero product rule: if A times B equals zero, then A equals zero or B equals zero.",html:"<div class='worked'><div class='math'>x² + 5x + 6 = 0<br>(x+2)(x+3)=0<br>x+2=0 or x+3=0<br><b>x=−2 or x=−3</b></div></div>"},
+ {kind:"mcq",title:"Why two answers?",q:"If (x−4)(x+1)=0, the solutions are:",choices:["x=4 only","x=−1 only","x=4 or x=−1","x=−4 or x=1"],answer:2,hint:"Set each factor equal to zero separately.",explain:"x−4=0 gives x=4; x+1=0 gives x=−1."},
+ {kind:"input",title:"Solve a quadratic",q:"Give the two solutions to x² − 5x + 6 = 0, separated by a comma.",answers:["2,3","3,2","2, 3","3, 2","x=2,x=3","x=3,x=2"],hint:"Factorise: which two numbers multiply to +6 and add to −5?",explain:"x²−5x+6=(x−2)(x−3), so x=2 or x=3."}
+]},
+{title:"Simultaneous equations",subtitle:"Substitution and elimination",steps:[
+ {kind:"teach",title:"Two equations, two unknowns",say:"A simultaneous solution must make both equations true at the same time. With substitution, make one variable the subject and replace it in the other equation. With elimination, add or subtract equations so one variable disappears.",html:"<p>Example:</p><div class='math'>x + y = 7<br>x − y = 1</div><p>Add the equations:</p><div class='math'>2x = 8 ⇒ x = 4</div><p>Substitute into x+y=7:</p><div class='math'>4+y=7 ⇒ y=3</div>"},
+ {kind:"mcq",title:"Elimination choice",q:"For x+y=10 and x−y=2, what happens if you add the equations?",choices:["x cancels","y cancels","both cancel","nothing cancels"],answer:1,hint:"+y and −y are opposites.",explain:"The y terms cancel, leaving 2x=12."},
+ {kind:"input",title:"Find x",q:"Given x+y=10 and x−y=2, what is x?",answers:["6","x=6","x = 6"],hint:"Add the two equations.",explain:"2x=12, so x=6. Substitution would then give y=4."}
+]},
+{title:"Literal equations",subtitle:"Changing the subject of a formula",steps:[
+ {kind:"teach",title:"Treat letters like numbers",say:"Changing the subject means isolating the requested letter. Use inverse operations exactly as you would when solving for x. If V equals pi r squared h and you need h, divide both sides by pi r squared.",html:"<div class='math'>V = πr²h<br>h = V/(πr²)</div><div class='why'>The target letter should end up alone on one side.</div>"},
+ {kind:"mcq",title:"Change the subject",q:"Make y the subject: x = 3y + 5",choices:["y=(x−5)/3","y=x/3+5","y=3(x−5)","y=(x+5)/3"],answer:0,hint:"Undo +5 first, then undo ×3.",explain:"x−5=3y, so y=(x−5)/3."},
+ {kind:"input",title:"One more",q:"Make a the subject: P = 2a + 2b",answers:["(p-2b)/2","(P-2b)/2","(p − 2b)/2","p/2-b","P/2-b"],hint:"Subtract 2b, then divide by 2.",explain:"P−2b=2a, so a=(P−2b)/2 = P/2−b."}
+]},
+{title:"Linear inequalities",subtitle:"Inequality signs and interval notation",steps:[
+ {kind:"teach",title:"Almost like an equation — with one trap",say:"Solve a linear inequality like an equation, except for one crucial rule. If you multiply or divide both sides by a negative number, reverse the inequality sign.",html:"<div class='math'>−2x &gt; 6<br>x &lt; −3</div><div class='why'><b>Why did &gt; become &lt;?</b> Dividing by −2 reverses order on the number line.</div>"},
+ {kind:"mcq",title:"Sign check",q:"Solve: −3x ≤ 12",choices:["x ≤ −4","x ≥ −4","x ≤ 4","x ≥ 4"],answer:1,hint:"Divide by −3, so reverse the inequality.",explain:"x ≥ −4."},
+ {kind:"teach",title:"Interval notation",say:"Interval notation is another way to write a set of values. A square bracket includes an endpoint. A round bracket excludes it. For x greater than or equal to negative 4, the interval is square bracket negative 4, infinity round bracket.",html:"<div class='math'>x ≥ −4 &nbsp; ⇔ &nbsp; [−4, ∞)</div><p><b>[ ]</b> endpoint included &nbsp; • &nbsp; <b>( )</b> endpoint excluded</p>"},
+ {kind:"input",title:"Inequality answer",q:"Solve: 2x + 3 < 11. Enter the inequality for x.",answers:["x<4","x < 4"],hint:"Subtract 3, then divide by positive 2. The sign does not flip.",explain:"2x<8, therefore x<4."}
+]},
+{title:"Word problems",subtitle:"Translate words into algebra before solving",steps:[
+ {kind:"teach",title:"Do not solve the story in your head",say:"For word problems, define a variable first. Then translate one sentence at a time into an equation. Solve the equation and finally check whether your answer makes sense in the story.",html:"<p><b>Four-step routine</b></p><ol><li>Let x represent the unknown.</li><li>Translate the words into an equation.</li><li>Solve.</li><li>Check the answer in context.</li></ol>"},
+ {kind:"teach",title:"Linear word problem",say:"Example: a number increased by 7 is 19. Let x be the number. Increased by 7 means x plus 7. So x plus 7 equals 19. Subtract 7 and x equals 12.",html:"<div class='math'>x + 7 = 19 ⇒ x = 12</div>"},
+ {kind:"mcq",title:"Translate first",q:"“Three times a number, decreased by 5, is 16.” Which equation matches?",choices:["3(x−5)=16","3x−5=16","x−15=16","3x+5=16"],answer:1,hint:"Three times the number is 3x. Then decrease that result by 5.",explain:"The correct translation is 3x−5=16."},
+ {kind:"input",title:"Solve the story",q:"Three times a number, decreased by 5, is 16. What is the number?",answers:["7","x=7","x = 7"],hint:"From 3x−5=16, add 5 first.",explain:"3x=21, so x=7."}
+]},
+{title:"Final mixed challenge",subtitle:"Exam-style mastery check",steps:[
+ {kind:"mcq",title:"Question 1",q:"Simplify: 3x + 7 − x + 2",choices:["2x+9","4x+9","2x+5","3x+8"],answer:0,hint:"Collect x-terms and constants separately.",explain:"3x−x=2x and 7+2=9."},
+ {kind:"mcq",title:"Question 2",q:"Factorise: x² − 36",choices:["(x−6)(x+6)","(x−18)(x+2)","(x−6)²","x(x−36)"],answer:0,hint:"Difference of two squares.",explain:"36=6², so x²−36=(x−6)(x+6)."},
+ {kind:"input",title:"Question 3",q:"Solve: 4x + 1 = 21",answers:["5","x=5","x = 5"],hint:"Subtract 1, then divide by 4.",explain:"4x=20, so x=5."},
+ {kind:"input",title:"Question 4",q:"Solve x² − x − 6 = 0. Enter both solutions separated by a comma.",answers:["3,-2","-2,3","3, -2","-2, 3"],hint:"Find two numbers that multiply to −6 and add to −1.",explain:"(x−3)(x+2)=0, so x=3 or x=−2."},
+ {kind:"mcq",title:"Question 5",q:"Solve: −2x > 10",choices:["x>−5","x<−5","x>5","x<5"],answer:1,hint:"Dividing by a negative reverses the sign.",explain:"x<−5."}
+]}
+];
+
+function norm(s){return String(s||"").toLowerCase().replace(/\s+/g,"").replace(/−/g,"-").replace(/×/g,"*");}
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){} updateProgress();}
+function qid(){return state.module+"-"+state.step;}
+function totalSteps(){return modules.reduce(function(n,m){return n+m.steps.length;},0);}
+function finishedSteps(){var n=0;for(var i=0;i<state.module;i++)n+=modules[i].steps.length;n+=state.step;return n;}
+function updateProgress(){var p=Math.round(100*finishedSteps()/totalSteps());document.getElementById("progressFill").style.width=p+"%";}
+function speak(text){
+ if(!state.voice||!("speechSynthesis" in window))return;
+ window.speechSynthesis.cancel();
+ var u=new SpeechSynthesisUtterance(text.replace(/<[^>]+>/g," "));
+ u.lang="en-ZA";u.rate=.92;u.pitch=1;
+ var voices=window.speechSynthesis.getVoices();
+ var v=voices.find(function(x){return /^en-ZA/i.test(x.lang)})||voices.find(function(x){return /^en/i.test(x.lang)});
+ if(v)u.voice=v;
+ window.speechSynthesis.speak(u);
+}
+function stopVoice(){if("speechSynthesis" in window)window.speechSynthesis.cancel();}
+async function hashText(s){
+ var data=new TextEncoder().encode(s);
+ var digest=await crypto.subtle.digest("SHA-256",data);
+ return Array.from(new Uint8Array(digest)).map(function(b){return b.toString(16).padStart(2,"0")}).join("");
+}
+document.getElementById("gateForm").addEventListener("submit",async function(e){
+ e.preventDefault();var v=document.getElementById("password").value;
+ try{
+  var h=await hashText(v);
+  if(h===PASS_HASH){sessionStorage.setItem("lateyaAccess","1");openApp();}
+  else document.getElementById("gateError").textContent="That password is not correct. Try again.";
+ }catch(err){document.getElementById("gateError").textContent="This browser cannot verify the password. Please use Chrome or another current browser.";}
+});
+function openApp(){
+ document.getElementById("gate").classList.add("hidden");
+ document.getElementById("appShell").classList.remove("hidden");
+ renderHome();
+}
+document.getElementById("voiceToggle").addEventListener("click",function(){
+ state.voice=!state.voice;this.textContent=state.voice?"🔊 Voice: on":"🔇 Voice: off";save();
+ if(state.voice)speak("Voice tutor is on. Hi Lateya. I will explain each step with you, not just give you notes.");
+ else stopVoice();
+});
+function renderHome(){
+ stopVoice();var main=document.getElementById("main");
+ var done=Object.keys(state.completed).length;
+ main.innerHTML="<section class='hero'><span class='eyebrow'>Guided Grade 10 Algebra</span><h1>Hi Lateya. We are going to understand algebra — not memorise it.</h1><p>This tutor teaches one idea at a time, talks you through worked examples, then checks that you can do the step yourself. If you get stuck, use the hint. If you miss it twice, the tutor shows the full correction.</p><div class='actions'><button id='startBtn' class='btn btn-primary'>"+(state.started?"Continue where I stopped":"Start voice tutor")+"</button><button id='reportBtn' class='btn btn-secondary'>My progress</button></div></section><section class='card'><h2>Course map</h2><div class='module-list' id='moduleList'></div></section>";
+ var list=document.getElementById("moduleList");
+ modules.forEach(function(m,i){
+  var unlocked=i===0||state.completed[i-1]||i<=state.module;
+  var b=document.createElement("button");b.type="button";b.className="module-btn "+(state.completed[i]?"done ":"")+(unlocked?"":"locked");
+  b.innerHTML="<span class='module-dot'>"+(state.completed[i]?"✓":(i+1))+"</span><span><span class='module-title'>"+m.title+"</span><br><span class='module-sub'>"+m.subtitle+"</span></span>";
+  b.disabled=!unlocked;b.addEventListener("click",function(){state.module=i;state.step=0;state.started=true;save();renderStep();});list.appendChild(b);
+ });
+ document.getElementById("startBtn").addEventListener("click",function(){
+  state.voice=true;document.getElementById("voiceToggle").textContent="🔊 Voice: on";state.started=true;save();renderStep();
+ });
+ document.getElementById("reportBtn").addEventListener("click",renderReport);updateProgress();
+}
+function renderStep(){
+ var m=modules[state.module],s=m.steps[state.step],main=document.getElementById("main"),id=qid(),attempt=state.attempts[id]||0;
+ var top="<section class='hero'><span class='eyebrow'>Module "+(state.module+1)+" of "+modules.length+"</span><h1>"+m.title+"</h1><p>"+m.subtitle+"</p></section>";
+ var body="<section class='card tutor-card'><div class='step-label'>Step "+(state.step+1)+" of "+m.steps.length+"</div><h2>"+s.title+"</h2>";
+ if(s.kind==="teach"){body+=s.html+"<div class='actions'><button id='hearBtn' class='btn btn-secondary'>🔊 Hear this again</button></div>";}
+ else if(s.kind==="mcq"){
+  body+="<p>"+s.q+"</p><div class='choice-grid two' id='choices'>"+s.choices.map(function(c,i){return "<button type='button' class='choice' data-i='"+i+"'>"+c+"</button>";}).join("")+"</div><div id='feedback' aria-live='polite'></div>";
+ }else{
+  body+="<p>"+s.q+"</p><label for='answer'>Your answer</label><input id='answer' class='text-input' inputmode='text' autocomplete='off' placeholder='Type your answer'><div class='actions'><button id='checkBtn' class='btn btn-primary'>Check my answer</button><button id='hintBtn' class='btn btn-secondary'>Give me a hint</button></div><div id='feedback' aria-live='polite'></div>";
+ }
+ body+="<div class='lesson-nav'><button id='backBtn' class='btn btn-ghost'>← Back</button><button id='nextBtn' class='btn btn-primary' "+(s.kind==="teach"?"":"disabled")+">"+(state.step===m.steps.length-1?"Finish module":"Next step →")+"</button></div></section><div class='actions'><button id='mapBtn' class='btn btn-ghost'>Course map</button></div>";
+ main.innerHTML=top+body;
+ document.getElementById("backBtn").disabled=state.step===0&&state.module===0;
+ document.getElementById("backBtn").addEventListener("click",goBack);
+ document.getElementById("nextBtn").addEventListener("click",goNext);
+ document.getElementById("mapBtn").addEventListener("click",renderHome);
+ if(s.kind==="teach"){document.getElementById("hearBtn").addEventListener("click",function(){speak(s.say);});speak(s.say);}
+ if(s.kind==="mcq"){
+  document.querySelectorAll(".choice").forEach(function(b){b.addEventListener("click",function(){checkMCQ(Number(this.dataset.i),s);});});
+  speak("Lateya, your turn. "+s.q+" Choose the answer you think is correct.");
+ }else if(s.kind==="input"){
+  document.getElementById("checkBtn").addEventListener("click",function(){checkInput(s);});
+  document.getElementById("answer").addEventListener("keydown",function(e){if(e.key==="Enter")checkInput(s);});
+  document.getElementById("hintBtn").addEventListener("click",function(){showFeedback("hint","Hint: "+s.hint);speak("Here is a hint. "+s.hint);});
+  speak("Lateya, your turn. "+s.q+" Take your time and type your answer.");
+ }
+ updateProgress();window.scrollTo({top:0,behavior:"smooth"});
+}
+function showFeedback(type,text){var f=document.getElementById("feedback");if(f){f.className="feedback "+type;f.textContent=text;}}
+function markScore(correct){
+ var k=String(state.module);if(!state.scores[k])state.scores[k]={right:0,total:0,seen:{}};
+ var id=qid();if(!state.scores[k].seen[id]){state.scores[k].total++;if(correct)state.scores[k].right++;state.scores[k].seen[id]=true;}
+}
+function unlockNext(){var n=document.getElementById("nextBtn");if(n)n.disabled=false;save();}
+function checkMCQ(i,s){
+ var id=qid();state.attempts[id]=(state.attempts[id]||0)+1;var ok=i===s.answer;
+ document.querySelectorAll(".choice").forEach(function(b){b.disabled=true;if(Number(b.dataset.i)===s.answer)b.classList.add("correct");});
+ var chosen=document.querySelector(".choice[data-i='"+i+"']");if(chosen&&!ok)chosen.classList.add("wrong");
+ if(ok){showFeedback("ok","Correct. "+s.explain);markScore(true);speak("Correct. "+s.explain);unlockNext();}
+ else{markScore(false);showFeedback("bad","Not quite. "+s.explain);speak("Not quite. "+s.explain);unlockNext();}
+ save();
+}
+function checkInput(s){
+ var input=document.getElementById("answer"),v=norm(input.value);if(!v){showFeedback("hint","Type an answer first.");return;}
+ var id=qid();state.attempts[id]=(state.attempts[id]||0)+1;var ok=s.answers.some(function(a){return norm(a)===v;});
+ if(ok){showFeedback("ok","Yes — correct. "+s.explain);markScore(true);input.disabled=true;document.getElementById("checkBtn").disabled=true;speak("Yes, correct. "+s.explain);unlockNext();}
+ else if(state.attempts[id]<2){showFeedback("hint","Not yet. Hint: "+s.hint);speak("Not yet. Try again. "+s.hint);}
+ else{showFeedback("bad","Let's correct it together. "+s.explain);markScore(false);input.disabled=true;document.getElementById("checkBtn").disabled=true;speak("Let's correct it together. "+s.explain);unlockNext();}
+ save();
+}
+function goBack(){
+ stopVoice();
+ if(state.step>0)state.step--;else if(state.module>0){state.module--;state.step=modules[state.module].steps.length-1;}
+ save();renderStep();
+}
+function goNext(){
+ var m=modules[state.module];
+ if(state.step<m.steps.length-1){state.step++;save();renderStep();return;}
+ state.completed[state.module]=true;
+ if(state.module<modules.length-1){state.module++;state.step=0;save();renderModuleComplete();}
+ else{save();renderReport();}
+}
+function renderModuleComplete(){
+ stopVoice();var prev=modules[state.module-1],main=document.getElementById("main");
+ main.innerHTML="<section class='hero'><span class='eyebrow'>Module complete</span><h1>Nice work, Lateya.</h1><p>You finished <b>"+prev.title+"</b>. The next module builds on what you just learned.</p></section><section class='card'><h2>Before we move on</h2><p>Try to say the main rule from that section out loud in your own words. If you can explain it, you understand it better than if you only recognise it.</p><div class='actions'><button id='continueBtn' class='btn btn-primary'>Start "+modules[state.module].title+" →</button><button id='homeBtn' class='btn btn-secondary'>Course map</button></div></section>";
+ document.getElementById("continueBtn").addEventListener("click",renderStep);document.getElementById("homeBtn").addEventListener("click",renderHome);
+ speak("Well done, Lateya. You completed "+prev.title+". Before moving on, explain the main rule to yourself in your own words.");
+}
+function renderReport(){
+ stopVoice();var main=document.getElementById("main"),right=0,total=0,rows="";
+ modules.forEach(function(m,i){var sc=state.scores[String(i)]||{right:0,total:0};right+=sc.right;total+=sc.total;var pct=sc.total?Math.round(100*sc.right/sc.total):0;rows+="<div class='score-row'><div><b>"+m.title+"</b><div class='muted' style='font-size:.8rem'>"+(state.completed[i]?"Completed":"In progress / not started")+"</div></div><div class='pill'>"+sc.right+"/"+sc.total+" • "+pct+"%</div></div>";});
+ var pct=total?Math.round(100*right/total):0;
+ var advice=pct>=85?"Strong overall mastery. Re-do only the modules below 80%, then attempt a timed mixed worksheet.":pct>=65?"Good progress. Revisit the weakest two modules and explain each worked example aloud before retrying the final challenge.":"Foundation still needs guided practice. Work through one module at a time with Victoria and repeat the checks instead of rushing to the final challenge.";
+ main.innerHTML="<section class='hero'><span class='eyebrow'>Progress report</span><h1>Lateya's algebra snapshot</h1><p>This report reflects checks completed on this device.</p></section><section class='card'><div class='big-score'>"+pct+"%</div><p class='muted'>"+right+" correct first-scored checks out of "+total+" attempted checks</p><div>"+rows+"</div></section><section class='card'><h2>What to do next</h2><p>"+advice+"</p><div class='actions'><button id='copyBtn' class='btn btn-primary'>Copy report for Victoria</button><button id='homeBtn' class='btn btn-secondary'>Back to course</button></div><div id='copyMsg' class='muted' style='margin-top:8px'></div></section>";
+ document.getElementById("homeBtn").addEventListener("click",renderHome);
+ document.getElementById("copyBtn").addEventListener("click",async function(){
+  var txt="Lateya - Grade 10 Algebra Progress\nOverall: "+pct+"% ("+right+"/"+total+")\n"+modules.map(function(m,i){var sc=state.scores[String(i)]||{right:0,total:0};return m.title+": "+sc.right+"/"+sc.total+(state.completed[i]?" [completed]":"");}).join("\n")+"\nNext step: "+advice;
+  try{await navigator.clipboard.writeText(txt);document.getElementById("copyMsg").textContent="Report copied. You can paste it into WhatsApp.";}catch(e){document.getElementById("copyMsg").textContent="Copy was blocked by this browser. Take a screenshot of this report instead.";}
+ });updateProgress();window.scrollTo({top:0,behavior:"smooth"});
+}
+if(sessionStorage.getItem("lateyaAccess")==="1")openApp();
+})();
+</script>
+</body>
+</html>
