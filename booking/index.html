@@ -110,11 +110,11 @@
     <div class="field"><label for="duration">Lesson duration *</label><select id="duration" name="Duration" required><option value="">Choose duration</option><option value="60">1 hour</option><option value="120">2 hours</option></select></div>
   </div>
   <input type="hidden" id="time" name="Requested start time">
-  <div class="slot-head"><div><strong>Available times</strong><br><span id="slotHint">Choose a date and lesson duration first.</span></div></div>
+  <div class="slot-head"><div><strong>Preferred times</strong><br><span id="slotHint">Choose a date and lesson duration first.</span></div></div>
   <div class="slots" id="slotGrid"></div>
-  <div class="availability-key"><span><i class="a"></i>Available</span><span><i class="u"></i>Unavailable</span></div>
+  
   <div class="error hidden" id="timeUnavailable" style="margin-top:12px">Please choose one of the available times.</div>
-  <div class="note"><strong>Privacy:</strong> unavailable times are shown only as unavailable. Calendar event names and personal details are never shown.</div>
+  <div class="note"><strong>Lesson request:</strong> choose the time that suits you best. Victoria will confirm whether that time works before the lesson is booked.</div>
 </section>
 
 <section class="step" data-step="5">
@@ -149,7 +149,6 @@ const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&
 const steps=[...document.querySelectorAll('.step')];
 const stepNames=['Student','Subject & topic','Lesson focus','Date & time','Review'];
 let current=0,selectedSubject='',selectedTopics=new Set();
-const LIVE_AVAILABILITY_API=new URLSearchParams(location.search).get('api')||'';
 
 const topicData={
 'Grade 6':{
@@ -188,14 +187,7 @@ const topicData={
  'Natural Sciences':['Momentum & impulse','Projectile motion','Work, energy & power','Doppler effect','Electric circuits','Electrodynamics','Photoelectric effect','Matter & materials','Organic chemistry overview','Chemical equilibrium','Acids & bases','Scientific investigations','Other / school-specific']
 }
 }
-// VTA_AVAILABILITY_SYNC_START
-const confirmedLessons={
-'2026-09-28':[['17:00','18:00']],
-'2026-09-29':[['12:00','14:00']],
-'2026-09-30':[['09:00','11:00']]
-};
-const availabilitySyncedAt='2026-09-28T12:06:00+02:00';
-// VTA_AVAILABILITY_SYNC_END
+const confirmedLessons={};
 const mins=t=>{const [h,m]=t.split(':').map(Number);return h*60+m};
 function isRequestedTimeAvailable(date,time,duration){
  if(!date||!time||!duration)return true;
@@ -222,41 +214,27 @@ $('grade').addEventListener('change',()=>{if(current===1)renderSubjects()});
 $('curriculum').addEventListener('change',()=>{if(selectedSubject)renderTopics()});
 
 function slotLabel(total){return String(Math.floor(total/60)).padStart(2,'0')+':'+String(total%60).padStart(2,'0')}
-function loadLiveAvailability(date,dur){
- return new Promise((resolve,reject)=>{
-   if(!LIVE_AVAILABILITY_API){resolve(null);return}
-   const cb='vtaAvail_'+Date.now()+'_'+Math.floor(Math.random()*100000);
-   const script=document.createElement('script');
-   const timer=setTimeout(()=>{cleanup();reject(new Error('Availability check timed out'))},8000);
-   function cleanup(){clearTimeout(timer);delete window[cb];script.remove()}
-   window[cb]=(data)=>{cleanup();resolve(data)};
-   const sep=LIVE_AVAILABILITY_API.includes('?')?'&':'?';
-   script.src=LIVE_AVAILABILITY_API+sep+'date='+encodeURIComponent(date)+'&duration='+encodeURIComponent(dur)+'&callback='+encodeURIComponent(cb);
-   script.onerror=()=>{cleanup();reject(new Error('Could not check live availability'))};
-   document.head.appendChild(script);
- });
-}
-async function renderSlots(){
- const date=val('date'),dur=Number(val('duration'));$('time').value='';$('timeUnavailable').classList.add('hidden');$('slotGrid').innerHTML='';
+function renderSlots(){
+ const date=val('date'),dur=Number(val('duration'));
+ $('time').value='';
+ $('timeUnavailable').classList.add('hidden');
+ $('slotGrid').innerHTML='';
  if(!date||!dur){$('slotHint').textContent='Choose a date and lesson duration first.';return}
- $('slotHint').textContent=LIVE_AVAILABILITY_API?'Checking live availability…':'Tap an available start time.';
- let slots=null;
- try{
-   const live=await loadLiveAvailability(date,dur);
-   if(live&&live.ok&&Array.isArray(live.slots)){slots=live.slots;$('slotHint').textContent='Live availability — tap a time.'}
- }catch(e){$('slotHint').textContent='Live calendar check failed — showing current availability.'}
- if(!slots){
-   const d=new Date(date+'T12:00:00').getDay();let open=9*60,close=19*60;if(d===0){open=13*60;close=18*60}
-   slots=[];
-   for(let s=open;s+dur<=close;s+=30){const t=slotLabel(s);slots.push({time:t,available:isRequestedTimeAvailable(date,t,dur)})}
- }
- $('slotGrid').innerHTML=slots.map(x=>'<button type="button" class="slot '+(x.available?'available':'unavailable')+'" data-time="'+esc(x.time)+'" '+(x.available?'':'disabled')+'>'+esc(x.time)+'</button>').join('');
+ const d=new Date(date+'T12:00:00').getDay();
+ let open=9*60,close=19*60;
+ if(d===0){open=13*60;close=18*60}
+ $('slotHint').textContent='Choose the time you would like. Victoria will confirm it with you.';
+ const slots=[];
+ for(let s=open;s+dur<=close;s+=30){slots.push({time:slotLabel(s),available:true})}
+ $('slotGrid').innerHTML=slots.map(x=>'<button type="button" class="slot available" data-time="'+esc(x.time)+'">'+esc(x.time)+'</button>').join('');
  document.querySelectorAll('.slot.available').forEach(b=>b.addEventListener('click',()=>{
    document.querySelectorAll('.slot').forEach(x=>x.classList.remove('selected'));
-   b.classList.add('selected');$('time').value=b.dataset.time;$('timeUnavailable').classList.add('hidden');
+   b.classList.add('selected');
+   $('time').value=b.dataset.time;
+   $('timeUnavailable').classList.add('hidden');
  }));
 }
-function checkTime(){const date=val('date'),time=val('time'),dur=Number(val('duration'));return !!date&&!!time&&!!dur&&isRequestedTimeAvailable(date,time,dur)}
+function checkTime(){return !!val('date')&&!!val('time')&&!!Number(val('duration'))}
 ['date','duration'].forEach(id=>$(id).addEventListener('change',renderSlots));
 const today=new Date();today.setMinutes(today.getMinutes()-today.getTimezoneOffset());$('date').min=today.toISOString().slice(0,10);
 const maxDate=new Date();maxDate.setDate(maxDate.getDate()+42);maxDate.setMinutes(maxDate.getMinutes()-maxDate.getTimezoneOffset());$('date').max=maxDate.toISOString().slice(0,10);
