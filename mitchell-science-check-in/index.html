@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#151b33">
+<title>Mitchell Science Check-In</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#172036;--muted:#6b7280;--line:#e5e7ef;--a:#5b5cf0;--a2:#7c3aed;--good:#16834c;--warn:#b7791f;--bad:#c2414b}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.app{max-width:560px;margin:auto;min-height:100vh;background:var(--bg)}
+.top{position:sticky;top:0;z-index:20;background:rgba(246,247,251,.94);backdrop-filter:blur(12px);padding:12px 16px 10px;border-bottom:1px solid rgba(229,231,239,.8)}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:12px;font-weight:800;color:#596079}
+.track{height:7px;border-radius:999px;background:#e6e8f1;overflow:hidden;margin-top:9px}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--a2));transition:.25s}.shell{padding:18px 16px 108px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px 18px;box-shadow:0 10px 35px rgba(39,48,80,.06)}
+.kicker{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--a);margin-bottom:10px}
+h1{font-size:34px;line-height:1.04;letter-spacing:-.04em;margin:0 0 12px}h2{font-size:25px;line-height:1.14;letter-spacing:-.025em;margin:0 0 10px}
+p{line-height:1.55;color:var(--muted);margin:0}.badge{display:inline-flex;padding:7px 10px;border-radius:999px;background:#eef0ff;color:#4247bf;font-size:11px;font-weight:800;margin-bottom:14px}
+.answers{display:grid;gap:10px;margin-top:18px}.answer,.selectBtn{width:100%;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:16px;min-height:58px;padding:14px;text-align:left;font-size:15px;font-weight:700;line-height:1.35}.answer.selected,.selectBtn.selected{border-color:#696bf3;background:#f0f1ff;box-shadow:0 0 0 2px rgba(91,92,240,.08)}
+.multi{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:16px}.multi .selectBtn{min-height:64px;text-align:center;font-size:13px}
+label{display:block;font-size:14px;font-weight:800;margin:16px 0 8px}select,textarea{width:100%;font:inherit;border:1px solid var(--line);border-radius:15px;background:#fff;padding:13px;color:var(--ink);outline:none}textarea{min-height:128px;resize:vertical}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.navin{max-width:560px;margin:auto;display:grid;grid-template-columns:1fr 1.6fr;gap:10px}.nav button{border:0;border-radius:16px;min-height:52px;font-size:15px;font-weight:900}.back{background:#eef0f5;color:#35405b}.next{background:linear-gradient(135deg,var(--a),var(--a2));color:#fff}.next:disabled{opacity:.4}
+.hero{background:linear-gradient(145deg,#161d36,#4147c8 58%,#7c3aed);color:#fff;border:0;padding:28px 22px}.hero p{color:rgba(255,255,255,.84)}.hero .badge{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.14)}
+.dotrow{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:18px}.dotrow .answer{text-align:center;padding:12px 8px;font-size:13px}
+.svgbox{margin:16px 0;background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:12px}
+.results .score{font-size:52px;font-weight:950;letter-spacing:-.05em}.results h3{font-size:16px;margin:22px 0 9px}.metric{background:#f8f9fc;border:1px solid var(--line);border-radius:16px;padding:13px;margin:8px 0}.metric small{display:block;color:var(--muted);font-weight:700;margin-bottom:4px}.barrow{margin:13px 0}.barhead{display:flex;justify-content:space-between;font-size:13px;font-weight:800;margin-bottom:6px}.bar{height:9px;border-radius:99px;background:#e9ebf3;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--a),var(--a2))}
+.flag{padding:12px 13px;border-radius:14px;background:#fff8e8;border:1px solid #f6e2ae;margin:8px 0;font-size:14px;line-height:1.4}.priority{padding:13px;border-radius:14px;background:#f1f2ff;border-left:4px solid var(--a);margin:8px 0}
+.share{display:grid;gap:9px;margin-top:18px}.share button{min-height:52px;border:0;border-radius:15px;font-weight:900;font-size:15px}.shareMain{background:linear-gradient(135deg,var(--a),var(--a2));color:#fff}.shareAlt{background:#eef0f5;color:#35405b}
+.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#172036;color:#fff;border-radius:999px;padding:10px 14px;font-size:13px;font-weight:800;opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1}
+@media(max-width:390px){h1{font-size:30px}.card{border-radius:20px}.multi{grid-template-columns:1fr}.shell{padding-left:12px;padding-right:12px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top"><div class="brand"><span>Victoria Tuition Academy</span><span id="stepTxt">Science Check-In</span></div><div class="track"><div class="fill" id="fill"></div></div></div>
+  <main class="shell"><section class="card hero" id="card"></section></main>
+  <div class="nav" id="nav"><div class="navin"><button class="back" id="back">Back</button><button class="next" id="next">Start Check-In</button></div></div>
+</div>
+<div class="toast" id="toast">Copied</div>
+<script>
+const topics=["Forces","Motion & graphs","Electric cells","Series & parallel circuits","Magnetism & electrostatics"];
+const questions=[
+{id:"q1",topic:"Forces",skill:"concept",q:"A book is resting on a table. Which statement is correct?",o:["No forces act because the book is not moving.","Gravity acts downward and the table pushes upward with an equal force.","Only gravity acts on the book.","The upward force is bigger than gravity."],a:1,flags:{0:"Stationary does not mean no forces; he may connect force only with movement.",2:"Gravity is recognised but the support/normal force may be missing.",3:"Balanced forces may not yet be understood."}},
+{id:"q2",topic:"Forces",skill:"application",q:"A trolley is moving to the right and slowing down. What must be true about the resultant force?",o:["It is zero.","It acts to the right.","It acts to the left.","There are no forces."],a:2,flags:{0:"He may confuse slowing motion with zero resultant force.",1:"He may think force points in the direction of motion instead of acceleration."}},
+{id:"q3",topic:"Motion & graphs",skill:"graph",q:"On a distance–time graph, a straight line with a constant upward slope means:",o:["The object is accelerating.","The object moves at constant speed.","The object is stationary.","The object is moving backwards."],a:1,flags:{0:"He may read any upward line as acceleration instead of using slope to interpret speed."}},
+{id:"q4",topic:"Motion & graphs",skill:"graph",q:"On a velocity–time graph, a horizontal line above zero means:",o:["Constant positive velocity.","Increasing velocity.","The object is at rest.","The object is slowing down."],a:0,flags:{1:"He may confuse the height of the line with changing velocity; slope represents acceleration.",2:"He may treat any horizontal graph line as rest without checking its value."}},
+{id:"q5",topic:"Electric cells",skill:"concept",q:"Two identical cells are connected in series in the same direction. Compared with one cell, the combination usually provides:",o:["A greater potential difference (voltage).","A smaller potential difference.","Exactly the same potential difference.","No electrical energy."],a:0,flags:{1:"He may not understand how cell voltages combine in series.",2:"He may treat several series cells as equivalent to one cell."}},
+{id:"q6",topic:"Electric cells",skill:"diagram",q:"Where should a voltmeter be connected when measuring the potential difference across a bulb?",o:["In series with the bulb.","In parallel across the bulb.","Anywhere in the circuit.","Directly across the switch only."],a:1,flags:{0:"He may be mixing up ammeter and voltmeter placement.",2:"He may need more practice reading circuit diagrams and measurement rules."},diagram:true},
+{id:"q7",topic:"Series & parallel circuits",skill:"application",q:"Two bulbs are connected in series. One bulb is removed. What happens to the other bulb?",o:["It stays on at the same brightness.","It gets brighter.","It goes off because the circuit is open.","It flashes once and stays on."],a:2,flags:{0:"He may not see a series circuit as one continuous path.",1:"He may use brightness rules before checking whether the circuit is complete."}},
+{id:"q8",topic:"Series & parallel circuits",skill:"application",q:"Two bulbs are on separate parallel branches. One bulb is removed. What usually happens to the other bulb?",o:["It also goes off.","It can remain on because its branch is still complete.","It must become dimmer.","The cell stops providing energy."],a:1,flags:{0:"He may not understand independent branches in a parallel circuit.",2:"He may be confusing parallel behaviour with series behaviour."}},
+{id:"q9",topic:"Series & parallel circuits",skill:"relationship",q:"If another resistor is added in series, the total resistance of the circuit:",o:["Decreases.","Increases.","Becomes zero.","Always stays the same."],a:1,flags:{0:"He may be confusing series resistance with adding parallel paths.",3:"He may not understand how arrangement changes total resistance."}},
+{id:"q10",topic:"Magnetism & electrostatics",skill:"concept",q:"What happens when the north pole of one magnet is brought near the north pole of another?",o:["They attract.","They repel.","Nothing happens.","They become electrically charged."],a:1,flags:{0:"Like magnetic poles repel; unlike poles attract."}},
+{id:"q11",topic:"Magnetism & electrostatics",skill:"concept",q:"During electrostatic charging by rubbing, which particles are mainly transferred between materials?",o:["Protons","Neutrons","Electrons","Whole atoms"],a:2,flags:{0:"He may think protons move during charging; ordinary electrostatic charging transfers electrons.",3:"He may need a clearer particle model of electrostatic charging."}},
+{id:"q12",topic:"Magnetism & electrostatics",skill:"application",q:"Two objects have the same type of electric charge. They will:",o:["Attract.","Repel.","Become neutral immediately.","Always stick together."],a:1,flags:{0:"He may be mixing same-charge repulsion with opposite-charge attraction."}}
+];
+const state=JSON.parse(localStorage.getItem("mitchellCheckInV2")||'{"step":0,"school":"","barriers":[],"conf":{},"answers":{},"teach":"","oneFix":""}');
+const totalSteps=1+1+topics.length+questions.length+2;
+function save(){localStorage.setItem("mitchellCheckInV2",JSON.stringify(state))}
+function esc(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function circuit(){return '<div class="svgbox"><svg viewBox="0 0 420 180" width="100%" aria-label="simple circuit"><path d="M75 90H150M270 90H345V145H75V90" fill="none" stroke="#34405b" stroke-width="4"/><circle cx="210" cy="90" r="28" fill="#fff" stroke="#34405b" stroke-width="4"/><path d="M193 73l34 34M227 73l-34 34" stroke="#f4a11a" stroke-width="4"/><line x1="75" y1="70" x2="75" y2="110" stroke="#34405b" stroke-width="4"/><line x1="89" y1="77" x2="89" y2="103" stroke="#34405b" stroke-width="2"/><text x="190" y="135" font-size="14" fill="#6b7280">bulb</text></svg></div>'}
+function ansButtons(opts,selected,onclick){return '<div class="answers">'+opts.map((x,i)=>'<button type="button" class="answer '+(selected===i?'selected':'')+'" onclick="'+onclick+'('+i+')">'+String.fromCharCode(65+i)+'. '+x+'</button>').join("")+'</div>'}
+function render(){
+ const c=document.getElementById("card"),n=document.getElementById("next"),b=document.getElementById("back"),nav=document.getElementById("nav");
+ b.style.visibility=state.step===0?"hidden":"visible"; nav.style.display="block";
+ document.getElementById("fill").style.width=Math.min(100,state.step/(totalSteps-1)*100)+"%";
+ document.getElementById("stepTxt").textContent=state.step===0?"Science Check-In":"Step "+state.step+" of "+(totalSteps-1);
+ if(state.step===0){c.className="card hero";c.innerHTML='<div class="badge">Grade 9 Natural Sciences</div><h1>Mitchell Science Check-In</h1><p>This is not for marks. It helps us figure out what feels easy, what feels confusing, and what we should work on next.</p>';n.textContent="Start Check-In";n.disabled=false;return}
+ c.className="card";
+ if(state.step===1){
+  c.innerHTML='<div class="kicker">Quick context</div><h2>Where are you right now?</h2><p>Choose what you are doing at school and what usually makes Natural Sciences difficult.</p><label>Current school topic</label><select id="school"><option value="">Choose one</option>'+["Forces & motion","Electric cells & circuits","Magnetism / electrostatics","Electricity generation / national grid","Earth systems / spheres","Rocks / mining / atmosphere","Revision / mixed topics","Not sure"].map(x=>'<option '+(state.school===x?'selected':'')+'>'+x+'</option>').join("")+'</select><label>What usually makes it difficult?</label><div class="multi">'+["Remembering facts","Understanding concepts","Calculations","Graphs / diagrams","Applying knowledge","Exam wording"].map((x,i)=>'<button type="button" class="selectBtn '+(state.barriers.includes(x)?'selected':'')+'" onclick="toggleBarrier(\''+x.replace("'","\\'")+'\')">'+x+'</button>').join("")+'</div>';
+  document.getElementById("school").onchange=e=>{state.school=e.target.value;save();setNext()};n.textContent="Continue";setNext();return
+ }
+ const confStart=2, qStart=confStart+topics.length, teachStep=qStart+questions.length, fixStep=teachStep+1, resultStep=fixStep+1;
+ if(state.step>=confStart&&state.step<qStart){
+   const i=state.step-confStart,t=topics[i];c.innerHTML='<div class="kicker">Confidence map</div><h2>'+t+'</h2><p>How confident do you feel with this topic right now?</p><div class="dotrow">'+[["I struggle",1],["Not sure",2],["Confident",3]].map(x=>'<button type="button" class="answer '+(state.conf[t]===x[1]?'selected':'')+'" onclick="setConf('+i+','+x[1]+')">'+x[0]+'</button>').join("")+'</div>';n.textContent="Continue";setNext();return
+ }
+ if(state.step>=qStart&&state.step<teachStep){
+   const i=state.step-qStart,q=questions[i];c.innerHTML='<div class="kicker">'+q.topic+' • '+q.skill+'</div><h2>'+(i+1)+'. '+q.q+'</h2>'+(q.diagram?circuit():"")+ansButtons(q.o,state.answers[q.id],"setAnswer.bind(null,'"+q.id+"')");n.textContent=i===questions.length-1?"Continue":"Next question";setNext();return
+ }
+ if(state.step===teachStep){
+  c.innerHTML='<div class="kicker">Teach me</div><h2>Explain it in your own words</h2><p>Imagine you are helping a Grade 7 learner. Clear and simple is better than textbook wording.</p><label>A book is resting on a table and is not moving. Are there any forces acting on it? Explain.</label><textarea id="teach" placeholder="Write 1–3 sentences...">'+esc(state.teach)+'</textarea>';document.getElementById("teach").oninput=e=>{state.teach=e.target.value;save();setNext()};n.textContent="Continue";setNext();return
+ }
+ if(state.step===fixStep){
+  c.innerHTML='<div class="kicker">Last question</div><h2>What would help you most?</h2><p>If we could fix ONE thing in Natural Sciences right now, what would make the biggest difference for you?</p><textarea id="fix" placeholder="Example: I get confused when I have to read circuit diagrams...">'+esc(state.oneFix)+'</textarea>';document.getElementById("fix").oninput=e=>{state.oneFix=e.target.value;save();setNext()};n.textContent="Create my learning report";setNext();return
+ }
+ if(state.step===resultStep){showResults();nav.style.display="none";return}
+}
+function setNext(){
+ const n=document.getElementById("next"),confStart=2,qStart=confStart+topics.length,teachStep=qStart+questions.length,fixStep=teachStep+1;
+ if(state.step===1)n.disabled=!state.school;
+ else if(state.step>=confStart&&state.step<qStart)n.disabled=!state.conf[topics[state.step-confStart]];
+ else if(state.step>=qStart&&state.step<teachStep)n.disabled=state.answers[questions[state.step-qStart].id]===undefined;
+ else if(state.step===teachStep)n.disabled=state.teach.trim().length<4;
+ else if(state.step===fixStep)n.disabled=state.oneFix.trim().length<3;
+ else n.disabled=false;
+}
+function toggleBarrier(x){const i=state.barriers.indexOf(x);i>=0?state.barriers.splice(i,1):state.barriers.push(x);save();render()}
+function setConf(i,v){state.conf[topics[i]]=v;save();render()}
+function setAnswer(id,i){state.answers[id]=i;save();render()}
+document.getElementById("next").onclick=()=>{state.step=Math.min(totalSteps-1,state.step+1);save();render();window.scrollTo({top:0,behavior:"smooth"})};
+document.getElementById("back").onclick=()=>{state.step=Math.max(0,state.step-1);save();render();window.scrollTo({top:0,behavior:"smooth"})};
+function report(){
+ let correct=0;const scores={},skills={},flags=[];topics.forEach(t=>scores[t]={r:0,n:0});
+ questions.forEach(q=>{const ch=state.answers[q.id];scores[q.topic].n++;skills[q.skill]??={r:0,n:0};skills[q.skill].n++;if(ch===q.a){correct++;scores[q.topic].r++;skills[q.skill].r++}else if(q.flags&&q.flags[ch])flags.push(q.flags[ch])});
+ const tp={};topics.forEach(t=>tp[t]=scores[t].n?Math.round(scores[t].r/scores[t].n*100):0);
+ const low=[...topics].sort((a,b)=>tp[a]-tp[b]),high=[...topics].sort((a,b)=>tp[b]-tp[a]);
+ topics.forEach(t=>{if(state.conf[t]===3&&tp[t]<60)flags.push(t+": high confidence but low score — check for a hidden misconception.");if(state.conf[t]===1&&tp[t]>=75)flags.push(t+": low confidence but strong performance — likely needs reassurance and exam practice more than reteaching.")});
+ const tl=state.teach.toLowerCase();if(!((tl.includes("gravity")||tl.includes("weight"))&&(tl.includes("table")||tl.includes("normal")||tl.includes("support"))))flags.unshift("Teach-me check: revisit balanced forces on a stationary object.");
+ const sk=Object.entries(skills).map(([k,v])=>[k,Math.round(v.r/v.n*100)]).sort((a,b)=>a[1]-b[1]);
+ let cp="Mostly realistic";if(flags.some(x=>x.includes("high confidence")))cp="Hidden gaps detected";else if(flags.some(x=>x.includes("low confidence")))cp="Knowledge is stronger than confidence";
+ return {correct,pct:Math.round(correct/questions.length*100),scores,tp,flags,low,high,skill:sk[0][0],cp}
+}
+function showResults(){
+ const r=report();document.getElementById("card").className="card results";
+ document.getElementById("card").innerHTML='<div class="kicker">Learning map</div><div class="score">'+r.pct+'%</div><h2>Mitchell’s diagnostic report</h2><p>The useful part is the pattern: what he knows, where misconceptions appear, and what to teach next.</p>'+
+ '<div class="metric"><small>Strongest area</small><b>'+r.high[0]+'</b></div><div class="metric"><small>Highest priority</small><b>'+r.low[0]+'</b></div><div class="metric"><small>Confidence pattern</small><b>'+r.cp+'</b></div><div class="metric"><small>Self-reported barriers</small><b>'+esc(state.barriers.join(", ")||"None selected")+'</b></div>'+
+ '<h3>Topic performance</h3>'+topics.map(t=>'<div class="barrow"><div class="barhead"><span>'+t+'</span><span>'+r.scores[t].r+'/'+r.scores[t].n+' • '+r.tp[t]+'%</span></div><div class="bar"><i style="width:'+r.tp[t]+'%"></i></div></div>').join("")+
+ '<h3>What the answers are telling us</h3>'+(r.flags.length?r.flags.map(x=>'<div class="flag">'+x+'</div>').join(""):'<div class="flag">No major misconception pattern appeared in this short check.</div>')+
+ '<h3>Recommended lesson order</h3>'+r.low.slice(0,3).map((t,i)=>'<div class="priority"><b>'+(i+1)+'. '+t+' ('+r.tp[t]+'%)</b><div style="margin-top:4px;font-size:14px;color:#5f6678">'+(i===0?'Reteach the core idea visually, then use prediction questions.':i===1?'Use guided examples, then ask Mitchell to explain each step.':'Finish with mixed exam-style application questions.')+'</div></div>').join("")+
+ '<div class="priority"><b>Weakest question type: '+r.skill+'</b><div style="margin-top:4px;font-size:14px;color:#5f6678">Build this skill into the next lesson rather than teaching content only.</div></div>'+
+ '<h3>Mitchell’s own words</h3><div class="metric"><small>Teach-me response</small>'+esc(state.teach)+'</div><div class="metric"><small>One thing he wants help with</small>'+esc(state.oneFix)+'</div>'+
+ '<div class="share"><button class="shareMain" onclick="shareReport()">Share with Victoria</button><button class="shareAlt" onclick="restart()">Restart check-in</button></div>';
+}
+function reportText(){
+ const r=report();return 'MITCHELL SCIENCE CHECK-IN\n\nCurrent school topic: '+state.school+'\nOverall: '+r.correct+'/'+questions.length+' ('+r.pct+'%)\nStrongest: '+r.high[0]+'\nHighest priority: '+r.low[0]+'\nConfidence: '+r.cp+'\nSelf-reported barriers: '+(state.barriers.join(", ")||"None selected")+'\n\nTOPIC SCORES\n'+topics.map(t=>'- '+t+': '+r.scores[t].r+'/'+r.scores[t].n+' ('+r.tp[t]+'%)').join('\n')+'\n\nFLAGS\n'+(r.flags.length?r.flags.map(x=>'- '+x).join('\n'):'- No major misconception pattern detected')+'\n\nRECOMMENDED ORDER\n'+r.low.slice(0,3).map((t,i)=>(i+1)+'. '+t+' ('+r.tp[t]+'%)').join('\n')+'\nWeakest question type: '+r.skill+'\n\nTEACH-ME RESPONSE\n'+state.teach+'\n\nONE THING TO FIX\n'+state.oneFix}
+async function shareReport(){const text=reportText();try{if(navigator.share)await navigator.share({title:"Mitchell Science Check-In",text});else{await navigator.clipboard.writeText(text);toast("Report copied — paste it into WhatsApp.")}}catch(e){if(e.name!=="AbortError"){try{await navigator.clipboard.writeText(text);toast("Report copied — paste it into WhatsApp.")}catch(_){toast("Select and copy the report manually.")}}}}
+function toast(x){const t=document.getElementById("toast");t.textContent=x;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2400)}
+function restart(){if(confirm("Clear these answers and start again?")){localStorage.removeItem("mitchellCheckInV2");location.reload()}}
+render();
+</script>
+</body></html>
