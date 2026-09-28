@@ -149,6 +149,7 @@ const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&
 const steps=[...document.querySelectorAll('.step')];
 const stepNames=['Student','Subject & topic','Lesson focus','Date & time','Review'];
 let current=0,selectedSubject='',selectedTopics=new Set();
+const LIVE_AVAILABILITY_API=new URLSearchParams(location.search).get('api')||'';
 
 const topicData={
 'Grade 6':{
@@ -221,17 +222,35 @@ $('grade').addEventListener('change',()=>{if(current===1)renderSubjects()});
 $('curriculum').addEventListener('change',()=>{if(selectedSubject)renderTopics()});
 
 function slotLabel(total){return String(Math.floor(total/60)).padStart(2,'0')+':'+String(total%60).padStart(2,'0')}
-function renderSlots(){
+function loadLiveAvailability(date,dur){
+ return new Promise((resolve,reject)=>{
+   if(!LIVE_AVAILABILITY_API){resolve(null);return}
+   const cb='vtaAvail_'+Date.now()+'_'+Math.floor(Math.random()*100000);
+   const script=document.createElement('script');
+   const timer=setTimeout(()=>{cleanup();reject(new Error('Availability check timed out'))},8000);
+   function cleanup(){clearTimeout(timer);delete window[cb];script.remove()}
+   window[cb]=(data)=>{cleanup();resolve(data)};
+   const sep=LIVE_AVAILABILITY_API.includes('?')?'&':'?';
+   script.src=LIVE_AVAILABILITY_API+sep+'date='+encodeURIComponent(date)+'&duration='+encodeURIComponent(dur)+'&callback='+encodeURIComponent(cb);
+   script.onerror=()=>{cleanup();reject(new Error('Could not check live availability'))};
+   document.head.appendChild(script);
+ });
+}
+async function renderSlots(){
  const date=val('date'),dur=Number(val('duration'));$('time').value='';$('timeUnavailable').classList.add('hidden');$('slotGrid').innerHTML='';
  if(!date||!dur){$('slotHint').textContent='Choose a date and lesson duration first.';return}
- const d=new Date(date+'T12:00:00').getDay();let open=9*60,close=19*60;if(d===0){open=13*60;close=18*60}
- $('slotHint').textContent='Tap an available start time.';
- const out=[];
- for(let s=open;s+dur<=close;s+=30){
-   const t=slotLabel(s),ok=isRequestedTimeAvailable(date,t,dur);
-   out.push('<button type="button" class="slot '+(ok?'available':'unavailable')+'" data-time="'+t+'" '+(ok?'':'disabled')+'>'+t+'</button>');
+ $('slotHint').textContent=LIVE_AVAILABILITY_API?'Checking live availability…':'Tap an available start time.';
+ let slots=null;
+ try{
+   const live=await loadLiveAvailability(date,dur);
+   if(live&&live.ok&&Array.isArray(live.slots)){slots=live.slots;$('slotHint').textContent='Live availability — tap a time.'}
+ }catch(e){$('slotHint').textContent='Live calendar check failed — showing current availability.'}
+ if(!slots){
+   const d=new Date(date+'T12:00:00').getDay();let open=9*60,close=19*60;if(d===0){open=13*60;close=18*60}
+   slots=[];
+   for(let s=open;s+dur<=close;s+=30){const t=slotLabel(s);slots.push({time:t,available:isRequestedTimeAvailable(date,t,dur)})}
  }
- $('slotGrid').innerHTML=out.join('');
+ $('slotGrid').innerHTML=slots.map(x=>'<button type="button" class="slot '+(x.available?'available':'unavailable')+'" data-time="'+esc(x.time)+'" '+(x.available?'':'disabled')+'>'+esc(x.time)+'</button>').join('');
  document.querySelectorAll('.slot.available').forEach(b=>b.addEventListener('click',()=>{
    document.querySelectorAll('.slot').forEach(x=>x.classList.remove('selected'));
    b.classList.add('selected');$('time').value=b.dataset.time;$('timeUnavailable').classList.add('hidden');
