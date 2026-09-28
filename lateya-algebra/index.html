@@ -1,1171 +1,244 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-ZA">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lateya | Grade 10 Algebra Mastery</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#5b21b6">
+<title>Lateya • Grade 10 Algebra Tutor</title>
 <style>
-:root{
-  --ink:#0f172a;
-  --muted:#64748b;
-  --line:#e2e8f0;
-  --paper:#ffffff;
-  --soft:#f8fafc;
-  --orange:#e54d2e;
-  --orange2:#ffedd5;
-  --green:#16a34a;
-  --green2:#dcfce7;
-  --red:#dc2626;
-  --red2:#fee2e2;
-  --blue:#2563eb;
-  --blue2:#dbeafe;
-  --purple:#7c3aed;
-  --purple2:#ede9fe;
-  --yellow:#ca8a04;
-  --yellow2:#fef9c3;
-  --shadow:0 18px 60px rgba(15,23,42,.10);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#eef2f7;
-  color:var(--ink);
-}
-button,input,textarea{font:inherit}
-button{cursor:pointer}
-.app{
-  max-width:1180px;
-  margin:0 auto;
-  min-height:100vh;
-  background:var(--paper);
-}
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:rgba(255,255,255,.96);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);
-  padding:10px 18px;
-}
-.toprow{display:flex;align-items:center;gap:14px}
-.brand{font-weight:800;white-space:nowrap}
-.brand span{color:var(--orange)}
-.progressWrap{flex:1;display:flex;align-items:center;gap:10px;min-width:0}
-.progressBar{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden;flex:1}
-.progressFill{height:100%;width:0;background:linear-gradient(90deg,var(--orange),#fb923c);transition:width .25s ease}
-.progressText{font-size:13px;color:var(--muted);white-space:nowrap}
-.scorePill{
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:7px 11px;
-  font-size:13px;
-  font-weight:800;
-  white-space:nowrap;
-}
-.slide{
-  display:none;
-  min-height:calc(100vh - 74px);
-  padding:44px 54px 110px;
-  position:relative;
-}
-.slide.active{display:block}
-.kicker{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  padding:7px 11px;
-  border-radius:999px;
-  background:var(--orange2);
-  color:#9a3412;
-  font-weight:800;
-  font-size:13px;
-  letter-spacing:.02em;
-}
-h1{font-size:clamp(36px,6vw,72px);line-height:1.02;margin:18px 0 18px;letter-spacing:-.04em}
-h2{font-size:clamp(30px,4.5vw,52px);line-height:1.05;margin:14px 0 20px;letter-spacing:-.03em}
-h3{font-size:22px;margin:0 0 10px}
-.lead{font-size:clamp(18px,2.5vw,25px);line-height:1.55;color:#334155;max-width:850px}
-.muted{color:var(--muted)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:22px;
-  background:var(--paper);
-}
-.card.soft{background:var(--soft)}
-.card.orange{background:#fff7ed;border-color:#fed7aa}
-.card.blue{background:#eff6ff;border-color:#bfdbfe}
-.card.green{background:#f0fdf4;border-color:#bbf7d0}
-.card.purple{background:#faf5ff;border-color:#ddd6fe}
-.callout{
-  border-left:5px solid var(--orange);
-  background:#fff7ed;
-  border-radius:14px;
-  padding:18px 20px;
-  margin:18px 0;
-}
-.rule{
-  font-size:clamp(26px,4vw,46px);
-  font-weight:900;
-  letter-spacing:-.02em;
-  margin:14px 0;
-}
-.math{
-  font-family:"Cambria Math","Times New Roman",serif;
-  font-size:1.18em;
-}
-.steps{display:grid;gap:12px;margin-top:18px}
-.step{
-  display:grid;
-  grid-template-columns:42px 1fr;
-  gap:12px;
-  align-items:start;
-}
-.stepNum{
-  width:42px;height:42px;border-radius:12px;
-  background:var(--ink);color:white;
-  display:grid;place-items:center;font-weight:900;
-}
-.example{
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:20px;
-  background:linear-gradient(180deg,#fff,#f8fafc);
-}
-.example .answer{font-size:22px;font-weight:900;margin-top:10px}
-.pair{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:14px 0;border-bottom:1px dashed var(--line);
-}
-.pair:last-child{border-bottom:0}
-.tag{
-  display:inline-block;padding:4px 9px;border-radius:999px;font-size:12px;font-weight:800
-}
-.tag.good{background:var(--green2);color:#166534}
-.tag.bad{background:var(--red2);color:#991b1b}
-.tag.tip{background:var(--blue2);color:#1d4ed8}
-.q{
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:20px;
-  margin-top:16px;
-  background:white;
-}
-.qTitle{font-weight:900;font-size:18px;line-height:1.4}
-.options{display:grid;gap:10px;margin-top:14px}
-.opt{
-  display:flex;gap:11px;align-items:flex-start;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:13px 14px;
-  background:white;
-  transition:.15s ease;
-}
-.opt:hover{border-color:#cbd5e1;background:#f8fafc}
-.opt input{margin-top:3px;transform:scale(1.15)}
-.opt.correct{border-color:#86efac;background:var(--green2)}
-.opt.wrong{border-color:#fecaca;background:var(--red2)}
-.qActions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-.btn{
-  border:0;border-radius:12px;padding:12px 16px;font-weight:900;
-  min-height:44px;
-}
-.btn.primary{background:var(--orange);color:white}
-.btn.secondary{background:#f1f5f9;color:var(--ink);border:1px solid var(--line)}
-.btn.dark{background:var(--ink);color:white}
-.btn:disabled{opacity:.55;cursor:not-allowed}
-.feedback{margin-top:12px;padding:12px 14px;border-radius:12px;display:none;line-height:1.45}
-.feedback.show{display:block}
-.feedback.good{background:var(--green2);color:#166534}
-.feedback.bad{background:var(--red2);color:#991b1b}
-.nav{
-  position:fixed;
-  left:50%;
-  transform:translateX(-50%);
-  bottom:18px;
-  z-index:30;
-  width:min(1100px,calc(100% - 24px));
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  padding:10px;
-  background:rgba(15,23,42,.94);
-  border-radius:18px;
-  box-shadow:var(--shadow);
-}
-.nav button{
-  border:0;
-  border-radius:12px;
-  min-height:46px;
-  padding:0 18px;
-  font-weight:900;
-}
-.nav .prev{background:#334155;color:white}
-.nav .next{background:var(--orange);color:white}
-.nav .menu{background:white;color:var(--ink)}
-.slideCount{color:white;display:grid;place-items:center;font-size:13px;font-weight:800}
-.heroGraphic{
-  border:1px solid var(--line);
-  border-radius:28px;
-  padding:24px;
-  background:
-    radial-gradient(circle at 15% 15%,#ffedd5,transparent 28%),
-    radial-gradient(circle at 85% 80%,#dbeafe,transparent 30%),
-    #fff;
-}
-.termBoard{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.termBox{border-radius:18px;padding:18px;text-align:center;border:1px solid var(--line)}
-.termBig{font-size:35px;font-weight:900;font-family:"Cambria Math","Times New Roman",serif}
-.center{text-align:center}
-.balance{width:100%;max-width:650px;margin:10px auto;display:block}
-.numberline{width:100%;max-width:720px;margin:18px auto;display:block}
-.areaModel{width:100%;max-width:700px;margin:15px auto;display:block}
-.examBox{
-  border:2px solid #0f172a;
-  border-radius:18px;
-  padding:20px;
-  background:#fff;
-}
-.marks{float:right;font-weight:900;color:#475569}
-.reportGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.stat{border:1px solid var(--line);border-radius:18px;padding:17px;background:#fff}
-.stat strong{display:block;font-size:28px;margin-top:6px}
-.topicRow{
-  display:grid;
-  grid-template-columns:160px 1fr 70px;
-  gap:12px;align-items:center;margin:11px 0
-}
-.topicTrack{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden}
-.topicFill{height:100%;background:var(--orange);border-radius:999px}
-textarea{
-  width:100%;
-  min-height:120px;
-  resize:vertical;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:14px;
-  background:#fff;
-}
-.inputAnswer{
-  width:100%;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:13px 14px;
-  margin-top:12px;
-}
-.shortFeedback{font-size:13px;color:var(--muted);margin-top:8px}
-.menuPanel{
-  display:none;
-  position:fixed;
-  inset:70px 20px 90px;
-  z-index:40;
-  max-width:850px;
-  margin:auto;
-  background:white;
-  border:1px solid var(--line);
-  border-radius:24px;
-  box-shadow:var(--shadow);
-  padding:22px;
-  overflow:auto;
-}
-.menuPanel.show{display:block}
-.menuGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.menuGrid button{
-  text-align:left;border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px
-}
-.menuGrid button:hover{background:#f8fafc}
-.closeMenu{float:right}
-.flash{
-  animation:flash .5s ease;
-}
-@keyframes flash{0%{transform:scale(.99)}50%{transform:scale(1.01)}100%{transform:scale(1)}}
-@media (max-width:800px){
-  .slide{padding:30px 20px 105px}
-  .grid2,.grid3,.termBoard,.reportGrid{grid-template-columns:1fr}
-  .topicRow{grid-template-columns:110px 1fr 55px}
-  .toprow{gap:8px}
-  .brand{font-size:13px}
-  .scorePill{display:none}
-  .nav{bottom:8px}
-  .nav button{padding:0 13px}
-  .menuGrid{grid-template-columns:1fr 1fr}
-  .pair{align-items:flex-start;flex-direction:column}
-}
-@media (prefers-reduced-motion:reduce){
-  *{scroll-behavior:auto!important;animation:none!important;transition:none!important}
-}
-@media print{
-  .topbar,.nav,.menuPanel{display:none!important}
-  .slide{display:block!important;min-height:auto;page-break-after:always;padding:30px}
-  body{background:white}
-  .app{max-width:none}
-}
-
-@media (max-width: 600px){
-  body{background:#fff;overflow-x:hidden}
-  .app{width:100%;max-width:100%;overflow-x:hidden}
-  .topbar{padding:8px 10px}
-  .toprow{gap:8px}
-  .brand{font-size:12px;white-space:normal;max-width:95px;line-height:1.1}
-  .progressText{font-size:11px}
-  .scorePill{display:none!important}
-  .slide{min-height:auto;padding:24px 14px 105px;overflow-x:hidden}
-  h1{font-size:40px;line-height:1;margin:14px 0}
-  h2{font-size:30px;line-height:1.05;margin:12px 0 16px}
-  h3{font-size:20px}
-  .lead{font-size:17px;line-height:1.45}
-  .kicker{font-size:11px;white-space:normal}
-  .grid2,.grid3,.termBoard,.reportGrid{grid-template-columns:1fr!important;gap:12px}
-  .card,.example,.q,.examBox,.heroGraphic{border-radius:16px;padding:15px;min-width:0;overflow-wrap:anywhere}
-  .callout{padding:14px 15px;margin:14px 0}
-  .rule{font-size:28px;line-height:1.15;overflow-wrap:anywhere}
-  .termBig{font-size:30px}
-  .step{grid-template-columns:36px 1fr;gap:10px}
-  .stepNum{width:36px;height:36px;border-radius:10px;font-size:14px}
-  .qTitle{font-size:17px}
-  .opt{padding:12px;border-radius:12px;min-height:50px}
-  .opt input{width:20px;height:20px;flex:0 0 auto}
-  .qActions{display:grid;grid-template-columns:1fr}
-  .btn{width:100%;min-height:48px;font-size:15px}
-  .feedback{font-size:14px}
-  .pair{display:grid;grid-template-columns:1fr;gap:5px;padding:12px 0}
-  svg,.balance,.numberline,.areaModel{max-width:100%!important;height:auto!important;display:block}
-  .topicRow{grid-template-columns:92px 1fr 48px;gap:8px;font-size:12px}
-  textarea,.inputAnswer{font-size:16px}
-  .menuPanel{inset:56px 10px 82px;padding:16px;border-radius:18px}
-  .menuGrid{grid-template-columns:1fr!important}
-  .nav{left:8px;right:8px;bottom:8px;transform:none;width:auto;padding:8px;border-radius:15px;display:grid;grid-template-columns:1fr .9fr auto 1fr;gap:6px}
-  .nav button{min-width:0;min-height:48px;padding:0 8px;font-size:13px;border-radius:10px}
-  .slideCount{min-width:42px;font-size:11px}
-}
-@media (max-width:380px){
-  h1{font-size:34px}
-  h2{font-size:27px}
-  .slide{padding-left:12px;padding-right:12px}
-  .nav{gap:4px;padding:6px}
-  .nav button{font-size:12px;padding:0 6px}
-  .rule{font-size:25px}
-}
-
-
-/* --- Lateya v3: access gate, reliable audio tutor, exam coach --- */
-.accessGate{position:fixed;inset:0;z-index:9999;background:linear-gradient(145deg,#0f172a,#3b1768 65%,#7c3aed);display:grid;place-items:center;padding:18px}
-.accessGate.hidden{display:none}
-.accessCard{width:min(430px,100%);background:#fff;border-radius:24px;padding:26px;box-shadow:0 24px 80px rgba(0,0,0,.28)}
-.accessCard h1{font-size:34px;margin:10px 0 12px}
-.accessInput{width:100%;min-height:50px;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:16px;margin:8px 0}
-.accessError{min-height:22px;color:var(--red);font-weight:800;font-size:14px}
-.voiceDock{position:fixed;z-index:35;left:50%;transform:translateX(-50%);bottom:86px;width:min(900px,calc(100% - 24px));background:rgba(255,255,255,.98);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 35px rgba(15,23,42,.13);padding:10px 12px;display:flex;align-items:center;gap:10px}
-.voiceDock .voiceText{min-width:0;flex:1}
-.voiceDock .voiceTitle{font-weight:900;font-size:13px}
-.voiceDock .voiceStatus{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.voiceDock button{border:0;border-radius:11px;min-height:42px;padding:0 13px;font-weight:900}
-.voicePlay{background:var(--purple);color:#fff}.voiceRestart{background:#f1f5f9;color:var(--ink)}
-.voiceUnavailable{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;border-radius:12px;padding:10px 12px;font-size:13px;margin-top:12px}
-.outlineGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.outlineItem{border:1px solid var(--line);border-radius:16px;padding:15px;background:#fff}
-.outlineItem strong{display:block;margin-bottom:4px}
-.examCoach{border:2px solid #0f172a;border-radius:20px;padding:20px;background:#fff}
-.examMeta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
-.examBadge{display:inline-block;padding:5px 9px;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:900;font-size:12px}
-.examAnswer{width:100%;min-height:50px;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:16px}
-.examFeedback{display:none;margin-top:12px;padding:12px 14px;border-radius:12px;font-weight:800}
-.examFeedback.show{display:block}.examFeedback.good{background:var(--green2);color:#166534}.examFeedback.bad{background:var(--red2);color:#991b1b}
-.solution{display:none;margin-top:16px;border-top:1px solid var(--line);padding-top:16px}.solution.show{display:block}
-.markLine{display:grid;grid-template-columns:42px 1fr;gap:10px;margin:10px 0;align-items:start}
-.markChip{width:42px;height:32px;border-radius:9px;display:grid;place-items:center;background:#0f172a;color:#fff;font-weight:900;font-size:12px}
-.markReason{color:var(--muted);font-size:13px;margin-top:3px}
-.examActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-@media(max-width:600px){
-  .voiceDock{bottom:72px;left:8px;right:8px;transform:none;width:auto;border-radius:14px}
-  .voiceDock .voiceText{display:none}
-  .voiceDock button{flex:1;padding:0 8px;font-size:13px}
-  .outlineGrid{grid-template-columns:1fr}
-  .examCoach{padding:15px}
-  .examActions{display:grid;grid-template-columns:1fr}
-}
-
+:root{--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--paper:#fff;--bg:#f7f7fb;--purple:#6d28d9;--purple2:#ede9fe;--orange:#ea580c;--orange2:#fff7ed;--green:#166534;--green2:#dcfce7;--red:#991b1b;--red2:#fee2e2;--blue:#1d4ed8;--blue2:#dbeafe;--shadow:0 16px 42px rgba(17,24,39,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}button,input,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+.gate{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:18px;background:linear-gradient(145deg,#111827,#4c1d95 60%,#8b5cf6)}
+.gateCard{width:min(430px,100%);background:#fff;border-radius:26px;padding:28px;box-shadow:0 26px 90px rgba(0,0,0,.30)}
+.brand{font-size:.78rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--purple)}
+.gate h1{font-size:2rem;line-height:1.05;margin:.5rem 0 1rem}.muted{color:var(--muted)}label{display:block;font-weight:800;margin:.7rem 0 .35rem}
+.input{width:100%;min-height:50px;border:1.5px solid #d1d5db;border-radius:13px;padding:12px 14px;font-size:16px;background:#fff;outline:none}.input:focus{border-color:var(--purple);box-shadow:0 0 0 4px var(--purple2)}
+.err{min-height:22px;color:var(--red);font-weight:800;font-size:.9rem;margin:.4rem 0}
+.btn{border:0;border-radius:13px;min-height:46px;padding:11px 15px;font-weight:900}.primary{background:var(--purple);color:#fff}.secondary{background:var(--purple2);color:#4c1d95}.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}.dark{background:var(--ink);color:#fff}.btn:disabled{opacity:.45;cursor:not-allowed}
+.shell{max-width:960px;margin:auto;padding:0 14px 132px}.top{position:sticky;top:0;z-index:20;background:rgba(247,247,251,.95);backdrop-filter:blur(12px);padding:10px 0;border-bottom:1px solid rgba(229,231,235,.9)}
+.toprow{display:flex;align-items:center;justify-content:space-between;gap:12px}.topbrand{font-weight:950;font-size:.9rem}.progressWrap{display:flex;align-items:center;gap:8px;margin-top:8px}.progress{height:8px;background:#e5e7eb;border-radius:999px;overflow:hidden;flex:1}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--purple),#a78bfa);transition:width .2s}.progressText{font-size:.76rem;color:var(--muted);font-weight:800;white-space:nowrap}
+main{padding-top:8px}.hero{padding:28px 4px 14px}.kicker{display:inline-flex;padding:6px 10px;border-radius:999px;background:var(--purple2);color:#4c1d95;font-size:.76rem;font-weight:950;letter-spacing:.05em;text-transform:uppercase}
+h1{font-size:clamp(2rem,7vw,3.7rem);line-height:1.03;letter-spacing:-.04em;margin:.7rem 0 1rem}h2{font-size:clamp(1.55rem,5vw,2.4rem);line-height:1.1;margin:.5rem 0 1rem}h3{font-size:1.08rem;margin:0 0 .45rem}.lead{font-size:1.04rem;color:#4b5563;max-width:760px}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow);margin:13px 0}.soft{background:#fafafa;box-shadow:none}.purpleCard{background:#faf5ff;border-color:#ddd6fe}.orangeCard{background:var(--orange2);border-color:#fed7aa}
+.grid2{display:grid;gap:12px}.outline{display:grid;gap:10px}.outlineItem{border:1px solid var(--line);border-radius:15px;padding:14px;background:#fff}.outlineItem b{display:block;margin-bottom:3px}.math{font-family:"Cambria Math","STIX Two Math",Georgia,serif;font-size:1.2rem;background:#fafafa;border:1px solid var(--line);border-radius:13px;padding:12px 13px;margin:10px 0;overflow-wrap:anywhere}
+.worked{border-left:4px solid var(--purple);background:#faf7ff;padding:13px 14px;border-radius:12px;margin:12px 0}.why{border-left:4px solid #22c55e;background:#f0fdf4;padding:12px 14px;border-radius:12px;margin:12px 0}
+.steps{display:grid;gap:9px;margin:12px 0}.step{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:start}.stepNum{width:36px;height:36px;border-radius:10px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:950}
+.voice{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:14px 0;padding:12px;border:1px solid #ddd6fe;border-radius:15px;background:#faf5ff}.voice strong{margin-right:auto}.voiceStatus{width:100%;font-size:.8rem;color:var(--muted)}
+.quiz{border:1.5px solid #c4b5fd;border-radius:18px;padding:16px;margin-top:16px;background:#fff}.quizTitle{font-weight:950;font-size:1.02rem}.choices{display:grid;gap:9px;margin-top:12px}.choice{width:100%;text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:13px;padding:12px;min-height:48px}.choice:hover{border-color:#c4b5fd}.choice.correct{background:var(--green2);border-color:#86efac}.choice.wrong{background:var(--red2);border-color:#fecaca}
+.feedback{display:none;margin-top:11px;padding:11px 13px;border-radius:12px;font-weight:750}.feedback.show{display:block}.feedback.good{background:var(--green2);color:var(--green)}.feedback.bad{background:var(--red2);color:var(--red)}.feedback.hint{background:#fef3c7;color:#92400e}
+.examList{display:grid;gap:15px}.exam{border:2px solid var(--ink);border-radius:19px;padding:16px;background:#fff}.examHead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.marks{font-weight:950;color:#475569;white-space:nowrap}.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:var(--blue2);color:var(--blue);font-size:.74rem;font-weight:900;margin-right:5px}.examActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.solution{display:none;border-top:1px solid var(--line);padding-top:14px;margin-top:14px}.solution.show{display:block}.markLine{display:grid;grid-template-columns:38px 1fr;gap:9px;margin:9px 0}.mark{width:38px;height:30px;border-radius:9px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:950;font-size:.76rem}.reason{font-size:.8rem;color:var(--muted);margin-top:2px}.examScore{font-size:.84rem;font-weight:900;margin-top:10px}
+.reportRow{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.reportRow:last-child{border:0}.bigScore{font-size:3rem;font-weight:950;color:var(--purple);line-height:1}.pill{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--purple2);color:#4c1d95;font-size:.76rem;font-weight:900}
+.nav{position:fixed;z-index:30;left:50%;transform:translateX(-50%);bottom:10px;width:min(920px,calc(100% - 20px));display:grid;grid-template-columns:1fr auto 1fr;gap:8px;background:rgba(17,24,39,.96);padding:8px;border-radius:16px;box-shadow:var(--shadow)}.nav .btn{min-height:48px}.navCenter{display:grid;place-items:center;color:#fff;font-size:.8rem;font-weight:900;min-width:68px}
+@media(min-width:700px){.grid2{grid-template-columns:1fr 1fr}.outline{grid-template-columns:1fr 1fr}.card{padding:22px}.shell{padding-left:22px;padding-right:22px}.exam{padding:20px}}
+@media(max-width:480px){.shell{padding-left:11px;padding-right:11px}.topbrand{font-size:.8rem}.card{padding:15px;border-radius:16px}.examActions{display:grid;grid-template-columns:1fr}.examActions .btn{width:100%}.voice .btn{flex:1}.navCenter{min-width:52px;font-size:.72rem}}
 </style>
 </head>
 <body>
-
-<div id="accessGate" class="accessGate">
-  <div class="accessCard">
-    <div class="tag tip">Victoria Tuition Academy</div>
-    <h1>Lateya's Algebra Tutor</h1>
-    <p class="muted">Enter the lesson password to open the private lesson.</p>
-    <form id="accessForm">
-      <label for="accessPassword"><strong>Lesson password</strong></label>
-      <input id="accessPassword" class="accessInput" type="password" autocomplete="current-password" placeholder="Enter password" required>
-      <div id="accessError" class="accessError" aria-live="polite"></div>
-      <button type="submit" class="btn dark" style="width:100%">Open lesson</button>
+<section id="gate" class="gate">
+  <div class="gateCard">
+    <div class="brand">Victoria Tuition Academy</div>
+    <h1>Lateya's Grade 10 Algebra Tutor</h1>
+    <p class="muted">Private guided lesson. Enter the lesson password to continue.</p>
+    <form id="gateForm">
+      <label for="password">Lesson password</label>
+      <input id="password" class="input" type="password" autocomplete="current-password" placeholder="Enter password" required>
+      <div id="gateError" class="err" aria-live="polite"></div>
+      <button class="btn dark" style="width:100%" type="submit">Open lesson</button>
     </form>
   </div>
-</div>
+</section>
 
-<div class="app" id="app">
-  <header class="topbar">
-    <div class="toprow">
-      <div class="brand">Victoria Tuition <span>Academy</span></div>
+<div id="app" class="hidden">
+  <div class="shell">
+    <header class="top">
+      <div class="toprow">
+        <div class="topbrand">Victoria Tuition Academy</div>
+        <button id="outlineBtn" class="btn secondary" type="button">Lesson outline</button>
+      </div>
       <div class="progressWrap">
-        <div class="progressBar"><div class="progressFill" id="progressFill"></div></div>
-        <div class="progressText" id="progressText">Slide 1 of 29</div>
+        <div class="progress"><div id="fill" class="fill"></div></div>
+        <div id="progressText" class="progressText"></div>
       </div>
-      <div class="scorePill" id="scorePill">Score: 0 / 0</div>
-    </div>
-  </header>
-
-  <!-- 1 -->
-  <section class="slide active" data-title="Welcome">
-    <span class="kicker">GRADE 10 MATHEMATICS • ALGEBRA</span>
-    <div class="grid2" style="align-items:center;margin-top:20px">
-      <div>
-        <h1>Algebra<br>Mastery</h1>
-        <p class="lead">Lateya, this lesson is designed so you can <strong>understand the rules</strong>, not depend on memorised notes.</p>
-        <div class="callout"><strong>Goal:</strong> By the end, you should be able to look at an algebra question, identify its structure, choose a method, and explain why it works.</div>
-      </div>
-      <div class="heroGraphic">
-        <svg viewBox="0 0 640 430" role="img" aria-label="Algebra transformation diagram">
-          <rect x="55" y="75" rx="20" width="210" height="110" fill="#fff7ed" stroke="#fed7aa" stroke-width="3"/>
-          <text x="160" y="120" text-anchor="middle" font-size="26" font-weight="800" fill="#0f172a">2(x + 3)</text>
-          <text x="160" y="155" text-anchor="middle" font-size="18" fill="#64748b">expand</text>
-          <path d="M285 130 H355" stroke="#0f172a" stroke-width="4"/>
-          <polygon points="355,130 342,122 342,138" fill="#0f172a"/>
-          <rect x="375" y="75" rx="20" width="210" height="110" fill="#eff6ff" stroke="#bfdbfe" stroke-width="3"/>
-          <text x="480" y="120" text-anchor="middle" font-size="26" font-weight="800" fill="#0f172a">2x + 6</text>
-          <text x="480" y="155" text-anchor="middle" font-size="18" fill="#64748b">simplified</text>
-          <rect x="215" y="255" rx="24" width="210" height="115" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="3"/>
-          <text x="320" y="300" text-anchor="middle" font-size="27" font-weight="800" fill="#0f172a">x = 4</text>
-          <text x="320" y="337" text-anchor="middle" font-size="18" fill="#64748b">solve & verify</text>
-          <path d="M225 188 C240 220,260 235,285 250" fill="none" stroke="#16a34a" stroke-width="4"/>
-          <path d="M415 188 C400 220,380 235,355 250" fill="none" stroke="#16a34a" stroke-width="4"/>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- 2 -->
-  <section class="slide" data-title="Lesson outline">
-    <span class="kicker">START HERE • FULL LESSON OUTLINE</span>
-    <h2>Exactly what we are covering</h2>
-    <p class="lead">Lateya, use this as your roadmap. Each topic follows the same pattern: <strong>teach → worked example → your turn → feedback → exam application.</strong></p>
-    <div class="outlineGrid">
-      <div class="outlineItem"><strong>1. Algebra language & simplification</strong><span class="muted">Terms, coefficients, constants, like terms, substitution and collecting terms.</span></div>
-      <div class="outlineItem"><strong>2. Expansion</strong><span class="muted">Single brackets, two brackets, signs and special products.</span></div>
-      <div class="outlineItem"><strong>3. Exponents</strong><span class="muted">Product, quotient, power laws, zero exponents and negative exponents.</span></div>
-      <div class="outlineItem"><strong>4. Factorisation</strong><span class="muted">Common factor, grouping, difference of squares, trinomials and cube patterns.</span></div>
-      <div class="outlineItem"><strong>5. Algebraic fractions</strong><span class="muted">Factorise first, restrictions, simplifying and cancelling factors correctly.</span></div>
-      <div class="outlineItem"><strong>6. Linear equations</strong><span class="muted">Balancing, equations with brackets and equations containing fractions.</span></div>
-      <div class="outlineItem"><strong>7. Quadratic equations</strong><span class="muted">Factorise, use the zero-product rule and check both solutions.</span></div>
-      <div class="outlineItem"><strong>8. Simultaneous equations</strong><span class="muted">Substitution and elimination with two unknowns.</span></div>
-      <div class="outlineItem"><strong>9. Changing the subject</strong><span class="muted">Literal equations and isolating the requested variable.</span></div>
-      <div class="outlineItem"><strong>10. Linear inequalities</strong><span class="muted">Solve, reverse the sign when dividing by a negative, and interval/number-line answers.</span></div>
-      <div class="outlineItem"><strong>11. Word problems</strong><span class="muted">Translate words into algebra, solve, and interpret the answer.</span></div>
-      <div class="outlineItem"><strong>12. Exam Coach</strong><span class="muted">CAPS-style questions, marks, your answer first, then full examiner-style working line by line.</span></div>
-    </div>
-    <div class="callout"><strong>Your rule:</strong> do not rush to the answer. First identify the algebra type, then choose the method.</div>
-  </section>
-
-  <!-- 3 -->
-  <section class="slide" data-title="Quick diagnostic">
-    <span class="kicker">DIAGNOSTIC • NO NOTES</span>
-    <h2>Let’s see what you already know</h2>
-    <p class="lead">These do not decide your final result. They help identify which ideas need the most attention.</p>
-    <div class="q" data-q="q1"></div>
-    <div class="q" data-q="q2"></div>
-    <div class="q" data-q="q3"></div>
-  </section>
-
-  <!-- 4 -->
-  <section class="slide" data-title="Language of algebra">
-    <span class="kicker">FOUNDATIONS</span>
-    <h2>Read the expression before you touch it</h2>
-    <div class="termBoard">
-      <div class="termBox" style="background:#fff7ed"><div class="termBig">5x²</div><strong>Term</strong><p class="muted">A piece separated by + or −.</p></div>
-      <div class="termBox" style="background:#eff6ff"><div class="termBig">5</div><strong>Coefficient</strong><p class="muted">The number multiplying a variable.</p></div>
-      <div class="termBox" style="background:#f0fdf4"><div class="termBig">7</div><strong>Constant</strong><p class="muted">A number without a variable.</p></div>
-    </div>
-    <div class="example" style="margin-top:22px">
-      <h3>Example: <span class="math">5x² − 3x + 7</span></h3>
-      <div class="pair"><span>How many terms?</span><strong>3</strong></div>
-      <div class="pair"><span>Coefficient of x²?</span><strong>5</strong></div>
-      <div class="pair"><span>Coefficient of x?</span><strong>−3</strong></div>
-      <div class="pair"><span>Constant?</span><strong>7</strong></div>
-    </div>
-    <div class="q" data-q="q4"></div>
-  </section>
-
-  <!-- 5 -->
-  <section class="slide" data-title="Like terms">
-    <span class="kicker">LIKE TERMS</span>
-    <h2>Only identical variable parts can combine</h2>
-    <div class="grid2">
-      <div class="card green">
-        <h3>Can combine</h3>
-        <p class="rule math">3x + 8x = 11x</p>
-        <p>Both terms are measured in the same “unit”: x.</p>
-        <p class="muted">Think 3 apples + 8 apples = 11 apples.</p>
-      </div>
-      <div class="card orange">
-        <h3>Cannot combine</h3>
-        <p class="rule math">3x + 8x²</p>
-        <p>x and x² are not the same algebraic object.</p>
-        <p class="muted">The power is part of the identity of the term.</p>
-      </div>
-    </div>
-    <div class="example" style="margin-top:20px">
-      <h3>Simplify</h3>
-      <p class="rule math">7x² + 4x − 2x² + 9x − 5</p>
-      <p class="answer math">= 5x² + 13x − 5</p>
-    </div>
-    <div class="q" data-q="q5"></div>
-  </section>
-
-  <!-- 6 -->
-  <section class="slide" data-title="Distributive law">
-    <span class="kicker">EXPANSION</span>
-    <h2>The number outside multiplies <em>every</em> term inside</h2>
-    <div class="grid2">
-      <div>
-        <div class="rule math">3(x + 4)</div>
-        <div class="steps">
-          <div class="step"><div class="stepNum">1</div><div><strong>Multiply 3 × x</strong><br><span class="math">= 3x</span></div></div>
-          <div class="step"><div class="stepNum">2</div><div><strong>Multiply 3 × 4</strong><br><span class="math">= 12</span></div></div>
-          <div class="step"><div class="stepNum">3</div><div><strong>Write the result</strong><br><span class="math">3x + 12</span></div></div>
-        </div>
-      </div>
-      <div class="card orange">
-        <h3>Sign alert</h3>
-        <p class="rule math">−2(3x − 5)</p>
-        <p class="math">−2 × 3x = −6x</p>
-        <p class="math">−2 × −5 = +10</p>
-        <p class="answer math">So: −6x + 10</p>
-        <span class="tag bad">Common mistake: forgetting that negative × negative = positive</span>
-      </div>
-    </div>
-    <div class="q" data-q="q6"></div>
-  </section>
-
-  <!-- 7 -->
-  <section class="slide" data-title="Two brackets">
-    <span class="kicker">EXPANDING TWO BRACKETS</span>
-    <h2>Every term in the first bracket must multiply every term in the second</h2>
-    <div class="example">
-      <h3>Expand <span class="math">(x + 3)(x + 5)</span></h3>
-      <div class="steps">
-        <div class="step"><div class="stepNum">1</div><div><span class="math">x(x + 5) = x² + 5x</span></div></div>
-        <div class="step"><div class="stepNum">2</div><div><span class="math">3(x + 5) = 3x + 15</span></div></div>
-        <div class="step"><div class="stepNum">3</div><div>Combine like terms: <span class="math">x² + 8x + 15</span></div></div>
-      </div>
-    </div>
-    <svg class="areaModel" viewBox="0 0 720 320" role="img" aria-label="Area model for multiplying x plus 3 by x plus 5">
-      <rect x="170" y="75" width="250" height="130" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
-      <rect x="420" y="75" width="150" height="130" fill="#ffedd5" stroke="#ea580c" stroke-width="2"/>
-      <rect x="170" y="205" width="250" height="78" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-      <rect x="420" y="205" width="150" height="78" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
-      <text x="295" y="150" text-anchor="middle" font-size="30" font-weight="800">x²</text>
-      <text x="495" y="150" text-anchor="middle" font-size="28" font-weight="800">5x</text>
-      <text x="295" y="255" text-anchor="middle" font-size="28" font-weight="800">3x</text>
-      <text x="495" y="255" text-anchor="middle" font-size="28" font-weight="800">15</text>
-      <text x="290" y="52" text-anchor="middle" font-size="20">x</text>
-      <text x="500" y="52" text-anchor="middle" font-size="20">5</text>
-      <text x="125" y="150" text-anchor="middle" font-size="20">x</text>
-      <text x="125" y="250" text-anchor="middle" font-size="20">3</text>
-    </svg>
-    <div class="q" data-q="q7"></div>
-  </section>
-
-  <!-- 8 -->
-  <section class="slide" data-title="Special products">
-    <span class="kicker">PATTERN RECOGNITION</span>
-    <h2>Some expansions have patterns worth recognising</h2>
-    <div class="grid2">
-      <div class="card blue">
-        <h3>Square of a binomial</h3>
-        <p class="rule math">(x + a)²</p>
-        <p class="math">= x² + 2ax + a²</p>
-        <div class="callout"><strong>Important:</strong> <span class="math">(x + 3)² ≠ x² + 9</span></div>
-      </div>
-      <div class="card green">
-        <h3>Difference of squares product</h3>
-        <p class="rule math">(x − a)(x + a)</p>
-        <p class="math">= x² − a²</p>
-        <p class="muted">The middle terms cancel each other.</p>
-      </div>
-    </div>
-    <div class="q" data-q="q8"></div>
-  </section>
-
-  <!-- 9 -->
-  <section class="slide" data-title="Exponents meaning">
-    <span class="kicker">EXPONENTS</span>
-    <h2>An exponent is repeated multiplication</h2>
-    <div class="heroGraphic">
-      <p class="rule center math">x⁴ = x × x × x × x</p>
-      <div class="grid3" style="margin-top:20px">
-        <div class="card soft center"><strong>Base</strong><p class="rule math">x</p><p class="muted">What is being multiplied</p></div>
-        <div class="card soft center"><strong>Exponent</strong><p class="rule math">4</p><p class="muted">How many factors of x</p></div>
-        <div class="card soft center"><strong>Value idea</strong><p class="rule math">2⁴ = 16</p><p class="muted">2×2×2×2</p></div>
-      </div>
-    </div>
-    <div class="callout">If you understand repeated multiplication, the exponent laws stop feeling random.</div>
-  </section>
-
-  <!-- 10 -->
-  <section class="slide" data-title="Exponent laws">
-    <span class="kicker">EXPONENT LAWS</span>
-    <h2>Use the law that matches the operation</h2>
-    <div class="grid3">
-      <div class="card"><h3>Multiply same base</h3><p class="rule math">aᵐaⁿ = aᵐ⁺ⁿ</p><p class="muted">Add exponents.</p></div>
-      <div class="card"><h3>Divide same base</h3><p class="rule math">aᵐ/aⁿ = aᵐ⁻ⁿ</p><p class="muted">Subtract exponents.</p></div>
-      <div class="card"><h3>Power of a power</h3><p class="rule math">(aᵐ)ⁿ = aᵐⁿ</p><p class="muted">Multiply exponents.</p></div>
-    </div>
-    <div class="example" style="margin-top:20px">
-      <p><span class="tag tip">WHY?</span></p>
-      <p class="math" style="font-size:24px">x³ × x² = (x×x×x)(x×x) = x⁵</p>
-      <p>There are five factors of x, so the exponents add.</p>
-    </div>
-    <div class="q" data-q="q9"></div>
-  </section>
-
-  <!-- 11 -->
-  <section class="slide" data-title="Zero & negative exponents">
-    <span class="kicker">EXPONENTS</span>
-    <h2>Zero and negative exponents</h2>
-    <div class="grid2">
-      <div class="card green">
-        <h3>Zero exponent</h3>
-        <p class="rule math">a⁰ = 1</p>
-        <p class="muted">For a ≠ 0.</p>
-        <p class="math">a³/a³ = a³⁻³ = a⁰</p>
-        <p>But any non-zero number divided by itself is 1.</p>
-      </div>
-      <div class="card orange">
-        <h3>Negative exponent</h3>
-        <p class="rule math">a⁻ⁿ = 1/aⁿ</p>
-        <p>Negative exponents do <strong>not</strong> mean the answer itself is negative.</p>
-        <p class="math">x⁻³ = 1/x³</p>
-      </div>
-    </div>
-    <div class="q" data-q="q10"></div>
-  </section>
-
-  <!-- 12 -->
-  <section class="slide" data-title="Exponent mixed practice">
-    <span class="kicker">CHECKPOINT</span>
-    <h2>Choose the correct exponent law</h2>
-    <div class="q" data-q="q11"></div>
-    <div class="q" data-q="q12"></div>
-    <div class="q" data-q="q13"></div>
-  </section>
-
-  <!-- 13 -->
-  <section class="slide" data-title="Factorisation idea">
-    <span class="kicker">FACTORISATION</span>
-    <h2>Factorisation is reverse expansion</h2>
-    <div class="grid2">
-      <div class="card blue center">
-        <span class="tag tip">EXPAND</span>
-        <p class="rule math">3(x + 2)</p>
-        <p style="font-size:32px">↓</p>
-        <p class="rule math">3x + 6</p>
-      </div>
-      <div class="card green center">
-        <span class="tag good">FACTORISE</span>
-        <p class="rule math">3x + 6</p>
-        <p style="font-size:32px">↓</p>
-        <p class="rule math">3(x + 2)</p>
-      </div>
-    </div>
-    <div class="callout"><strong>Best checking method:</strong> expand your factorised answer. If you get the original expression back, your factorisation is correct.</div>
-  </section>
-
-  <!-- 14 -->
-  <section class="slide" data-title="Common factor">
-    <span class="kicker">FACTORISATION • COMMON FACTOR</span>
-    <h2>Always check for a common factor first</h2>
-    <div class="example">
-      <p class="rule math">12x² + 18x</p>
-      <div class="steps">
-        <div class="step"><div class="stepNum">1</div><div>Greatest number that divides 12 and 18 → <strong>6</strong></div></div>
-        <div class="step"><div class="stepNum">2</div><div>Both terms contain x → take out <strong>x</strong></div></div>
-        <div class="step"><div class="stepNum">3</div><div class="math">12x² + 18x = 6x(2x + 3)</div></div>
-      </div>
-    </div>
-    <div class="q" data-q="q14"></div>
-  </section>
-
-  <!-- 15 -->
-  <section class="slide" data-title="Difference of squares">
-    <span class="kicker">FACTORISATION • DIFFERENCE OF SQUARES</span>
-    <h2>Two squares with a minus sign between them</h2>
-    <div class="rule center math">a² − b² = (a − b)(a + b)</div>
-    <div class="grid2">
-      <div class="card green">
-        <h3>Example</h3>
-        <p class="rule math">x² − 25</p>
-        <p><span class="math">25 = 5²</span></p>
-        <p class="answer math">(x − 5)(x + 5)</p>
-      </div>
-      <div class="card orange">
-        <h3>Not a difference of squares</h3>
-        <p class="rule math">x² + 25</p>
-        <p>The sign is +, not −.</p>
-        <span class="tag bad">Do not force a pattern where it does not exist.</span>
-      </div>
-    </div>
-    <div class="q" data-q="q15"></div>
-  </section>
-
-  <!-- 16 -->
-  <section class="slide" data-title="Trinomials">
-    <span class="kicker">FACTORISATION • TRINOMIALS</span>
-    <h2>Find two numbers that satisfy two conditions</h2>
-    <div class="example">
-      <h3>Factorise <span class="math">x² + 7x + 12</span></h3>
-      <p>We need two numbers that:</p>
-      <div class="grid2">
-        <div class="card soft center"><strong>ADD to 7</strong><p class="rule">3 + 4 = 7</p></div>
-        <div class="card soft center"><strong>MULTIPLY to 12</strong><p class="rule">3 × 4 = 12</p></div>
-      </div>
-      <p class="answer center math">(x + 3)(x + 4)</p>
-    </div>
-    <div class="callout">The signs matter. For <span class="math">x² − 7x + 12</span>, you need two negative numbers: −3 and −4.</div>
-    <div class="q" data-q="q16"></div>
-  </section>
-
-  <!-- 17 -->
-  <section class="slide" data-title="Factorisation mastery">
-    <span class="kicker">CHECKPOINT</span>
-    <h2>Which factorisation method comes first?</h2>
-    <div class="q" data-q="q17"></div>
-    <div class="q" data-q="q18"></div>
-    <div class="q" data-q="q19"></div>
-  </section>
-
-  <!-- 18 -->
-  <section class="slide" data-title="Equation balance">
-    <span class="kicker">EQUATIONS</span>
-    <h2>An equation is a balance, not a collection of magic “move across” rules</h2>
-    <svg class="balance" viewBox="0 0 760 360" role="img" aria-label="Balanced scale showing the same operation on both sides of an equation">
-      <line x1="380" y1="60" x2="380" y2="270" stroke="#0f172a" stroke-width="12"/>
-      <polygon points="380,260 295,335 465,335" fill="#0f172a"/>
-      <line x1="170" y1="150" x2="590" y2="150" stroke="#0f172a" stroke-width="8"/>
-      <line x1="250" y1="150" x2="215" y2="245" stroke="#64748b" stroke-width="4"/>
-      <line x1="510" y1="150" x2="545" y2="245" stroke="#64748b" stroke-width="4"/>
-      <rect x="125" y="245" width="180" height="65" rx="16" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
-      <rect x="455" y="245" width="180" height="65" rx="16" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
-      <text x="215" y="286" text-anchor="middle" font-size="28" font-weight="800">3x + 5</text>
-      <text x="545" y="286" text-anchor="middle" font-size="28" font-weight="800">20</text>
-    </svg>
-    <div class="callout"><strong>Meaning:</strong> If you subtract 5 on the left, subtract 5 on the right. If you divide by 3 on one side, divide by 3 on the other.</div>
-  </section>
-
-  <!-- 19 -->
-  <section class="slide" data-title="Linear equations">
-    <span class="kicker">SOLVING LINEAR EQUATIONS</span>
-    <h2>Undo operations in a logical order</h2>
-    <div class="example">
-      <p class="rule math">4x + 7 = 31</p>
-      <div class="steps">
-        <div class="step"><div class="stepNum">1</div><div>Subtract 7 from both sides → <span class="math">4x = 24</span></div></div>
-        <div class="step"><div class="stepNum">2</div><div>Divide both sides by 4 → <span class="math">x = 6</span></div></div>
-        <div class="step"><div class="stepNum">3</div><div>Check: <span class="math">4(6)+7 = 31 ✓</span></div></div>
-      </div>
-    </div>
-    <div class="q" data-q="q20"></div>
-  </section>
-
-  <!-- 20 -->
-  <section class="slide" data-title="Equations with brackets">
-    <span class="kicker">EQUATIONS WITH BRACKETS</span>
-    <h2>You can expand first — or simplify intelligently</h2>
-    <div class="grid2">
-      <div class="card blue">
-        <h3>Method A: expand</h3>
-        <p class="math">3(x − 2) = 15</p>
-        <p class="math">3x − 6 = 15</p>
-        <p class="math">3x = 21</p>
-        <p class="answer math">x = 7</p>
-      </div>
-      <div class="card green">
-        <h3>Method B: divide first</h3>
-        <p class="math">3(x − 2) = 15</p>
-        <p class="math">x − 2 = 5</p>
-        <p class="answer math">x = 7</p>
-        <p class="muted">Both are correct because both preserve equality.</p>
-      </div>
-    </div>
-    <div class="q" data-q="q21"></div>
-  </section>
-
-  <!-- 21 -->
-  <section class="slide" data-title="Fractions in equations">
-    <span class="kicker">EQUATIONS WITH FRACTIONS</span>
-    <h2>Clear fractions by multiplying every term by the denominator</h2>
-    <div class="example">
-      <h3>Solve</h3>
-      <p class="rule math">x/3 + 2 = 6</p>
-      <p class="math">x/3 = 4</p>
-      <p class="answer math">x = 12</p>
-    </div>
-    <div class="callout">For more complicated fraction equations, multiply <strong>every term</strong> by the lowest common denominator.</div>
-    <div class="q" data-q="q22"></div>
-  </section>
-
-  <!-- 22 -->
-  <section class="slide" data-title="Inequalities">
-    <span class="kicker">INEQUALITIES</span>
-    <h2>Same balance logic — with one critical exception</h2>
-    <div class="grid2">
-      <div class="card">
-        <h3>Normal operation</h3>
-        <p class="rule math">2x + 3 &lt; 11</p>
-        <p class="math">2x &lt; 8</p>
-        <p class="answer math">x &lt; 4</p>
-      </div>
-      <div class="card orange">
-        <h3>Divide by a negative?</h3>
-        <p class="rule math">−3x &gt; 12</p>
-        <p>Divide by −3 and <strong>reverse the sign</strong>.</p>
-        <p class="answer math">x &lt; −4</p>
-      </div>
-    </div>
-    <svg class="numberline" viewBox="0 0 760 180" role="img" aria-label="Number line illustrating x less than negative four">
-      <line x1="70" y1="95" x2="690" y2="95" stroke="#0f172a" stroke-width="4"/>
-      <polygon points="70,95 88,84 88,106" fill="#0f172a"/>
-      <polygon points="690,95 672,84 672,106" fill="#0f172a"/>
-      <g font-size="18" text-anchor="middle" fill="#0f172a">
-        <line x1="170" y1="80" x2="170" y2="110" stroke="#0f172a" stroke-width="3"/><text x="170" y="140">−6</text>
-        <line x1="280" y1="80" x2="280" y2="110" stroke="#0f172a" stroke-width="3"/><text x="280" y="140">−5</text>
-        <line x1="390" y1="80" x2="390" y2="110" stroke="#0f172a" stroke-width="3"/><text x="390" y="140">−4</text>
-        <line x1="500" y1="80" x2="500" y2="110" stroke="#0f172a" stroke-width="3"/><text x="500" y="140">−3</text>
-        <line x1="610" y1="80" x2="610" y2="110" stroke="#0f172a" stroke-width="3"/><text x="610" y="140">−2</text>
-      </g>
-      <circle cx="390" cy="95" r="12" fill="white" stroke="#e54d2e" stroke-width="4"/>
-      <line x1="375" y1="95" x2="105" y2="95" stroke="#e54d2e" stroke-width="7"/>
-      <polygon points="105,95 125,82 125,108" fill="#e54d2e"/>
-    </svg>
-    <div class="q" data-q="q23"></div>
-  </section>
-
-  <!-- 23 -->
-  <section class="slide" data-title="Word problems">
-    <span class="kicker">APPLICATIONS</span>
-    <h2>Translate words into algebra before solving</h2>
-    <div class="example">
-      <h3>Problem</h3>
-      <p style="font-size:21px">“Three more than twice a number is 17. Find the number.”</p>
-      <div class="steps">
-        <div class="step"><div class="stepNum">1</div><div>Let the number be <span class="math">x</span>.</div></div>
-        <div class="step"><div class="stepNum">2</div><div>Twice the number → <span class="math">2x</span>.</div></div>
-        <div class="step"><div class="stepNum">3</div><div>Three more → <span class="math">2x + 3</span>.</div></div>
-        <div class="step"><div class="stepNum">4</div><div>“is 17” means equals 17 → <span class="math">2x + 3 = 17</span>.</div></div>
-        <div class="step"><div class="stepNum">5</div><div>Solve → <span class="math">x = 7</span>.</div></div>
-      </div>
-    </div>
-    <div class="q" data-q="q24"></div>
-  </section>
-
-  <!-- 24 -->
-  <section class="slide" data-title="Exam strategy">
-    <span class="kicker">EXAM STRATEGY</span>
-    <h2>The 5-question checklist before you write anything</h2>
-    <div class="grid2">
-      <div class="card soft">
-        <ol style="font-size:20px;line-height:1.8;margin:0;padding-left:28px">
-          <li><strong>What type of algebra is this?</strong></li>
-          <li>Are there like terms?</li>
-          <li>Are there brackets to expand?</li>
-          <li>Can I factorise first?</li>
-          <li>How will I check my answer?</li>
-        </ol>
-      </div>
-      <div class="card orange">
-        <h3>Common exam traps</h3>
-        <p>• Dropping a negative sign</p>
-        <p>• Combining unlike terms</p>
-        <p>• Forgetting to multiply every term in a bracket</p>
-        <p>• Not taking out the common factor first</p>
-        <p>• Forgetting to reverse an inequality sign after dividing by a negative</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 25 -->
-  <section class="slide" data-title="Mastery set A">
-    <span class="kicker">EXAM-STYLE MASTERY • SET A</span>
-    <h2>Work independently first</h2>
-    <div class="examBox">
-      <div class="q" data-q="q25"></div>
-      <div class="q" data-q="q26"></div>
-      <div class="q" data-q="q27"></div>
-    </div>
-  </section>
-
-  <!-- 26 -->
-  <section class="slide" data-title="Mastery set B">
-    <span class="kicker">EXAM-STYLE MASTERY • SET B</span>
-    <h2>Mixed algebra</h2>
-    <div class="examBox">
-      <div class="q" data-q="q28"></div>
-      <div class="q" data-q="q29"></div>
-      <div class="q" data-q="q30"></div>
-    </div>
-  </section>
-
-  <!-- 27 -->
-  <section class="slide" data-title="Final challenge">
-    <span class="kicker">FINAL CHALLENGE</span>
-    <h2>Can you combine several ideas?</h2>
-    <div class="q" data-q="q31"></div>
-    <div class="q" data-q="q32"></div>
-    <div class="q" data-q="q33"></div>
-  </section>
-
-
-  <!-- EXAM COACH -->
-  <section class="slide" data-title="Exam Coach 1">
-    <span class="kicker">EXAM COACH • QUESTION 1</span>
-    <h2>Answer first. Then I mark and teach it.</h2>
-    <div class="examCoach" data-exam="e1" data-answer="2(x+2)(x+3)|2(x + 2)(x + 3)">
-      <div class="examMeta"><span class="examBadge">Factorisation</span><span class="examBadge">4 marks</span><span class="examBadge">Exam style</span></div>
-      <p class="qTitle math">Factorise fully: 2x² + 10x + 12</p>
-      <label><strong>Your final factorised answer</strong></label>
-      <input class="examAnswer" placeholder="Type your answer">
-      <div class="examActions">
-        <button type="button" class="btn dark submitExam">Submit to mark</button>
-        <button type="button" class="btn secondary revealExam" disabled>Show step-by-step solution</button>
-      </div>
-      <div class="examFeedback" aria-live="polite"></div>
-      <div class="solution">
-        <h3>Examiner-style solution</h3>
-        <div class="markLine"><div class="markChip">1</div><div><span class="math">2x² + 10x + 12 = 2(x² + 5x + 6)</span><div class="markReason">Method mark: take out the highest common factor first.</div></div></div>
-        <div class="markLine"><div class="markChip">1</div><div>Find two numbers that multiply to <strong>+6</strong> and add to <strong>+5</strong>: 2 and 3.<div class="markReason">Reasoning mark: identifies the correct factor pair.</div></div></div>
-        <div class="markLine"><div class="markChip">1</div><div><span class="math">x² + 5x + 6 = (x+2)(x+3)</span><div class="markReason">Method mark: correct trinomial factorisation.</div></div></div>
-        <div class="markLine"><div class="markChip">1</div><div><strong class="math">Answer: 2(x+2)(x+3)</strong><div class="markReason">Accuracy mark: fully factorised final answer.</div></div></div>
-        <div class="callout"><strong>Exam habit:</strong> Always check for a common factor before trying a trinomial.</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="slide" data-title="Exam Coach 2">
-    <span class="kicker">EXAM COACH • QUESTION 2</span>
-    <h2>Quadratic equation — show both solutions</h2>
-    <div class="examCoach" data-exam="e2" data-answer="2,3|3,2|2, 3|3, 2|x=2,x=3|x=3,x=2">
-      <div class="examMeta"><span class="examBadge">Quadratic equations</span><span class="examBadge">5 marks</span></div>
-      <p class="qTitle math">Solve: x² − 5x + 6 = 0</p>
-      <label><strong>Enter both x-values, separated by a comma</strong></label>
-      <input class="examAnswer" placeholder="e.g. 1, 4">
-      <div class="examActions">
-        <button type="button" class="btn dark submitExam">Submit to mark</button>
-        <button type="button" class="btn secondary revealExam" disabled>Show step-by-step solution</button>
-      </div>
-      <div class="examFeedback" aria-live="polite"></div>
-      <div class="solution">
-        <h3>Examiner-style solution</h3>
-        <div class="markLine"><div class="markChip">1</div><div>Equation is already equal to zero.<div class="markReason">Structure mark: recognises it is ready for factorisation.</div></div></div>
-        <div class="markLine"><div class="markChip">1</div><div>Need two numbers with product +6 and sum −5: <strong>−2 and −3</strong>.</div></div>
-        <div class="markLine"><div class="markChip">1</div><div><span class="math">(x−2)(x−3)=0</span></div></div>
-        <div class="markLine"><div class="markChip">1</div><div><span class="math">x−2=0 ⇒ x=2</span></div></div>
-        <div class="markLine"><div class="markChip">1</div><div><span class="math">x−3=0 ⇒ x=3</span><div class="markReason">Final answer: x = 2 or x = 3.</div></div></div>
-        <div class="callout"><strong>Why two answers?</strong> If two factors multiply to zero, either factor may be zero.</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="slide" data-title="Exam Coach 3">
-    <span class="kicker">EXAM COACH • QUESTION 3</span>
-    <h2>Simultaneous equations</h2>
-    <div class="examCoach" data-exam="e3" data-answer="x=6,y=4|x = 6, y = 4|6,4|6, 4">
-      <div class="examMeta"><span class="examBadge">Simultaneous equations</span><span class="examBadge">6 marks</span></div>
-      <p class="qTitle math">Solve simultaneously:<br>x + y = 10<br>x − y = 2</p>
-      <label><strong>Enter x and y</strong></label>
-      <input class="examAnswer" placeholder="e.g. x=3, y=2">
-      <div class="examActions">
-        <button type="button" class="btn dark submitExam">Submit to mark</button>
-        <button type="button" class="btn secondary revealExam" disabled>Show step-by-step solution</button>
-      </div>
-      <div class="examFeedback" aria-live="polite"></div>
-      <div class="solution">
-        <h3>Examiner-style solution</h3>
-        <div class="markLine"><div class="markChip">1</div><div>Write the equations underneath one another.<div class="markReason">This makes opposite terms easy to see.</div></div></div>
-        <div class="markLine"><div class="markChip">1</div><div>Add them: <span class="math">(x+y)+(x−y)=10+2</span>.</div></div>
-        <div class="markLine"><div class="markChip">1</div><div><span class="math">2x=12</span> because +y and −y cancel.</div></div>
-        <div class="markLine"><div class="markChip">1</div><div><span class="math">x=6</span>.</div></div>
-        <div class="markLine"><div class="markChip">1</div><div>Substitute into <span class="math">x+y=10</span>: <span class="math">6+y=10</span>.</div></div>
-        <div class="markLine"><div class="markChip">1</div><div><strong class="math">y=4</strong><div class="markReason">Solution: x = 6 and y = 4. Both original equations are satisfied.</div></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="slide" data-title="Exam Coach 4">
-    <span class="kicker">EXAM COACH • QUESTION 4</span>
-    <h2>Inequality — watch the sign</h2>
-    <div class="examCoach" data-exam="e4" data-answer="x>=-4|x≥-4|x ≥ -4|x >= -4">
-      <div class="examMeta"><span class="examBadge">Inequalities</span><span class="examBadge">4 marks</span></div>
-      <p class="qTitle math">Solve: −3x ≤ 12</p>
-      <label><strong>Your answer</strong></label>
-      <input class="examAnswer" placeholder="Type the inequality for x">
-      <div class="examActions">
-        <button type="button" class="btn dark submitExam">Submit to mark</button>
-        <button type="button" class="btn secondary revealExam" disabled>Show step-by-step solution</button>
-      </div>
-      <div class="examFeedback" aria-live="polite"></div>
-      <div class="solution">
-        <h3>Examiner-style solution</h3>
-        <div class="markLine"><div class="markChip">1</div><div><span class="math">−3x ≤ 12</span></div></div>
-        <div class="markLine"><div class="markChip">1</div><div>Divide both sides by <span class="math">−3</span>.</div></div>
-        <div class="markLine"><div class="markChip">1</div><div>Because we divided by a negative number, reverse <span class="math">≤</span> to <span class="math">≥</span>.</div></div>
-        <div class="markLine"><div class="markChip">1</div><div><strong class="math">x ≥ −4</strong><div class="markReason">That sign reversal is usually the key mark in this question.</div></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 28 -->
-  <section class="slide" data-title="Teach it back">
-    <span class="kicker">UNDERSTANDING CHECK</span>
-    <h2>Teach it back in your own words</h2>
-    <p class="lead">If you can explain the idea clearly, you probably understand it.</p>
-    <div class="grid2">
-      <div class="card soft">
-        <h3>Explain aloud</h3>
-        <p>1. How do you recognise like terms?</p>
-        <p>2. Why do exponents add when multiplying the same base?</p>
-        <p>3. Why is factorisation the reverse of expansion?</p>
-        <p>4. Why does an equation have to remain balanced?</p>
-        <p>5. Why does the inequality sign reverse when dividing by a negative?</p>
-      </div>
-      <div>
-        <label for="reflection"><strong>Write one idea that finally makes sense now:</strong></label>
-        <textarea id="reflection" placeholder="Explain it as if you were teaching another Grade 10 learner..."></textarea>
-        <p class="shortFeedback">This reflection is saved on this device when supported.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 29 -->
-  <section class="slide" data-title="Report">
-    <span class="kicker">LESSON REPORT</span>
-    <h2>Lateya’s Algebra Mastery Report</h2>
-    <div class="reportGrid">
-      <div class="stat"><span class="muted">Answered</span><strong id="repAnswered">0</strong></div>
-      <div class="stat"><span class="muted">Correct</span><strong id="repCorrect">0</strong></div>
-      <div class="stat"><span class="muted">Accuracy</span><strong id="repAccuracy">0%</strong></div>
-      <div class="stat"><span class="muted">Lesson progress</span><strong id="repProgress">0%</strong></div>
-    </div>
-    <div class="grid2" style="margin-top:20px">
-      <div class="card">
-        <h3>Topic performance</h3>
-        <div id="topicReport"></div>
-      </div>
-      <div class="card">
-        <h3>What the report says</h3>
-        <div id="strengthText" class="callout" style="border-color:var(--green);background:#f0fdf4">Complete questions to identify strengths.</div>
-        <div id="weakText" class="callout">Complete questions to identify areas to revise.</div>
-        <p id="nextText" class="muted"></p>
-      </div>
-    </div>
-    <div class="qActions" style="margin-top:20px">
-      <button class="btn dark" id="downloadReport" type="button">Download report</button>
-      <button class="btn secondary" id="printLesson" type="button">Print / Save PDF</button>
-      <button class="btn secondary" id="resetLesson" type="button">Reset lesson</button>
-    </div>
-  </section>
-
-  <div class="menuPanel" id="menuPanel" aria-hidden="true">
-    <button type="button" class="btn secondary closeMenu" id="closeMenu">Close</button>
-    <h3>Jump to a lesson slide</h3>
-    <p class="muted">Your answers stay locked once submitted.</p>
-    <div class="menuGrid" id="menuGrid"></div>
+    </header>
+    <main id="main"></main>
   </div>
-
-
-  <div class="voiceDock" id="voiceDock">
-    <div class="voiceText">
-      <div class="voiceTitle">🎧 Lateya's voice tutor</div>
-      <div class="voiceStatus" id="voiceStatus">Tap Play tutor to hear this section.</div>
-    </div>
-    <button type="button" class="voicePlay" id="voicePlay">▶ Play tutor</button>
-    <button type="button" class="voiceRestart" id="voiceRestart">↺ Restart</button>
-    <audio id="voiceAudio" preload="metadata"></audio>
-  </div>
-
-  <nav class="nav" aria-label="Lesson navigation">
-    <button type="button" class="prev" id="prevBtn">← Back</button>
-    <button type="button" class="menu" id="menuBtn">Slides</button>
-    <div class="slideCount" id="slideCount">1 / 29</div>
-    <button type="button" class="next" id="nextBtn">Next →</button>
+  <nav class="nav">
+    <button id="backBtn" class="btn ghost" type="button">← Back</button>
+    <div id="navCenter" class="navCenter"></div>
+    <button id="nextBtn" class="btn primary" type="button">Next →</button>
   </nav>
 </div>
 
 <script>
 (() => {
-  const questions = {
-    q1:{topic:"Foundations",prompt:"Which pair contains like terms?",choices:["3x and 5x²","4a and −9a","7 and 7y","2m² and 2m"],answer:1,why:"Like terms have exactly the same variable part and the same exponents."},
-    q2:{topic:"Expansion",prompt:"Expand: −2(3x − 5)",choices:["−6x − 10","−6x + 10","6x − 10","−6x + 5"],answer:1,why:"Distribute −2 to both terms. Negative × negative gives positive."},
-    q3:{topic:"Equations",prompt:"Solve: 3x + 5 = 20",choices:["x = 3","x = 5","x = 15","x = 25/3"],answer:1,why:"Subtract 5 to get 3x=15, then divide by 3."},
-    q4:{topic:"Foundations",prompt:"In 7x² − 4x + 9, what is the coefficient of x?",choices:["7","−4","9","2"],answer:1,why:"The coefficient is the number multiplying x. Here that number is −4."},
-    q5:{topic:"Foundations",prompt:"Simplify: 6x² + 3x − 2x² + 8x − 5",choices:["4x² + 11x − 5","8x² + 11x − 5","4x² + 5x − 5","4x + 11"],answer:0,why:"Combine only like terms: 6x²−2x²=4x² and 3x+8x=11x."},
-    q6:{topic:"Expansion",prompt:"Expand: −3(2x + 4)",choices:["−6x + 12","−6x − 12","6x − 12","−3x − 4"],answer:1,why:"−3 multiplies both 2x and +4."},
-    q7:{topic:"Expansion",prompt:"Expand: (x + 2)(x + 6)",choices:["x² + 8x + 12","x² + 12x + 8","x² + 6x + 2","2x² + 8x + 12"],answer:0,why:"x·x=x², x·6=6x, 2·x=2x, 2·6=12; combine to get x²+8x+12."},
-    q8:{topic:"Expansion",prompt:"Expand: (x − 4)(x + 4)",choices:["x² + 16","x² − 8x + 16","x² − 16","x² + 8x − 16"],answer:2,why:"The middle terms cancel: x²+4x−4x−16=x²−16."},
-    q9:{topic:"Exponents",prompt:"Simplify: x³ × x⁵",choices:["x⁸","x¹⁵","2x⁸","x²"],answer:0,why:"When multiplying the same base, add exponents: 3+5=8."},
-    q10:{topic:"Exponents",prompt:"Write a⁻⁴ using positive exponents.",choices:["−a⁴","1/a⁴","a/4","4/a"],answer:1,why:"A negative exponent means reciprocal: a⁻⁴ = 1/a⁴."},
-    q11:{topic:"Exponents",prompt:"Simplify: y⁹ ÷ y⁴",choices:["y¹³","y⁵","y³⁶","5y"],answer:1,why:"Same base divided: subtract exponents, 9−4=5."},
-    q12:{topic:"Exponents",prompt:"Simplify: (m³)⁴",choices:["m⁷","m¹²","4m³","m⁸¹"],answer:1,why:"Power of a power: multiply exponents, 3×4=12."},
-    q13:{topic:"Exponents",prompt:"Simplify: 2x² × 3x⁴",choices:["5x⁶","6x⁸","6x⁶","6x²"],answer:2,why:"Multiply coefficients 2×3=6, then add exponents 2+4=6."},
-    q14:{topic:"Factorisation",prompt:"Factorise fully: 12x² + 18x",choices:["3x(4x+6)","6x(2x+3)","6(2x²+3x)","2x(6x+9)"],answer:1,why:"The highest common factor is 6x."},
-    q15:{topic:"Factorisation",prompt:"Factorise: x² − 49",choices:["(x−7)²","(x−49)(x+1)","(x−7)(x+7)","(x−14)(x+3.5)"],answer:2,why:"x²−49=x²−7², a difference of squares."},
-    q16:{topic:"Factorisation",prompt:"Factorise: x² + 9x + 20",choices:["(x+4)(x+5)","(x+2)(x+10)","(x−4)(x−5)","(x+20)(x+1)"],answer:0,why:"4+5=9 and 4×5=20."},
-    q17:{topic:"Factorisation",prompt:"What should you check FIRST when factorising 8x² − 32?",choices:["Difference of squares immediately","Common factor","Quadratic formula","Expand brackets"],answer:1,why:"Always check for a common factor first: 8(x²−4), then factor further."},
-    q18:{topic:"Factorisation",prompt:"Factorise fully: 3x² − 27",choices:["3(x−9)(x+1)","3(x−3)(x+3)","(3x−9)(x+3)","3(x−27)(x+1)"],answer:1,why:"Take out 3 first: 3(x²−9), then difference of squares."},
-    q19:{topic:"Factorisation",prompt:"Factorise: x² − x − 12",choices:["(x−4)(x+3)","(x−6)(x+2)","(x−3)(x+4)","(x+4)(x+3)"],answer:0,why:"−4+3=−1 and −4×3=−12."},
-    q20:{topic:"Equations",prompt:"Solve: 5x − 7 = 18",choices:["x=3","x=5","x=11/5","x=25"],answer:1,why:"Add 7: 5x=25. Divide by 5: x=5."},
-    q21:{topic:"Equations",prompt:"Solve: 4(x + 1) = 28",choices:["x=6","x=7","x=8","x=5"],answer:0,why:"Divide by 4: x+1=7, so x=6."},
-    q22:{topic:"Equations",prompt:"Solve: x/4 + 3 = 8",choices:["x=5","x=11","x=20","x=32"],answer:2,why:"Subtract 3: x/4=5. Multiply by 4: x=20."},
-    q23:{topic:"Inequalities",prompt:"Solve: −2x ≤ 10",choices:["x≤−5","x≥−5","x≤5","x≥5"],answer:1,why:"Divide by −2 and reverse ≤ to ≥."},
-    q24:{topic:"Applications",prompt:"‘Five less than three times a number is 19.’ Which equation matches?",choices:["3x+5=19","5x−3=19","3x−5=19","3(x−5)=19"],answer:2,why:"Three times the number is 3x; five less gives 3x−5."},
-    q25:{topic:"Foundations",prompt:"Simplify: 4a² − 3a + 7 + 2a² + 5a − 10",choices:["6a²+2a−3","6a²−8a+17","2a²+2a−3","6a²+8a−3"],answer:0,why:"4a²+2a²=6a², −3a+5a=2a, 7−10=−3."},
-    q26:{topic:"Expansion",prompt:"Expand and simplify: 2(x − 3) + 4(x + 1)",choices:["6x−2","6x+10","2x−2","8x−2"],answer:0,why:"2x−6+4x+4=6x−2."},
-    q27:{topic:"Exponents",prompt:"Simplify: (2x³y²)(−3x²y)",choices:["−6x⁵y³","−6x⁶y²","−x⁵y³","6x⁵y³"],answer:0,why:"2×−3=−6, x³x²=x⁵, y²y=y³."},
-    q28:{topic:"Factorisation",prompt:"Factorise fully: 2x² + 10x + 12",choices:["2(x+2)(x+3)","2(x+1)(x+6)","(2x+4)(x+3)","2(x−2)(x−3)"],answer:0,why:"Take out 2 first: 2(x²+5x+6)=2(x+2)(x+3)."},
-    q29:{topic:"Equations",prompt:"Solve: 2(x + 5) − 3 = 13",choices:["x=1","x=3","x=4","x=6"],answer:1,why:"2x+10−3=13 → 2x+7=13 → 2x=6 → x=3."},
-    q30:{topic:"Inequalities",prompt:"Solve: 3x − 4 > 11",choices:["x>5","x<5","x>7/3","x<7/3"],answer:0,why:"Add 4: 3x>15. Divide by 3: x>5."},
-    q31:{topic:"Factorisation",prompt:"Solve by factorisation: x² + 5x + 6 = 0",choices:["x=2 or 3","x=−2 or −3","x=−1 or −6","x=1 or 6"],answer:1,why:"(x+2)(x+3)=0, so x=−2 or x=−3."},
-    q32:{topic:"Mixed",prompt:"Simplify: (x² − 9)/(x − 3), where x ≠ 3",choices:["x−3","x+3","x²+3","1"],answer:1,why:"Factor x²−9=(x−3)(x+3), then cancel the common factor x−3."},
-    q33:{topic:"Applications",prompt:"A rectangle has length (x+3) cm and width x cm. Its area is 40 cm². Which equation models this?",choices:["2x+3=40","x(x+3)=40","x²+3=40","2(x+3)+2x=40"],answer:1,why:"Area = length × width, so x(x+3)=40."}
-  };
+const PASS_HASH='2de6bab1fc74cc4e4ca469e90e22a37c00db1cb7a5dd2e89a1fee12c3a5f2756';
+const AUDIO={
+ intro:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/e1667a02-47cd-4ed1-900c-d45d3d6e16a6.mp3',
+ language:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/9b68c9d9-69e7-4a75-8aba-700db7684136.mp3',
+ expansion:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/ca3d966c-55a6-44c4-8165-e25e2e227069.mp3',
+ exponents:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/fcc7ed46-7bf8-4f34-8423-18062f63ce0a.mp3',
+ factor:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/72045f97-e3bf-4685-b4bb-35494f372dcc.mp3',
+ fractions:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/01cb1c14-c17d-4652-be7c-6d8e47806cb6.mp3',
+ equations:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/e9ef1329-35f1-4ccd-bd8a-64be8b45928f.mp3',
+ simultaneous:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/68eddfee-cc40-43b5-a659-d8020028c2bc.mp3',
+ inequality:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/0e61549d-38e0-4143-892b-490f6fe2f577.mp3',
+ word:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/9be19670-1db5-4e81-8ff9-de12bdb90f6f.mp3',
+ exam:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/85aab026-87d8-45a2-8105-e83666ea4d53.mp3'
+};
+const outlineItems=[
+ ['1. Algebra language & simplification','Terms, coefficients, constants, like terms, substitution and collecting terms.'],
+ ['2. Expansion','Single brackets, two brackets, signs and special products.'],
+ ['3. Exponents','Product, quotient, power laws, zero and negative exponents, and simple exponential equations.'],
+ ['4. Factorisation','Common factor, grouping, difference of squares, trinomials and sum/difference of cubes.'],
+ ['5. Algebraic fractions','Restrictions, factorising first and cancelling factors correctly.'],
+ ['6. Linear equations','Balancing, brackets and equations with fractions.'],
+ ['7. Quadratic equations','Factorise, apply the zero-product rule and check both roots.'],
+ ['8. Simultaneous equations','Substitution and elimination with two unknowns.'],
+ ['9. Changing the subject','Literal equations and isolating the requested variable.'],
+ ['10. Linear inequalities','Solve, reverse the sign when dividing by a negative, and use interval/number-line notation.'],
+ ['11. Word problems','Translate words into algebra, solve and interpret the result.'],
+ ['12. Exam Coach','Answer CAPS-style questions first, then reveal a mark-by-mark worked solution.']
+];
 
-  const slides=[...document.querySelectorAll(".slide")];
-  const progressFill=document.getElementById("progressFill");
-  const progressText=document.getElementById("progressText");
-  const scorePill=document.getElementById("scorePill");
-  const slideCount=document.getElementById("slideCount");
-  const prevBtn=document.getElementById("prevBtn");
-  const nextBtn=document.getElementById("nextBtn");
-  const menuBtn=document.getElementById("menuBtn");
-  const menuPanel=document.getElementById("menuPanel");
-  const closeMenu=document.getElementById("closeMenu");
-  const menuGrid=document.getElementById("menuGrid");
-  const state={current:0,answers:{},reflection:""};
-  const topicNames=["Foundations","Expansion","Exponents","Factorisation","Equations","Inequalities","Applications","Mixed"];
+const screens=[
+ {key:'outline',title:'Your complete algebra roadmap',kicker:'START HERE • LESSON OUTLINE',audio:'intro',
+  html:()=>'<p class="lead">Lateya, this lesson is not a pile of notes. Every topic follows <b>teach → worked example → your turn → correction → exam application</b>.</p><div class="outline">'+outlineItems.map(x=>'<div class="outlineItem"><b>'+x[0]+'</b><span class="muted">'+x[1]+'</span></div>').join('')+'</div><div class="card purpleCard"><b>How to use it:</b> Try each check before looking at feedback. In Exam Coach, the worked solution stays hidden until you submit an answer.</div>'},
+ {key:'language',title:'Algebra language & simplifying',kicker:'FOUNDATIONS',audio:'language',
+  html:()=>'<div class="grid2"><div class="card"><h3>Read the expression first</h3><div class="math">4x² − 3x + 7</div><p><b>Terms:</b> 4x², −3x, 7<br><b>Coefficient of x:</b> −3<br><b>Constant:</b> 7</p></div><div class="card"><h3>Like terms</h3><p>Terms combine only when the variable part is identical.</p><div class="math">5x + 2x = 7x<br>5x + 2x² cannot combine</div></div></div><div class="worked"><b>Worked example</b><div class="math">7x² + 4x − 2x² + 9x − 5<br>= 5x² + 13x − 5</div><span class="muted">Collect x² terms, x terms and constants separately.</span></div>',
+  quiz:{type:'input',prompt:'Simplify: 8x + 4 − 3x + 9',answers:['5x+13'],hint:'Combine the x terms, then the constants.',explain:'8x−3x=5x and 4+9=13, so the answer is 5x+13.'}},
+ {key:'expansion',title:'Expansion',kicker:'BRACKETS',audio:'expansion',
+  html:()=>'<div class="card"><h3>Single bracket</h3><div class="math">−2(3x − 5) = −6x + 10</div><p>The outside factor multiplies <b>every</b> term inside.</p></div><div class="card"><h3>Two brackets</h3><div class="math">(x+3)(x+5)<br>= x²+5x+3x+15<br>= x²+8x+15</div><p>Every term in the first bracket multiplies every term in the second.</p></div><div class="why"><b>Special product:</b> (a−b)(a+b)=a²−b² because the middle terms cancel.</div>',
+  quiz:{type:'mcq',prompt:'Expand and simplify: 2(x−3)+4(x+1)',choices:['6x−2','6x+10','2x−2','8x−2'],answer:0,explain:'2x−6+4x+4 = 6x−2.'}},
+ {key:'exponents',title:'Exponents',kicker:'EXPONENT LAWS',audio:'exponents',
+  html:()=>'<div class="card"><div class="math">aᵐ·aⁿ=aᵐ⁺ⁿ<br>aᵐ÷aⁿ=aᵐ⁻ⁿ<br>(aᵐ)ⁿ=aᵐⁿ<br>a⁰=1 (a≠0)<br>a⁻ⁿ=1/aⁿ</div></div><div class="worked"><b>Example</b><div class="math">(2x³)(−3x²)=−6x⁵</div><span class="muted">Multiply coefficients; add exponents only because the base x is the same.</span></div><div class="card soft"><b>Simple exponential equations:</b> if you can rewrite both sides with the same base, compare exponents. Example: 2ˣ=8=2³, so x=3.</div>',
+  quiz:{type:'input',prompt:'Simplify: y⁷ ÷ y³',answers:['y^4','y4','y⁴'],hint:'Same base and division means subtract exponents.',explain:'7−3=4, so y⁴.'}},
+ {key:'factor',title:'Factorisation',kicker:'REVERSE EXPANSION',audio:'factor',
+  html:()=>'<div class="card"><h3>Always ask in this order</h3><div class="steps"><div class="step"><div class="stepNum">1</div><div><b>Common factor?</b><div class="math">12x²−8x=4x(3x−2)</div></div></div><div class="step"><div class="stepNum">2</div><div><b>Difference of squares?</b><div class="math">x²−25=(x−5)(x+5)</div></div></div><div class="step"><div class="stepNum">3</div><div><b>Trinomial?</b><div class="math">x²+7x+12=(x+3)(x+4)</div></div></div></div></div><div class="card soft"><b>Also know:</b> grouping in pairs and the patterns a³−b³=(a−b)(a²+ab+b²) and a³+b³=(a+b)(a²−ab+b²).</div>',
+  quiz:{type:'input',prompt:'Factorise fully: x² + 5x + 6',answers:['(x+2)(x+3)','(x+3)(x+2)'],hint:'Find two numbers that multiply to 6 and add to 5.',explain:'2 and 3 work, so (x+2)(x+3).'}},
+ {key:'fractions',title:'Algebraic fractions',kicker:'FACTORISE BEFORE CANCELLING',audio:'fractions',
+  html:()=>'<div class="worked"><b>Example</b><div class="math">(x²−9)/(x²+3x)</div><p>Factorise:</p><div class="math">(x−3)(x+3) / [x(x+3)]</div><p>Cancel the common <b>factor</b> (x+3):</p><div class="math">(x−3)/x, &nbsp; x≠0,−3</div></div><div class="why"><b>Never cancel terms across + or −.</b> Cancellation works with factors that multiply the whole numerator and denominator.</div>',
+  quiz:{type:'mcq',prompt:'Simplify: (x²−16)/(x−4), where x≠4',choices:['x−4','x+4','x²+4','1'],answer:1,explain:'x²−16=(x−4)(x+4). Cancel the factor x−4, leaving x+4.'}},
+ {key:'linear',title:'Linear equations',kicker:'KEEP THE BALANCE',audio:'equations',
+  html:()=>'<div class="worked"><b>Example</b><div class="math">5x−7=18<br>5x=25<br>x=5</div><p>Every operation must preserve equality.</p></div><div class="grid2"><div class="card"><h3>Brackets</h3><div class="math">3(x−2)=12<br>x−2=4<br>x=6</div></div><div class="card"><h3>Fractions</h3><div class="math">x/3+2=5<br>x/3=3<br>x=9</div><p>For harder fraction equations, multiply every term by the lowest common denominator.</p></div></div>',
+  quiz:{type:'input',prompt:'Solve: 4(x+1)=28',answers:['6','x=6'],hint:'Divide both sides by 4 first.',explain:'x+1=7, therefore x=6.'}},
+ {key:'quadratic',title:'Quadratic equations',kicker:'FACTORISE • ZERO PRODUCT',audio:'equations',
+  html:()=>'<div class="worked"><b>Solve:</b><div class="math">x²+5x+6=0<br>(x+2)(x+3)=0<br>x+2=0 or x+3=0<br>x=−2 or x=−3</div></div><div class="why"><b>Why two answers?</b> If A×B=0, at least one factor must equal zero.</div>',
+  quiz:{type:'input',prompt:'Solve x²−5x+6=0. Enter both solutions separated by a comma.',answers:['2,3','3,2'],hint:'Factorise into (x−2)(x−3).',explain:'(x−2)(x−3)=0, so x=2 or x=3.'}},
+ {key:'simultaneous',title:'Simultaneous & literal equations',kicker:'TWO IMPORTANT SKILLS',audio:'simultaneous',
+  html:()=>'<div class="grid2"><div class="card"><h3>Simultaneous equations</h3><div class="math">x+y=7<br>x−y=1</div><p>Add: 2x=8 → x=4. Substitute back: y=3.</p><p class="muted">Use elimination or substitution.</p></div><div class="card"><h3>Changing the subject</h3><div class="math">V=πr²h<br>h=V/(πr²)</div><p>Use inverse operations until the requested letter is alone.</p></div></div>',
+  quiz:{type:'input',prompt:'Given x+y=10 and x−y=2, what is x?',answers:['6','x=6'],hint:'Add the equations so y cancels.',explain:'2x=12, so x=6. Then y=4.'}},
+ {key:'inequality',title:'Linear inequalities',kicker:'WATCH THE SIGN',audio:'inequality',
+  html:()=>'<div class="grid2"><div class="card"><div class="math">2x+3&lt;11<br>2x&lt;8<br>x&lt;4</div></div><div class="card orangeCard"><div class="math">−3x&gt;12<br>x&lt;−4</div><p><b>The sign reverses</b> because we divided by −3.</p></div></div><div class="card soft"><b>Interval notation:</b> square bracket includes an endpoint; round bracket excludes it. Example x≥−4 becomes [−4,∞).</div>',
+  quiz:{type:'input',prompt:'Solve: −2x ≤ 10',answers:['x>=-5','x≥-5'],hint:'Divide by −2 and reverse the sign.',explain:'x≥−5.'}},
+ {key:'word',title:'Word problems',kicker:'TRANSLATE BEFORE YOU SOLVE',audio:'word',
+  html:()=>'<div class="worked"><b>Problem:</b> “Three more than twice a number is 17.”<div class="steps"><div class="step"><div class="stepNum">1</div><div>Let the number be x.</div></div><div class="step"><div class="stepNum">2</div><div>Twice the number → 2x.</div></div><div class="step"><div class="stepNum">3</div><div>Three more → 2x+3.</div></div><div class="step"><div class="stepNum">4</div><div>Equation: 2x+3=17.</div></div><div class="step"><div class="stepNum">5</div><div>Solve: x=7 and check the story.</div></div></div></div>',
+  quiz:{type:'mcq',prompt:'“Five less than three times a number is 19.” Which equation matches?',choices:['3x+5=19','5x−3=19','3x−5=19','3(x−5)=19'],answer:2,explain:'Three times a number is 3x; five less means subtract 5.'}},
+ {key:'exam',title:'Exam Coach',kicker:'ANSWER → MARK → LEARN THE METHOD',audio:'exam',exam:true},
+ {key:'report',title:'Your algebra progress',kicker:'LESSON REPORT',report:true}
+];
 
-  function safeLoad(){
-    try{
-      const saved=JSON.parse(localStorage.getItem("lateya-algebra-v1")||"null");
-      if(saved&&typeof saved==="object"){
-        state.current=Math.min(Math.max(saved.current||0,0),slides.length-1);
-        state.answers=saved.answers||{};
-        state.reflection=saved.reflection||"";
-      }
-    }catch(e){}
-  }
-  function save(){
-    try{localStorage.setItem("lateya-algebra-v1",JSON.stringify(state));}catch(e){}
+const examQuestions=[
+ {id:'e1',topic:'Factorisation',marks:4,prompt:'Factorise fully: 2x² + 10x + 12',answers:['2(x+2)(x+3)','2(x+3)(x+2)'],steps:[
+  ['1 mark','Take out the HCF: 2(x²+5x+6).','Common factor must be handled first.'],
+  ['1 mark','Find two numbers with product +6 and sum +5: 2 and 3.','This identifies the trinomial factors.'],
+  ['1 mark','x²+5x+6=(x+2)(x+3).','Correct factorisation method.'],
+  ['1 mark','Final: 2(x+2)(x+3).','Fully factorised answer.']]},
+ {id:'e2',topic:'Quadratic equation',marks:5,prompt:'Solve: x² − 5x + 6 = 0',answers:['2,3','3,2','x=2,x=3','x=3,x=2'],steps:[
+  ['1 mark','The equation is already equal to zero.','Ready to factorise.'],
+  ['1 mark','Numbers with product +6 and sum −5 are −2 and −3.','Correct pair.'],
+  ['1 mark','(x−2)(x−3)=0.','Correct factorisation.'],
+  ['1 mark','x−2=0 → x=2.','First root.'],
+  ['1 mark','x−3=0 → x=3.','Second root.']]},
+ {id:'e3',topic:'Simultaneous equations',marks:6,prompt:'Solve simultaneously: x+y=10 and x−y=2',answers:['x=6,y=4','6,4'],steps:[
+  ['1 mark','Write the equations aligned.','Makes elimination visible.'],
+  ['1 mark','Add them: (x+y)+(x−y)=10+2.','Choose elimination because +y and −y cancel.'],
+  ['1 mark','2x=12.','Simplify correctly.'],
+  ['1 mark','x=6.','Solve for x.'],
+  ['1 mark','Substitute: 6+y=10.','Return to one original equation.'],
+  ['1 mark','y=4.','Final ordered solution: x=6, y=4.']]},
+ {id:'e4',topic:'Inequality',marks:4,prompt:'Solve: −3x ≤ 12',answers:['x>=-4','x≥-4'],steps:[
+  ['1 mark','Start with −3x≤12.','Correct inequality copied.'],
+  ['1 mark','Divide both sides by −3.','Inverse operation.'],
+  ['1 mark','Reverse ≤ to ≥.','Essential sign rule when dividing by a negative.'],
+  ['1 mark','Final: x≥−4.','Correct solution.']]}
+];
+
+const state={index:0,checks:{},exam:{},audio:null};
+try{const s=JSON.parse(localStorage.getItem('lateya-algebra-v3')||'null');if(s){state.index=s.index||0;state.checks=s.checks||{};state.exam=s.exam||{};}}catch(e){}
+const main=document.getElementById('main'),fill=document.getElementById('fill'),progressText=document.getElementById('progressText'),navCenter=document.getElementById('navCenter'),backBtn=document.getElementById('backBtn'),nextBtn=document.getElementById('nextBtn');
+function save(){try{localStorage.setItem('lateya-algebra-v3',JSON.stringify({index:state.index,checks:state.checks,exam:state.exam}));}catch(e){}}
+function norm(v){return String(v||'').toLowerCase().replace(/\s+/g,'').replace(/−/g,'-').replace(/≥/g,'>=').replace(/≤/g,'<=').replace(/⁴/g,'^4');}
+function matches(v,arr){const n=norm(v);return arr.some(a=>norm(a)===n)}
+function voiceBlock(key){
+ const src=AUDIO[key];
+ if(!src)return '';
+ return '<div class="voice"><strong>🎧 Voice tutor</strong><button type="button" class="btn primary" id="playVoice">▶ Play</button><button type="button" class="btn ghost" id="restartVoice">↺ Restart</button><div id="voiceStatus" class="voiceStatus">Tap Play. This uses a real audio clip, not browser text-to-speech.</div><audio id="voiceAudio" preload="metadata" src="'+src+'"></audio></div>';
+}
+function quizBlock(q,key){
+ if(!q)return '';
+ let body='<div class="quiz"><div class="quizTitle">Your turn</div><p>'+q.prompt+'</p>';
+ if(q.type==='mcq') body+='<div class="choices">'+q.choices.map((c,i)=>'<button type="button" class="choice" data-choice="'+i+'">'+c+'</button>').join('')+'</div>';
+ else body+='<input class="input" id="quizInput" placeholder="Type your answer"><div class="examActions"><button type="button" class="btn dark" id="checkInput">Check answer</button><button type="button" class="btn secondary" id="hintBtn">Hint</button></div>';
+ body+='<div id="feedback" class="feedback" aria-live="polite"></div></div>';
+ return body;
+}
+function renderExam(){
+ return '<p class="lead">These are exam-style practice questions. <b>Do not open the worked solution first.</b> Write your working on paper, enter your final answer, submit it, then compare your method with the marking guide.</p>'+voiceBlock('exam')+'<div class="examList">'+examQuestions.map(q=>{
+  const saved=state.exam[q.id]||{};
+  return '<section class="exam" data-exam="'+q.id+'"><div class="examHead"><div><span class="badge">'+q.topic+'</span><h3 style="margin-top:9px">'+q.prompt+'</h3></div><div class="marks">['+q.marks+']</div></div><label>Final answer</label><input class="input examInput" '+(saved.submitted?'disabled':'')+' value="'+(saved.value||'').replace(/"/g,'&quot;')+'" placeholder="Enter your final answer"><div class="examActions"><button type="button" class="btn dark submitExam" '+(saved.submitted?'disabled':'')+'>Submit to mark</button><button type="button" class="btn secondary revealExam" '+(saved.submitted?'':'disabled')+'>Show step-by-step solution</button></div><div class="feedback '+(saved.submitted?'show '+(saved.correct?'good':'bad'):'')+'">'+(saved.submitted?(saved.correct?'Final answer correct. Compare your working below to see whether you earned every method mark.':'Final answer is not correct yet. Open the solution and find the first line where your method differs.'):'')+'</div><div class="examScore">'+(saved.submitted?'Final-answer check: '+(saved.correct?'✓ correct':'✗ incorrect')+'. Full '+q.marks+' marks depend on the working shown in the guide.':'')+'</div><div class="solution"><h3>Examiner-style marking guide</h3>'+q.steps.map(s=>'<div class="markLine"><div class="mark">'+s[0]+'</div><div><b>'+s[1]+'</b><div class="reason">'+s[2]+'</div></div></div>').join('')+'</div></section>';
+ }).join('')+'</div>';
+}
+function renderReport(){
+ const lessonKeys=screens.filter(s=>s.quiz).map(s=>s.key);
+ const attempted=lessonKeys.filter(k=>state.checks[k]).length;
+ const correct=lessonKeys.filter(k=>state.checks[k]&&state.checks[k].correct).length;
+ const exAttempt=examQuestions.filter(q=>state.exam[q.id]&&state.exam[q.id].submitted).length;
+ const exCorrect=examQuestions.filter(q=>state.exam[q.id]&&state.exam[q.id].correct).length;
+ const pct=attempted?Math.round(correct/attempted*100):0;
+ return '<div class="grid2"><div class="card"><div class="bigScore">'+pct+'%</div><p class="muted">Lesson-check accuracy: '+correct+'/'+attempted+'</p><p><b>Exam final answers:</b> '+exCorrect+'/'+exAttempt+' correct</p></div><div class="card"><h3>How to use this report</h3><p>'+(pct>=80?'Strong foundation. Revisit any incorrect topic, then repeat Exam Coach without looking at the solutions.':pct>=60?'Progress is developing. Re-do the incorrect lesson checks and explain the worked examples aloud.':'Work one section at a time with Victoria. Do not rush to the exam set until the foundation checks are comfortable.')+'</p></div></div><div class="card"><h3>Topic checks</h3>'+screens.filter(s=>s.quiz).map(s=>{const r=state.checks[s.key];return '<div class="reportRow"><span>'+s.title+'</span><span class="pill">'+(r?(r.correct?'Correct':'Revisit'):'Not attempted')+'</span></div>'}).join('')+'</div><div class="card"><h3>Exam Coach</h3>'+examQuestions.map(q=>{const r=state.exam[q.id];return '<div class="reportRow"><span>'+q.topic+' ['+q.marks+']</span><span class="pill">'+(r&&r.submitted?(r.correct?'Final answer correct':'Revisit method'):'Not attempted')+'</span></div>'}).join('')+'</div>';
+}
+function render(){
+ const s=screens[state.index];
+ if(state.audio){state.audio.pause();state.audio=null}
+ let body=s.exam?renderExam():s.report?renderReport():s.html();
+ main.innerHTML='<section class="hero"><span class="kicker">'+s.kicker+'</span><h1>'+s.title+'</h1></section>'+(s.audio&&!s.exam?voiceBlock(s.audio):'')+body+(s.quiz?quizBlock(s.quiz,s.key):'');
+ const p=Math.round((state.index)/(screens.length-1)*100);fill.style.width=p+'%';progressText.textContent=(state.index+1)+' / '+screens.length;navCenter.textContent=(state.index+1)+' / '+screens.length;backBtn.disabled=state.index===0;nextBtn.textContent=state.index===screens.length-1?'Back to start':'Next →';
+ attachVoice();attachQuiz(s);if(s.exam)attachExam();save();window.scrollTo({top:0,behavior:'smooth'});
+}
+function attachVoice(){
+ const audio=document.getElementById('voiceAudio'),play=document.getElementById('playVoice'),restart=document.getElementById('restartVoice'),status=document.getElementById('voiceStatus');
+ if(!audio||!play)return;state.audio=audio;
+ play.addEventListener('click',async()=>{try{if(audio.paused){await audio.play();play.textContent='⏸ Pause';status.textContent='Playing tutor explanation…'}else{audio.pause();play.textContent='▶ Play';status.textContent='Paused.'}}catch(e){status.textContent='Audio was blocked here. Open the lesson in Chrome, then tap Play again.'}});
+ restart.addEventListener('click',async()=>{audio.currentTime=0;try{await audio.play();play.textContent='⏸ Pause';status.textContent='Restarted.'}catch(e){status.textContent='Open in Chrome and tap Play once to allow audio.'}});
+ audio.addEventListener('ended',()=>{play.textContent='▶ Play';status.textContent='Explanation finished. Now try the example or question.'});
+}
+function attachQuiz(s){
+ if(!s.quiz)return;const q=s.quiz,fb=document.getElementById('feedback');const saved=state.checks[s.key];
+ if(q.type==='mcq'){
+  const buttons=[...document.querySelectorAll('.choice')];
+  if(saved){buttons.forEach((b,i)=>{b.disabled=true;if(i===q.answer)b.classList.add('correct');if(i===saved.choice&&i!==q.answer)b.classList.add('wrong')});fb.className='feedback show '+(saved.correct?'good':'bad');fb.textContent=(saved.correct?'Correct. ':'Not quite. ')+q.explain;}
+  buttons.forEach((b,i)=>b.addEventListener('click',()=>{const ok=i===q.answer;state.checks[s.key]={correct:ok,choice:i};buttons.forEach((x,j)=>{x.disabled=true;if(j===q.answer)x.classList.add('correct');if(j===i&&!ok)x.classList.add('wrong')});fb.className='feedback show '+(ok?'good':'bad');fb.textContent=(ok?'Correct. ':'Not quite. ')+q.explain;save()}));
+ }else{
+  const input=document.getElementById('quizInput'),check=document.getElementById('checkInput'),hint=document.getElementById('hintBtn');
+  if(saved){input.value=saved.value||'';input.disabled=true;check.disabled=true;hint.disabled=true;fb.className='feedback show '+(saved.correct?'good':'bad');fb.textContent=(saved.correct?'Correct. ':'Not quite. ')+q.explain;}
+  check.addEventListener('click',()=>{if(!input.value.trim()){fb.className='feedback show hint';fb.textContent='Type an answer first.';return}const ok=matches(input.value,q.answers);state.checks[s.key]={correct:ok,value:input.value};input.disabled=true;check.disabled=true;hint.disabled=true;fb.className='feedback show '+(ok?'good':'bad');fb.textContent=(ok?'Correct. ':'Not quite. ')+q.explain;save()});
+  hint.addEventListener('click',()=>{fb.className='feedback show hint';fb.textContent='Hint: '+q.hint});
+ }
+}
+function attachExam(){
+ document.querySelectorAll('.exam').forEach(box=>{
+  const id=box.dataset.exam,q=examQuestions.find(x=>x.id===id),input=box.querySelector('.examInput'),submit=box.querySelector('.submitExam'),reveal=box.querySelector('.revealExam'),fb=box.querySelector('.feedback'),solution=box.querySelector('.solution');
+  submit.addEventListener('click',()=>{if(!input.value.trim()){fb.className='feedback show hint';fb.textContent='Write a final answer first. Do the working on paper as if this were the exam.';return}const ok=matches(input.value,q.answers);state.exam[id]={submitted:true,correct:ok,value:input.value};input.disabled=true;submit.disabled=true;reveal.disabled=false;fb.className='feedback show '+(ok?'good':'bad');fb.textContent=ok?'Final answer correct. Now reveal the marking guide and check whether your working earned every method mark.':'Final answer is not correct yet. Reveal the marking guide and find the first step where your working changed.';save()});
+  reveal.addEventListener('click',()=>{solution.classList.add('show');reveal.disabled=true;solution.scrollIntoView({behavior:'smooth',block:'start'})});
+ });
+}
+backBtn.addEventListener('click',()=>{if(state.index>0){state.index--;render()}});
+nextBtn.addEventListener('click',()=>{state.index=state.index===screens.length-1?0:state.index+1;render()});
+document.getElementById('outlineBtn').addEventListener('click',()=>{state.index=0;render()});
+async function hashText(v){const data=new TextEncoder().encode(v);const digest=await crypto.subtle.digest('SHA-256',data);return [...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('')}
+document.getElementById('gateForm').addEventListener('submit',async e=>{e.preventDefault();const v=document.getElementById('password').value,err=document.getElementById('gateError');err.textContent='';try{if(await hashText(v)===PASS_HASH){sessionStorage.setItem('lateya-access','1');document.getElementById('gate').classList.add('hidden');document.getElementById('app').classList.remove('hidden');render()}else err.textContent='That password is not correct.'}catch(ex){err.textContent='Open this link in Chrome and try again.'}});
+if(sessionStorage.getItem('lateya-access')==='1'){document.getElementById('gate').classList.add('hidden');document.getElementById('app').classList.remove('hidden');render()}
+})();
+</script>
+</body>
+</html>
