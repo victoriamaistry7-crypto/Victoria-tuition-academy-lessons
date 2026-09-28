@@ -4,240 +4,377 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#5b21b6">
-<title>Lateya • Grade 10 Algebra Tutor</title>
+<title>Lateya • Algebra Studio</title>
 <style>
-:root{--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--paper:#fff;--bg:#f7f7fb;--purple:#6d28d9;--purple2:#ede9fe;--orange:#ea580c;--orange2:#fff7ed;--green:#166534;--green2:#dcfce7;--red:#991b1b;--red2:#fee2e2;--blue:#1d4ed8;--blue2:#dbeafe;--shadow:0 16px 42px rgba(17,24,39,.10)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}button,input,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}
-.gate{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:18px;background:linear-gradient(145deg,#111827,#4c1d95 60%,#8b5cf6)}
-.gateCard{width:min(430px,100%);background:#fff;border-radius:26px;padding:28px;box-shadow:0 26px 90px rgba(0,0,0,.30)}
-.brand{font-size:.78rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--purple)}
-.gate h1{font-size:2rem;line-height:1.05;margin:.5rem 0 1rem}.muted{color:var(--muted)}label{display:block;font-weight:800;margin:.7rem 0 .35rem}
-.input{width:100%;min-height:50px;border:1.5px solid #d1d5db;border-radius:13px;padding:12px 14px;font-size:16px;background:#fff;outline:none}.input:focus{border-color:var(--purple);box-shadow:0 0 0 4px var(--purple2)}
-.err{min-height:22px;color:var(--red);font-weight:800;font-size:.9rem;margin:.4rem 0}
-.btn{border:0;border-radius:13px;min-height:46px;padding:11px 15px;font-weight:900}.primary{background:var(--purple);color:#fff}.secondary{background:var(--purple2);color:#4c1d95}.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}.dark{background:var(--ink);color:#fff}.btn:disabled{opacity:.45;cursor:not-allowed}
-.shell{max-width:960px;margin:auto;padding:0 14px 132px}.top{position:sticky;top:0;z-index:20;background:rgba(247,247,251,.95);backdrop-filter:blur(12px);padding:10px 0;border-bottom:1px solid rgba(229,231,235,.9)}
-.toprow{display:flex;align-items:center;justify-content:space-between;gap:12px}.topbrand{font-weight:950;font-size:.9rem}.progressWrap{display:flex;align-items:center;gap:8px;margin-top:8px}.progress{height:8px;background:#e5e7eb;border-radius:999px;overflow:hidden;flex:1}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--purple),#a78bfa);transition:width .2s}.progressText{font-size:.76rem;color:var(--muted);font-weight:800;white-space:nowrap}
-main{padding-top:8px}.hero{padding:28px 4px 14px}.kicker{display:inline-flex;padding:6px 10px;border-radius:999px;background:var(--purple2);color:#4c1d95;font-size:.76rem;font-weight:950;letter-spacing:.05em;text-transform:uppercase}
-h1{font-size:clamp(2rem,7vw,3.7rem);line-height:1.03;letter-spacing:-.04em;margin:.7rem 0 1rem}h2{font-size:clamp(1.55rem,5vw,2.4rem);line-height:1.1;margin:.5rem 0 1rem}h3{font-size:1.08rem;margin:0 0 .45rem}.lead{font-size:1.04rem;color:#4b5563;max-width:760px}
-.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow);margin:13px 0}.soft{background:#fafafa;box-shadow:none}.purpleCard{background:#faf5ff;border-color:#ddd6fe}.orangeCard{background:var(--orange2);border-color:#fed7aa}
-.grid2{display:grid;gap:12px}.outline{display:grid;gap:10px}.outlineItem{border:1px solid var(--line);border-radius:15px;padding:14px;background:#fff}.outlineItem b{display:block;margin-bottom:3px}.math{font-family:"Cambria Math","STIX Two Math",Georgia,serif;font-size:1.2rem;background:#fafafa;border:1px solid var(--line);border-radius:13px;padding:12px 13px;margin:10px 0;overflow-wrap:anywhere}
-.worked{border-left:4px solid var(--purple);background:#faf7ff;padding:13px 14px;border-radius:12px;margin:12px 0}.why{border-left:4px solid #22c55e;background:#f0fdf4;padding:12px 14px;border-radius:12px;margin:12px 0}
-.steps{display:grid;gap:9px;margin:12px 0}.step{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:start}.stepNum{width:36px;height:36px;border-radius:10px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:950}
-.voice{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:14px 0;padding:12px;border:1px solid #ddd6fe;border-radius:15px;background:#faf5ff}.voice strong{margin-right:auto}.voiceStatus{width:100%;font-size:.8rem;color:var(--muted)}
-.quiz{border:1.5px solid #c4b5fd;border-radius:18px;padding:16px;margin-top:16px;background:#fff}.quizTitle{font-weight:950;font-size:1.02rem}.choices{display:grid;gap:9px;margin-top:12px}.choice{width:100%;text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:13px;padding:12px;min-height:48px}.choice:hover{border-color:#c4b5fd}.choice.correct{background:var(--green2);border-color:#86efac}.choice.wrong{background:var(--red2);border-color:#fecaca}
-.feedback{display:none;margin-top:11px;padding:11px 13px;border-radius:12px;font-weight:750}.feedback.show{display:block}.feedback.good{background:var(--green2);color:var(--green)}.feedback.bad{background:var(--red2);color:var(--red)}.feedback.hint{background:#fef3c7;color:#92400e}
-.examList{display:grid;gap:15px}.exam{border:2px solid var(--ink);border-radius:19px;padding:16px;background:#fff}.examHead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.marks{font-weight:950;color:#475569;white-space:nowrap}.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:var(--blue2);color:var(--blue);font-size:.74rem;font-weight:900;margin-right:5px}.examActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.solution{display:none;border-top:1px solid var(--line);padding-top:14px;margin-top:14px}.solution.show{display:block}.markLine{display:grid;grid-template-columns:38px 1fr;gap:9px;margin:9px 0}.mark{width:38px;height:30px;border-radius:9px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:950;font-size:.76rem}.reason{font-size:.8rem;color:var(--muted);margin-top:2px}.examScore{font-size:.84rem;font-weight:900;margin-top:10px}
-.reportRow{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.reportRow:last-child{border:0}.bigScore{font-size:3rem;font-weight:950;color:var(--purple);line-height:1}.pill{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--purple2);color:#4c1d95;font-size:.76rem;font-weight:900}
-.nav{position:fixed;z-index:30;left:50%;transform:translateX(-50%);bottom:10px;width:min(920px,calc(100% - 20px));display:grid;grid-template-columns:1fr auto 1fr;gap:8px;background:rgba(17,24,39,.96);padding:8px;border-radius:16px;box-shadow:var(--shadow)}.nav .btn{min-height:48px}.navCenter{display:grid;place-items:center;color:#fff;font-size:.8rem;font-weight:900;min-width:68px}
-@media(min-width:700px){.grid2{grid-template-columns:1fr 1fr}.outline{grid-template-columns:1fr 1fr}.card{padding:22px}.shell{padding-left:22px;padding-right:22px}.exam{padding:20px}}
-@media(max-width:480px){.shell{padding-left:11px;padding-right:11px}.topbrand{font-size:.8rem}.card{padding:15px;border-radius:16px}.examActions{display:grid;grid-template-columns:1fr}.examActions .btn{width:100%}.voice .btn{flex:1}.navCenter{min-width:52px;font-size:.72rem}}
+:root{
+ --ink:#171321;--muted:#766e80;--line:#e9e3ef;--paper:#fff;--wash:#faf8fc;
+ --violet:#6d28d9;--violet2:#8b5cf6;--violet3:#ede9fe;--plum:#3b155f;
+ --green:#16754a;--greenbg:#e9f9f0;--red:#a12a2a;--redbg:#fff0f0;
+ --amber:#9a5b10;--amberbg:#fff6df;--shadow:0 20px 60px rgba(54,32,76,.12);
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
+radial-gradient(circle at 10% 0%,#f1eafe 0,transparent 30%),linear-gradient(#fbfafd,#f7f4fa);color:var(--ink);line-height:1.55}
+button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+.gate{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:18px;background:
+radial-gradient(circle at 80% 20%,rgba(255,255,255,.17),transparent 28%),linear-gradient(145deg,#1d102a,#4c1d95 58%,#8b5cf6)}
+.gateCard{width:min(430px,100%);background:rgba(255,255,255,.97);border:1px solid rgba(255,255,255,.6);border-radius:30px;padding:30px;box-shadow:0 28px 90px rgba(0,0,0,.30)}
+.miniBrand{font-size:.74rem;font-weight:950;letter-spacing:.15em;text-transform:uppercase;color:var(--violet)}
+.gate h1{font-size:2.05rem;line-height:1.04;letter-spacing:-.03em;margin:.6rem 0 .8rem}
+.muted{color:var(--muted)}
+label{display:block;font-weight:850;margin:.8rem 0 .35rem}
+.field{width:100%;min-height:52px;border:1.5px solid #d8cfdf;border-radius:15px;padding:12px 14px;font-size:16px;background:#fff;outline:none;transition:.18s}
+.field:focus{border-color:var(--violet2);box-shadow:0 0 0 4px var(--violet3)}
+.err{min-height:22px;color:var(--red);font-weight:800;font-size:.88rem;margin:.45rem 0}
+.btn{border:0;min-height:48px;border-radius:15px;padding:11px 17px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .16s,box-shadow .16s,background .16s}
+.btn:active{transform:scale(.985)}.btn:disabled{opacity:.42;cursor:not-allowed}
+.btnPrimary{background:linear-gradient(135deg,var(--violet),var(--violet2));color:#fff;box-shadow:0 9px 22px rgba(109,40,217,.22)}
+.btnSoft{background:#f2edf8;color:#4b1f73}.btnGhost{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.btnDark{background:#1b1622;color:#fff}.btnGood{background:var(--greenbg);color:var(--green)}
+.app{max-width:1040px;margin:auto;padding:0 14px 128px}
+.header{position:sticky;top:0;z-index:50;background:rgba(250,248,252,.91);backdrop-filter:blur(16px);border-bottom:1px solid rgba(226,217,234,.78);padding:10px 0}
+.headRow{display:flex;align-items:center;gap:10px;justify-content:space-between}.brand{font-size:.86rem;font-weight:950;white-space:nowrap}
+.brand em{font-style:normal;color:var(--violet)}
+.topicBtn{min-height:38px;border:0;border-radius:999px;padding:8px 12px;background:#fff;border:1px solid var(--line);font-weight:850;color:#4b4250}
+.progressRow{display:flex;align-items:center;gap:9px;margin-top:9px}.progressTrack{height:7px;flex:1;background:#e8e1ed;border-radius:99px;overflow:hidden}.progressFill{height:100%;width:0;background:linear-gradient(90deg,var(--violet),#b79af2);transition:width .25s}.progressLabel{font-size:.73rem;font-weight:850;color:var(--muted);white-space:nowrap}
+.hero{padding:28px 3px 14px}.eyebrow{display:inline-flex;align-items:center;gap:7px;border:1px solid #ddd1f3;background:#f5f0ff;color:#55209a;padding:6px 10px;border-radius:999px;font-size:.72rem;font-weight:950;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(2rem,6.5vw,3.8rem);line-height:1.02;letter-spacing:-.045em;margin:.75rem 0 .65rem}
+h2{font-size:clamp(1.45rem,5vw,2.4rem);line-height:1.08;letter-spacing:-.025em;margin:.5rem 0 1rem}h3{font-size:1.05rem;margin:0 0 .4rem}
+.lead{font-size:1.04rem;color:#554d5f;max-width:760px}
+.card{background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:24px;padding:18px;margin:13px 0;box-shadow:var(--shadow)}
+.flat{box-shadow:none}.lav{background:linear-gradient(145deg,#fbf8ff,#f5f0ff);border-color:#e0d4f1}.warm{background:#fffaf4;border-color:#f1dfca}
+.grid2{display:grid;gap:13px}.outlineGrid{display:grid;gap:10px;margin-top:14px}.outlineItem{display:grid;grid-template-columns:42px 1fr;gap:11px;align-items:start;border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}
+.outNum{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#ede9fe,#ddd6fe);color:#55209a;display:grid;place-items:center;font-weight:950}
+.outlineItem strong{display:block;margin-bottom:2px}.small{font-size:.82rem;color:var(--muted)}
+.tutorStage{background:linear-gradient(145deg,#21152e,#3c1b5c 58%,#5d2c8c);color:#fff;border-radius:28px;padding:17px;box-shadow:0 22px 60px rgba(44,20,66,.22);margin:13px 0;overflow:hidden}
+.tutorTop{display:flex;gap:12px;align-items:center}.avatar{width:49px;height:49px;flex:0 0 49px;border-radius:50%;background:linear-gradient(145deg,#fff,#e8d9ff);color:#5b21b6;display:grid;place-items:center;font-weight:950;box-shadow:inset 0 0 0 1px rgba(255,255,255,.7)}
+.tutorMeta{min-width:0;flex:1}.tutorName{font-size:.92rem;font-weight:950}.tutorSub{font-size:.76rem;color:#d8cbe4}.wave{display:flex;gap:3px;align-items:center;height:24px}.wave i{width:3px;height:8px;border-radius:9px;background:#cab6e6;display:block}.playing .wave i{animation:bounce .75s ease-in-out infinite alternate}.playing .wave i:nth-child(2){animation-delay:.12s}.playing .wave i:nth-child(3){animation-delay:.24s}.playing .wave i:nth-child(4){animation-delay:.36s}
+@keyframes bounce{to{height:22px;background:#fff}}
+.audioRow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}.audioBtn{min-height:47px;border:1px solid rgba(255,255,255,.16);border-radius:15px;background:rgba(255,255,255,.10);color:#fff;font-weight:900}.audioBtn.main{background:#fff;color:#3c1b5c}.audioStatus{font-size:.77rem;color:#d7cce0;margin-top:9px}
+.caption{margin-top:12px;padding:11px 12px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.12);border-radius:14px;font-size:.9rem;color:#f3ebfb;min-height:48px}
+.board{position:relative;border-radius:24px;background:#fff;border:1px solid var(--line);padding:18px;margin:13px 0;overflow:hidden}.board::before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 31px,rgba(109,40,217,.035) 32px);background-size:100% 32px;pointer-events:none}
+.boardTitle{font-size:.77rem;color:var(--muted);font-weight:950;text-transform:uppercase;letter-spacing:.08em;margin-bottom:11px;position:relative}
+.cue{position:relative;opacity:.26;transform:translateY(10px) scale(.985);filter:blur(.15px);transition:opacity .45s,transform .45s,filter .45s,background .45s,border-color .45s}
+.cue.active{opacity:1;transform:translateY(0) scale(1);filter:none}.cue.past{opacity:.65;transform:none;filter:none}
+.mathRow{font-family:"Cambria Math","STIX Two Math",Georgia,serif;font-size:clamp(1.32rem,5vw,2.1rem);font-weight:650;line-height:1.35;padding:11px 12px;border-radius:15px;border:1px solid transparent;margin:8px 0}
+.mathRow.active{background:#f7f1ff;border-color:#d9c8f2}.mathNote{font-family:Inter,system-ui,sans-serif;font-size:.82rem;font-weight:600;color:var(--muted);margin-top:3px}
+.frac{display:inline-flex;vertical-align:middle;flex-direction:column;align-items:stretch;text-align:center;line-height:1.08;margin:0 .12em;min-width:2.2em}.frac .num{border-bottom:1.7px solid currentColor;padding:0 .18em .12em}.frac .den{padding:.12em .18em 0}
+.eqArrow{display:inline-block;margin:0 .18em;color:var(--violet)}
+.token{display:inline-block;border-radius:9px;padding:1px 4px;transition:.35s}.cue.active .tokenFocus{background:#eadcff;color:#4c1d95;box-shadow:0 0 0 2px #d8c1fb}
+.explainGrid{display:grid;gap:10px}.explainItem{border:1px solid var(--line);border-radius:17px;padding:14px;background:#fff}.explainItem b{display:block;margin-bottom:4px}.why{border-left:4px solid #6d28d9;background:#faf6ff;border-radius:13px;padding:12px 14px;margin-top:12px}
+.practice{border:1.5px solid #d9c8ef;background:#fff;border-radius:22px;padding:16px;margin:15px 0}.practiceHead{display:flex;justify-content:space-between;gap:8px;align-items:center}.practiceTag{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#5b21b6;background:#f1e9ff;padding:5px 8px;border-radius:999px;font-weight:950}
+.question{font-size:1.02rem;font-weight:850;margin:13px 0}.choices{display:grid;gap:9px}.choice{width:100%;min-height:50px;text-align:left;border:1.5px solid var(--line);border-radius:14px;background:#fff;padding:12px 13px;color:var(--ink);font-weight:700;transition:.16s}.choice:hover{border-color:#cdb7ec;background:#fcfaff}.choice.correct{border-color:#79c49b;background:var(--greenbg);color:var(--green)}.choice.wrong{border-color:#edacac;background:var(--redbg);color:var(--red)}
+.actionRow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.feedback{display:none;margin-top:11px;padding:11px 13px;border-radius:13px;font-weight:700}.feedback.show{display:block}.feedback.good{background:var(--greenbg);color:var(--green)}.feedback.bad{background:var(--redbg);color:var(--red)}.feedback.hint{background:var(--amberbg);color:var(--amber)}
+.examIntro{background:linear-gradient(145deg,#fbf9ff,#f1ebfb);border:1px solid #dfd1f2;border-radius:24px;padding:18px;margin:13px 0}.examList{display:grid;gap:16px}.examPaper{background:#fff;border:1px solid #d8d3dc;border-radius:20px;padding:18px;box-shadow:0 12px 30px rgba(28,20,36,.06)}
+.examTop{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid #ece8ef;padding-bottom:11px;margin-bottom:14px}.examNo{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;font-weight:950;color:#514759}.examMarks{font-family:Georgia,serif;font-weight:800;color:#403747;white-space:nowrap}
+.examQ{font-family:"Cambria Math","STIX Two Math",Georgia,serif;font-size:1.25rem;line-height:1.45;margin:8px 0 14px}.answerBox{margin-top:12px}.solution{display:none;margin-top:16px;padding-top:15px;border-top:1px dashed #d6cfdb}.solution.show{display:block}
+.memoTitle{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;font-weight:950;color:#5b21b6;margin-bottom:10px}.markStep{display:grid;grid-template-columns:44px 1fr;gap:10px;margin:10px 0}.markChip{height:31px;border-radius:9px;background:#21172a;color:#fff;display:grid;place-items:center;font-weight:900;font-size:.73rem}.reason{font-size:.79rem;color:var(--muted);margin-top:2px}
+.reportScore{font-size:3.1rem;line-height:1;font-weight:950;color:var(--violet)}.reportRow{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}.reportRow:last-child{border:0}.pill{background:#f1e9ff;color:#55209a;border-radius:999px;padding:5px 9px;font-size:.74rem;font-weight:900;white-space:nowrap}
+.bottomNav{position:fixed;z-index:60;left:50%;transform:translateX(-50%);bottom:10px;width:min(1010px,calc(100% - 18px));background:rgba(28,21,35,.94);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:8px;display:grid;grid-template-columns:auto 1fr auto;gap:8px;box-shadow:0 16px 50px rgba(25,13,34,.25)}
+.navBack{width:50px;min-height:50px;border-radius:15px;border:0;background:#3b3243;color:#fff;font-size:1.2rem;font-weight:900}.navInfo{display:grid;place-items:center;color:#ddd2e4;font-size:.76rem;font-weight:850;text-align:center}.navNext{min-height:50px;border:0;border-radius:15px;padding:0 19px;background:linear-gradient(135deg,#7c3aed,#a66cf0);color:#fff;font-weight:950;box-shadow:0 8px 18px rgba(124,58,237,.22)}
+.drawer{position:fixed;z-index:90;inset:0;background:rgba(22,14,28,.38);backdrop-filter:blur(5px);display:none;padding:64px 12px 90px}.drawer.show{display:block}.drawerPanel{max-width:680px;max-height:100%;overflow:auto;margin:auto;background:#fff;border:1px solid var(--line);border-radius:26px;padding:17px;box-shadow:var(--shadow)}.drawerHead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:11px}.drawerList{display:grid;gap:8px}.drawerItem{width:100%;display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:center;text-align:left;border:1px solid var(--line);background:#fff;border-radius:15px;padding:10px}.drawerItem.active{border-color:#c9adef;background:#faf7ff}.drawerNum{width:34px;height:34px;border-radius:11px;background:#efe7f7;color:#55209a;display:grid;place-items:center;font-weight:900}
+@media(min-width:720px){.grid2{grid-template-columns:1fr 1fr}.outlineGrid{grid-template-columns:1fr 1fr}.explainGrid{grid-template-columns:1fr 1fr}.card,.examPaper{padding:22px}.tutorStage{padding:20px}.board{padding:22px}.audioRow{grid-template-columns:auto auto 1fr}.audioStatus{align-self:center;margin:0 0 0 4px}}
+@media(max-width:520px){.app{padding-left:10px;padding-right:10px}.brand{font-size:.76rem}.topicBtn{font-size:.76rem;padding:7px 9px}.hero{padding-top:22px}.card,.board,.practice,.examPaper{border-radius:18px;padding:14px}.tutorStage{border-radius:21px;padding:14px}.mathRow{font-size:1.42rem;padding:10px 8px}.audioRow{grid-template-columns:1fr 1fr}.actionRow{display:grid;grid-template-columns:1fr}.actionRow .btn{width:100%}.examTop{align-items:flex-start}.navNext{padding:0 14px}.bottomNav{border-radius:17px}.drawer{padding-top:54px}.outlineGrid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <section id="gate" class="gate">
-  <div class="gateCard">
-    <div class="brand">Victoria Tuition Academy</div>
-    <h1>Lateya's Grade 10 Algebra Tutor</h1>
-    <p class="muted">Private guided lesson. Enter the lesson password to continue.</p>
-    <form id="gateForm">
-      <label for="password">Lesson password</label>
-      <input id="password" class="input" type="password" autocomplete="current-password" placeholder="Enter password" required>
-      <div id="gateError" class="err" aria-live="polite"></div>
-      <button class="btn dark" style="width:100%" type="submit">Open lesson</button>
-    </form>
-  </div>
+ <div class="gateCard">
+  <div class="miniBrand">Victoria Tuition Academy</div>
+  <h1>Lateya's Algebra Studio</h1>
+  <p class="muted">A private, guided Grade 10 lesson with a voice tutor and exam coaching.</p>
+  <form id="gateForm">
+   <label for="password">Lesson password</label>
+   <input id="password" class="field" type="password" autocomplete="current-password" placeholder="Enter password" required>
+   <div id="gateError" class="err" aria-live="polite"></div>
+   <button class="btn btnPrimary" style="width:100%" type="submit">Enter lesson <span>→</span></button>
+  </form>
+ </div>
 </section>
 
 <div id="app" class="hidden">
-  <div class="shell">
-    <header class="top">
-      <div class="toprow">
-        <div class="topbrand">Victoria Tuition Academy</div>
-        <button id="outlineBtn" class="btn secondary" type="button">Lesson outline</button>
-      </div>
-      <div class="progressWrap">
-        <div class="progress"><div id="fill" class="fill"></div></div>
-        <div id="progressText" class="progressText"></div>
-      </div>
-    </header>
-    <main id="main"></main>
+ <div class="app">
+  <header class="header">
+   <div class="headRow">
+    <div class="brand">Victoria Tuition <em>Academy</em></div>
+    <button id="topicsBtn" class="topicBtn" type="button">☰ Topics</button>
+   </div>
+   <div class="progressRow">
+    <div class="progressTrack"><div id="progressFill" class="progressFill"></div></div>
+    <div id="progressLabel" class="progressLabel"></div>
+   </div>
+  </header>
+  <main id="main"></main>
+ </div>
+ <div id="drawer" class="drawer" aria-hidden="true">
+  <div class="drawerPanel">
+   <div class="drawerHead"><div><div class="miniBrand">Lesson map</div><h3 style="margin-top:4px">Jump to a topic</h3></div><button id="closeDrawer" class="btn btnGhost" type="button">Close</button></div>
+   <div id="drawerList" class="drawerList"></div>
   </div>
-  <nav class="nav">
-    <button id="backBtn" class="btn ghost" type="button">← Back</button>
-    <div id="navCenter" class="navCenter"></div>
-    <button id="nextBtn" class="btn primary" type="button">Next →</button>
-  </nav>
+ </div>
+ <nav class="bottomNav">
+  <button id="backBtn" class="navBack" type="button" aria-label="Previous topic">←</button>
+  <div id="navInfo" class="navInfo"></div>
+  <button id="nextBtn" class="navNext" type="button">Continue →</button>
+ </nav>
 </div>
 
 <script>
-(() => {
+(()=>{
 const PASS_HASH='2de6bab1fc74cc4e4ca469e90e22a37c00db1cb7a5dd2e89a1fee12c3a5f2756';
 const AUDIO={
- intro:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/e1667a02-47cd-4ed1-900c-d45d3d6e16a6.mp3',
- language:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/9b68c9d9-69e7-4a75-8aba-700db7684136.mp3',
- expansion:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/ca3d966c-55a6-44c4-8165-e25e2e227069.mp3',
- exponents:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/fcc7ed46-7bf8-4f34-8423-18062f63ce0a.mp3',
- factor:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/72045f97-e3bf-4685-b4bb-35494f372dcc.mp3',
- fractions:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/01cb1c14-c17d-4652-be7c-6d8e47806cb6.mp3',
- equations:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/e9ef1329-35f1-4ccd-bd8a-64be8b45928f.mp3',
- simultaneous:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/68eddfee-cc40-43b5-a659-d8020028c2bc.mp3',
- inequality:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/0e61549d-38e0-4143-892b-490f6fe2f577.mp3',
- word:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/9be19670-1db5-4e81-8ff9-de12bdb90f6f.mp3',
- exam:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/85aab026-87d8-45a2-8105-e83666ea4d53.mp3'
+ intro:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/afca3dbb-b599-4b81-9a7a-db150c11ff51.mp3',
+ language:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/659306ba-d84f-43b6-a87d-ede3bb89b08b.mp3',
+ expansion:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/d4ba7fa8-fe4f-4a86-88b3-c4205e2ed052.mp3',
+ exponents:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/2661a4e3-1008-49a2-aef7-9112409596fe.mp3',
+ factor:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/4e768d4b-03fa-42a8-b3de-30baec832be3.mp3',
+ fractions:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/cc1ef377-a5df-4e0a-94a4-4ba0a16f9cdb.mp3',
+ equations:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/49191d06-e001-4b27-82e4-2ed902b2a852.mp3',
+ simultaneous:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/b67c5ee1-c110-4145-b24c-71ed6b6b8a7d.mp3',
+ inequality:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/914c1b0b-4aee-444c-8918-d9224f34e95a.mp3',
+ word:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/19c1ad38-1120-48b2-893d-88a6db885656.mp3',
+ exam:'https://storage.googleapis.com/adm--audio-playback--7d--public/mcp-preview/6eba1960-3064-41ab-9519-a902ca281104.mp3'
 };
-const outlineItems=[
- ['1. Algebra language & simplification','Terms, coefficients, constants, like terms, substitution and collecting terms.'],
- ['2. Expansion','Single brackets, two brackets, signs and special products.'],
- ['3. Exponents','Product, quotient, power laws, zero and negative exponents, and simple exponential equations.'],
- ['4. Factorisation','Common factor, grouping, difference of squares, trinomials and sum/difference of cubes.'],
- ['5. Algebraic fractions','Restrictions, factorising first and cancelling factors correctly.'],
- ['6. Linear equations','Balancing, brackets and equations with fractions.'],
- ['7. Quadratic equations','Factorise, apply the zero-product rule and check both roots.'],
- ['8. Simultaneous equations','Substitution and elimination with two unknowns.'],
- ['9. Changing the subject','Literal equations and isolating the requested variable.'],
- ['10. Linear inequalities','Solve, reverse the sign when dividing by a negative, and use interval/number-line notation.'],
- ['11. Word problems','Translate words into algebra, solve and interpret the result.'],
- ['12. Exam Coach','Answer CAPS-style questions first, then reveal a mark-by-mark worked solution.']
+const frac=(n,d)=>'<span class="frac"><span class="num">'+n+'</span><span class="den">'+d+'</span></span>';
+const cue=(at,caption,html)=>'<div class="cue mathRow" data-at="'+at+'" data-caption="'+caption.replace(/"/g,'&quot;')+'">'+html+'</div>';
+const outline=[
+ ['Algebra language','Terms, coefficients, constants, like terms and simplification.'],
+ ['Expansion','Single brackets, two brackets and sign control.'],
+ ['Exponents','Product, quotient, powers, zero and negative exponents.'],
+ ['Factorisation','Common factor, squares, trinomials, grouping and cubes.'],
+ ['Algebraic fractions','Restrictions, factorise first and cancel factors correctly.'],
+ ['Linear equations','Balance, brackets and fractions in equations.'],
+ ['Quadratic equations','Factorise, zero-product rule and two solutions.'],
+ ['Simultaneous & formulae','Elimination, substitution and changing the subject.'],
+ ['Inequalities','Solve ranges and flip the sign after dividing by a negative.'],
+ ['Word problems','Translate ordinary language into algebra.'],
+ ['Exam Coach','Attempt real exam-style questions, then study the marking guide.']
 ];
-
 const screens=[
- {key:'outline',title:'Your complete algebra roadmap',kicker:'START HERE • LESSON OUTLINE',audio:'intro',
-  html:()=>'<p class="lead">Lateya, this lesson is not a pile of notes. Every topic follows <b>teach → worked example → your turn → correction → exam application</b>.</p><div class="outline">'+outlineItems.map(x=>'<div class="outlineItem"><b>'+x[0]+'</b><span class="muted">'+x[1]+'</span></div>').join('')+'</div><div class="card purpleCard"><b>How to use it:</b> Try each check before looking at feedback. In Exam Coach, the worked solution stays hidden until you submit an answer.</div>'},
- {key:'language',title:'Algebra language & simplifying',kicker:'FOUNDATIONS',audio:'language',
-  html:()=>'<div class="grid2"><div class="card"><h3>Read the expression first</h3><div class="math">4x² − 3x + 7</div><p><b>Terms:</b> 4x², −3x, 7<br><b>Coefficient of x:</b> −3<br><b>Constant:</b> 7</p></div><div class="card"><h3>Like terms</h3><p>Terms combine only when the variable part is identical.</p><div class="math">5x + 2x = 7x<br>5x + 2x² cannot combine</div></div></div><div class="worked"><b>Worked example</b><div class="math">7x² + 4x − 2x² + 9x − 5<br>= 5x² + 13x − 5</div><span class="muted">Collect x² terms, x terms and constants separately.</span></div>',
-  quiz:{type:'input',prompt:'Simplify: 8x + 4 − 3x + 9',answers:['5x+13'],hint:'Combine the x terms, then the constants.',explain:'8x−3x=5x and 4+9=13, so the answer is 5x+13.'}},
- {key:'expansion',title:'Expansion',kicker:'BRACKETS',audio:'expansion',
-  html:()=>'<div class="card"><h3>Single bracket</h3><div class="math">−2(3x − 5) = −6x + 10</div><p>The outside factor multiplies <b>every</b> term inside.</p></div><div class="card"><h3>Two brackets</h3><div class="math">(x+3)(x+5)<br>= x²+5x+3x+15<br>= x²+8x+15</div><p>Every term in the first bracket multiplies every term in the second.</p></div><div class="why"><b>Special product:</b> (a−b)(a+b)=a²−b² because the middle terms cancel.</div>',
-  quiz:{type:'mcq',prompt:'Expand and simplify: 2(x−3)+4(x+1)',choices:['6x−2','6x+10','2x−2','8x−2'],answer:0,explain:'2x−6+4x+4 = 6x−2.'}},
- {key:'exponents',title:'Exponents',kicker:'EXPONENT LAWS',audio:'exponents',
-  html:()=>'<div class="card"><div class="math">aᵐ·aⁿ=aᵐ⁺ⁿ<br>aᵐ÷aⁿ=aᵐ⁻ⁿ<br>(aᵐ)ⁿ=aᵐⁿ<br>a⁰=1 (a≠0)<br>a⁻ⁿ=1/aⁿ</div></div><div class="worked"><b>Example</b><div class="math">(2x³)(−3x²)=−6x⁵</div><span class="muted">Multiply coefficients; add exponents only because the base x is the same.</span></div><div class="card soft"><b>Simple exponential equations:</b> if you can rewrite both sides with the same base, compare exponents. Example: 2ˣ=8=2³, so x=3.</div>',
-  quiz:{type:'input',prompt:'Simplify: y⁷ ÷ y³',answers:['y^4','y4','y⁴'],hint:'Same base and division means subtract exponents.',explain:'7−3=4, so y⁴.'}},
- {key:'factor',title:'Factorisation',kicker:'REVERSE EXPANSION',audio:'factor',
-  html:()=>'<div class="card"><h3>Always ask in this order</h3><div class="steps"><div class="step"><div class="stepNum">1</div><div><b>Common factor?</b><div class="math">12x²−8x=4x(3x−2)</div></div></div><div class="step"><div class="stepNum">2</div><div><b>Difference of squares?</b><div class="math">x²−25=(x−5)(x+5)</div></div></div><div class="step"><div class="stepNum">3</div><div><b>Trinomial?</b><div class="math">x²+7x+12=(x+3)(x+4)</div></div></div></div></div><div class="card soft"><b>Also know:</b> grouping in pairs and the patterns a³−b³=(a−b)(a²+ab+b²) and a³+b³=(a+b)(a²−ab+b²).</div>',
-  quiz:{type:'input',prompt:'Factorise fully: x² + 5x + 6',answers:['(x+2)(x+3)','(x+3)(x+2)'],hint:'Find two numbers that multiply to 6 and add to 5.',explain:'2 and 3 work, so (x+2)(x+3).'}},
- {key:'fractions',title:'Algebraic fractions',kicker:'FACTORISE BEFORE CANCELLING',audio:'fractions',
-  html:()=>'<div class="worked"><b>Example</b><div class="math">(x²−9)/(x²+3x)</div><p>Factorise:</p><div class="math">(x−3)(x+3) / [x(x+3)]</div><p>Cancel the common <b>factor</b> (x+3):</p><div class="math">(x−3)/x, &nbsp; x≠0,−3</div></div><div class="why"><b>Never cancel terms across + or −.</b> Cancellation works with factors that multiply the whole numerator and denominator.</div>',
-  quiz:{type:'mcq',prompt:'Simplify: (x²−16)/(x−4), where x≠4',choices:['x−4','x+4','x²+4','1'],answer:1,explain:'x²−16=(x−4)(x+4). Cancel the factor x−4, leaving x+4.'}},
- {key:'linear',title:'Linear equations',kicker:'KEEP THE BALANCE',audio:'equations',
-  html:()=>'<div class="worked"><b>Example</b><div class="math">5x−7=18<br>5x=25<br>x=5</div><p>Every operation must preserve equality.</p></div><div class="grid2"><div class="card"><h3>Brackets</h3><div class="math">3(x−2)=12<br>x−2=4<br>x=6</div></div><div class="card"><h3>Fractions</h3><div class="math">x/3+2=5<br>x/3=3<br>x=9</div><p>For harder fraction equations, multiply every term by the lowest common denominator.</p></div></div>',
-  quiz:{type:'input',prompt:'Solve: 4(x+1)=28',answers:['6','x=6'],hint:'Divide both sides by 4 first.',explain:'x+1=7, therefore x=6.'}},
- {key:'quadratic',title:'Quadratic equations',kicker:'FACTORISE • ZERO PRODUCT',audio:'equations',
-  html:()=>'<div class="worked"><b>Solve:</b><div class="math">x²+5x+6=0<br>(x+2)(x+3)=0<br>x+2=0 or x+3=0<br>x=−2 or x=−3</div></div><div class="why"><b>Why two answers?</b> If A×B=0, at least one factor must equal zero.</div>',
-  quiz:{type:'input',prompt:'Solve x²−5x+6=0. Enter both solutions separated by a comma.',answers:['2,3','3,2'],hint:'Factorise into (x−2)(x−3).',explain:'(x−2)(x−3)=0, so x=2 or x=3.'}},
- {key:'simultaneous',title:'Simultaneous & literal equations',kicker:'TWO IMPORTANT SKILLS',audio:'simultaneous',
-  html:()=>'<div class="grid2"><div class="card"><h3>Simultaneous equations</h3><div class="math">x+y=7<br>x−y=1</div><p>Add: 2x=8 → x=4. Substitute back: y=3.</p><p class="muted">Use elimination or substitution.</p></div><div class="card"><h3>Changing the subject</h3><div class="math">V=πr²h<br>h=V/(πr²)</div><p>Use inverse operations until the requested letter is alone.</p></div></div>',
-  quiz:{type:'input',prompt:'Given x+y=10 and x−y=2, what is x?',answers:['6','x=6'],hint:'Add the equations so y cancels.',explain:'2x=12, so x=6. Then y=4.'}},
- {key:'inequality',title:'Linear inequalities',kicker:'WATCH THE SIGN',audio:'inequality',
-  html:()=>'<div class="grid2"><div class="card"><div class="math">2x+3&lt;11<br>2x&lt;8<br>x&lt;4</div></div><div class="card orangeCard"><div class="math">−3x&gt;12<br>x&lt;−4</div><p><b>The sign reverses</b> because we divided by −3.</p></div></div><div class="card soft"><b>Interval notation:</b> square bracket includes an endpoint; round bracket excludes it. Example x≥−4 becomes [−4,∞).</div>',
-  quiz:{type:'input',prompt:'Solve: −2x ≤ 10',answers:['x>=-5','x≥-5'],hint:'Divide by −2 and reverse the sign.',explain:'x≥−5.'}},
- {key:'word',title:'Word problems',kicker:'TRANSLATE BEFORE YOU SOLVE',audio:'word',
-  html:()=>'<div class="worked"><b>Problem:</b> “Three more than twice a number is 17.”<div class="steps"><div class="step"><div class="stepNum">1</div><div>Let the number be x.</div></div><div class="step"><div class="stepNum">2</div><div>Twice the number → 2x.</div></div><div class="step"><div class="stepNum">3</div><div>Three more → 2x+3.</div></div><div class="step"><div class="stepNum">4</div><div>Equation: 2x+3=17.</div></div><div class="step"><div class="stepNum">5</div><div>Solve: x=7 and check the story.</div></div></div></div>',
-  quiz:{type:'mcq',prompt:'“Five less than three times a number is 19.” Which equation matches?',choices:['3x+5=19','5x−3=19','3x−5=19','3(x−5)=19'],answer:2,explain:'Three times a number is 3x; five less means subtract 5.'}},
- {key:'exam',title:'Exam Coach',kicker:'ANSWER → MARK → LEARN THE METHOD',audio:'exam',exam:true},
- {key:'report',title:'Your algebra progress',kicker:'LESSON REPORT',report:true}
+{key:'outline',title:'See the whole journey first',eyebrow:'Lesson roadmap',audio:'intro',
+ cues:[
+  ['0.00','First, see the whole lesson before you start.','<b>Start with the basics.</b> We build from simple ideas before harder questions.'],
+  ['0.30','Then we connect the skills together.','<b>Expressions → equations → exam questions.</b> Each topic feeds the next one.'],
+  ['0.66','At the end, you practise like you are in an exam.','<b>Exam Coach:</b> answer first, then study exactly where the marks come from.']
+ ],
+ body:()=>'<p class="lead">Lateya, you are not expected to know all of this at once. We move through it in small pieces and keep connecting each new idea to something you already understand.</p><div class="outlineGrid">'+outline.map((x,i)=>'<div class="outlineItem"><div class="outNum">'+(i+1)+'</div><div><strong>'+x[0]+'</strong><span class="small">'+x[1]+'</span></div></div>').join('')+'</div><div class="card lav flat"><b>The lesson pattern:</b> listen → watch the maths move → try one → get feedback → use it in an exam question.</div>'},
+{key:'language',title:'Make algebra look less scary',eyebrow:'1 • Algebra language',audio:'language',
+ cues:[
+  ['0.00','A long expression is just a few smaller pieces.','<span class="token tokenFocus">4x²</span> − <span>3x</span> + <span>7</span>'],
+  ['0.30','The plus and minus signs separate those pieces into terms.','<span class="token tokenFocus">4x²</span> &nbsp; | &nbsp; <span class="token tokenFocus">−3x</span> &nbsp; | &nbsp; <span class="token tokenFocus">7</span>'],
+  ['0.62','Only terms that match exactly can be joined.','<span class="token tokenFocus">5x</span> + <span class="token tokenFocus">2x</span> = 7x'],
+  ['0.82','x and x-squared are different kinds of terms.','5x + 2x² <span class="mathNote">cannot be combined</span>']
+ ],
+ body:()=>'<div class="explainGrid"><div class="explainItem"><b>Term</b>A chunk separated by + or −.</div><div class="explainItem"><b>Coefficient</b>The number sitting in front of a variable.</div><div class="explainItem"><b>Constant</b>A number with no variable attached.</div><div class="explainItem"><b>Like terms</b>Same letters and the same powers.</div></div><div class="why"><b>Think of units:</b> 3 apples + 2 apples = 5 apples. But 3 apples + 2 boxes of apples are not the same unit. That is why x and x² do not combine.</div>',
+ quiz:{type:'input',prompt:'Simplify: 8x + 4 − 3x + 9',answers:['5x+13'],hint:'Put the x terms together first. Then put the ordinary numbers together.',explain:'8x−3x=5x and 4+9=13. So the simplified expression is 5x+13.'}},
+{key:'expansion',title:'Brackets are just sharing',eyebrow:'2 • Expansion',audio:'expansion',
+ cues:[
+  ['0.00','Imagine the −2 outside the bracket has to be shared with everything inside.','<span class="token tokenFocus">−2</span>(3x − 5)'],
+  ['0.28','First share it with 3x.','(−2)(3x) = <span class="token tokenFocus">−6x</span>'],
+  ['0.55','Then share it with −5. Negative times negative becomes positive.','(−2)(−5) = <span class="token tokenFocus">+10</span>'],
+  ['0.78','Now put those two results together.','<span class="token tokenFocus">−6x + 10</span>']
+ ],
+ body:()=>'<div class="grid2"><div class="card flat"><h3>One bracket</h3><div class="mathRow">3(x+4)=3x+12</div><p class="small">The 3 must touch both terms.</p></div><div class="card flat"><h3>Two brackets</h3><div class="mathRow">(x+2)(x+5)</div><div class="mathRow">= x²+5x+2x+10</div><div class="mathRow">= x²+7x+10</div></div></div><div class="why"><b>Common mistake:</b> multiplying the outside number by only the first term. Treat every term inside the bracket as needing its own turn.</div>',
+ quiz:{type:'mcq',prompt:'Expand and simplify: 2(x−3)+4(x+1)',choices:['6x−2','6x+10','2x−2','8x−2'],answer:0,explain:'2x−6+4x+4 = 6x−2.'}},
+{key:'exponents',title:'Exponents are shortcuts, not magic rules',eyebrow:'3 • Exponents',audio:'exponents',
+ cues:[
+  ['0.00','An exponent tells you how many times the same base is multiplied.','x³ = x · x · x'],
+  ['0.25','Same base and multiplication? Add the powers.','x³ · x⁵ = <span class="token tokenFocus">x⁸</span>'],
+  ['0.50','Same base and division? Subtract the powers.','x⁷ ÷ x³ = <span class="token tokenFocus">x⁴</span>'],
+  ['0.72','A negative power means reciprocal — flip it into a fraction.','x⁻³ = '+frac('1','x³')],
+  ['0.90','A zero power gives 1, as long as the base is not zero.','x⁰ = 1']
+ ],
+ body:()=>'<div class="card flat"><div class="mathRow">aᵐ·aⁿ=aᵐ⁺ⁿ &nbsp;&nbsp; aᵐ÷aⁿ=aᵐ⁻ⁿ</div><div class="mathRow">(aᵐ)ⁿ=aᵐⁿ &nbsp;&nbsp; a⁰=1</div></div><div class="why"><b>Ask before using a law:</b> “Are the bases the same, and am I multiplying, dividing, or raising a power?”</div>',
+ quiz:{type:'input',prompt:'Simplify: y⁷ ÷ y³',answers:['y^4','y4','y⁴'],hint:'The base y is the same and we are dividing.',explain:'Subtract the powers: 7−3=4, so the answer is y⁴.'}},
+{key:'factor',title:'Factorising is expansion backwards',eyebrow:'4 • Factorisation',audio:'factor',
+ cues:[
+  ['0.00','Before anything else, look for something every term shares.','12x² − 8x'],
+  ['0.22','Both terms share 4x, so take 4x outside.','12x² − 8x = <span class="token tokenFocus">4x</span>(3x−2)'],
+  ['0.46','For a trinomial, look for two numbers with the right product and sum.','x² + 7x + 12'],
+  ['0.68','Three times four is twelve, and three plus four is seven.','3 × 4 = 12 &nbsp;&nbsp; 3 + 4 = 7'],
+  ['0.86','So those numbers become the two brackets.','(x+3)(x+4)']
+ ],
+ body:()=>'<div class="explainGrid"><div class="explainItem"><b>1. Common factor</b>Always check this first.</div><div class="explainItem"><b>2. Difference of squares</b>a²−b²=(a−b)(a+b)</div><div class="explainItem"><b>3. Trinomial</b>Find the pair that gives the product and middle-term sum.</div><div class="explainItem"><b>4. Other Grade 10 patterns</b>Grouping and sum/difference of cubes.</div></div>',
+ quiz:{type:'input',prompt:'Factorise fully: x² + 5x + 6',answers:['(x+2)(x+3)','(x+3)(x+2)'],hint:'Which two numbers multiply to 6 and add to 5?',explain:'2 and 3 work, so x²+5x+6=(x+2)(x+3).'}},
+{key:'fractions',title:'Make algebraic fractions look like ordinary fractions',eyebrow:'5 • Algebraic fractions',audio:'fractions',
+ cues:[
+  ['0.00','Do not cancel pieces yet. First make the top and bottom into factors.',''+frac('x² − 9','x² + 3x')],
+  ['0.30','The top is a difference of squares. The bottom has a common x.',''+frac('(x−3)(x+3)','x(x+3)')],
+  ['0.62','Now x+3 is a complete factor on the top and bottom, so it can cancel.',''+frac('(x−3)<s>(x+3)</s>','x<s>(x+3)</s>')],
+  ['0.84','What remains is the simplified fraction. Keep the restrictions from the original denominator.',''+frac('x−3','x')+' &nbsp; x≠0,−3']
+ ],
+ body:()=>'<div class="card flat"><h3>The cancellation rule</h3><p>You may cancel <b>factors</b> — things being multiplied. You may not cross out an x just because you see an x somewhere above and below a + sign.</p><div class="mathRow">'+frac('x+4','x+7')+' <span class="mathNote">The x cannot cancel.</span></div></div><div class="why"><b>Restriction:</b> write down any x-value that would have made the original denominator zero before you cancel anything.</div>',
+ quiz:{type:'mcq',prompt:'Simplify '+frac('x²−16','x−4')+', where x≠4',choices:['x−4','x+4','x²+4','1'],answer:1,explain:'x²−16=(x−4)(x+4). The common factor x−4 cancels, leaving x+4.'}},
+{key:'linear',title:'An equation is a balanced scale',eyebrow:'6 • Linear equations',audio:'equations',
+ cues:[
+  ['0.00','Our goal is to get x alone without changing the balance.','5x − 7 = 18'],
+  ['0.22','Undo minus seven by adding seven to both sides.','5x = 25'],
+  ['0.42','Now undo times five by dividing both sides by five.','x = <span class="token tokenFocus">5</span>'],
+  ['0.63','If there are fractions, keep the same balance idea.',''+frac('x','3')+' + 2 = 5'],
+  ['0.82','With quadratics, first get zero on one side, then factorise.','x² + 5x + 6 = 0']
+ ],
+ body:()=>'<div class="grid2"><div class="card flat"><h3>Brackets</h3><div class="mathRow">3(x−2)=12</div><div class="mathRow">x−2=4</div><div class="mathRow">x=6</div></div><div class="card flat"><h3>Fractions</h3><div class="mathRow">'+frac('x','3')+'+2=5</div><div class="mathRow">'+frac('x','3')+'=3</div><div class="mathRow">x=9</div></div></div>',
+ quiz:{type:'input',prompt:'Solve: 4(x+1)=28',answers:['6','x=6'],hint:'Divide both sides by 4 first.',explain:'x+1=7, so x=6.'}},
+{key:'quadratic',title:'Quadratics can give two answers',eyebrow:'7 • Quadratic equations',audio:'equations',
+ cues:[
+  ['0.00','First make sure one side is zero.','x² − 5x + 6 = 0'],
+  ['0.26','Now factorise the trinomial.','(x−2)(x−3)=0'],
+  ['0.53','If two factors multiply to zero, either factor can be zero.','x−2=0 &nbsp; or &nbsp; x−3=0'],
+  ['0.80','That gives the two possible x-values.','x=2 &nbsp; or &nbsp; x=3']
+ ],
+ body:()=>'<div class="why"><b>Layman version:</b> if two numbers are multiplied and the result is 0, at least one of those numbers has to be 0. That is the whole reason we set each bracket equal to zero.</div>',
+ quiz:{type:'input',prompt:'Solve x²−x−6=0. Enter both solutions separated by a comma.',answers:['3,-2','-2,3'],hint:'Find two numbers that multiply to −6 and add to −1.',explain:'(x−3)(x+2)=0, so x=3 or x=−2.'}},
+{key:'simultaneous',title:'Two equations are two clues',eyebrow:'8 • Simultaneous equations & formulae',audio:'simultaneous',
+ cues:[
+  ['0.00','The same x and y must make both equations true.','x+y=10<br>x−y=2'],
+  ['0.28','Here +y and −y cancel if we add the equations.','(x+y)+(x−y)=12'],
+  ['0.50','That leaves a simple equation for x.','2x=12 &nbsp; → &nbsp; x=6'],
+  ['0.69','Put x back into one original equation to find y.','6+y=10 &nbsp; → &nbsp; y=4'],
+  ['0.86','Changing the subject uses the same undoing idea.','V=πr²h &nbsp; → &nbsp; h='+frac('V','πr²')]
+ ],
+ body:()=>'<div class="grid2"><div class="card flat"><h3>Elimination</h3>Make one variable disappear by adding or subtracting equations.</div><div class="card flat"><h3>Substitution</h3>Express one variable in terms of the other, then replace it.</div></div>',
+ quiz:{type:'input',prompt:'Given x+y=10 and x−y=2, what is y?',answers:['4','y=4'],hint:'Add the equations to find x first, then substitute x back.',explain:'Adding gives x=6. Then 6+y=10, so y=4.'}},
+{key:'inequality',title:'Inequalities describe a range',eyebrow:'9 • Linear inequalities',audio:'inequality',
+ cues:[
+  ['0.00','Solve almost like an equation.','−3x ≤ 12'],
+  ['0.35','We need to divide by negative three.',''+frac('−3x','−3')+' ≤ '+frac('12','−3')],
+  ['0.58','This is the one special rule: dividing by a negative flips the sign.','≤ &nbsp; <span class="eqArrow">flips to</span> &nbsp; ≥'],
+  ['0.82','So the final range is x greater than or equal to negative four.','x ≥ −4']
+ ],
+ body:()=>'<div class="card flat"><h3>Interval notation</h3><div class="mathRow">x ≥ −4 &nbsp; ⇔ &nbsp; [−4, ∞)</div><p class="small">Square bracket means the endpoint is included. Round bracket means it is not included.</p></div>',
+ quiz:{type:'input',prompt:'Solve: 2x+3<11',answers:['x<4'],hint:'Subtract 3, then divide by positive 2. There is no sign flip.',explain:'2x<8, therefore x<4.'}},
+{key:'word',title:'Turn the story into one algebra sentence',eyebrow:'10 • Word problems',audio:'word',
+ cues:[
+  ['0.00','Choose what x represents.','Let x = the unknown number'],
+  ['0.25','Translate one phrase only.','three times a number → 3x'],
+  ['0.49','Translate the next phrase.','five less than that → 3x−5'],
+  ['0.70','Now add the “is 19” part.','3x−5=19'],
+  ['0.86','Once the story is an equation, solve normally.','3x=24 &nbsp; → &nbsp; x=8']
+ ],
+ body:()=>'<div class="why"><b>Do not solve the English sentence in your head.</b> Translate it first. The equation is the bridge between the story and the maths.</div>',
+ quiz:{type:'mcq',prompt:'“Four more than twice a number is 18.” Which equation matches?',choices:['2x−4=18','4x+2=18','2x+4=18','2(x+4)=18'],answer:2,explain:'Twice the number is 2x. Four more means +4. So 2x+4=18.'}},
+{key:'exam',title:'Exam Coach',eyebrow:'11 • Exam practice',audio:'exam',exam:true},
+{key:'report',title:'Lateya’s progress snapshot',eyebrow:'Lesson report',report:true}
 ];
-
-const examQuestions=[
- {id:'e1',topic:'Factorisation',marks:4,prompt:'Factorise fully: 2x² + 10x + 12',answers:['2(x+2)(x+3)','2(x+3)(x+2)'],steps:[
-  ['1 mark','Take out the HCF: 2(x²+5x+6).','Common factor must be handled first.'],
-  ['1 mark','Find two numbers with product +6 and sum +5: 2 and 3.','This identifies the trinomial factors.'],
-  ['1 mark','x²+5x+6=(x+2)(x+3).','Correct factorisation method.'],
-  ['1 mark','Final: 2(x+2)(x+3).','Fully factorised answer.']]},
- {id:'e2',topic:'Quadratic equation',marks:5,prompt:'Solve: x² − 5x + 6 = 0',answers:['2,3','3,2','x=2,x=3','x=3,x=2'],steps:[
-  ['1 mark','The equation is already equal to zero.','Ready to factorise.'],
-  ['1 mark','Numbers with product +6 and sum −5 are −2 and −3.','Correct pair.'],
-  ['1 mark','(x−2)(x−3)=0.','Correct factorisation.'],
-  ['1 mark','x−2=0 → x=2.','First root.'],
-  ['1 mark','x−3=0 → x=3.','Second root.']]},
- {id:'e3',topic:'Simultaneous equations',marks:6,prompt:'Solve simultaneously: x+y=10 and x−y=2',answers:['x=6,y=4','6,4'],steps:[
-  ['1 mark','Write the equations aligned.','Makes elimination visible.'],
-  ['1 mark','Add them: (x+y)+(x−y)=10+2.','Choose elimination because +y and −y cancel.'],
-  ['1 mark','2x=12.','Simplify correctly.'],
-  ['1 mark','x=6.','Solve for x.'],
-  ['1 mark','Substitute: 6+y=10.','Return to one original equation.'],
-  ['1 mark','y=4.','Final ordered solution: x=6, y=4.']]},
- {id:'e4',topic:'Inequality',marks:4,prompt:'Solve: −3x ≤ 12',answers:['x>=-4','x≥-4'],steps:[
-  ['1 mark','Start with −3x≤12.','Correct inequality copied.'],
-  ['1 mark','Divide both sides by −3.','Inverse operation.'],
-  ['1 mark','Reverse ≤ to ≥.','Essential sign rule when dividing by a negative.'],
-  ['1 mark','Final: x≥−4.','Correct solution.']]}
+const exams=[
+{id:'e1',topic:'Factorisation',marks:4,q:'Factorise fully: <b>2x² + 10x + 12</b>',answers:['2(x+2)(x+3)','2(x+3)(x+2)'],steps:[
+ ['1','2x²+10x+12 = 2(x²+5x+6)','Take out the highest common factor first.'],
+ ['1','Find 2 and 3','2×3=6 and 2+3=5.'],
+ ['1','x²+5x+6=(x+2)(x+3)','Correct trinomial factorisation.'],
+ ['1','2(x+2)(x+3)','Fully factorised final answer.']]},
+{id:'e2',topic:'Quadratic equation',marks:5,q:'Solve: <b>x² − 5x + 6 = 0</b>',answers:['2,3','3,2','x=2,x=3','x=3,x=2'],steps:[
+ ['1','Equation is already equal to 0.','Ready to factorise.'],
+ ['1','Use −2 and −3.','Their product is +6 and sum is −5.'],
+ ['1','(x−2)(x−3)=0','Correct factorisation.'],
+ ['1','x=2','First factor set to zero.'],
+ ['1','x=3','Second factor set to zero.']]},
+{id:'e3',topic:'Algebraic fraction',marks:3,q:'Simplify: '+frac('x²−16','x−4')+' &nbsp; <span class="small">x≠4</span>',answers:['x+4'],steps:[
+ ['1','x²−16=(x−4)(x+4)','Recognise a difference of squares.'],
+ ['1',frac('(x−4)(x+4)','x−4'),'Write the expression as factors before cancelling.'],
+ ['1','x+4','Cancel the common factor x−4.']]},
+{id:'e4',topic:'Simultaneous equations',marks:6,q:'Solve simultaneously:<br><b>x+y=10</b><br><b>x−y=2</b>',answers:['x=6,y=4','6,4'],steps:[
+ ['1','Align the two equations.','Prepare for elimination.'],
+ ['1','Add the equations.','+y and −y cancel.'],
+ ['1','2x=12','Simplify.'],
+ ['1','x=6','Solve for x.'],
+ ['1','6+y=10','Substitute into an original equation.'],
+ ['1','y=4','Complete the ordered solution.']]},
+{id:'e5',topic:'Inequality',marks:4,q:'Solve: <b>−3x ≤ 12</b>',answers:['x>=-4','x≥-4'],steps:[
+ ['1','−3x≤12','Copy the inequality correctly.'],
+ ['1','Divide both sides by −3.','Inverse operation.'],
+ ['1','Reverse ≤ to ≥.','Required because you divided by a negative.'],
+ ['1','x≥−4','Correct final range.']]},
+{id:'e6',topic:'Word problem',marks:4,q:'Three times a number, decreased by 5, is 16. Find the number.',answers:['7','x=7'],steps:[
+ ['1','Let x be the number.','Define the unknown.'],
+ ['1','3x−5=16','Translate the sentence.'],
+ ['1','3x=21','Add 5 to both sides.'],
+ ['1','x=7','Divide by 3 and state the answer.']]}
 ];
-
-const state={index:0,checks:{},exam:{},audio:null};
-try{const s=JSON.parse(localStorage.getItem('lateya-algebra-v3')||'null');if(s){state.index=s.index||0;state.checks=s.checks||{};state.exam=s.exam||{};}}catch(e){}
-const main=document.getElementById('main'),fill=document.getElementById('fill'),progressText=document.getElementById('progressText'),navCenter=document.getElementById('navCenter'),backBtn=document.getElementById('backBtn'),nextBtn=document.getElementById('nextBtn');
-function save(){try{localStorage.setItem('lateya-algebra-v3',JSON.stringify({index:state.index,checks:state.checks,exam:state.exam}));}catch(e){}}
-function norm(v){return String(v||'').toLowerCase().replace(/\s+/g,'').replace(/−/g,'-').replace(/≥/g,'>=').replace(/≤/g,'<=').replace(/⁴/g,'^4');}
-function matches(v,arr){const n=norm(v);return arr.some(a=>norm(a)===n)}
-function voiceBlock(key){
- const src=AUDIO[key];
- if(!src)return '';
- return '<div class="voice"><strong>🎧 Voice tutor</strong><button type="button" class="btn primary" id="playVoice">▶ Play</button><button type="button" class="btn ghost" id="restartVoice">↺ Restart</button><div id="voiceStatus" class="voiceStatus">Tap Play. This uses a real audio clip, not browser text-to-speech.</div><audio id="voiceAudio" preload="metadata" src="'+src+'"></audio></div>';
+const state={i:0,checks:{},exams:{}};
+try{const s=JSON.parse(localStorage.getItem('lateya-algebra-studio-v4')||'null');if(s){state.i=Math.min(s.i||0,screens.length-1);state.checks=s.checks||{};state.exams=s.exams||{}}}catch(e){}
+const main=document.getElementById('main'),progressFill=document.getElementById('progressFill'),progressLabel=document.getElementById('progressLabel'),navInfo=document.getElementById('navInfo'),backBtn=document.getElementById('backBtn'),nextBtn=document.getElementById('nextBtn');
+let currentAudio=null;
+function save(){try{localStorage.setItem('lateya-algebra-studio-v4',JSON.stringify(state))}catch(e){}}
+function norm(v){return String(v||'').toLowerCase().replace(/\s+/g,'').replace(/−/g,'-').replace(/≥/g,'>=').replace(/≤/g,'<=').replace(/⁴/g,'^4')}
+function matches(v,a){const n=norm(v);return a.some(x=>norm(x)===n)}
+function tutor(audioKey,cues){
+ if(!audioKey)return '';
+ return '<section class="tutorStage" id="tutorStage"><div class="tutorTop"><div class="avatar">VT</div><div class="tutorMeta"><div class="tutorName">Voice Tutor</div><div class="tutorSub">Explaining this step in simple language</div></div><div class="wave"><i></i><i></i><i></i><i></i></div></div><div class="audioRow"><button class="audioBtn main" id="playAudio" type="button">▶ Play tutor</button><button class="audioBtn" id="restartAudio" type="button">↺ Start again</button><div class="audioStatus" id="audioStatus">Tap play when you are ready.</div></div><div class="caption" id="caption">The visual board below will move with the explanation.</div><audio id="lessonAudio" preload="metadata" src="'+AUDIO[audioKey]+'"></audio></section><section class="board" id="syncBoard"><div class="boardTitle">Live teaching board</div>'+cues.map(x=>cue(x[0],x[1],x[2])).join('')+'</section>';
 }
-function quizBlock(q,key){
+function practice(q,key){
  if(!q)return '';
- let body='<div class="quiz"><div class="quizTitle">Your turn</div><p>'+q.prompt+'</p>';
- if(q.type==='mcq') body+='<div class="choices">'+q.choices.map((c,i)=>'<button type="button" class="choice" data-choice="'+i+'">'+c+'</button>').join('')+'</div>';
- else body+='<input class="input" id="quizInput" placeholder="Type your answer"><div class="examActions"><button type="button" class="btn dark" id="checkInput">Check answer</button><button type="button" class="btn secondary" id="hintBtn">Hint</button></div>';
- body+='<div id="feedback" class="feedback" aria-live="polite"></div></div>';
- return body;
+ let inner='<section class="practice"><div class="practiceHead"><b>Check your understanding</b><span class="practiceTag">Your turn</span></div><div class="question">'+q.prompt+'</div>';
+ if(q.type==='mcq')inner+='<div class="choices">'+q.choices.map((c,i)=>'<button type="button" class="choice" data-choice="'+i+'">'+c+'</button>').join('')+'</div>';
+ else inner+='<input id="practiceInput" class="field" placeholder="Type your answer"><div class="actionRow"><button id="checkPractice" class="btn btnDark" type="button">Check answer</button><button id="hintPractice" class="btn btnSoft" type="button">Give me a hint</button></div>';
+ inner+='<div id="practiceFeedback" class="feedback" aria-live="polite"></div></section>';
+ return inner;
 }
-function renderExam(){
- return '<p class="lead">These are exam-style practice questions. <b>Do not open the worked solution first.</b> Write your working on paper, enter your final answer, submit it, then compare your method with the marking guide.</p>'+voiceBlock('exam')+'<div class="examList">'+examQuestions.map(q=>{
-  const saved=state.exam[q.id]||{};
-  return '<section class="exam" data-exam="'+q.id+'"><div class="examHead"><div><span class="badge">'+q.topic+'</span><h3 style="margin-top:9px">'+q.prompt+'</h3></div><div class="marks">['+q.marks+']</div></div><label>Final answer</label><input class="input examInput" '+(saved.submitted?'disabled':'')+' value="'+(saved.value||'').replace(/"/g,'&quot;')+'" placeholder="Enter your final answer"><div class="examActions"><button type="button" class="btn dark submitExam" '+(saved.submitted?'disabled':'')+'>Submit to mark</button><button type="button" class="btn secondary revealExam" '+(saved.submitted?'':'disabled')+'>Show step-by-step solution</button></div><div class="feedback '+(saved.submitted?'show '+(saved.correct?'good':'bad'):'')+'">'+(saved.submitted?(saved.correct?'Final answer correct. Compare your working below to see whether you earned every method mark.':'Final answer is not correct yet. Open the solution and find the first line where your method differs.'):'')+'</div><div class="examScore">'+(saved.submitted?'Final-answer check: '+(saved.correct?'✓ correct':'✗ incorrect')+'. Full '+q.marks+' marks depend on the working shown in the guide.':'')+'</div><div class="solution"><h3>Examiner-style marking guide</h3>'+q.steps.map(s=>'<div class="markLine"><div class="mark">'+s[0]+'</div><div><b>'+s[1]+'</b><div class="reason">'+s[2]+'</div></div></div>').join('')+'</div></section>';
+function examHTML(){
+ return '<section class="examIntro"><h3>How Exam Coach works</h3><p>Write the working on paper first. Type your final answer. Only after you submit can you open the marking guide. The guide explains both <b>what to write</b> and <b>why the examiner awards the mark</b>.</p></section><div class="examList">'+exams.map((e,idx)=>{
+  const s=state.exams[e.id]||{};
+  return '<article class="examPaper" data-exam="'+e.id+'"><div class="examTop"><div><div class="examNo">Question '+(idx+1)+' • '+e.topic+'</div></div><div class="examMarks">['+e.marks+']</div></div><div class="examQ">'+e.q+'</div><div class="answerBox"><label>Final answer</label><input class="field examInput" value="'+(s.value||'').replace(/"/g,'&quot;')+'" '+(s.submitted?'disabled':'')+' placeholder="Type only your final answer"><div class="actionRow"><button class="btn btnDark submitExam" type="button" '+(s.submitted?'disabled':'')+'>Submit answer</button><button class="btn btnSoft revealExam" type="button" '+(s.submitted?'':'disabled')+'>Show marking guide</button></div><div class="feedback '+(s.submitted?'show '+(s.correct?'good':'bad'):'')+'">'+(s.submitted?(s.correct?'Final answer correct. Now compare your written method with the memo.':'That final answer is not correct yet. Use the marking guide to find the first step where your method changed.'):'')+'</div><div class="solution"><div class="memoTitle">Step-by-step memo</div>'+e.steps.map(st=>'<div class="markStep"><div class="markChip">+'+st[0]+'</div><div><b>'+st[1]+'</b><div class="reason">'+st[2]+'</div></div></div>').join('')+'<div class="why"><b>Total: '+e.marks+' marks.</b> A correct final answer does not always mean full marks; the written method matters.</div></div></div></article>'
  }).join('')+'</div>';
 }
-function renderReport(){
- const lessonKeys=screens.filter(s=>s.quiz).map(s=>s.key);
- const attempted=lessonKeys.filter(k=>state.checks[k]).length;
- const correct=lessonKeys.filter(k=>state.checks[k]&&state.checks[k].correct).length;
- const exAttempt=examQuestions.filter(q=>state.exam[q.id]&&state.exam[q.id].submitted).length;
- const exCorrect=examQuestions.filter(q=>state.exam[q.id]&&state.exam[q.id].correct).length;
- const pct=attempted?Math.round(correct/attempted*100):0;
- return '<div class="grid2"><div class="card"><div class="bigScore">'+pct+'%</div><p class="muted">Lesson-check accuracy: '+correct+'/'+attempted+'</p><p><b>Exam final answers:</b> '+exCorrect+'/'+exAttempt+' correct</p></div><div class="card"><h3>How to use this report</h3><p>'+(pct>=80?'Strong foundation. Revisit any incorrect topic, then repeat Exam Coach without looking at the solutions.':pct>=60?'Progress is developing. Re-do the incorrect lesson checks and explain the worked examples aloud.':'Work one section at a time with Victoria. Do not rush to the exam set until the foundation checks are comfortable.')+'</p></div></div><div class="card"><h3>Topic checks</h3>'+screens.filter(s=>s.quiz).map(s=>{const r=state.checks[s.key];return '<div class="reportRow"><span>'+s.title+'</span><span class="pill">'+(r?(r.correct?'Correct':'Revisit'):'Not attempted')+'</span></div>'}).join('')+'</div><div class="card"><h3>Exam Coach</h3>'+examQuestions.map(q=>{const r=state.exam[q.id];return '<div class="reportRow"><span>'+q.topic+' ['+q.marks+']</span><span class="pill">'+(r&&r.submitted?(r.correct?'Final answer correct':'Revisit method'):'Not attempted')+'</span></div>'}).join('')+'</div>';
+function reportHTML(){
+ const ks=screens.filter(s=>s.quiz).map(s=>s.key),attempted=ks.filter(k=>state.checks[k]).length,correct=ks.filter(k=>state.checks[k]?.correct).length;
+ const ea=exams.filter(e=>state.exams[e.id]?.submitted).length,ec=exams.filter(e=>state.exams[e.id]?.correct).length,pct=attempted?Math.round(correct/attempted*100):0;
+ return '<div class="grid2"><div class="card lav"><div class="reportScore">'+pct+'%</div><p class="muted">Lesson-check accuracy • '+correct+'/'+attempted+'</p></div><div class="card"><h3>Exam Coach</h3><p><b>'+ec+'/'+ea+'</b> submitted final answers correct.</p><p class="small">Use the marking guides to judge the working, not only the last answer.</p></div></div><div class="card flat"><h3>Topic checks</h3>'+screens.filter(s=>s.quiz).map(s=>'<div class="reportRow"><span>'+s.title+'</span><span class="pill">'+(state.checks[s.key]?(state.checks[s.key].correct?'Correct':'Revisit'):'Not attempted')+'</span></div>').join('')+'</div>';
 }
 function render(){
- const s=screens[state.index];
- if(state.audio){state.audio.pause();state.audio=null}
- let body=s.exam?renderExam():s.report?renderReport():s.html();
- main.innerHTML='<section class="hero"><span class="kicker">'+s.kicker+'</span><h1>'+s.title+'</h1></section>'+(s.audio&&!s.exam?voiceBlock(s.audio):'')+body+(s.quiz?quizBlock(s.quiz,s.key):'');
- const p=Math.round((state.index)/(screens.length-1)*100);fill.style.width=p+'%';progressText.textContent=(state.index+1)+' / '+screens.length;navCenter.textContent=(state.index+1)+' / '+screens.length;backBtn.disabled=state.index===0;nextBtn.textContent=state.index===screens.length-1?'Back to start':'Next →';
- attachVoice();attachQuiz(s);if(s.exam)attachExam();save();window.scrollTo({top:0,behavior:'smooth'});
+ if(currentAudio){currentAudio.pause();currentAudio=null}
+ const s=screens[state.i],pct=Math.round(state.i/(screens.length-1)*100);
+ progressFill.style.width=pct+'%';progressLabel.textContent=(state.i+1)+' of '+screens.length;navInfo.textContent=s.eyebrow;backBtn.disabled=state.i===0;nextBtn.textContent=state.i===screens.length-1?'Start again ↺':'Continue →';
+ let content=s.exam?examHTML():s.report?reportHTML():s.body();
+ main.innerHTML='<section class="hero"><span class="eyebrow">'+s.eyebrow+'</span><h1>'+s.title+'</h1></section>'+(s.audio?tutor(s.audio,s.cues||[]):'')+content+(s.quiz?practice(s.quiz,s.key):'');
+ wireAudio();wirePractice(s);if(s.exam)wireExam();buildDrawer();save();window.scrollTo({top:0,behavior:'smooth'})
 }
-function attachVoice(){
- const audio=document.getElementById('voiceAudio'),play=document.getElementById('playVoice'),restart=document.getElementById('restartVoice'),status=document.getElementById('voiceStatus');
- if(!audio||!play)return;state.audio=audio;
- play.addEventListener('click',async()=>{try{if(audio.paused){await audio.play();play.textContent='⏸ Pause';status.textContent='Playing tutor explanation…'}else{audio.pause();play.textContent='▶ Play';status.textContent='Paused.'}}catch(e){status.textContent='Audio was blocked here. Open the lesson in Chrome, then tap Play again.'}});
- restart.addEventListener('click',async()=>{audio.currentTime=0;try{await audio.play();play.textContent='⏸ Pause';status.textContent='Restarted.'}catch(e){status.textContent='Open in Chrome and tap Play once to allow audio.'}});
- audio.addEventListener('ended',()=>{play.textContent='▶ Play';status.textContent='Explanation finished. Now try the example or question.'});
+function wireAudio(){
+ const audio=document.getElementById('lessonAudio');if(!audio)return;currentAudio=audio;
+ const stage=document.getElementById('tutorStage'),play=document.getElementById('playAudio'),restart=document.getElementById('restartAudio'),status=document.getElementById('audioStatus'),caption=document.getElementById('caption'),cues=[...document.querySelectorAll('.cue')];
+ function sync(){
+  if(!audio.duration||!isFinite(audio.duration))return;const p=audio.currentTime/audio.duration;let active=0;
+  cues.forEach((c,i)=>{if(p>=Number(c.dataset.at))active=i});
+  cues.forEach((c,i)=>{c.classList.toggle('active',i===active);c.classList.toggle('past',i<active)});
+  if(cues[active])caption.textContent=cues[active].dataset.caption;
+ }
+ play.addEventListener('click',async()=>{try{if(audio.paused){await audio.play();stage.classList.add('playing');play.textContent='⏸ Pause';status.textContent='Tutor is explaining…'}else{audio.pause();stage.classList.remove('playing');play.textContent='▶ Continue';status.textContent='Paused — take your time.'}}catch(e){status.textContent='Your browser blocked audio. Open the lesson in Chrome and tap Play tutor again.'}});
+ restart.addEventListener('click',async()=>{audio.currentTime=0;try{await audio.play();stage.classList.add('playing');play.textContent='⏸ Pause';status.textContent='Starting from the beginning…';sync()}catch(e){status.textContent='Open this page in Chrome and tap Play tutor.'}});
+ audio.addEventListener('timeupdate',sync);audio.addEventListener('loadedmetadata',sync);audio.addEventListener('ended',()=>{stage.classList.remove('playing');play.textContent='▶ Play again';status.textContent='Explanation finished. Try the question below.';cues.forEach(c=>c.classList.add('past'));if(cues.length){cues[cues.length-1].classList.add('active')}});
+ if(cues.length){cues[0].classList.add('active');caption.textContent=cues[0].dataset.caption}
 }
-function attachQuiz(s){
- if(!s.quiz)return;const q=s.quiz,fb=document.getElementById('feedback');const saved=state.checks[s.key];
+function wirePractice(s){
+ if(!s.quiz)return;const q=s.quiz,fb=document.getElementById('practiceFeedback'),saved=state.checks[s.key];
  if(q.type==='mcq'){
-  const buttons=[...document.querySelectorAll('.choice')];
-  if(saved){buttons.forEach((b,i)=>{b.disabled=true;if(i===q.answer)b.classList.add('correct');if(i===saved.choice&&i!==q.answer)b.classList.add('wrong')});fb.className='feedback show '+(saved.correct?'good':'bad');fb.textContent=(saved.correct?'Correct. ':'Not quite. ')+q.explain;}
-  buttons.forEach((b,i)=>b.addEventListener('click',()=>{const ok=i===q.answer;state.checks[s.key]={correct:ok,choice:i};buttons.forEach((x,j)=>{x.disabled=true;if(j===q.answer)x.classList.add('correct');if(j===i&&!ok)x.classList.add('wrong')});fb.className='feedback show '+(ok?'good':'bad');fb.textContent=(ok?'Correct. ':'Not quite. ')+q.explain;save()}));
+  const bs=[...document.querySelectorAll('.choice')];
+  if(saved){bs.forEach((b,i)=>{b.disabled=true;if(i===q.answer)b.classList.add('correct');if(i===saved.choice&&i!==q.answer)b.classList.add('wrong')});fb.className='feedback show '+(saved.correct?'good':'bad');fb.textContent=(saved.correct?'Correct. ':'Not quite. ')+q.explain}
+  bs.forEach((b,i)=>b.addEventListener('click',()=>{const ok=i===q.answer;state.checks[s.key]={correct:ok,choice:i};bs.forEach((x,j)=>{x.disabled=true;if(j===q.answer)x.classList.add('correct');if(j===i&&!ok)x.classList.add('wrong')});fb.className='feedback show '+(ok?'good':'bad');fb.textContent=(ok?'Correct. ':'Not quite. ')+q.explain;save()}))
  }else{
-  const input=document.getElementById('quizInput'),check=document.getElementById('checkInput'),hint=document.getElementById('hintBtn');
-  if(saved){input.value=saved.value||'';input.disabled=true;check.disabled=true;hint.disabled=true;fb.className='feedback show '+(saved.correct?'good':'bad');fb.textContent=(saved.correct?'Correct. ':'Not quite. ')+q.explain;}
+  const input=document.getElementById('practiceInput'),check=document.getElementById('checkPractice'),hint=document.getElementById('hintPractice');
+  if(saved){input.value=saved.value||'';input.disabled=true;check.disabled=true;hint.disabled=true;fb.className='feedback show '+(saved.correct?'good':'bad');fb.textContent=(saved.correct?'Correct. ':'Not quite. ')+q.explain}
   check.addEventListener('click',()=>{if(!input.value.trim()){fb.className='feedback show hint';fb.textContent='Type an answer first.';return}const ok=matches(input.value,q.answers);state.checks[s.key]={correct:ok,value:input.value};input.disabled=true;check.disabled=true;hint.disabled=true;fb.className='feedback show '+(ok?'good':'bad');fb.textContent=(ok?'Correct. ':'Not quite. ')+q.explain;save()});
-  hint.addEventListener('click',()=>{fb.className='feedback show hint';fb.textContent='Hint: '+q.hint});
+  hint.addEventListener('click',()=>{fb.className='feedback show hint';fb.textContent='Hint: '+q.hint})
  }
 }
-function attachExam(){
- document.querySelectorAll('.exam').forEach(box=>{
-  const id=box.dataset.exam,q=examQuestions.find(x=>x.id===id),input=box.querySelector('.examInput'),submit=box.querySelector('.submitExam'),reveal=box.querySelector('.revealExam'),fb=box.querySelector('.feedback'),solution=box.querySelector('.solution');
-  submit.addEventListener('click',()=>{if(!input.value.trim()){fb.className='feedback show hint';fb.textContent='Write a final answer first. Do the working on paper as if this were the exam.';return}const ok=matches(input.value,q.answers);state.exam[id]={submitted:true,correct:ok,value:input.value};input.disabled=true;submit.disabled=true;reveal.disabled=false;fb.className='feedback show '+(ok?'good':'bad');fb.textContent=ok?'Final answer correct. Now reveal the marking guide and check whether your working earned every method mark.':'Final answer is not correct yet. Reveal the marking guide and find the first step where your working changed.';save()});
-  reveal.addEventListener('click',()=>{solution.classList.add('show');reveal.disabled=true;solution.scrollIntoView({behavior:'smooth',block:'start'})});
- });
+function wireExam(){
+ document.querySelectorAll('.examPaper').forEach(box=>{
+  const id=box.dataset.exam,e=exams.find(x=>x.id===id),input=box.querySelector('.examInput'),submit=box.querySelector('.submitExam'),reveal=box.querySelector('.revealExam'),fb=box.querySelector('.feedback'),solution=box.querySelector('.solution');
+  submit.addEventListener('click',()=>{if(!input.value.trim()){fb.className='feedback show hint';fb.textContent='Write the question on paper and attempt it before submitting.';return}const ok=matches(input.value,e.answers);state.exams[id]={submitted:true,correct:ok,value:input.value};input.disabled=true;submit.disabled=true;reveal.disabled=false;fb.className='feedback show '+(ok?'good':'bad');fb.textContent=ok?'Final answer correct. Now open the memo and check whether every line of your working earned the marks.':'The final answer is not right yet. Open the memo and find the first place where your working differs.';save()});
+  reveal.addEventListener('click',()=>{solution.classList.add('show');reveal.disabled=true;solution.scrollIntoView({behavior:'smooth',block:'start'})})
+ })
 }
-backBtn.addEventListener('click',()=>{if(state.index>0){state.index--;render()}});
-nextBtn.addEventListener('click',()=>{state.index=state.index===screens.length-1?0:state.index+1;render()});
-document.getElementById('outlineBtn').addEventListener('click',()=>{state.index=0;render()});
-async function hashText(v){const data=new TextEncoder().encode(v);const digest=await crypto.subtle.digest('SHA-256',data);return [...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('')}
-document.getElementById('gateForm').addEventListener('submit',async e=>{e.preventDefault();const v=document.getElementById('password').value,err=document.getElementById('gateError');err.textContent='';try{if(await hashText(v)===PASS_HASH){sessionStorage.setItem('lateya-access','1');document.getElementById('gate').classList.add('hidden');document.getElementById('app').classList.remove('hidden');render()}else err.textContent='That password is not correct.'}catch(ex){err.textContent='Open this link in Chrome and try again.'}});
-if(sessionStorage.getItem('lateya-access')==='1'){document.getElementById('gate').classList.add('hidden');document.getElementById('app').classList.remove('hidden');render()}
+function buildDrawer(){
+ const d=document.getElementById('drawerList');d.innerHTML=screens.map((s,i)=>'<button class="drawerItem '+(i===state.i?'active':'')+'" data-jump="'+i+'" type="button"><span class="drawerNum">'+(i+1)+'</span><span><b>'+s.title+'</b><br><span class="small">'+s.eyebrow+'</span></span></button>').join('');
+ d.querySelectorAll('.drawerItem').forEach(b=>b.addEventListener('click',()=>{state.i=Number(b.dataset.jump);closeDrawer();render()}))
+}
+function openDrawer(){document.getElementById('drawer').classList.add('show');document.getElementById('drawer').setAttribute('aria-hidden','false')}
+function closeDrawer(){document.getElementById('drawer').classList.remove('show');document.getElementById('drawer').setAttribute('aria-hidden','true')}
+document.getElementById('topicsBtn').addEventListener('click',openDrawer);document.getElementById('closeDrawer').addEventListener('click',closeDrawer);document.getElementById('drawer').addEventListener('click',e=>{if(e.target.id==='drawer')closeDrawer()});
+backBtn.addEventListener('click',()=>{if(state.i>0){state.i--;render()}});
+nextBtn.addEventListener('click',()=>{state.i=state.i===screens.length-1?0:state.i+1;render()});
+async function hashText(v){const data=new TextEncoder().encode(v),digest=await crypto.subtle.digest('SHA-256',data);return [...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('')}
+document.getElementById('gateForm').addEventListener('submit',async e=>{e.preventDefault();const v=document.getElementById('password').value,er=document.getElementById('gateError');er.textContent='';try{if(await hashText(v)===PASS_HASH){sessionStorage.setItem('lateya-studio-access','1');document.getElementById('gate').classList.add('hidden');document.getElementById('app').classList.remove('hidden');render()}else er.textContent='That password is not correct.'}catch(x){er.textContent='Open the lesson in Chrome and try again.'}});
+if(sessionStorage.getItem('lateya-studio-access')==='1'){document.getElementById('gate').classList.add('hidden');document.getElementById('app').classList.remove('hidden');render()}
 })();
 </script>
 </body>
