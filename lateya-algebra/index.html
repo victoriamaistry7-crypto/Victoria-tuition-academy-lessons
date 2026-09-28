@@ -352,9 +352,62 @@ textarea{
   .rule{font-size:25px}
 }
 
+
+/* --- Lateya v3: access gate, reliable audio tutor, exam coach --- */
+.accessGate{position:fixed;inset:0;z-index:9999;background:linear-gradient(145deg,#0f172a,#3b1768 65%,#7c3aed);display:grid;place-items:center;padding:18px}
+.accessGate.hidden{display:none}
+.accessCard{width:min(430px,100%);background:#fff;border-radius:24px;padding:26px;box-shadow:0 24px 80px rgba(0,0,0,.28)}
+.accessCard h1{font-size:34px;margin:10px 0 12px}
+.accessInput{width:100%;min-height:50px;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:16px;margin:8px 0}
+.accessError{min-height:22px;color:var(--red);font-weight:800;font-size:14px}
+.voiceDock{position:fixed;z-index:35;left:50%;transform:translateX(-50%);bottom:86px;width:min(900px,calc(100% - 24px));background:rgba(255,255,255,.98);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 35px rgba(15,23,42,.13);padding:10px 12px;display:flex;align-items:center;gap:10px}
+.voiceDock .voiceText{min-width:0;flex:1}
+.voiceDock .voiceTitle{font-weight:900;font-size:13px}
+.voiceDock .voiceStatus{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.voiceDock button{border:0;border-radius:11px;min-height:42px;padding:0 13px;font-weight:900}
+.voicePlay{background:var(--purple);color:#fff}.voiceRestart{background:#f1f5f9;color:var(--ink)}
+.voiceUnavailable{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;border-radius:12px;padding:10px 12px;font-size:13px;margin-top:12px}
+.outlineGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.outlineItem{border:1px solid var(--line);border-radius:16px;padding:15px;background:#fff}
+.outlineItem strong{display:block;margin-bottom:4px}
+.examCoach{border:2px solid #0f172a;border-radius:20px;padding:20px;background:#fff}
+.examMeta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
+.examBadge{display:inline-block;padding:5px 9px;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:900;font-size:12px}
+.examAnswer{width:100%;min-height:50px;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:16px}
+.examFeedback{display:none;margin-top:12px;padding:12px 14px;border-radius:12px;font-weight:800}
+.examFeedback.show{display:block}.examFeedback.good{background:var(--green2);color:#166534}.examFeedback.bad{background:var(--red2);color:#991b1b}
+.solution{display:none;margin-top:16px;border-top:1px solid var(--line);padding-top:16px}.solution.show{display:block}
+.markLine{display:grid;grid-template-columns:42px 1fr;gap:10px;margin:10px 0;align-items:start}
+.markChip{width:42px;height:32px;border-radius:9px;display:grid;place-items:center;background:#0f172a;color:#fff;font-weight:900;font-size:12px}
+.markReason{color:var(--muted);font-size:13px;margin-top:3px}
+.examActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+@media(max-width:600px){
+  .voiceDock{bottom:72px;left:8px;right:8px;transform:none;width:auto;border-radius:14px}
+  .voiceDock .voiceText{display:none}
+  .voiceDock button{flex:1;padding:0 8px;font-size:13px}
+  .outlineGrid{grid-template-columns:1fr}
+  .examCoach{padding:15px}
+  .examActions{display:grid;grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
+
+<div id="accessGate" class="accessGate">
+  <div class="accessCard">
+    <div class="tag tip">Victoria Tuition Academy</div>
+    <h1>Lateya's Algebra Tutor</h1>
+    <p class="muted">Enter the lesson password to open the private lesson.</p>
+    <form id="accessForm">
+      <label for="accessPassword"><strong>Lesson password</strong></label>
+      <input id="accessPassword" class="accessInput" type="password" autocomplete="current-password" placeholder="Enter password" required>
+      <div id="accessError" class="accessError" aria-live="polite"></div>
+      <button type="submit" class="btn dark" style="width:100%">Open lesson</button>
+    </form>
+  </div>
+</div>
+
 <div class="app" id="app">
   <header class="topbar">
     <div class="toprow">
@@ -396,19 +449,27 @@ textarea{
     </div>
   </section>
 
+
   <!-- 2 -->
-  <section class="slide" data-title="Lesson map">
-    <span class="kicker">LESSON MAP</span>
-    <h2>What you need to master</h2>
-    <div class="grid3">
-      <div class="card orange"><h3>1. Algebra language</h3><p>Terms, coefficients, constants, like terms and substitution.</p></div>
-      <div class="card blue"><h3>2. Expansion</h3><p>Single brackets, two brackets and special products.</p></div>
-      <div class="card purple"><h3>3. Exponents</h3><p>Product, quotient, powers, zero and negative exponents.</p></div>
-      <div class="card green"><h3>4. Factorisation</h3><p>Common factor, difference of squares and trinomials.</p></div>
-      <div class="card"><h3>5. Equations</h3><p>Linear equations, brackets, fractions and checking solutions.</p></div>
-      <div class="card"><h3>6. Inequalities</h3><p>Solve, reverse the sign when needed, and show answers on a number line.</p></div>
+  <section class="slide" data-title="Lesson outline">
+    <span class="kicker">START HERE • FULL LESSON OUTLINE</span>
+    <h2>Exactly what we are covering</h2>
+    <p class="lead">Lateya, use this as your roadmap. Each topic follows the same pattern: <strong>teach → worked example → your turn → feedback → exam application.</strong></p>
+    <div class="outlineGrid">
+      <div class="outlineItem"><strong>1. Algebra language & simplification</strong><span class="muted">Terms, coefficients, constants, like terms, substitution and collecting terms.</span></div>
+      <div class="outlineItem"><strong>2. Expansion</strong><span class="muted">Single brackets, two brackets, signs and special products.</span></div>
+      <div class="outlineItem"><strong>3. Exponents</strong><span class="muted">Product, quotient, power laws, zero exponents and negative exponents.</span></div>
+      <div class="outlineItem"><strong>4. Factorisation</strong><span class="muted">Common factor, grouping, difference of squares, trinomials and cube patterns.</span></div>
+      <div class="outlineItem"><strong>5. Algebraic fractions</strong><span class="muted">Factorise first, restrictions, simplifying and cancelling factors correctly.</span></div>
+      <div class="outlineItem"><strong>6. Linear equations</strong><span class="muted">Balancing, equations with brackets and equations containing fractions.</span></div>
+      <div class="outlineItem"><strong>7. Quadratic equations</strong><span class="muted">Factorise, use the zero-product rule and check both solutions.</span></div>
+      <div class="outlineItem"><strong>8. Simultaneous equations</strong><span class="muted">Substitution and elimination with two unknowns.</span></div>
+      <div class="outlineItem"><strong>9. Changing the subject</strong><span class="muted">Literal equations and isolating the requested variable.</span></div>
+      <div class="outlineItem"><strong>10. Linear inequalities</strong><span class="muted">Solve, reverse the sign when dividing by a negative, and interval/number-line answers.</span></div>
+      <div class="outlineItem"><strong>11. Word problems</strong><span class="muted">Translate words into algebra, solve, and interpret the answer.</span></div>
+      <div class="outlineItem"><strong>12. Exam Coach</strong><span class="muted">CAPS-style questions, marks, your answer first, then full examiner-style working line by line.</span></div>
     </div>
-    <div class="callout"><strong>Lateya rule:</strong> We do not ask “what formula do I memorise?” first. We ask <strong>“what type of algebra is this?”</strong></div>
+    <div class="callout"><strong>Your rule:</strong> do not rush to the answer. First identify the algebra type, then choose the method.</div>
   </section>
 
   <!-- 3 -->
@@ -868,6 +929,105 @@ textarea{
     <div class="q" data-q="q33"></div>
   </section>
 
+
+  <!-- EXAM COACH -->
+  <section class="slide" data-title="Exam Coach 1">
+    <span class="kicker">EXAM COACH • QUESTION 1</span>
+    <h2>Answer first. Then I mark and teach it.</h2>
+    <div class="examCoach" data-exam="e1" data-answer="2(x+2)(x+3)|2(x + 2)(x + 3)">
+      <div class="examMeta"><span class="examBadge">Factorisation</span><span class="examBadge">4 marks</span><span class="examBadge">Exam style</span></div>
+      <p class="qTitle math">Factorise fully: 2x² + 10x + 12</p>
+      <label><strong>Your final factorised answer</strong></label>
+      <input class="examAnswer" placeholder="Type your answer">
+      <div class="examActions">
+        <button type="button" class="btn dark submitExam">Submit to mark</button>
+        <button type="button" class="btn secondary revealExam" disabled>Show step-by-step solution</button>
+      </div>
+      <div class="examFeedback" aria-live="polite"></div>
+      <div class="solution">
+        <h3>Examiner-style solution</h3>
+        <div class="markLine"><div class="markChip">1</div><div><span class="math">2x² + 10x + 12 = 2(x² + 5x + 6)</span><div class="markReason">Method mark: take out the highest common factor first.</div></div></div>
+        <div class="markLine"><div class="markChip">1</div><div>Find two numbers that multiply to <strong>+6</strong> and add to <strong>+5</strong>: 2 and 3.<div class="markReason">Reasoning mark: identifies the correct factor pair.</div></div></div>
+        <div class="markLine"><div class="markChip">1</div><div><span class="math">x² + 5x + 6 = (x+2)(x+3)</span><div class="markReason">Method mark: correct trinomial factorisation.</div></div></div>
+        <div class="markLine"><div class="markChip">1</div><div><strong class="math">Answer: 2(x+2)(x+3)</strong><div class="markReason">Accuracy mark: fully factorised final answer.</div></div></div>
+        <div class="callout"><strong>Exam habit:</strong> Always check for a common factor before trying a trinomial.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Exam Coach 2">
+    <span class="kicker">EXAM COACH • QUESTION 2</span>
+    <h2>Quadratic equation — show both solutions</h2>
+    <div class="examCoach" data-exam="e2" data-answer="2,3|3,2|2, 3|3, 2|x=2,x=3|x=3,x=2">
+      <div class="examMeta"><span class="examBadge">Quadratic equations</span><span class="examBadge">5 marks</span></div>
+      <p class="qTitle math">Solve: x² − 5x + 6 = 0</p>
+      <label><strong>Enter both x-values, separated by a comma</strong></label>
+      <input class="examAnswer" placeholder="e.g. 1, 4">
+      <div class="examActions">
+        <button type="button" class="btn dark submitExam">Submit to mark</button>
+        <button type="button" class="btn secondary revealExam" disabled>Show step-by-step solution</button>
+      </div>
+      <div class="examFeedback" aria-live="polite"></div>
+      <div class="solution">
+        <h3>Examiner-style solution</h3>
+        <div class="markLine"><div class="markChip">1</div><div>Equation is already equal to zero.<div class="markReason">Structure mark: recognises it is ready for factorisation.</div></div></div>
+        <div class="markLine"><div class="markChip">1</div><div>Need two numbers with product +6 and sum −5: <strong>−2 and −3</strong>.</div></div>
+        <div class="markLine"><div class="markChip">1</div><div><span class="math">(x−2)(x−3)=0</span></div></div>
+        <div class="markLine"><div class="markChip">1</div><div><span class="math">x−2=0 ⇒ x=2</span></div></div>
+        <div class="markLine"><div class="markChip">1</div><div><span class="math">x−3=0 ⇒ x=3</span><div class="markReason">Final answer: x = 2 or x = 3.</div></div></div>
+        <div class="callout"><strong>Why two answers?</strong> If two factors multiply to zero, either factor may be zero.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Exam Coach 3">
+    <span class="kicker">EXAM COACH • QUESTION 3</span>
+    <h2>Simultaneous equations</h2>
+    <div class="examCoach" data-exam="e3" data-answer="x=6,y=4|x = 6, y = 4|6,4|6, 4">
+      <div class="examMeta"><span class="examBadge">Simultaneous equations</span><span class="examBadge">6 marks</span></div>
+      <p class="qTitle math">Solve simultaneously:<br>x + y = 10<br>x − y = 2</p>
+      <label><strong>Enter x and y</strong></label>
+      <input class="examAnswer" placeholder="e.g. x=3, y=2">
+      <div class="examActions">
+        <button type="button" class="btn dark submitExam">Submit to mark</button>
+        <button type="button" class="btn secondary revealExam" disabled>Show step-by-step solution</button>
+      </div>
+      <div class="examFeedback" aria-live="polite"></div>
+      <div class="solution">
+        <h3>Examiner-style solution</h3>
+        <div class="markLine"><div class="markChip">1</div><div>Write the equations underneath one another.<div class="markReason">This makes opposite terms easy to see.</div></div></div>
+        <div class="markLine"><div class="markChip">1</div><div>Add them: <span class="math">(x+y)+(x−y)=10+2</span>.</div></div>
+        <div class="markLine"><div class="markChip">1</div><div><span class="math">2x=12</span> because +y and −y cancel.</div></div>
+        <div class="markLine"><div class="markChip">1</div><div><span class="math">x=6</span>.</div></div>
+        <div class="markLine"><div class="markChip">1</div><div>Substitute into <span class="math">x+y=10</span>: <span class="math">6+y=10</span>.</div></div>
+        <div class="markLine"><div class="markChip">1</div><div><strong class="math">y=4</strong><div class="markReason">Solution: x = 6 and y = 4. Both original equations are satisfied.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Exam Coach 4">
+    <span class="kicker">EXAM COACH • QUESTION 4</span>
+    <h2>Inequality — watch the sign</h2>
+    <div class="examCoach" data-exam="e4" data-answer="x>=-4|x≥-4|x ≥ -4|x >= -4">
+      <div class="examMeta"><span class="examBadge">Inequalities</span><span class="examBadge">4 marks</span></div>
+      <p class="qTitle math">Solve: −3x ≤ 12</p>
+      <label><strong>Your answer</strong></label>
+      <input class="examAnswer" placeholder="Type the inequality for x">
+      <div class="examActions">
+        <button type="button" class="btn dark submitExam">Submit to mark</button>
+        <button type="button" class="btn secondary revealExam" disabled>Show step-by-step solution</button>
+      </div>
+      <div class="examFeedback" aria-live="polite"></div>
+      <div class="solution">
+        <h3>Examiner-style solution</h3>
+        <div class="markLine"><div class="markChip">1</div><div><span class="math">−3x ≤ 12</span></div></div>
+        <div class="markLine"><div class="markChip">1</div><div>Divide both sides by <span class="math">−3</span>.</div></div>
+        <div class="markLine"><div class="markChip">1</div><div>Because we divided by a negative number, reverse <span class="math">≤</span> to <span class="math">≥</span>.</div></div>
+        <div class="markLine"><div class="markChip">1</div><div><strong class="math">x ≥ −4</strong><div class="markReason">That sign reversal is usually the key mark in this question.</div></div></div>
+      </div>
+    </div>
+  </section>
+
   <!-- 28 -->
   <section class="slide" data-title="Teach it back">
     <span class="kicker">UNDERSTANDING CHECK</span>
@@ -924,6 +1084,17 @@ textarea{
     <h3>Jump to a lesson slide</h3>
     <p class="muted">Your answers stay locked once submitted.</p>
     <div class="menuGrid" id="menuGrid"></div>
+  </div>
+
+
+  <div class="voiceDock" id="voiceDock">
+    <div class="voiceText">
+      <div class="voiceTitle">🎧 Lateya's voice tutor</div>
+      <div class="voiceStatus" id="voiceStatus">Tap Play tutor to hear this section.</div>
+    </div>
+    <button type="button" class="voicePlay" id="voicePlay">▶ Play tutor</button>
+    <button type="button" class="voiceRestart" id="voiceRestart">↺ Restart</button>
+    <audio id="voiceAudio" preload="metadata"></audio>
   </div>
 
   <nav class="nav" aria-label="Lesson navigation">
