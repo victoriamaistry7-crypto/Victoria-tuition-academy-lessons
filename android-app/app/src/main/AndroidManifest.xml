@@ -3,7 +3,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="Victoria Tuition Academy"
+        android:label="VTA Student Portal"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity

@@ -1,4 +1,4 @@
-name: Build Victoria Tuition Academy APK
+name: Build VTA Student Portal APK
 on:
   workflow_dispatch:
   push:
@@ -21,15 +21,15 @@ jobs:
         with:
           gradle-version: '8.9'
       - run: gradle -p android-app assembleDebug --no-daemon
-      - run: cp android-app/app/build/outputs/apk/debug/app-debug.apk Victoria-Tuition-Academy.apk
+      - run: cp android-app/app/build/outputs/apk/debug/app-debug.apk VTA-Student-Portal-Native.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: Victoria-Tuition-Academy-APK
-          path: Victoria-Tuition-Academy.apk
+          name: VTA-Student-Portal-Native-APK
+          path: VTA-Student-Portal-Native.apk
       - env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release delete vta-native-latest --cleanup-tag --yes || true
-          gh release create vta-native-latest Victoria-Tuition-Academy.apk \
-            --title "Victoria Tuition Academy Native Android App" \
-            --notes "Native Android student/admin portal. No website wrapper."
+          gh release delete vta-student-portal-native --cleanup-tag --yes || true
+          gh release create vta-student-portal-native VTA-Student-Portal-Native.apk \
+            --title "VTA Student Portal — Native Android App" \
+            --notes "Separate native Android portal app. Opens with role selection and username/password login. No booking access-code screen and no website wrapper."
