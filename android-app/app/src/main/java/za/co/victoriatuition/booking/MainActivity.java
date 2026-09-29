@@ -20,7 +20,6 @@ import java.util.*;
 public class MainActivity extends Activity {
 
     private static final String API_URL = "https://xrmljvdyxqyegclkazei.supabase.co/functions/v1/vta-api";
-    private static final String API_KEY = "sb_publishable_T4aV1qxCqxLYvvdMVzjdzw_3ueexxGx";
     private static final int FILE_PICK = 9001;
 
     private static final int NAVY=Color.rgb(15,23,42), NAVY2=Color.rgb(30,41,59), ORANGE=Color.rgb(229,77,46),
@@ -62,7 +61,6 @@ public class MainActivity extends Activity {
                 c.setConnectTimeout(15000); c.setReadTimeout(30000);
                 c.setDoOutput(true);
                 c.setRequestProperty("Content-Type","application/json");
-                c.setRequestProperty("apikey",API_KEY);
                 if(authenticated && !token.isEmpty()) c.setRequestProperty("Authorization","Bearer "+token);
                 try(OutputStream os=c.getOutputStream()){os.write(payload.toString().getBytes("UTF-8"));}
                 int code=c.getResponseCode();
