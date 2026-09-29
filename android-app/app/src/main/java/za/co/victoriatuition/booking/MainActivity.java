@@ -375,10 +375,15 @@ public class MainActivity extends Activity {
 
     private void studentMessages(){
         pageTitle("Chat with Victoria","Tutor chat • messages sync across devices.");
-        Button b=primary("＋ Message Victoria");b.setOnClickListener(v->dialogMessage(null));body.addView(b,marginBottom(14));
-        JSONArray ms=sync.optJSONArray("messages");if(ms.length()==0)body.addView(empty("No messages yet."));
+        JSONArray ms=sync.optJSONArray("messages");if(ms.length()==0)body.addView(empty("No messages yet. Send a message below to start the conversation."));
         String me=sync.optJSONObject("user").optString("id");
         for(int i=0;i<ms.length();i++){JSONObject m=ms.optJSONObject(i);boolean mine=me.equals(m.optString("sender_id"));LinearLayout c=card();c.setBackground(round(mine?Color.rgb(220,252,231):Color.WHITE,16,1,mine?Color.rgb(187,247,208):LINE));c.addView(text(mine?"You":"Victoria",11,mine?GREEN:ORANGE,true));c.addView(text(m.optString("body"),14,TEXT,false),marginTopBottom(5,2));String stamp=m.optString("created_at");if(stamp.length()>=16)stamp=stamp.substring(11,16);TextView ts=text(stamp,9,MUTED,false);ts.setGravity(Gravity.RIGHT);c.addView(ts);body.addView(c,marginBottom(8));}
+
+        LinearLayout composer=row();composer.setGravity(Gravity.CENTER_VERTICAL);composer.setPadding(dp(8),dp(8),dp(8),dp(8));composer.setBackground(round(Color.WHITE,18,1,LINE));
+        EditText msg=input("Message Victoria",false);msg.setSingleLine(false);msg.setMaxLines(4);composer.addView(msg,new LinearLayout.LayoutParams(0,-2,1));
+        TextView send=text("➤",20,Color.WHITE,true);send.setGravity(Gravity.CENTER);send.setBackground(circle(Color.rgb(0,168,132)));composer.addView(send,new LinearLayout.LayoutParams(dp(46),dp(46)));
+        send.setOnClickListener(v->{String value=msg.getText().toString().trim();if(value.isEmpty())return;msg.setText("");JSONObject q=new JSONObject();try{q.put("action","messageSend");q.put("message",value);}catch(Exception ignored){}action(q,()->openTab("Messages"));});
+        body.addView(composer,marginTopBottom(12,0));
     }
 
     // ---------- BOOKING ----------
