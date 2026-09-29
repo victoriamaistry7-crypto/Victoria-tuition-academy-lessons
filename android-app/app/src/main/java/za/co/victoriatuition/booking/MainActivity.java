@@ -234,6 +234,7 @@ public class MainActivity extends Activity {
         pageTitle("More","Your lessons, resources and preferences.");
         LinearLayout lessons=card();lessons.addView(text("Lesson history",16,NAVY,true));lessons.addView(text("Upcoming, completed and requested lessons.",12,MUTED,false));lessons.setOnClickListener(v->openTab("Lessons"));body.addView(lessons,marginBottom(10));
         LinearLayout resources=card();resources.addView(text("All resources",16,NAVY,true));resources.addView(text("Open your interactive lessons, slides, notes and worksheets.",12,MUTED,false));resources.setOnClickListener(v->openTab("Resources"));body.addView(resources,marginBottom(10));
+        LinearLayout quizzes=card();quizzes.addView(text("My quizzes",16,NAVY,true));quizzes.addView(text("Practice, submit and review corrections.",12,MUTED,false));quizzes.setOnClickListener(v->studentQuizzes());body.addView(quizzes,marginBottom(10));
         LinearLayout appearance=card();appearance.addView(text("Appearance",16,NAVY,true));appearance.addView(text(darkMode?"Switch to light mode":"Switch to dark mode",12,MUTED,false));appearance.setOnClickListener(v->{darkMode=!darkMode;prefs.edit().putBoolean("darkMode",darkMode).apply();showDashboard();});body.addView(appearance,marginBottom(10));
         LinearLayout out=card();out.addView(text("Log out",16,Color.rgb(185,28,28),true));out.setOnClickListener(v->logout());body.addView(out);
     }
