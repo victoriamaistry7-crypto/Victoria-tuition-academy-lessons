@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
     private JSONObject sync=new JSONObject();
     private LinearLayout body;
     private JSONObject pendingStudent=null;
-    private String pendingResourceTitle="", pendingResourceType="Other";
+    private String pendingResourceTitle="", pendingResourceType="Other", pendingResourceDescription="", pendingResourceAccessNote="";
     private TextView syncStatus;
     private boolean darkMode=false;
 
@@ -719,8 +719,14 @@ public class MainActivity extends Activity {
     }
 
     private void resourceMeta(JSONObject student){
-        LinearLayout b=formBox();EditText title=input("Resource title",false);Spinner type=new Spinner(this);type.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,new String[]{"Slides","PDF / Notes","Worksheet","Video","Image","Other"}));b.addView(title,marginBottom(8));b.addView(type);
-        new AlertDialog.Builder(this).setTitle("Upload for "+student.optString("display_name")).setView(b).setNegativeButton("Cancel",null).setPositiveButton("Choose file",(d,w)->{pendingStudent=student;pendingResourceTitle=title.getText().toString();pendingResourceType=type.getSelectedItem().toString();Intent i=new Intent(Intent.ACTION_OPEN_DOCUMENT);i.addCategory(Intent.CATEGORY_OPENABLE);i.setType("*/*");startActivityForResult(i,FILE_PICK);}).show();
+        LinearLayout b=formBox();
+        EditText title=input("Resource title",false),desc=input("Short description",false),access=input("Access note / lesson password (optional)",false);
+        Spinner type=new Spinner(this);type.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,new String[]{"Interactive Lesson","Slides","PDF / Notes","Worksheet","Video","Image","Other"}));
+        b.addView(title,marginBottom(8));b.addView(type,marginBottom(8));b.addView(desc,marginBottom(8));b.addView(access);
+        new AlertDialog.Builder(this).setTitle("Upload for "+student.optString("display_name")).setView(b).setNegativeButton("Cancel",null).setPositiveButton("Choose file",(d,w)->{
+            pendingStudent=student;pendingResourceTitle=title.getText().toString();pendingResourceType=type.getSelectedItem().toString();pendingResourceDescription=desc.getText().toString();pendingResourceAccessNote=access.getText().toString();
+            Intent i=new Intent(Intent.ACTION_OPEN_DOCUMENT);i.addCategory(Intent.CATEGORY_OPENABLE);i.setType("*/*");startActivityForResult(i,FILE_PICK);
+        }).show();
     }
 
     @Override protected void onActivityResult(int requestCode,int resultCode,Intent intent){
@@ -730,7 +736,7 @@ public class MainActivity extends Activity {
         try{
             byte[] bytes=readBytes(uri,8*1024*1024+1);if(bytes.length>8*1024*1024){toast("File is over 8 MB in this build.");return;}
             String name=fileName(uri),mime=getContentResolver().getType(uri);if(mime==null)mime="application/octet-stream";
-            JSONObject q=new JSONObject();q.put("action","resourceUpload");q.put("studentId",pendingStudent.optString("id"));q.put("title",pendingResourceTitle.isEmpty()?name:pendingResourceTitle);q.put("resourceType",pendingResourceType);q.put("fileName",name);q.put("mimeType",mime);q.put("description","Uploaded from Victoria’s phone.");q.put("base64",Base64.encodeToString(bytes,Base64.NO_WRAP));
+            JSONObject q=new JSONObject();q.put("action","resourceUpload");q.put("studentId",pendingStudent.optString("id"));q.put("title",pendingResourceTitle.isEmpty()?name:pendingResourceTitle);q.put("resourceType",pendingResourceType);q.put("fileName",name);q.put("mimeType",mime);q.put("description",pendingResourceDescription);q.put("accessNote",pendingResourceAccessNote);q.put("base64",Base64.encodeToString(bytes,Base64.NO_WRAP));
             toast("Uploading…");action(q,()->{toast("Resource uploaded.");openTab("Resources");});
         }catch(Exception e){toast("Could not upload: "+e.getMessage());}
         pendingStudent=null;
