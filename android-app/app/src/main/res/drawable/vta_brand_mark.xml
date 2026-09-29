@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:left="5dp" android:right="35dp" android:top="24dp" android:bottom="8dp"><shape android:shape="rectangle"><corners android:radius="10dp"/><solid android:color="#0F2B63"/></shape></item>
+  <item android:left="35dp" android:right="5dp" android:top="24dp" android:bottom="8dp"><shape android:shape="rectangle"><corners android:radius="10dp"/><solid android:color="#0F2B63"/></shape></item>
+  <item android:left="10dp" android:right="39dp" android:top="29dp" android:bottom="13dp"><shape android:shape="rectangle"><corners android:radius="8dp"/><solid android:color="#FFFFFF"/></shape></item>
+  <item android:left="39dp" android:right="10dp" android:top="29dp" android:bottom="13dp"><shape android:shape="rectangle"><corners android:radius="8dp"/><solid android:color="#FFF1E9"/></shape></item>
+  <item android:left="26dp" android:right="32dp" android:top="5dp" android:bottom="44dp"><shape android:shape="oval"><solid android:color="#4F8A4A"/></shape></item>
+  <item android:left="39dp" android:right="19dp" android:top="8dp" android:bottom="41dp"><shape android:shape="oval"><solid android:color="#4F8A4A"/></shape></item>
+</layer-list>
