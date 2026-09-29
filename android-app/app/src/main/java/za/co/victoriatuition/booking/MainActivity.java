@@ -507,6 +507,8 @@ public class MainActivity extends Activity {
     private void downloadResource(JSONObject r){
         LinearLayout b=formBox();b.addView(pill(r.optString("resource_type"),Color.rgb(245,243,255),PURPLE));b.addView(text(r.optString("title"),18,NAVY,true),marginTopBottom(10,3));b.addView(text(r.optString("file_name"),12,MUTED,false));
         new AlertDialog.Builder(this).setTitle("Resource preview").setView(b).setNegativeButton("Close",null).setPositiveButton("Open file",(d,w)->{
+            String external=r.optString("external_url");
+            if(!external.isEmpty()){try{startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(external)));}catch(Exception x){toast("No app available to open this resource.");}return;}
             JSONObject q=new JSONObject();try{q.put("action","resourceDownload");q.put("id",r.optString("id"));}catch(Exception ignored){}
             api(q,true,(res,e)->{if(e!=null){toast(e.getMessage());return;}try{startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(res.optString("signedUrl"))));}catch(Exception x){toast("No app available to open this file.");}});
         }).show();
