@@ -368,6 +368,31 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void adminQuizzes(){
+        body.removeAllViews();
+        TextView back=text("‹  More",14,NAVY,true);back.setPadding(0,0,0,dp(14));back.setOnClickListener(v->adminMore());body.addView(back);
+        pageTitle("Quiz Studio","Create exam-style practice and review student scores.");
+        Button create=primary("＋ Create quiz");create.setOnClickListener(v->chooseStudentForQuiz());body.addView(create,marginBottom(14));
+        JSONArray qs=sync.optJSONArray("quizzes"),attempts=sync.optJSONArray("quizAttempts");
+        if(qs==null||qs.length()==0){body.addView(empty("No quizzes yet."));return;}
+        for(int i=0;i<qs.length();i++){
+            JSONObject q=qs.optJSONObject(i);LinearLayout card=card();
+            card.addView(pill(q.optString("status"),statusBg(q.optString("status")),statusColor(q.optString("status"))));
+            card.addView(text(q.optString("title"),16,NAVY,true),marginTopBottom(8,2));
+            card.addView(text(studentName(q.optString("student_id"))+" · "+q.optString("subject")+" · "+q.optString("topic"),11,MUTED,false));
+            int count=0,best=-1,total=q.optInt("total_marks");
+            if(attempts!=null)for(int j=0;j<attempts.length();j++){JSONObject a=attempts.optJSONObject(j);if(q.optString("id").equals(a.optString("quiz_id"))){count++;best=Math.max(best,a.optInt("score"));}}
+            card.addView(text(count+" submission"+(count==1?"":"s")+(best>=0?" · best "+best+"/"+total:""),11,count>0?GREEN:MUTED,true),marginTopBottom(7,0));
+            body.addView(card,marginBottom(8));
+        }
+    }
+
+    private void chooseStudentForQuiz(){
+        JSONArray students=sync.optJSONArray("students");if(students==null||students.length()==0){toast("Create a student first.");return;}
+        String[] names=new String[students.length()];for(int i=0;i<students.length();i++)names[i]=students.optJSONObject(i).optString("display_name");
+        new AlertDialog.Builder(this).setTitle("Choose student").setItems(names,(d,which)->dialogCreateQuiz(students.optJSONObject(which))).show();
+    }
+
     private void adminSchedule(){
         pageTitle("Schedule","Booking requests and your private shared availability.");
         LinearLayout actions=row();Button lesson=primary("＋ Lesson");lesson.setOnClickListener(v->dialogAddLesson());actions.addView(lesson,new LinearLayout.LayoutParams(0,dp(48),1));Button block=secondary("＋ Time block");block.setOnClickListener(v->dialogScheduleBlock());actions.addView(block,weightMarginHeight(1,8,48));body.addView(actions,marginBottom(14));
