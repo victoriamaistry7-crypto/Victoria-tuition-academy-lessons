@@ -334,10 +334,15 @@ public class MainActivity extends Activity {
             if(name.getText().toString().trim().isEmpty()){toast("Enter a topic name.");return;}
             JSONObject q=new JSONObject();try{q.put("action","topicUpsert");q.put("studentId",student.optString("id"));if(topic!=null)q.put("id",topic.optString("id"));q.put("subject",subject.getText().toString());q.put("strand",strand.getText().toString());q.put("termLabel",term.getText().toString());q.put("topic",name.getText().toString());q.put("status",status.getSelectedItem().toString());q.put("notes",notes.getText().toString());q.put("sortOrder",Integer.parseInt(order.getText().toString().trim().isEmpty()?"999":order.getText().toString()));}catch(Exception ignored){}
             action(q,()->{d.dismiss();JSONObject updated=findBy(sync.optJSONArray("students"),"id",student.optString("id"));adminStudentProfile(updated==null?student:updated);});
-        }));d.setOnLongClickListener(v->{return false;});d.show();
+        }));d.show();
         if(topic!=null){
-            d.setButton(AlertDialog.BUTTON_NEUTRAL,"Delete",(DialogInterface.OnClickListener)null);
-            d.getButton(AlertDialog.BUTTON_NEUTRAL);
+            Button del=secondary("Delete topic");
+            del.setTextColor(Color.rgb(185,28,28));
+            del.setOnClickListener(v->new AlertDialog.Builder(this).setTitle("Delete topic?").setMessage(topic.optString("topic")).setNegativeButton("Cancel",null).setPositiveButton("Delete",(x,w)->{
+                JSONObject q=new JSONObject();try{q.put("action","topicDelete");q.put("id",topic.optString("id"));}catch(Exception ignored){}
+                action(q,()->{d.dismiss();JSONObject updated=findBy(sync.optJSONArray("students"),"id",student.optString("id"));adminStudentProfile(updated==null?student:updated);});
+            }).show());
+            b.addView(del,marginTopBottom(10,0));
         }
     }
 
