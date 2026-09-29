@@ -174,21 +174,41 @@ public class MainActivity extends Activity {
 
     private void showDashboard(){
         JSONObject user=sync.optJSONObject("user");if(user==null){showWelcome();return;}
-        LinearLayout root=col();root.setBackgroundColor(BG);
-        LinearLayout header=row();header.setGravity(Gravity.CENTER_VERTICAL);header.setPadding(dp(18),dp(14),dp(14),dp(14));header.setBackgroundColor(NAVY);
-        TextView mark=text("V",18,Color.WHITE,true);mark.setGravity(Gravity.CENTER);mark.setBackground(circle(ORANGE));header.addView(mark,new LinearLayout.LayoutParams(dp(38),dp(38)));
-        LinearLayout ht=col();ht.setPadding(dp(10),0,0,0);ht.addView(text("Victoria Tuition Academy",15,Color.WHITE,true));
-        syncStatus=text("Live",10,Color.rgb(134,239,172),true);ht.addView(syncStatus);header.addView(ht,new LinearLayout.LayoutParams(0,-2,1));
-        TextView refresh=pill("↻",Color.rgb(51,65,85),Color.WHITE);refresh.setOnClickListener(v->refreshCurrent());header.addView(refresh);
-        TextView out=pill("Log out",Color.rgb(51,65,85),Color.WHITE);out.setOnClickListener(v->logout());header.addView(out,marginLeft(8));
+        int screenBg=themeColor(BG), surface=themeColor(Color.WHITE), primaryText=themeColor(NAVY);
+        getWindow().setNavigationBarColor(surface);
+
+        LinearLayout root=col();root.setBackgroundColor(screenBg);
+        LinearLayout header=row();header.setGravity(Gravity.CENTER_VERTICAL);header.setPadding(dp(16),dp(11),dp(12),dp(11));header.setBackgroundColor(NAVY);
+
+        LinearLayout brand=col();
+        brand.addView(text("Victoria Tuition Academy",16,Color.WHITE,true));
+        brand.addView(text("LEARN • GROW • ACHIEVE",9,Color.rgb(203,213,225),true));
+        header.addView(brand,new LinearLayout.LayoutParams(0,-2,1));
+
+        syncStatus=text("● Live",10,Color.rgb(134,239,172),true);header.addView(syncStatus);
+        TextView mode=pill(darkMode?"Light":"Dark",Color.rgb(51,65,85),Color.WHITE);
+        mode.setOnClickListener(v->{darkMode=!darkMode;prefs.edit().putBoolean("darkMode",darkMode).apply();showDashboard();});
+        header.addView(mode,marginLeft(8));
+        TextView refresh=pill("↻",Color.rgb(51,65,85),Color.WHITE);refresh.setOnClickListener(v->refreshCurrent());header.addView(refresh,marginLeft(8));
         root.addView(header);
 
-        ScrollView sv=new ScrollView(this);body=col();body.setPadding(dp(16),dp(16),dp(16),dp(100));sv.addView(body);root.addView(sv,new LinearLayout.LayoutParams(-1,0,1));
-        HorizontalScrollView hsv=new HorizontalScrollView(this);hsv.setHorizontalScrollBarEnabled(false);LinearLayout nav=row();nav.setPadding(dp(8),dp(8),dp(8),dp(8));nav.setBackgroundColor(Color.WHITE);
-        String role=user.optString("role");String[] tabs=role.equals("ADMIN")?new String[]{"Home","Students","Schedule","Finance","Messages","Resources","Format"}:new String[]{"Home","Plan","Lessons","Book","Resources","Messages"};
-        for(String t:tabs){TextView b=pill(t,Color.WHITE,NAVY);b.setPadding(dp(16),dp(12),dp(16),dp(12));b.setOnClickListener(v->{setTab(t);openTab(t);});nav.addView(b,marginRight(6));}
-        hsv.addView(nav);root.addView(hsv);setContentView(root);
-        openTab(currentTab());
+        ScrollView sv=new ScrollView(this);sv.setFillViewport(true);
+        body=col();body.setPadding(dp(16),dp(16),dp(16),dp(28));body.setBackgroundColor(screenBg);sv.addView(body);
+        root.addView(sv,new LinearLayout.LayoutParams(-1,0,1));
+
+        LinearLayout nav=row();nav.setGravity(Gravity.CENTER);nav.setPadding(dp(5),dp(5),dp(5),dp(5));nav.setBackgroundColor(surface);
+        String role=user.optString("role");
+        String[] tabs=role.equals("ADMIN")?new String[]{"Home","Students","Schedule","Messages","More"}:new String[]{"Home","Learn","Book","Messages","More"};
+        String[] icons=role.equals("ADMIN")?new String[]{"⌂","◎","▦","●","•••"}:new String[]{"⌂","◇","+","●","•••"};
+        for(int i=0;i<tabs.length;i++){
+            final String t=tabs[i];
+            LinearLayout item=col();item.setGravity(Gravity.CENTER);item.setPadding(dp(6),dp(4),dp(6),dp(4));
+            TextView ic=text(icons[i],18,primaryText,true), label=text(t,10,MUTED,true);
+            item.addView(ic);item.addView(label);
+            item.setOnClickListener(v->{setTab(t);openTab(t);});
+            nav.addView(item,new LinearLayout.LayoutParams(0,dp(58),1));
+        }
+        root.addView(nav);setContentView(root);openTab(currentTab());
     }
 
     private void openTab(String tab){
