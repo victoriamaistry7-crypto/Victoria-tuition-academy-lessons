@@ -316,7 +316,12 @@ public class MainActivity extends Activity {
         LinearLayout actions2=row();
         Button addTopic=primary("＋ Add syllabus topic");addTopic.setOnClickListener(v->dialogTopic(s,null));actions2.addView(addTopic,new LinearLayout.LayoutParams(0,dp(46),1));
         Button msg=secondary("Message");msg.setOnClickListener(v->dialogMessage(s.optString("id")));actions2.addView(msg,weightMarginHeight(1,8,46));
-        body.addView(actions2,marginBottom(14));
+        body.addView(actions2,marginBottom(10));
+
+        LinearLayout actions3=row();
+        Button reset=secondary("Reset password");reset.setOnClickListener(v->dialogResetPassword(s));actions3.addView(reset,new LinearLayout.LayoutParams(0,dp(46),1));
+        Button quiz=secondary("Create quiz");quiz.setOnClickListener(v->dialogCreateQuiz(s));actions3.addView(quiz,weightMarginHeight(1,8,46));
+        body.addView(actions3,marginBottom(14));
 
         section("Syllabus & progress");
         JSONArray topics=sync.optJSONArray("topicProgress");int count=0;
@@ -340,6 +345,20 @@ public class MainActivity extends Activity {
         d.setOnShowListener(x->d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v->{
             JSONObject q=new JSONObject();try{q.put("action","studentUpdate");q.put("studentId",s.optString("id"));q.put("name",name.getText().toString());q.put("grade",grade.getText().toString());q.put("curriculum",curr.getText().toString());q.put("subjects",subjects.getText().toString());q.put("profileNote",note.getText().toString());q.put("active",true);}catch(Exception ignored){}
             action(q,()->{d.dismiss();JSONObject updated=findBy(sync.optJSONArray("students"),"id",s.optString("id"));adminStudentProfile(updated==null?s:updated);});
+        }));d.show();
+    }
+
+    private void dialogResetPassword(JSONObject student){
+        LinearLayout b=formBox();
+        EditText p=input("New temporary password",true),confirm=input("Confirm password",true);
+        b.addView(p,marginBottom(8));b.addView(confirm);
+        AlertDialog d=new AlertDialog.Builder(this).setTitle("Reset "+student.optString("display_name")+"'s password").setView(b).setNegativeButton("Cancel",null).setPositiveButton("Reset",null).create();
+        d.setOnShowListener(x->d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v->{
+            String a=p.getText().toString(),z=confirm.getText().toString();
+            if(a.length()<8){toast("Use at least 8 characters.");return;}
+            if(!a.equals(z)){toast("Passwords do not match.");return;}
+            JSONObject q=new JSONObject();try{q.put("action","studentPasswordReset");q.put("studentId",student.optString("id"));q.put("password",a);}catch(Exception ignored){}
+            action(q,()->{d.dismiss();toast("Password updated.");});
         }));d.show();
     }
 
