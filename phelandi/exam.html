@@ -1,1 +1,372 @@
-The requested file reference is not currently visible. Use files.search or files.list to rediscover the file, then retry with a returned ref_id or file_id.
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08050e">
+<title>Phelandi Exam Quiz | Victoria Tuition Academy</title>
+<style>
+:root{
+  --bg:#08050e;--panel:#120b1d;--panel2:#181021;--line:#302344;--text:#f8f5ff;
+  --muted:#bdb4cb;--purple:#a78bfa;--purple2:#7c3aed;--cyan:#67e8f9;--gold:#fbbf24;
+  --green:#4ade80;--red:#fb7185;--shadow:0 28px 90px rgba(0,0,0,.38)
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 8% 0%,rgba(124,58,237,.17),transparent 34%),radial-gradient(circle at 100% 25%,rgba(103,232,249,.08),transparent 26%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,textarea{font:inherit}
+button{touch-action:manipulation}
+#gate{position:fixed;inset:0;z-index:999;background:radial-gradient(circle at 20% 0%,rgba(124,58,237,.24),transparent 38%),#08050e;display:grid;place-items:center;padding:18px}
+#gate.hidden{display:none}.gateCard{width:min(100%,430px);padding:28px;border-radius:28px;background:#120b1d;border:1px solid #38284e;box-shadow:0 30px 100px rgba(0,0,0,.5)}
+.gateBrand{font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}.gateCard h1{font-size:34px;letter-spacing:-.04em;line-height:1.05;margin:16px 0 8px}.gateCard p{color:var(--muted);line-height:1.55}.gateCard label{font-size:12px;font-weight:900;display:block;margin:18px 0 7px}.gateCard input{width:100%;border:1px solid #3f2e58;border-radius:14px;background:#0d0814;color:#fff;padding:13px 14px;outline:none}.gateBtn{width:100%;border:0;border-radius:14px;margin-top:11px;padding:13px 15px;font-weight:900;color:white;background:linear-gradient(135deg,#6d28d9,#7c3aed)}.gateErr{min-height:22px;color:#fda4af;margin-top:9px;font-size:13px}
+.top{position:sticky;top:0;z-index:50;background:rgba(8,5,14,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.topin{max-width:1180px;margin:auto;height:66px;padding:0 18px;display:flex;align-items:center;gap:12px}.mark{width:38px;height:38px;border-radius:13px;background:linear-gradient(135deg,#7c3aed,#4c1d95);display:grid;place-items:center;font-weight:950}.brand{min-width:0}.brand b{display:block;font-size:13px}.brand small{display:block;color:var(--muted);font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:55vw}.scoreTop{margin-left:auto;text-align:right}.scoreTop b{display:block;color:var(--cyan);font-size:14px}.scoreTop small{color:var(--muted);font-size:10px}
+.wrap{width:min(100% - 24px,1120px);margin:auto}
+.hero{padding:34px 0 22px}.kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:var(--cyan)}h1,h2,h3{letter-spacing:-.04em}h1{font-size:clamp(42px,7vw,76px);line-height:.97;margin:12px 0}h2{font-size:clamp(30px,5vw,48px);line-height:1;margin:0 0 9px}h3{font-size:18px;margin:0 0 8px}.lead{font-size:17px;line-height:1.62;color:var(--muted);max-width:800px}
+.examMeta{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:18px}.meta{background:#100a19;border:1px solid var(--line);border-radius:16px;padding:13px}.meta b{display:block;font-size:16px}.meta span{color:var(--muted);font-size:11px}
+.instructions{margin-top:14px;border:1px solid var(--line);border-left:4px solid var(--gold);background:#0f0918;border-radius:17px;padding:15px;line-height:1.55}.instructions b{color:#fde68a}
+.subjectHead{margin:28px 0 12px;padding:18px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(135deg,rgba(124,58,237,.13),rgba(103,232,249,.05));display:flex;gap:12px;justify-content:space-between;align-items:flex-end}.subjectHead .tag{font-size:11px;color:var(--cyan);font-weight:900;text-transform:uppercase;letter-spacing:.12em}.subjectHead .marks{font-weight:950;color:#fff}
+.qcard{margin:12px 0;padding:18px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,#130c1d,#0f0918);box-shadow:var(--shadow)}
+.qhead{display:flex;gap:12px;justify-content:space-between;align-items:flex-start}.qnum{font-weight:950;color:var(--cyan);font-size:12px;letter-spacing:.08em}.markpill{flex:0 0 auto;border:1px solid #4a375f;background:#0c0712;border-radius:999px;padding:6px 9px;color:#ddd5ea;font-size:11px;font-weight:850}.stem{font-size:17px;line-height:1.5;font-weight:800;margin:9px 0 0}.substem{color:var(--muted);line-height:1.5;margin-top:7px}
+.diagram{margin-top:15px;border:1px solid var(--line);border-radius:18px;background:#0b0711;padding:10px;overflow:hidden}.diagram svg{display:block;width:100%;height:auto;max-height:410px}.svgLabel{fill:#f8f5ff;font-family:Inter,system-ui,sans-serif}.svgMuted{fill:#bdb4cb;font-family:Inter,system-ui,sans-serif}
+.options{display:grid;gap:8px;margin-top:13px}.options button,.checkBtn{border:1px solid var(--line);border-radius:14px;background:#171021;color:var(--text);padding:12px 14px;text-align:left;min-height:46px;font-weight:740;cursor:pointer}.options button.good{border-color:rgba(74,222,128,.8);background:rgba(74,222,128,.1)}.options button.bad{border-color:rgba(251,113,133,.85);background:rgba(251,113,133,.1)}.options button:disabled{opacity:1;cursor:default}
+.answerRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.answerRow input,.answerRow textarea{flex:1;min-width:180px;border:1px solid var(--line);border-radius:14px;background:#0c0712;color:#fff;padding:12px 13px;outline:none}.answerRow textarea{min-height:90px;resize:vertical}.checkBtn{background:linear-gradient(135deg,#5b21b6,#7c3aed);text-align:center}
+.feedback{display:none;margin-top:12px;border-radius:16px;padding:14px;border:1px solid var(--line);line-height:1.55}.feedback.show{display:block}.feedback.correct{border-left:4px solid var(--green);background:rgba(74,222,128,.07)}.feedback.wrong{border-left:4px solid var(--red);background:rgba(251,113,133,.07)}
+.teach{display:none;margin-top:10px;border:1px solid #4a375f;background:#0b0711;border-radius:16px;padding:14px}.teach.show{display:block}.teach .teachTitle{font-size:11px;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-weight:950;margin-bottom:7px}.teach p{margin:7px 0;color:#e8deef;line-height:1.55}.teach .method{padding:10px 12px;border-radius:13px;background:#171021;border:1px solid var(--line);margin-top:9px}
+.examTable{width:100%;border-collapse:collapse;margin-top:13px;border:1px solid var(--line);overflow:hidden;border-radius:16px}.examTable th,.examTable td{padding:10px;border-bottom:1px solid var(--line);text-align:center}.examTable th{font-size:11px;color:var(--cyan);text-transform:uppercase}.examTable td{color:#eee5f5}
+.report{margin:30px 0 90px;padding:22px;border:1px solid var(--line);border-radius:25px;background:linear-gradient(180deg,#130c1d,#0c0712)}.reportGrid{display:grid;grid-template-columns:180px 1fr;gap:18px;align-items:center}.ring{width:165px;height:165px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--cyan) var(--score,0%),#21172f 0);position:relative}.ring:after{content:"";position:absolute;inset:14px;border-radius:50%;background:#100a19}.ring span{position:relative;z-index:1;font-size:32px;font-weight:950}.breakdown{display:grid;gap:8px}.row{display:grid;grid-template-columns:1fr auto;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}.row strong{color:var(--cyan)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.smallBtn{border:1px solid var(--line);border-radius:14px;background:#171021;color:#fff;padding:11px 13px;font-weight:800;cursor:pointer}
+@media(max-width:760px){.examMeta{grid-template-columns:1fr 1fr}.subjectHead{align-items:flex-start;flex-direction:column}.reportGrid{grid-template-columns:1fr}.ring{margin:auto}.qcard{padding:15px}.stem{font-size:16px}.wrap{width:min(100% - 16px,1120px)}.hero{padding-top:24px}.topin{padding:0 10px}.scoreTop small{display:none}.brand small{max-width:48vw}}
+@media(max-width:430px){.examMeta{grid-template-columns:1fr 1fr}.meta{padding:11px}.answerRow{display:grid;grid-template-columns:1fr}.answerRow input,.answerRow textarea{min-width:0;width:100%}.checkBtn{width:100%}}
+</style>
+</head>
+<body>
+<div id="gate">
+<div class="gateCard">
+<div class="gateBrand">Victoria Tuition Academy</div>
+<h1>Phelandi’s Exam Quiz</h1>
+<p>Physics + Mathematics. Enter the lesson password to begin.</p>
+<label for="pass">PASSWORD</label>
+<input id="pass" type="password" placeholder="Enter password">
+<button id="unlock" class="gateBtn">Start exam quiz</button>
+<div class="gateErr" id="gateErr"></div>
+</div>
+</div>
+
+<header class="top"><div class="topin">
+<div class="mark">V</div>
+<div class="brand"><b>Victoria Tuition Academy</b><small>Phelandi • Grade 9 • Physics + Mathematics Exam Quiz</small></div>
+<div class="scoreTop"><b id="liveScore">0 / 60</b><small>scored as you answer</small></div>
+</div></header>
+
+<main class="wrap">
+<section class="hero">
+<div class="kicker">Grade 9 CAPS • Exam-style diagnostic</div>
+<h1>Physics + Maths<br>Exam Quiz</h1>
+<p class="lead">Built to behave like an exam first and a tutor second. Each answer is locked after submission. If the answer is wrong, the correction teaches the rule, method and exam wording before Phelandi continues.</p>
+<div class="examMeta">
+<div class="meta"><b>60 marks</b><span>Total</span></div>
+<div class="meta"><b>30 marks</b><span>Physics</span></div>
+<div class="meta"><b>30 marks</b><span>Mathematics</span></div>
+<div class="meta"><b>60 min</b><span>Suggested time</span></div>
+</div>
+<div class="instructions"><b>Exam rule:</b> attempt each question before opening the teaching correction. For typed questions, spelling is flexible where possible, but the scientific or mathematical idea must be correct. One attempt is recorded to keep the diagnostic honest.</div>
+</section>
+
+<div class="subjectHead"><div><div class="tag">Section A • Natural Sciences / Physics</div><h2>Electric circuits & resistance</h2></div><div class="marks">30 marks</div></div>
+
+<section class="qcard mcq" data-id="p1" data-marks="2" data-section="physics" data-correct="B">
+<div class="qhead"><div><div class="qnum">QUESTION 1.1</div><div class="stem">Which statement best describes electric current in a complete circuit?</div></div><div class="markpill">[2]</div></div>
+<div class="options">
+<button data-value="A">A. Energy stored inside a cell</button>
+<button data-value="B">B. The rate at which electric charge flows past a point</button>
+<button data-value="C">C. The opposition a conductor gives to moving charge</button>
+<button data-value="D">D. The energy transferred per unit charge between two points</button>
+</div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p><b>Current</b> is the rate of flow of electric charge and is measured in amperes (A). Potential difference describes energy per unit charge, while resistance is opposition to current.</p><div class="method"><b>Exam memory:</b> Current → charge flow → ampere → ammeter.</div></div>
+</section>
+
+<section class="qcard mcq" data-id="p2" data-marks="2" data-section="physics" data-correct="C">
+<div class="qhead"><div><div class="qnum">QUESTION 1.2</div><div class="stem">A voltmeter must be connected …</div></div><div class="markpill">[2]</div></div>
+<div class="options">
+<button data-value="A">A. in series anywhere in the main circuit</button>
+<button data-value="B">B. in series with the cell only</button>
+<button data-value="C">C. in parallel across the component being measured</button>
+<button data-value="D">D. across an open switch only</button>
+</div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>A voltmeter compares the electric potential at <b>two points</b>, so it is placed across the two terminals of the component.</p><div class="method"><b>Exam memory:</b> A → series. V → parallel across the component.</div></div>
+</section>
+
+<section class="qcard mcq" data-id="p3" data-marks="2" data-section="physics" data-correct="D">
+<div class="qhead"><div><div class="qnum">QUESTION 1.3</div><div class="stem">Which change will generally increase the resistance of a metal wire?</div></div><div class="markpill">[2]</div></div>
+<div class="options">
+<button data-value="A">A. Making it shorter and thicker</button>
+<button data-value="B">B. Making it thicker only</button>
+<button data-value="C">C. Making it shorter only</button>
+<button data-value="D">D. Making it longer while keeping thickness and material unchanged</button>
+</div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>A longer wire gives moving charges a longer path through the conductor, so resistance increases when the other variables are controlled.</p><div class="method"><b>Relationship:</b> longer → more resistance; thicker → less resistance.</div></div>
+</section>
+
+<section class="qcard mcq" data-id="p4" data-marks="2" data-section="physics" data-correct="B">
+<div class="qhead"><div><div class="qnum">QUESTION 1.4</div><div class="stem">Two lamps are connected on separate branches between the same two junctions. The arrangement is …</div></div><div class="markpill">[2]</div></div>
+<div class="options">
+<button data-value="A">A. series</button><button data-value="B">B. parallel</button><button data-value="C">C. open-circuit only</button><button data-value="D">D. a short circuit by definition</button>
+</div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>Parallel components are placed on <b>separate branches</b> between the same pair of junctions. That gives charge more than one conducting path.</p></div>
+</section>
+
+<section class="qcard numeric" data-id="p5" data-marks="4" data-section="physics" data-answer="12" data-tol="0.01">
+<div class="qhead"><div><div class="qnum">QUESTION 2.1</div><div class="stem">Three resistors of 4 Ω, 3 Ω and 5 Ω are connected in series. Calculate the total resistance.</div><div class="substem">Show your calculation on paper, then enter the final answer in ohms.</div></div><div class="markpill">[4]</div></div>
+<div class="answerRow"><input inputmode="decimal" placeholder="Final answer in Ω"><button class="checkBtn">Submit answer</button></div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>In a series circuit, resistance adds because every charge must pass through every resistor.</p><div class="method"><b>Method:</b> Rtotal = R1 + R2 + R3 = 4 + 3 + 5 = <b>12 Ω</b>.</div></div>
+</section>
+
+<section class="qcard mcq" data-id="p6" data-marks="3" data-section="physics" data-correct="A">
+<div class="qhead"><div><div class="qnum">QUESTION 2.2</div><div class="stem">In a series circuit, an ammeter reads 0.40 A before the first resistor. What current should an ideal ammeter read after the second resistor?</div></div><div class="markpill">[3]</div></div>
+<div class="options">
+<button data-value="A">A. 0.40 A</button><button data-value="B">B. 0.20 A</button><button data-value="C">C. 0.80 A</button><button data-value="D">D. 0 A</button>
+</div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>A series circuit has only one path. The same current passes through every point in that path.</p><div class="method">If the current is 0.40 A at one point in an unbranched series circuit, it is 0.40 A at the other points too.</div></div>
+</section>
+
+<section class="qcard mcq" data-id="p7" data-marks="3" data-section="physics" data-correct="C">
+<div class="qhead"><div><div class="qnum">QUESTION 2.3</div><div class="stem">Two identical lamps are connected in parallel. One lamp is removed, opening only its branch. What happens to the other lamp?</div></div><div class="markpill">[3]</div></div>
+<div class="options">
+<button data-value="A">A. It must switch off because the whole circuit is open.</button>
+<button data-value="B">B. It receives zero potential difference.</button>
+<button data-value="C">C. It can remain on because its branch still forms a complete path.</button>
+<button data-value="D">D. It becomes a series circuit with no source.</button>
+</div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>Parallel branches are separate paths. Opening one branch does not automatically open every other branch.</p><div class="method"><b>Exam wording:</b> “The other lamp remains connected across the source on a complete branch.”</div></div>
+</section>
+
+<section class="qcard mcq" data-id="p8" data-marks="3" data-section="physics" data-correct="B">
+<div class="qhead"><div><div class="qnum">QUESTION 3.1</div><div class="stem">A learner investigates how the length of a nichrome wire affects current. The wire material and thickness are kept constant. What is the independent variable?</div></div><div class="markpill">[3]</div></div>
+<div class="options">
+<button data-value="A">A. Current</button><button data-value="B">B. Length of the wire</button><button data-value="C">C. Wire material</button><button data-value="D">D. Wire thickness</button>
+</div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>The independent variable is the factor deliberately changed by the learner. Here, that is the <b>length of the wire</b>.</p><div class="method">IV = changed deliberately. DV = measured response. Controls = kept the same.</div></div>
+</section>
+
+<section class="qcard mcq" data-id="p9" data-marks="3" data-section="physics" data-correct="D">
+<div class="qhead"><div><div class="qnum">QUESTION 3.2</div><div class="stem">Why must the thickness of the wire be kept constant in the investigation?</div></div><div class="markpill">[3]</div></div>
+<div class="options">
+<button data-value="A">A. Thickness has no effect on resistance.</button>
+<button data-value="B">B. It makes the graph easier to draw.</button>
+<button data-value="C">C. It ensures the ammeter reads in volts.</button>
+<button data-value="D">D. Thickness also affects resistance, so changing it would make the test unfair.</button>
+</div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>A fair test changes one relevant factor at a time. Since thickness affects resistance, it must be controlled when testing the effect of length.</p></div>
+</section>
+
+<section class="qcard mcq" data-id="p10" data-marks="6" data-section="physics" data-correct="B">
+<div class="qhead"><div><div class="qnum">QUESTION 4</div><div class="stem">Study the simplified circuit below. Which description is correct?</div></div><div class="markpill">[6]</div></div>
+<div class="diagram">
+<svg viewBox="0 0 760 390" aria-label="Parallel circuit diagram with two lamp branches, ammeter in main circuit and voltmeter across upper lamp">
+<path d="M90 80 H670 V320 H90 Z" fill="none" stroke="#ddd5ea" stroke-width="7"/>
+<line x1="325" y1="50" x2="325" y2="110" stroke="#f8f5ff" stroke-width="5"/><line x1="360" y1="35" x2="360" y2="125" stroke="#f8f5ff" stroke-width="10"/>
+<circle cx="170" cy="320" r="42" fill="#171021" stroke="#67e8f9" stroke-width="5"/><text x="170" y="333" class="svgLabel" text-anchor="middle" font-size="34" font-weight="900">A</text>
+<line x1="245" y1="180" x2="565" y2="180" stroke="#67e8f9" stroke-width="6"/><line x1="245" y1="260" x2="565" y2="260" stroke="#a78bfa" stroke-width="6"/><line x1="245" y1="180" x2="245" y2="260" stroke="#ddd5ea" stroke-width="6"/><line x1="565" y1="180" x2="565" y2="260" stroke="#ddd5ea" stroke-width="6"/>
+<circle cx="405" cy="180" r="34" fill="#171021" stroke="#67e8f9" stroke-width="4"/><path d="M382 157 L428 203 M428 157 L382 203" stroke="#f8f5ff" stroke-width="4"/>
+<circle cx="405" cy="260" r="34" fill="#171021" stroke="#a78bfa" stroke-width="4"/><path d="M382 237 L428 283 M428 237 L382 283" stroke="#f8f5ff" stroke-width="4"/>
+<path d="M360 145 V115 H450 V145" stroke="#fbbf24" stroke-width="4" fill="none"/><circle cx="405" cy="115" r="31" fill="#171021" stroke="#fbbf24" stroke-width="4"/><text x="405" y="126" class="svgLabel" text-anchor="middle" font-size="28" font-weight="900">V</text>
+</svg>
+</div>
+<div class="options">
+<button data-value="A">A. The two lamps are in series and the voltmeter is in series.</button>
+<button data-value="B">B. The lamps are on parallel branches; the ammeter is in series with the main circuit and the voltmeter is across the upper lamp.</button>
+<button data-value="C">C. The ammeter is connected in parallel and measures potential difference.</button>
+<button data-value="D">D. The circuit has only one path for charge through both lamps.</button>
+</div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>Trace the paths: the two lamps lie on separate branches, so they are parallel. The ammeter lies in the main path, while the voltmeter bridges the two terminals of the upper lamp.</p><div class="method"><b>Diagram strategy:</b> first count paths, then locate A in the path, then check whether V spans the component.</div></div>
+</section>
+
+<div class="subjectHead"><div><div class="tag">Section B • Mathematics</div><h2>Equations & straight-line graphs</h2></div><div class="marks">30 marks</div></div>
+
+<section class="qcard numeric" data-id="m1" data-marks="3" data-section="maths" data-answer="7" data-tol="0.01">
+<div class="qhead"><div><div class="qnum">QUESTION 5.1</div><div class="stem">Solve for x: 4x − 7 = 21</div></div><div class="markpill">[3]</div></div>
+<div class="answerRow"><input inputmode="decimal" placeholder="x ="><button class="checkBtn">Submit answer</button></div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>Undo the operations in reverse while keeping both sides balanced.</p><div class="method">4x − 7 = 21 → 4x = 28 → <b>x = 7</b>. Check: 4(7) − 7 = 21.</div></div>
+</section>
+
+<section class="qcard numeric" data-id="m2" data-marks="4" data-section="maths" data-answer="5" data-tol="0.01">
+<div class="qhead"><div><div class="qnum">QUESTION 5.2</div><div class="stem">Solve for x: 2(x + 4) = 18</div></div><div class="markpill">[4]</div></div>
+<div class="answerRow"><input inputmode="decimal" placeholder="x ="><button class="checkBtn">Submit answer</button></div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>You can divide both sides by 2 first or expand the bracket first.</p><div class="method">2(x + 4) = 18 → x + 4 = 9 → <b>x = 5</b>.</div></div>
+</section>
+
+<section class="qcard mcq" data-id="m3" data-marks="2" data-section="maths" data-correct="C">
+<div class="qhead"><div><div class="qnum">QUESTION 5.3</div><div class="stem">Simplify: 4a + 7 − a + 3</div></div><div class="markpill">[2]</div></div>
+<div class="options">
+<button data-value="A">A. 5a + 10</button><button data-value="B">B. 4a + 9</button><button data-value="C">C. 3a + 10</button><button data-value="D">D. 3a + 4</button>
+</div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>Combine like terms only: 4a − a = 3a and 7 + 3 = 10.</p><div class="method">Final simplified expression: <b>3a + 10</b>.</div></div>
+</section>
+
+<section class="qcard mcq" data-id="m4" data-marks="3" data-section="maths" data-correct="B">
+<div class="qhead"><div><div class="qnum">QUESTION 6.1</div><div class="stem">Which coordinate represents a point 3 units to the right of the origin and 2 units below the x-axis?</div></div><div class="markpill">[3]</div></div>
+<div class="options">
+<button data-value="A">A. (−3 ; 2)</button><button data-value="B">B. (3 ; −2)</button><button data-value="C">C. (−2 ; 3)</button><button data-value="D">D. (2 ; −3)</button>
+</div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>Coordinates are always written (x ; y). Right means positive x and below means negative y.</p><div class="method">3 right → x = 3. 2 down → y = −2. Therefore <b>(3 ; −2)</b>.</div></div>
+</section>
+
+<section class="qcard numeric" data-id="m5" data-marks="4" data-section="maths" data-answer="3" data-tol="0.01">
+<div class="qhead"><div><div class="qnum">QUESTION 6.2</div><div class="stem">Calculate the gradient of the straight line through A(1 ; 2) and B(3 ; 8).</div></div><div class="markpill">[4]</div></div>
+<div class="answerRow"><input inputmode="decimal" placeholder="Gradient m ="><button class="checkBtn">Submit answer</button></div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>Gradient compares the vertical change with the horizontal change.</p><div class="method">m = (8 − 2) / (3 − 1) = 6 / 2 = <b>3</b>.</div></div>
+</section>
+
+<section class="qcard mcq" data-id="m6" data-marks="3" data-section="maths" data-correct="A">
+<div class="qhead"><div><div class="qnum">QUESTION 6.3</div><div class="stem">For the line y = −3x + 4, which statement is correct?</div></div><div class="markpill">[3]</div></div>
+<div class="options">
+<button data-value="A">A. Gradient = −3 and y-intercept = 4</button>
+<button data-value="B">B. Gradient = 4 and y-intercept = −3</button>
+<button data-value="C">C. Gradient = 3 and y-intercept = −4</button>
+<button data-value="D">D. Gradient = −4 and y-intercept = 3</button>
+</div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>Compare the equation directly with y = mx + c.</p><div class="method">The coefficient of x is m, so <b>m = −3</b>. The standalone constant is c, so <b>c = 4</b>.</div></div>
+</section>
+
+<section class="qcard numeric" data-id="m7" data-marks="3" data-section="maths" data-answer="5" data-tol="0.01">
+<div class="qhead"><div><div class="qnum">QUESTION 7.1</div><div class="stem">The rule is y = 2x − 1. Calculate y when x = 3.</div></div><div class="markpill">[3]</div></div>
+<div class="answerRow"><input inputmode="decimal" placeholder="y ="><button class="checkBtn">Submit answer</button></div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>Substitute the given x-value into the rule.</p><div class="method">y = 2(3) − 1 = 6 − 1 = <b>5</b>. The point is (3 ; 5).</div></div>
+</section>
+
+<section class="qcard mcq" data-id="m8" data-marks="3" data-section="maths" data-correct="D">
+<div class="qhead"><div><div class="qnum">QUESTION 7.2</div><div class="stem">Which point lies on the graph y = 2x + 1?</div></div><div class="markpill">[3]</div></div>
+<div class="options">
+<button data-value="A">A. (1 ; 4)</button><button data-value="B">B. (2 ; 4)</button><button data-value="C">C. (3 ; 5)</button><button data-value="D">D. (2 ; 5)</button>
+</div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>Test a point by substituting its x-coordinate into the equation and checking whether you get its y-coordinate.</p><div class="method">For x = 2: y = 2(2) + 1 = 5, so <b>(2 ; 5)</b> lies on the line.</div></div>
+</section>
+
+<section class="qcard mcq" data-id="m9" data-marks="3" data-section="maths" data-correct="B">
+<div class="qhead"><div><div class="qnum">QUESTION 7.3</div><div class="stem">A straight line has gradient 3 and y-intercept −2. Which equation represents the line?</div></div><div class="markpill">[3]</div></div>
+<div class="options">
+<button data-value="A">A. y = −2x + 3</button><button data-value="B">B. y = 3x − 2</button><button data-value="C">C. y = 3x + 2</button><button data-value="D">D. y = −3x − 2</button>
+</div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>Place the gradient in front of x and the y-intercept as the final constant.</p><div class="method">y = mx + c → y = 3x + (−2) → <b>y = 3x − 2</b>.</div></div>
+</section>
+
+<section class="qcard mcq" data-id="m10" data-marks="2" data-section="maths" data-correct="C">
+<div class="qhead"><div><div class="qnum">QUESTION 8</div><div class="stem">Study the graph. Which statement best describes the line?</div></div><div class="markpill">[2]</div></div>
+<div class="diagram">
+<svg viewBox="0 0 760 390" aria-label="Straight line with negative gradient crossing y axis above origin">
+<line x1="90" y1="320" x2="680" y2="320" stroke="#ddd5ea" stroke-width="4"/><line x1="260" y1="355" x2="260" y2="45" stroke="#ddd5ea" stroke-width="4"/>
+<line x1="135" y1="80" x2="610" y2="300" stroke="#67e8f9" stroke-width="7"/><circle cx="260" cy="138" r="9" fill="#fbbf24"/><text x="280" y="135" class="svgLabel" font-size="18">y-intercept above 0</text>
+<text x="635" y="345" class="svgLabel" font-size="18">x</text><text x="275" y="65" class="svgLabel" font-size="18">y</text>
+</svg>
+</div>
+<div class="options">
+<button data-value="A">A. Positive gradient and negative y-intercept</button>
+<button data-value="B">B. Zero gradient and positive y-intercept</button>
+<button data-value="C">C. Negative gradient and positive y-intercept</button>
+<button data-value="D">D. Positive gradient and zero y-intercept</button>
+</div>
+<div class="feedback"></div>
+<div class="teach"><div class="teachTitle">Teacher correction</div><p>The line falls as x increases, so its gradient is negative. It crosses the y-axis above the origin, so its y-intercept is positive.</p></div>
+</section>
+
+<section class="report">
+<div class="kicker">Diagnostic report</div><h2>Phelandi’s exam readiness</h2>
+<p class="lead" id="reportText">Complete questions to build the report.</p>
+<div class="reportGrid">
+<div class="ring" id="ring"><span id="percent">0%</span></div>
+<div class="breakdown">
+<div class="row"><span>Physics</span><strong id="physicsScore">0 / 30</strong></div>
+<div class="row"><span>Mathematics</span><strong id="mathsScore">0 / 30</strong></div>
+<div class="row"><span>Total</span><strong id="totalScore">0 / 60</strong></div>
+<div class="row"><span>Questions attempted</span><strong id="attempted">0 / 20</strong></div>
+</div>
+</div>
+<div class="instructions" id="nextStep"><b>Next step:</b> complete the quiz. Wrong answers already show a targeted teaching correction; use the final score to decide what needs a short reteach before the next full exam.</div>
+<div class="actions"><button class="smallBtn" id="reset">Reset quiz</button></div>
+</section>
+</main>
+
+<script>
+(async()=>{
+const HASH="edabc76e36033a63ac677c3d913db413fd4ff979f9838901c5a502254907b2f4";
+const gate=document.getElementById('gate'),pass=document.getElementById('pass'),unlock=document.getElementById('unlock'),gateErr=document.getElementById('gateErr');
+async function sha256(t){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+if(sessionStorage.getItem('vta-phelandi-ok')==='1')gate.classList.add('hidden');
+async function openGate(){gateErr.textContent='';if(await sha256(pass.value.trim())===HASH){sessionStorage.setItem('vta-phelandi-ok','1');gate.classList.add('hidden')}else gateErr.textContent='Incorrect password. Try again.'}
+unlock.addEventListener('click',openGate);pass.addEventListener('keydown',e=>{if(e.key==='Enter')openGate()});
+
+const state={};
+const cards=[...document.querySelectorAll('.qcard')];
+const totalMarks=cards.reduce((s,c)=>s+Number(c.dataset.marks),0);
+
+function award(card,correct){
+ const id=card.dataset.id;if(state[id])return false;
+ const marks=Number(card.dataset.marks);state[id]={marks:correct?marks:0,max:marks,section:card.dataset.section,correct};
+ card.classList.add('answered');updateReport();return true;
+}
+function showFeedback(card,correct,msg){
+ const fb=card.querySelector('.feedback');fb.className='feedback show '+(correct?'correct':'wrong');
+ fb.innerHTML=(correct?'<b>✓ Full marks.</b> ':'<b>✗ Not this time.</b> ')+msg;
+ if(!correct)card.querySelector('.teach')?.classList.add('show');
+}
+document.querySelectorAll('.mcq').forEach(card=>{
+ card.querySelectorAll('.options button').forEach(btn=>btn.addEventListener('click',()=>{
+   if(state[card.dataset.id])return;
+   const correct=btn.dataset.value===card.dataset.correct;
+   award(card,correct);
+   card.querySelectorAll('.options button').forEach(b=>{b.disabled=true;if(b.dataset.value===card.dataset.correct)b.classList.add('good');else if(b===btn&&!correct)b.classList.add('bad')});
+   showFeedback(card,correct,correct?'Your choice matches the marking key.':'The correct option is highlighted. Read the teaching correction before moving on.');
+ }));
+});
+document.querySelectorAll('.numeric').forEach(card=>{
+ const input=card.querySelector('input'),btn=card.querySelector('.checkBtn');
+ btn.addEventListener('click',()=>{
+   if(state[card.dataset.id])return;
+   const v=parseFloat(String(input.value).replace(',','.')),ans=parseFloat(card.dataset.answer),tol=parseFloat(card.dataset.tol||'.01');
+   const fb=card.querySelector('.feedback');
+   if(!Number.isFinite(v)){fb.className='feedback show wrong';fb.innerHTML='<b>Enter a number first.</b>';return}
+   const correct=Math.abs(v-ans)<=tol;award(card,correct);input.disabled=true;btn.disabled=true;
+   showFeedback(card,correct,correct?'The final value is correct.':'Compare your working with the teaching correction below.');
+ });
+});
+function updateReport(){
+ let p=0,m=0,attempt=0;
+ Object.values(state).forEach(x=>{attempt++;if(x.section==='physics')p+=x.marks;else m+=x.marks});
+ const total=p+m,pc=Math.round(total/totalMarks*100);
+ document.getElementById('liveScore').textContent=`${total} / ${totalMarks}`;
+ document.getElementById('physicsScore').textContent=`${p} / 30`;
+ document.getElementById('mathsScore').textContent=`${m} / 30`;
+ document.getElementById('totalScore').textContent=`${total} / ${totalMarks}`;
+ document.getElementById('attempted').textContent=`${attempt} / ${cards.length}`;
+ document.getElementById('percent').textContent=pc+'%';document.getElementById('ring').style.setProperty('--score',pc+'%');
+ const r=document.getElementById('reportText'),n=document.getElementById('nextStep');
+ if(attempt<cards.length){r.textContent=`${attempt} of ${cards.length} questions attempted. Current score: ${total}/${totalMarks}.`;return}
+ if(pc>=80){r.textContent='Strong exam readiness on these two topics. Most core reasoning and calculations are secure.';n.innerHTML='<b>Next step:</b> redo only the questions answered incorrectly without looking at the correction, then move to a timed mixed paper.'}
+ else if(pc>=60){r.textContent='Developing exam readiness. The main ideas are present, but there are still exam-mark losses that can be repaired.';n.innerHTML='<b>Next step:</b> use the teaching corrections from every wrong answer, then redo a fresh version of the weakest subject section.'}
+ else{r.textContent='More teaching is needed before a full timed paper. The result shows gaps in the core methods, not just careless mistakes.';n.innerHTML='<b>Next step:</b> reteach the concepts attached to the wrong answers, do one worked example of each, then attempt a shorter diagnostic before another exam.'}
+}
+document.getElementById('reset').addEventListener('click',()=>location.reload());
+updateReport();
+})();
+</script>
+</body>
+</html>
