@@ -393,6 +393,42 @@ public class MainActivity extends Activity {
         new AlertDialog.Builder(this).setTitle("Choose student").setItems(names,(d,which)->dialogCreateQuiz(students.optJSONObject(which))).show();
     }
 
+    private void dialogCreateQuiz(JSONObject student){
+        ScrollView sv=new ScrollView(this);LinearLayout b=formBox();sv.addView(b);
+        EditText title=input("Quiz title",false),subject=input("Subject",false),topic=input("Topic",false),instructions=input("Instructions",false);
+        subject.setText(student.optString("subjects"));
+        b.addView(title,marginBottom(8));b.addView(subject,marginBottom(8));b.addView(topic,marginBottom(8));b.addView(instructions,marginBottom(12));
+
+        EditText[] prompts=new EditText[3], options=new EditText[3], answers=new EditText[3], explains=new EditText[3], marks=new EditText[3];
+        for(int i=0;i<3;i++){
+            LinearLayout q=card();q.addView(text("Question "+(i+1),13,NAVY,true));
+            prompts[i]=input("Question",false);options[i]=input("Options separated by |",false);answers[i]=input("Correct answer",false);explains[i]=input("Explanation / teaching feedback",false);marks[i]=input("Marks",false);
+            marks[i].setInputType(InputType.TYPE_CLASS_NUMBER);marks[i].setText("1");
+            q.addView(prompts[i],marginTopBottom(8,6));q.addView(options[i],marginBottom(6));q.addView(answers[i],marginBottom(6));q.addView(explains[i],marginBottom(6));q.addView(marks[i]);
+            b.addView(q,marginBottom(10));
+        }
+
+        AlertDialog d=new AlertDialog.Builder(this).setTitle("Create quiz for "+student.optString("display_name")).setView(sv).setNegativeButton("Cancel",null).setPositiveButton("Publish",null).create();
+        d.setOnShowListener(x->d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v->{
+            if(title.getText().toString().trim().isEmpty()||topic.getText().toString().trim().isEmpty()){toast("Add a quiz title and topic.");return;}
+            try{
+                JSONArray arr=new JSONArray();
+                for(int i=0;i<3;i++){
+                    String prompt=prompts[i].getText().toString().trim();if(prompt.isEmpty())continue;
+                    JSONObject q=new JSONObject();q.put("type","MCQ");q.put("prompt",prompt);
+                    JSONArray opts=new JSONArray();for(String o:options[i].getText().toString().split("\\|"))if(!o.trim().isEmpty())opts.put(o.trim());
+                    q.put("options",opts);q.put("answer",answers[i].getText().toString().trim());q.put("explanation",explains[i].getText().toString().trim());
+                    q.put("marks",Integer.parseInt(marks[i].getText().toString().trim().isEmpty()?"1":marks[i].getText().toString().trim()));arr.put(q);
+                }
+                if(arr.length()==0){toast("Add at least one question.");return;}
+                JSONObject request=new JSONObject();request.put("action","quizCreate");request.put("studentId",student.optString("id"));request.put("title",title.getText().toString().trim());
+                request.put("subject",subject.getText().toString().trim());request.put("topic",topic.getText().toString().trim());request.put("instructions",instructions.getText().toString().trim());
+                request.put("status","Published");request.put("questions",arr);
+                action(request,()->{d.dismiss();toast("Quiz published.");adminQuizzes();});
+            }catch(Exception e){toast("Could not create quiz.");}
+        }));d.show();
+    }
+
     private void adminSchedule(){
         pageTitle("Schedule","Booking requests and your private shared availability.");
         LinearLayout actions=row();Button lesson=primary("＋ Lesson");lesson.setOnClickListener(v->dialogAddLesson());actions.addView(lesson,new LinearLayout.LayoutParams(0,dp(48),1));Button block=secondary("＋ Time block");block.setOnClickListener(v->dialogScheduleBlock());actions.addView(block,weightMarginHeight(1,8,48));body.addView(actions,marginBottom(14));
