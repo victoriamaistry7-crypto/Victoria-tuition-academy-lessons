@@ -387,10 +387,48 @@ public class MainActivity extends Activity {
     }
 
     private void adminResources(){
-        pageTitle("Resources","Private cloud files shared only with the selected student.");
+        pageTitle("Resource library","Organised by type so the page stays clean.");
         Button up=primary("↑ Upload from phone");up.setOnClickListener(v->chooseStudentForResource());body.addView(up,marginBottom(14));
-        JSONArray rs=sync.optJSONArray("resources");if(rs.length()==0)body.addView(empty("No resources yet."));
-        for(int i=0;i<rs.length();i++){JSONObject r=rs.optJSONObject(i);LinearLayout c=card();c.addView(pill(r.optString("resource_type"),Color.rgb(245,243,255),PURPLE));c.addView(text(r.optString("title"),16,NAVY,true),marginTopBottom(8,2));c.addView(text(studentName(r.optString("student_id"))+" · "+r.optString("file_name"),11,MUTED,false));Button o=smallButton("Preview / open");o.setOnClickListener(v->downloadResource(r));c.addView(o,marginTopBottom(10,0));body.addView(c,marginBottom(8));}
+        String[] types={"Interactive Lesson","Slides","PDF / Notes","Worksheet","Video","Image","Other"};
+        String[] labels={"Interactive lessons","Slides","Notes & PDFs","Worksheets","Videos","Images","Other"};
+        JSONArray rs=sync.optJSONArray("resources");
+        for(int i=0;i<types.length;i++){
+            String type=types[i];int count=0;
+            for(int j=0;j<rs.length();j++)if(type.equals(rs.optJSONObject(j).optString("resource_type")))count++;
+            if(count==0&&!"Interactive Lesson".equals(type))continue;
+            LinearLayout c=card();LinearLayout top=row();top.setGravity(Gravity.CENTER_VERTICAL);
+            LinearLayout info=col();info.addView(text(labels[i],16,NAVY,true));info.addView(text(count+" resource"+(count==1?"":"s"),11,MUTED,false));top.addView(info,new LinearLayout.LayoutParams(0,-2,1));top.addView(text("›",26,NAVY,false));c.addView(top);
+            c.setOnClickListener(v->adminResourceCategory(type));body.addView(c,marginBottom(9));
+        }
+    }
+
+    private void adminResourceCategory(String type){
+        body.removeAllViews();TextView back=text("‹  Resource library",14,NAVY,true);back.setPadding(0,0,0,dp(14));back.setOnClickListener(v->adminResources());body.addView(back);
+        pageTitle(type,"Open, preview or edit each resource.");
+        JSONArray rs=sync.optJSONArray("resources");int count=0;
+        for(int i=0;i<rs.length();i++){
+            JSONObject r=rs.optJSONObject(i);if(!type.equals(r.optString("resource_type")))continue;count++;
+            LinearLayout c=card();c.addView(text(r.optString("title"),16,NAVY,true));c.addView(text(studentName(r.optString("student_id")),11,MUTED,true),marginTopBottom(3,0));
+            if(!r.optString("description").isEmpty())c.addView(text(r.optString("description"),11,MUTED,false),marginTopBottom(6,0));
+            if(!r.optString("access_note").isEmpty())c.addView(text(r.optString("access_note"),11,ORANGE,true),marginTopBottom(7,0));
+            LinearLayout a=row();Button open=smallButton("Open / preview");open.setOnClickListener(v->downloadResource(r));a.addView(open,new LinearLayout.LayoutParams(0,dp(44),1));
+            Button edit=smallButton("Edit");edit.setOnClickListener(v->dialogResourceEdit(r,type));a.addView(edit,weightMarginHeight(1,8,44));c.addView(a,marginTopBottom(10,0));body.addView(c,marginBottom(8));
+        }
+        if(count==0)body.addView(empty("No resources in this category yet."));
+    }
+
+    private void dialogResourceEdit(JSONObject r,String returnType){
+        LinearLayout b=formBox();
+        EditText title=input("Title",false),desc=input("Description",false),access=input("Access note / lesson password",false);
+        title.setText(r.optString("title"));desc.setText(r.optString("description"));access.setText(r.optString("access_note"));
+        Spinner type=new Spinner(this);String[] types={"Interactive Lesson","Slides","PDF / Notes","Worksheet","Video","Image","Other"};type.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,types));for(int i=0;i<types.length;i++)if(types[i].equals(r.optString("resource_type")))type.setSelection(i);
+        Spinner status=new Spinner(this);String[] statuses={"Available","Completed","Current","Archived"};status.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,statuses));for(int i=0;i<statuses.length;i++)if(statuses[i].equals(r.optString("completion_status")))status.setSelection(i);
+        b.addView(title,marginBottom(8));b.addView(type,marginBottom(8));b.addView(desc,marginBottom(8));b.addView(access,marginBottom(8));b.addView(status);
+        AlertDialog d=new AlertDialog.Builder(this).setTitle("Edit resource").setView(b).setNegativeButton("Cancel",null).setPositiveButton("Save",null).create();
+        d.setOnShowListener(x->d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v->{
+            JSONObject q=new JSONObject();try{q.put("action","resourceUpdate");q.put("id",r.optString("id"));q.put("title",title.getText().toString());q.put("resourceType",type.getSelectedItem().toString());q.put("description",desc.getText().toString());q.put("accessNote",access.getText().toString());q.put("completionStatus",status.getSelectedItem().toString());q.put("featured",r.optBoolean("featured"));}catch(Exception ignored){}
+            action(q,()->{d.dismiss();adminResourceCategory(type.getSelectedItem().toString());});
+        }));d.show();
     }
 
     private void adminFormat(){
