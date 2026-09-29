@@ -257,16 +257,87 @@ public class MainActivity extends Activity {
     }
 
     private void adminStudents(){
-        pageTitle("Students","Live student accounts. Changes here are shared across devices.");
+        pageTitle("Students","Profiles, syllabus progress and learning plans.");
         Button add=primary("＋ Create student portal");add.setOnClickListener(v->dialogCreateStudent());body.addView(add,marginBottom(14));
-        JSONArray students=sync.optJSONArray("students"),plans=sync.optJSONArray("plans");
+        JSONArray students=sync.optJSONArray("students"),plans=sync.optJSONArray("plans"),topics=sync.optJSONArray("topicProgress");
         for(int i=0;i<students.length();i++){
             JSONObject s=students.optJSONObject(i),plan=findBy(plans,"student_id",s.optString("id"));LinearLayout c=card();
-            LinearLayout top=row();TextView av=text(initials(s.optString("display_name")),15,Color.WHITE,true);av.setGravity(Gravity.CENTER);av.setBackground(circle(colorFor(i)));top.addView(av,new LinearLayout.LayoutParams(dp(44),dp(44)));
-            LinearLayout t=col();t.setPadding(dp(12),0,0,0);t.addView(text(s.optString("display_name"),18,NAVY,true));t.addView(text(nz(s.optString("grade"))+" · "+nz(s.optString("curriculum")),11,MUTED,false));top.addView(t,new LinearLayout.LayoutParams(0,-2,1));c.addView(top);
-            c.addView(text(nz(s.optString("subjects")),13,TEXT,false),marginTopBottom(10,8));
-            if(plan!=null)c.addView(text(plan.optInt("lesson_target")+" lessons · "+plan.optString("month_key"),11,GREEN,true));
-            LinearLayout acts=row();Button edit=smallButton("Edit plan");edit.setOnClickListener(v->dialogPlan(s,plan));acts.addView(edit,new LinearLayout.LayoutParams(0,dp(44),1));Button msg=smallButton("Message");msg.setOnClickListener(v->dialogMessage(s.optString("id")));acts.addView(msg,weightMarginHeight(1,8,44));c.addView(acts,marginTopBottom(10,0));body.addView(c,marginBottom(10));
+            LinearLayout top=row();top.setGravity(Gravity.CENTER_VERTICAL);
+            TextView av=text(initials(s.optString("display_name")),15,Color.WHITE,true);av.setGravity(Gravity.CENTER);av.setBackground(circle(colorFor(i)));top.addView(av,new LinearLayout.LayoutParams(dp(46),dp(46)));
+            LinearLayout t=col();t.setPadding(dp(12),0,0,0);t.addView(text(s.optString("display_name"),18,NAVY,true));t.addView(text(nz(s.optString("grade"))+" · "+nz(s.optString("curriculum")),11,MUTED,false));top.addView(t,new LinearLayout.LayoutParams(0,-2,1));
+            top.addView(text("›",26,NAVY,false));c.addView(top);
+            c.addView(text(nz(s.optString("subjects")),13,TEXT,false),marginTopBottom(10,6));
+            int total=0,covered=0,next=0;
+            for(int j=0;j<topics.length();j++){JSONObject x=topics.optJSONObject(j);if(!s.optString("id").equals(x.optString("student_id")))continue;total++;String st=x.optString("status");if("Covered".equals(st)||"Completed".equals(st))covered++;if("Next".equals(st)||"Current".equals(st))next++;}
+            c.addView(text(covered+" covered  •  "+next+" current/next  •  "+total+" syllabus topics",11,MUTED,false));
+            if(plan!=null)c.addView(text(plan.optInt("lesson_target")+" lessons · "+plan.optString("month_key"),11,GREEN,true),marginTopBottom(6,0));
+            c.setOnClickListener(v->adminStudentProfile(s));
+            body.addView(c,marginBottom(10));
+        }
+    }
+
+    private void adminStudentProfile(JSONObject s){
+        body.removeAllViews();
+        TextView back=text("‹  Students",14,NAVY,true);back.setPadding(0,0,0,dp(14));back.setOnClickListener(v->adminStudents());body.addView(back);
+        LinearLayout hero=card();hero.setBackground(gradient(NAVY,Color.rgb(31,55,96),20));
+        hero.addView(text(s.optString("display_name"),28,Color.WHITE,true));
+        hero.addView(text(nz(s.optString("grade"))+" · "+nz(s.optString("curriculum"))+" · "+nz(s.optString("subjects")),12,Color.rgb(203,213,225),false));
+        if(!s.optString("profile_note").isEmpty())hero.addView(text(s.optString("profile_note"),11,Color.rgb(203,213,225),false),marginTopBottom(8,0));
+        body.addView(hero,marginBottom(12));
+
+        LinearLayout actions=row();
+        Button profile=secondary("Edit profile");profile.setOnClickListener(v->dialogStudentProfile(s));actions.addView(profile,new LinearLayout.LayoutParams(0,dp(46),1));
+        JSONObject plan=findBy(sync.optJSONArray("plans"),"student_id",s.optString("id"));
+        Button planBtn=secondary("Monthly plan");planBtn.setOnClickListener(v->dialogPlan(s,plan));actions.addView(planBtn,weightMarginHeight(1,8,46));
+        body.addView(actions,marginBottom(10));
+
+        LinearLayout actions2=row();
+        Button addTopic=primary("＋ Add syllabus topic");addTopic.setOnClickListener(v->dialogTopic(s,null));actions2.addView(addTopic,new LinearLayout.LayoutParams(0,dp(46),1));
+        Button msg=secondary("Message");msg.setOnClickListener(v->dialogMessage(s.optString("id")));actions2.addView(msg,weightMarginHeight(1,8,46));
+        body.addView(actions2,marginBottom(14));
+
+        section("Syllabus & progress");
+        JSONArray topics=sync.optJSONArray("topicProgress");int count=0;
+        for(int i=0;i<topics.length();i++){
+            JSONObject x=topics.optJSONObject(i);if(!s.optString("id").equals(x.optString("student_id")))continue;count++;
+            LinearLayout row=card();LinearLayout top=row();top.setGravity(Gravity.CENTER_VERTICAL);
+            LinearLayout info=col();info.addView(text(x.optString("topic"),14,NAVY,true));info.addView(text(x.optString("term_label")+" · "+x.optString("strand"),10,MUTED,false));top.addView(info,new LinearLayout.LayoutParams(0,-2,1));
+            top.addView(pill(x.optString("status"),statusBg(x.optString("status")),statusColor(x.optString("status"))));row.addView(top);
+            if(!x.optString("notes").isEmpty())row.addView(text(x.optString("notes"),11,MUTED,false),marginTopBottom(7,0));
+            row.setOnClickListener(v->dialogTopic(s,x));body.addView(row,marginBottom(8));
+        }
+        if(count==0)body.addView(empty("No syllabus topics yet. Add the first topic above."));
+    }
+
+    private void dialogStudentProfile(JSONObject s){
+        LinearLayout b=formBox();
+        EditText name=input("Student name",false),grade=input("Grade",false),curr=input("Curriculum",false),subjects=input("Subjects",false),note=input("Profile note",false);
+        name.setText(s.optString("display_name"));grade.setText(s.optString("grade"));curr.setText(s.optString("curriculum"));subjects.setText(s.optString("subjects"));note.setText(s.optString("profile_note"));
+        for(EditText e:new EditText[]{name,grade,curr,subjects,note})b.addView(e,marginBottom(8));
+        AlertDialog d=new AlertDialog.Builder(this).setTitle("Edit student profile").setView(b).setNegativeButton("Cancel",null).setPositiveButton("Save",null).create();
+        d.setOnShowListener(x->d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v->{
+            JSONObject q=new JSONObject();try{q.put("action","studentUpdate");q.put("studentId",s.optString("id"));q.put("name",name.getText().toString());q.put("grade",grade.getText().toString());q.put("curriculum",curr.getText().toString());q.put("subjects",subjects.getText().toString());q.put("profileNote",note.getText().toString());q.put("active",true);}catch(Exception ignored){}
+            action(q,()->{d.dismiss();JSONObject updated=findBy(sync.optJSONArray("students"),"id",s.optString("id"));adminStudentProfile(updated==null?s:updated);});
+        }));d.show();
+    }
+
+    private void dialogTopic(JSONObject student,JSONObject topic){
+        LinearLayout b=formBox();
+        EditText subject=input("Subject",false),strand=input("Strand / section",false),term=input("Term",false),name=input("Topic",false),notes=input("Tutor notes / what is next",false);
+        Spinner status=new Spinner(this);String[] statuses={"Covered","Current","Next","Revisit","Future","Resource Ready"};status.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,statuses));
+        EditText order=input("Sort order",false);order.setInputType(InputType.TYPE_CLASS_NUMBER);
+        if(topic!=null){subject.setText(topic.optString("subject"));strand.setText(topic.optString("strand"));term.setText(topic.optString("term_label"));name.setText(topic.optString("topic"));notes.setText(topic.optString("notes"));order.setText(String.valueOf(topic.optInt("sort_order")));for(int i=0;i<statuses.length;i++)if(statuses[i].equals(topic.optString("status")))status.setSelection(i);}
+        else{subject.setText(student.optString("subjects"));order.setText("999");}
+        for(EditText e:new EditText[]{subject,strand,term,name})b.addView(e,marginBottom(8));b.addView(status,marginBottom(8));b.addView(notes,marginBottom(8));b.addView(order);
+        AlertDialog d=new AlertDialog.Builder(this).setTitle(topic==null?"Add syllabus topic":"Edit syllabus topic").setView(b).setNegativeButton("Cancel",null).setPositiveButton("Save",null).create();
+        d.setOnShowListener(x->d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v->{
+            if(name.getText().toString().trim().isEmpty()){toast("Enter a topic name.");return;}
+            JSONObject q=new JSONObject();try{q.put("action","topicUpsert");q.put("studentId",student.optString("id"));if(topic!=null)q.put("id",topic.optString("id"));q.put("subject",subject.getText().toString());q.put("strand",strand.getText().toString());q.put("termLabel",term.getText().toString());q.put("topic",name.getText().toString());q.put("status",status.getSelectedItem().toString());q.put("notes",notes.getText().toString());q.put("sortOrder",Integer.parseInt(order.getText().toString().trim().isEmpty()?"999":order.getText().toString()));}catch(Exception ignored){}
+            action(q,()->{d.dismiss();JSONObject updated=findBy(sync.optJSONArray("students"),"id",student.optString("id"));adminStudentProfile(updated==null?student:updated);});
+        }));d.setOnLongClickListener(v->{return false;});d.show();
+        if(topic!=null){
+            d.setButton(AlertDialog.BUTTON_NEUTRAL,"Delete",(DialogInterface.OnClickListener)null);
+            d.getButton(AlertDialog.BUTTON_NEUTRAL);
         }
     }
 
