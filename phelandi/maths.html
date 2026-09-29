@@ -72,7 +72,15 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 #vtaGate .gateError{min-height:20px;margin-top:10px;color:#fb7185;font-size:13px;font-weight:750}
 #vtaGate .micro{font-size:11px;color:#857b92;margin-top:12px;text-align:center}
 </style>
-</head>
+<style id="vta-lesson-structure">
+.phaseRow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.phase{font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.13em;padding:7px 9px;border-radius:999px;border:1px solid var(--line);background:#130c1d;color:#e5dcf2}
+.phase.recap{border-color:#59457a;color:#ddd0ff}.phase.new{border-color:#24576a;color:#a5f3fc}.phase.practice{border-color:#624a12;color:#fde68a}.phase.report{border-color:#26583b;color:#bbf7d0}.phase.map{border-color:#4c3b67;color:#ddd0ff}
+.timeBadge{font-size:10px;font-weight:900;padding:7px 9px;border-radius:999px;border:1px solid #3a2a50;background:#0c0712;color:var(--muted)}
+.sectionMap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:15px 0 5px}.sectionMap>div{border:1px solid var(--line);border-radius:15px;background:#100a19;padding:11px}.sectionMap strong{display:block;font-size:13px}.sectionMap small{display:block;color:var(--muted);margin-top:4px;line-height:1.35}
+.lessonAim{margin-top:12px;padding:12px 13px;border-radius:14px;border:1px solid #2f4250;background:rgba(103,232,249,.055);color:#dffbff;line-height:1.5}
+@media(max-width:680px){.sectionMap{grid-template-columns:1fr 1fr}.phaseRow{margin-bottom:10px}}
+</style></head>
     <body>
 
 <div id="vtaGate" role="dialog" aria-modal="true" aria-labelledby="vtaGateTitle">
@@ -100,9 +108,9 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
       <main class="stage" id="slides">
 <section class="slide active">
   <div class="content">
-    <div class="eyebrow"><em></em>01 • Continuation lesson</div>
+    <div class="phaseRow"><span class="phase map">Lesson map</span><span class="timeBadge">2 min</span></div><div class="eyebrow"><em></em>01 • Today’s route</div>
     <h1>Equations to<br>straight-line graphs.</h1>
-    <p class="lead">Phelandi’s next Grade 9 Mathematics mastery lesson, continuing from the Term 1–3 revision. We now connect algebra, solving equations, coordinates, gradient and the equation of a straight line.</p>
+    <p class="lead">A compact 60-minute lesson: retrieve algebra and equations, learn straight-line graphs properly, then apply them in exam-style problems.</p><div class="sectionMap"><div><strong>Recap</strong><small>15 min • algebra + equations</small></div><div><strong>New learning</strong><small>31 min • straight-line graphs</small></div><div><strong>Practice</strong><small>10 min • exam challenge</small></div><div><strong>Diagnostic</strong><small>2 min • next step</small></div></div><div class="lessonAim"><b>New topic today:</b> straight-line graphs — coordinates, gradient, y = mx + c, plotting and interpretation.</div>
     <div class="tags"><span class="tag">Like terms</span><span class="tag">Equations</span><span class="tag">Brackets</span><span class="tag">Coordinates</span><span class="tag">y = mx + c</span><span class="tag">Gradient</span><span class="tag">Intercept</span><span class="tag">Exam mastery</span></div>
     <div class="callout good"><b>Phelandi’s target:</b> understand why each algebra step works, then see how an equation becomes a graph — not just memorise a recipe.</div>
   </div>
@@ -119,7 +127,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>02 • Retrieval</div><h2>Clean algebra first.</h2>
+    <div class="phaseRow"><span class="phase recap">Recap</span><span class="timeBadge">5 min</span></div><div class="eyebrow"><em></em>02 • Algebra retrieval</div><h2>Clean algebra first.</h2>
     <p class="lead">Straight-line graphs depend on algebra. Start by combining only like terms.</p>
     <div class="formula">7x − 3 + 2x + 5 = 9x + 2</div>
     <div class="cards"><div class="card"><h3>Variable terms</h3><p>7x + 2x = 9x</p></div><div class="card"><h3>Constants</h3><p>−3 + 5 = 2</p></div></div>
@@ -140,7 +148,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>03 • Equations</div><h2>Keep the balance.</h2>
+    <div class="phaseRow"><span class="phase recap">Recap</span><span class="timeBadge">6 min</span></div><div class="eyebrow"><em></em>03 • Equation balance</div><h2>Keep the balance.</h2>
     <p class="lead">Instead of “moving” numbers magically, perform the same operation on both sides.</p>
     <div class="formula">4x − 7 = 21</div>
     <div class="steps"><div class="step"><b>1</b><div>Add 7 to both sides → 4x = 28</div></div><div class="step"><b>2</b><div>Divide both sides by 4 → x = 7</div></div><div class="step"><b>3</b><div>Check: 4(7) − 7 = 21 ✓</div></div></div>
@@ -162,7 +170,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>04 • Brackets</div><h2>Two valid routes. Same answer.</h2>
+    <div class="phaseRow"><span class="phase recap">Recap</span><span class="timeBadge">4 min</span></div><div class="eyebrow"><em></em>04 • Brackets bridge</div><h2>Two valid routes. Same answer.</h2>
     <div class="formula">3(x − 2) = 15</div>
     <div class="cards"><div class="card"><h3>Route A</h3><p>Divide by 3 → x − 2 = 5 → x = 7.</p></div><div class="card"><h3>Route B</h3><p>Expand → 3x − 6 = 15 → 3x = 21 → x = 7.</p></div></div>
     <div class="interact" data-q="m3" data-cat="Equations" data-correct="a">
@@ -184,7 +192,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>05 • Coordinates</div><h2>A point has an address.</h2>
+    <div class="phaseRow"><span class="phase new">New learning</span><span class="timeBadge">5 min</span></div><div class="eyebrow"><em></em>05 • Coordinates</div><h2>A point has an address.</h2>
     <p class="lead">Coordinates are written (x ; y): move horizontally using x, then vertically using y.</p>
     <div class="cards"><div class="card"><h3>x-coordinate</h3><p>Left/right movement.</p></div><div class="card"><h3>y-coordinate</h3><p>Down/up movement.</p></div></div>
     <div class="interact" data-q="m4" data-cat="Coordinates" data-correct="b">
@@ -205,7 +213,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>06 • Straight-line equation</div><h2>Meet y = mx + c.</h2>
+    <div class="phaseRow"><span class="phase new">New learning</span><span class="timeBadge">7 min</span></div><div class="eyebrow"><em></em>06 • y = mx + c</div><h2>Meet y = mx + c.</h2>
     <div class="formula">y = mx + c</div>
     <div class="cards"><div class="card"><h3>m = gradient</h3><p>How much y changes when x increases by 1.</p></div><div class="card"><h3>c = y-intercept</h3><p>The y-value where the line crosses the y-axis.</p></div></div>
     <div class="interact" data-q="m5" data-cat="Linear Graphs" data-correct="b">
@@ -226,7 +234,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>07 • Table to graph</div><h2>Substitute, plot, connect.</h2>
+    <div class="phaseRow"><span class="phase new">New learning</span><span class="timeBadge">7 min</span></div><div class="eyebrow"><em></em>07 • Equation → table → graph</div><h2>Substitute, plot, connect.</h2>
     <p class="lead">For y = 2x − 1, substitute each x-value to calculate y. Every pair becomes a coordinate.</p>
     <div class="interact" data-q="m6" data-cat="Linear Graphs" data-numeric="5" data-tol="0.01">
       <div class="qtitle">For y = 2x − 1, calculate y when x = 3.</div>
@@ -242,7 +250,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>08 • Gradient</div><h2>Gradient measures steepness and direction.</h2>
+    <div class="phaseRow"><span class="phase new">New learning</span><span class="timeBadge">7 min</span></div><div class="eyebrow"><em></em>08 • Gradient</div><h2>Gradient measures steepness and direction.</h2>
     <div class="formula">m = Δy / Δx</div>
     <div class="cards three"><div class="card"><h3>m &gt; 0</h3><p>Line rises left to right.</p></div><div class="card"><h3>m &lt; 0</h3><p>Line falls left to right.</p></div><div class="card"><h3>m = 0</h3><p>Horizontal line.</p></div></div>
     <div class="interact" data-q="m7" data-cat="Gradient" data-correct="a">
@@ -262,7 +270,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>09 • Interpret</div><h2>Read the equation like a story.</h2>
+    <div class="phaseRow"><span class="phase new">New learning</span><span class="timeBadge">5 min</span></div><div class="eyebrow"><em></em>09 • Interpret the line</div><h2>Read the equation like a story.</h2>
     <p class="lead">For y = −2x + 6: the negative gradient means the line falls left-to-right, and c = 6 means it crosses the y-axis at 6.</p>
     <div class="interact" data-q="m8" data-cat="Interpretation" data-correct="a">
       <div class="qtitle">Which description matches y = −2x + 6?</div>
@@ -286,7 +294,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>10 • Exam challenge</div><h2>Bring the algebra and graph together.</h2>
+    <div class="phaseRow"><span class="phase practice">Practice</span><span class="timeBadge">10 min</span></div><div class="eyebrow"><em></em>10 • Exam challenge</div><h2>Bring the algebra and graph together.</h2>
     <div class="interact" data-q="m10" data-cat="Exam Mastery" data-correct="c">
       <div class="qtitle">Solve: 2x + 5 = x + 12</div>
       <div class="choice"><button data-choice="a">A. x = 17</button><button data-choice="b">B. x = 5</button><button data-choice="c">C. x = 7</button></div>
@@ -313,7 +321,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide" data-report="1">
   <div class="content">
-    <div class="eyebrow"><em></em>11 • Diagnostic report</div><h2>Phelandi’s maths mastery report.</h2>
+    <div class="phaseRow"><span class="phase report">Diagnostic</span><span class="timeBadge">2 min</span></div><div class="eyebrow"><em></em>11 • Mastery report</div><h2>Phelandi’s maths mastery report.</h2>
     <p class="lead" id="summary">Complete the scored activities to generate a diagnostic.</p>
     <div class="reportGrid">
       <div class="scoreRing" id="scoreRing"><span id="scoreText">0%</span></div>
