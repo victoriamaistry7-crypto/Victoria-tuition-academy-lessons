@@ -429,6 +429,69 @@ public class MainActivity extends Activity {
         }));d.show();
     }
 
+    private LinearLayout studentQuizCard(JSONObject q){
+        LinearLayout c=card();LinearLayout top=row();top.setGravity(Gravity.CENTER_VERTICAL);
+        LinearLayout info=col();info.addView(text(q.optString("title"),15,NAVY,true));info.addView(text(q.optString("subject")+" · "+q.optString("topic"),10,MUTED,false));top.addView(info,new LinearLayout.LayoutParams(0,-2,1));
+        top.addView(pill(q.optInt("total_marks")+" marks",Color.rgb(239,246,255),BLUE));c.addView(top);
+        Button open=smallButton("Start quiz");open.setOnClickListener(v->openQuiz(q));c.addView(open,marginTopBottom(10,0));return c;
+    }
+
+    private void studentQuizzes(){
+        body.removeAllViews();
+        TextView back=text("‹  More",14,NAVY,true);back.setPadding(0,0,0,dp(14));back.setOnClickListener(v->studentMore());body.addView(back);
+        pageTitle("My quizzes","Practice, submit and learn from every correction.");
+        JSONArray qs=sync.optJSONArray("quizzes");
+        if(qs==null||qs.length()==0){body.addView(empty("No quizzes have been assigned yet."));return;}
+        for(int i=0;i<qs.length();i++)body.addView(studentQuizCard(qs.optJSONObject(i)),marginBottom(8));
+    }
+
+    private void openQuiz(JSONObject quiz){
+        JSONObject req=new JSONObject();try{req.put("action","quizGet");req.put("id",quiz.optString("id"));}catch(Exception ignored){}
+        api(req,true,(res,e)->{
+            if(e!=null){toast(e.getMessage());return;}
+            JSONArray questions=res.optJSONArray("questions");JSONObject qz=res.optJSONObject("quiz");
+            ScrollView sv=new ScrollView(this);LinearLayout box=formBox();sv.addView(box);
+            box.addView(text(qz.optString("title"),20,NAVY,true));
+            if(!qz.optString("instructions").isEmpty())box.addView(text(qz.optString("instructions"),12,MUTED,false),marginTopBottom(5,12));
+
+            LinkedHashMap<String,Spinner> answers=new LinkedHashMap<>();
+            for(int i=0;i<questions.length();i++){
+                JSONObject q=questions.optJSONObject(i);LinearLayout qc=card();
+                qc.addView(text((i+1)+". "+q.optString("prompt"),14,NAVY,true));
+                JSONArray opts=q.optJSONArray("options");String[] vals=new String[opts==null?0:opts.length()];
+                for(int j=0;j<vals.length;j++)vals[j]=opts.optString(j);
+                Spinner sp=new Spinner(this);sp.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,vals));
+                qc.addView(sp,marginTopBottom(8,0));answers.put(q.optString("id"),sp);box.addView(qc,marginBottom(8));
+            }
+
+            AlertDialog d=new AlertDialog.Builder(this).setTitle("Quiz").setView(sv).setNegativeButton("Close",null).setPositiveButton("Submit",null).create();
+            d.setOnShowListener(x->d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v->{
+                JSONObject ans=new JSONObject();
+                try{for(Map.Entry<String,Spinner> en:answers.entrySet())ans.put(en.getKey(),String.valueOf(en.getValue().getSelectedItem()));}catch(Exception ignored){}
+                JSONObject send=new JSONObject();try{send.put("action","quizSubmit");send.put("quizId",quiz.optString("id"));send.put("answers",ans);}catch(Exception ignored){}
+                api(send,true,(result,err)->{
+                    if(err!=null){toast(err.getMessage());return;}
+                    d.dismiss();showQuizResult(result);refresh(null);
+                });
+            }));d.show();
+        });
+    }
+
+    private void showQuizResult(JSONObject result){
+        LinearLayout b=formBox();int score=result.optInt("score"),total=result.optInt("total");
+        b.addView(text(score+" / "+total,30,score*2>=total?GREEN:ORANGE,true));
+        b.addView(text(score==total?"Excellent — full marks.":"Review the corrections below before your next attempt.",12,MUTED,false),marginTopBottom(5,12));
+        JSONArray rs=result.optJSONArray("results");
+        if(rs!=null)for(int i=0;i<rs.length();i++){
+            JSONObject r=rs.optJSONObject(i);LinearLayout c=card();
+            c.addView(text(r.optBoolean("correct")?"Correct":"Needs review",13,r.optBoolean("correct")?GREEN:ORANGE,true));
+            c.addView(text("Answer: "+r.optString("answer"),12,NAVY,true),marginTopBottom(5,2));
+            if(!r.optString("explanation").isEmpty())c.addView(text(r.optString("explanation"),11,MUTED,false));
+            b.addView(c,marginBottom(7));
+        }
+        new AlertDialog.Builder(this).setTitle("Quiz result").setView(b).setPositiveButton("Done",null).show();
+    }
+
     private void adminSchedule(){
         pageTitle("Schedule","Booking requests and your private shared availability.");
         LinearLayout actions=row();Button lesson=primary("＋ Lesson");lesson.setOnClickListener(v->dialogAddLesson());actions.addView(lesson,new LinearLayout.LayoutParams(0,dp(48),1));Button block=secondary("＋ Time block");block.setOnClickListener(v->dialogScheduleBlock());actions.addView(block,weightMarginHeight(1,8,48));body.addView(actions,marginBottom(14));
