@@ -72,7 +72,15 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 #vtaGate .gateError{min-height:20px;margin-top:10px;color:#fb7185;font-size:13px;font-weight:750}
 #vtaGate .micro{font-size:11px;color:#857b92;margin-top:12px;text-align:center}
 </style>
-</head>
+<style id="vta-lesson-structure">
+.phaseRow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.phase{font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.13em;padding:7px 9px;border-radius:999px;border:1px solid var(--line);background:#130c1d;color:#e5dcf2}
+.phase.recap{border-color:#59457a;color:#ddd0ff}.phase.new{border-color:#24576a;color:#a5f3fc}.phase.practice{border-color:#624a12;color:#fde68a}.phase.report{border-color:#26583b;color:#bbf7d0}.phase.map{border-color:#4c3b67;color:#ddd0ff}
+.timeBadge{font-size:10px;font-weight:900;padding:7px 9px;border-radius:999px;border:1px solid #3a2a50;background:#0c0712;color:var(--muted)}
+.sectionMap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:15px 0 5px}.sectionMap>div{border:1px solid var(--line);border-radius:15px;background:#100a19;padding:11px}.sectionMap strong{display:block;font-size:13px}.sectionMap small{display:block;color:var(--muted);margin-top:4px;line-height:1.35}
+.lessonAim{margin-top:12px;padding:12px 13px;border-radius:14px;border:1px solid #2f4250;background:rgba(103,232,249,.055);color:#dffbff;line-height:1.5}
+@media(max-width:680px){.sectionMap{grid-template-columns:1fr 1fr}.phaseRow{margin-bottom:10px}}
+</style></head>
     <body>
 
 <div id="vtaGate" role="dialog" aria-modal="true" aria-labelledby="vtaGateTitle">
@@ -100,7 +108,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
       <main class="stage" id="slides">
 <section class="slide active">
   <div class="content">
-    <div class="eyebrow"><em></em>01 • Continuation lesson</div>
+    <div class="phaseRow"><span class="phase map">Lesson map</span><span class="timeBadge">2 min</span></div><div class="eyebrow"><em></em>01 • Today’s route</div>
     <h1>Circuits.<br>Now make them make sense.</h1>
     <p class="lead">Phelandi’s next Grade 9 physics-focused Natural Sciences lesson, continuing from resistance into circuit foundations, current, potential difference, series and parallel circuits, meters and exam reasoning.</p>
     <div class="tags"><span class="tag">Resistance recap</span><span class="tag">Circuit symbols</span><span class="tag">Current</span><span class="tag">Potential difference</span><span class="tag">Series</span><span class="tag">Parallel</span><span class="tag">Meters</span><span class="tag">Exam mastery</span></div>
@@ -122,7 +130,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>02 • Retrieve</div><h2>Resistance first.</h2>
+    <div class="phaseRow"><span class="phase recap">Recap</span><span class="timeBadge">5 min</span></div><div class="eyebrow"><em></em>02 • Resistance bridge</div><h2>Resistance first.</h2>
     <p class="lead">Before circuit analysis, reconnect to the idea you already covered: resistance is opposition to the flow of electric charge.</p>
     <div class="cards">
       <div class="card"><h3>Length</h3><p>Longer wire → more resistance.</p></div>
@@ -149,7 +157,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>03 • Circuit language</div><h2>Current and voltage are not the same thing.</h2>
+    <div class="phaseRow"><span class="phase new">New learning</span><span class="timeBadge">6 min</span></div><div class="eyebrow"><em></em>03 • Current vs potential difference</div><h2>Current and voltage are not the same thing.</h2>
     <div class="cards">
       <div class="card"><h3>Current, I</h3><p>The rate at which electric charge flows past a point in a circuit. Unit: ampere (A).</p></div>
       <div class="card"><h3>Potential difference, V</h3><p>Energy transferred per unit charge between two points. Unit: volt (V).</p></div>
@@ -172,7 +180,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>04 • Read the diagram</div><h2>Meters must be connected correctly.</h2>
+    <div class="phaseRow"><span class="phase new">New learning</span><span class="timeBadge">6 min</span></div><div class="eyebrow"><em></em>05 • Meters</div><h2>Meters must be connected correctly.</h2>
     <div class="steps">
       <div class="step"><b>1</b><div><strong>Ammeter:</strong> place it in series so the current passes through it.</div></div>
       <div class="step"><b>2</b><div><strong>Voltmeter:</strong> place it in parallel across the component whose potential difference you want.</div></div>
@@ -198,7 +206,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>05 • Series circuits</div><h2>One path. Same current.</h2>
+    <div class="phaseRow"><span class="phase new">New learning</span><span class="timeBadge">8 min</span></div><div class="eyebrow"><em></em>06 • Series circuits</div><h2>One path. Same current.</h2>
     <p class="lead">In a series circuit, every charge follows the same path through each component.</p>
     <div class="formula">R<sub>total</sub> = R<sub>1</sub> + R<sub>2</sub> + …</div>
     <div class="cards"><div class="card"><h3>Current</h3><p>Same at every point in the single path.</p></div><div class="card"><h3>Voltage</h3><p>The source potential difference is shared across components.</p></div></div>
@@ -221,7 +229,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>06 • Parallel circuits</div><h2>Branches change the behaviour.</h2>
+    <div class="phaseRow"><span class="phase new">New learning</span><span class="timeBadge">8 min</span></div><div class="eyebrow"><em></em>07 • Parallel circuits</div><h2>Branches change the behaviour.</h2>
     <p class="lead">Parallel circuits give charges more than one conducting path.</p>
     <div class="cards"><div class="card"><h3>Voltage</h3><p>Each parallel branch is connected across the same two points, so branch potential difference is the same.</p></div><div class="card"><h3>Current</h3><p>Total current splits at a junction and recombines later.</p></div></div>
     <div class="callout good"><b>Failure clue:</b> if one branch opens, another branch can still form a complete circuit.</div>
@@ -243,7 +251,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>07 • Compare</div><h2>Series or parallel? Prove it.</h2>
+    <div class="phaseRow"><span class="phase practice">Guided practice</span><span class="timeBadge">5 min</span></div><div class="eyebrow"><em></em>08 • Series vs parallel</div><h2>Series or parallel? Prove it.</h2>
     <div class="cards">
       <div class="card"><h3>Series</h3><p>One route. Same current. Resistances add. A break opens the only path.</p></div>
       <div class="card"><h3>Parallel</h3><p>More than one route. Current divides. Branches can operate independently.</p></div>
@@ -267,7 +275,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>08 • Investigation skill</div><h2>Change one thing. Measure one thing.</h2>
+    <div class="phaseRow"><span class="phase practice">Practice</span><span class="timeBadge">5 min</span></div><div class="eyebrow"><em></em>09 • Investigation skill</div><h2>Change one thing. Measure one thing.</h2>
     <p class="lead">Suppose you investigate how wire length affects current while using the same material, thickness and source.</p>
     <div class="cards three"><div class="card"><h3>IV</h3><p>Length of wire.</p></div><div class="card"><h3>DV</h3><p>Current measured by ammeter.</p></div><div class="card"><h3>Controls</h3><p>Material, thickness, source, temperature as far as possible.</p></div></div>
     <div class="interact" data-q="p7" data-cat="Investigation" data-correct="c">
@@ -284,7 +292,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><em></em>09 • Exam application</div><h2>Explain, don’t just name.</h2>
+    <div class="phaseRow"><span class="phase practice">Independent practice</span><span class="timeBadge">8 min</span></div><div class="eyebrow"><em></em>10 • Exam application</div><h2>Explain, don’t just name.</h2>
     <div class="interact" data-q="p8" data-cat="Exam Reasoning" data-correct="c">
       <div class="qtitle">A house needs lamps to keep working independently. Which explanation is scientifically strongest?</div>
       <div class="choice"><button data-choice="a">A. Parallel circuits look neater.</button><button data-choice="b">B. Series circuits use fewer branches.</button><button data-choice="c">C. Parallel branches give each lamp its own complete path, so opening one branch does not necessarily open the others.</button></div>
@@ -308,7 +316,7 @@ h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-he
 
 <section class="slide" data-report="1">
   <div class="content">
-    <div class="eyebrow"><em></em>10 • Diagnostic report</div><h2>Phelandi’s circuit mastery report.</h2>
+    <div class="phaseRow"><span class="phase report">Diagnostic</span><span class="timeBadge">2 min</span></div><div class="eyebrow"><em></em>11 • Mastery report</div><h2>Phelandi’s circuit mastery report.</h2>
     <p class="lead" id="summary">Complete the scored activities to generate a diagnostic.</p>
     <div class="reportGrid">
       <div class="scoreRing" id="scoreRing"><span id="scoreText">0%</span></div>
