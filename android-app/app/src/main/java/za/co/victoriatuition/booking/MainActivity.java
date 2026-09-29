@@ -35,6 +35,8 @@ public class MainActivity extends Activity {
     private String pendingResourceTitle="", pendingResourceType="Other", pendingResourceDescription="", pendingResourceAccessNote="";
     private TextView syncStatus;
     private boolean darkMode=false;
+    private final Handler liveHandler=new Handler(Looper.getMainLooper());
+    private final Runnable liveRefresh=new Runnable(){@Override public void run(){if(!token.isEmpty()&&body!=null)refreshCurrent();liveHandler.postDelayed(this,45000);}};
 
     @Override public void onCreate(Bundle b){
         super.onCreate(b);
@@ -47,6 +49,9 @@ public class MainActivity extends Activity {
         createNotificationChannel();
         if(!token.isEmpty()) refreshAndOpen(); else showWelcome();
     }
+
+    @Override protected void onResume(){super.onResume();liveHandler.removeCallbacks(liveRefresh);liveHandler.postDelayed(liveRefresh,45000);}
+    @Override protected void onPause(){liveHandler.removeCallbacks(liveRefresh);super.onPause();}
 
     // ---------- NETWORK ----------
 
@@ -258,6 +263,9 @@ public class MainActivity extends Activity {
         hstats.addView(pill(alerts+" alerts",Color.rgb(28,70,55),Color.rgb(187,247,208)),marginLeft(8));
         hero.addView(hstats);body.addView(hero,marginBottom(16));
 
+        section("This week");
+        body.addView(adminWeekStrip(),marginBottom(4));
+
         section("Next lessons");
         JSONArray ls=sync.optJSONArray("lessons");int shown=0;
         for(int i=0;i<ls.length()&&shown<4;i++){JSONObject l=ls.optJSONObject(i);if(!"Completed".equals(l.optString("status"))&&!"Cancelled".equals(l.optString("status"))){body.addView(adminLessonCard(l),marginBottom(8));shown++;}}
@@ -276,6 +284,33 @@ public class MainActivity extends Activity {
         LinearLayout finance=card();LinearLayout ft=row();ft.setGravity(Gravity.CENTER_VERTICAL);
         LinearLayout fi=col();fi.addView(text("Finance",15,NAVY,true));fi.addView(text("Completed lesson value · R"+invoiceReadyTotal(),11,MUTED,false));ft.addView(fi,new LinearLayout.LayoutParams(0,-2,1));ft.addView(text("›",25,NAVY,false));finance.addView(ft);
         finance.setOnClickListener(v->openTab("Finance"));body.addView(finance);
+    }
+
+    private HorizontalScrollView adminWeekStrip(){
+        HorizontalScrollView hsv=new HorizontalScrollView(this);hsv.setHorizontalScrollBarEnabled(false);
+        LinearLayout days=row();days.setPadding(0,0,dp(4),0);hsv.addView(days);
+        Calendar cal=Calendar.getInstance();int dow=cal.get(Calendar.DAY_OF_WEEK);int offset=(dow+5)%7;cal.add(Calendar.DAY_OF_MONTH,-offset);
+        SimpleDateFormat iso=new SimpleDateFormat("yyyy-MM-dd",Locale.US), day=new SimpleDateFormat("EEE",Locale.US), num=new SimpleDateFormat("d",Locale.US);
+        JSONArray lessons=sync.optJSONArray("lessons");
+        for(int d=0;d<7;d++){
+            Date date=cal.getTime();String key=iso.format(date);
+            LinearLayout col=col();col.setPadding(dp(10),dp(11),dp(10),dp(11));col.setBackground(round(Color.WHITE,16,1,LINE));
+            col.addView(text(day.format(date).toUpperCase(Locale.US),9,MUTED,true));
+            col.addView(text(num.format(date),22,NAVY,true),marginTopBottom(2,7));
+            int count=0;
+            if(lessons!=null)for(int i=0;i<lessons.length();i++){
+                JSONObject l=lessons.optJSONObject(i);if(!key.equals(l.optString("lesson_date"))||"Cancelled".equals(l.optString("status")))continue;
+                count++;LinearLayout block=col();block.setPadding(dp(8),dp(7),dp(8),dp(7));block.setBackground(round(ORANGE_SOFT,11,0,0));
+                block.addView(text(shortTime(l.optString("start_time")),10,ORANGE,true));
+                block.addView(text(studentName(l.optString("student_id")),11,NAVY,true));
+                String topic=l.optString("topic");if(topic.length()>18)topic=topic.substring(0,18)+"…";
+                block.addView(text(topic,9,MUTED,false));col.addView(block,marginBottom(6));
+            }
+            if(count==0)col.addView(text("Open",10,GREEN,true),marginTopBottom(5,0));
+            LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(dp(128),-2);p.setMargins(0,0,dp(8),0);days.addView(col,p);
+            cal.add(Calendar.DAY_OF_MONTH,1);
+        }
+        return hsv;
     }
 
     private void adminStudents(){
