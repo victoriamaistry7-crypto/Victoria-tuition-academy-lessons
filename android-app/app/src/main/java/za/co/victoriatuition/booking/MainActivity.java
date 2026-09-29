@@ -374,7 +374,7 @@ public class MainActivity extends Activity {
     }
 
     private void studentMessages(){
-        pageTitle("Messages","Speak directly with your tutor.");
+        pageTitle("Chat with Victoria","Tutor chat • messages sync across devices.");
         Button b=primary("＋ Message Victoria");b.setOnClickListener(v->dialogMessage(null));body.addView(b,marginBottom(14));
         JSONArray ms=sync.optJSONArray("messages");if(ms.length()==0)body.addView(empty("No messages yet."));
         String me=sync.optJSONObject("user").optString("id");
