@@ -410,6 +410,35 @@ public class MainActivity extends Activity {
         section("Announcements");JSONArray a=sync.optJSONArray("announcements");for(int i=0;i<a.length();i++){JSONObject x=a.optJSONObject(i);LinearLayout c=card();c.addView(text(x.optString("title"),15,NAVY,true));c.addView(text(x.optString("body"),12,MUTED,false));body.addView(c,marginBottom(8));}
     }
 
+    private void studentLearning(){
+        JSONObject u=sync.optJSONObject("user");
+        pageTitle("My learning","Your syllabus, progress and resources in one place.");
+
+        JSONArray topics=sync.optJSONArray("topicProgress");
+        int covered=0,next=0,revisit=0,total=topics.length();
+        for(int i=0;i<topics.length();i++){String st=topics.optJSONObject(i).optString("status");if("Covered".equals(st)||"Completed".equals(st))covered++;else if("Next".equals(st)||"Current".equals(st))next++;else if("Revisit".equals(st))revisit++;}
+        LinearLayout summary=card();summary.setBackground(gradient(NAVY,Color.rgb(31,55,96),20));
+        summary.addView(text(nz(u.optString("grade"))+" · "+nz(u.optString("subjects")),12,Color.rgb(203,213,225),true));
+        summary.addView(text(covered+" of "+total+" topics covered",25,Color.WHITE,true),marginTopBottom(7,4));
+        summary.addView(text(next+" current/next  •  "+revisit+" to revisit",11,Color.rgb(203,213,225),false));
+        body.addView(summary,marginBottom(14));
+
+        String lastGroup="";
+        for(int i=0;i<topics.length();i++){
+            JSONObject x=topics.optJSONObject(i);
+            String group=x.optString("term_label")+" · "+x.optString("strand");
+            if(!group.equals(lastGroup)){section(group);lastGroup=group;}
+            LinearLayout c=card();LinearLayout top=row();top.setGravity(Gravity.CENTER_VERTICAL);
+            LinearLayout info=col();info.addView(text(x.optString("topic"),14,NAVY,true));if(!x.optString("notes").isEmpty())info.addView(text(x.optString("notes"),10,MUTED,false),marginTopBottom(4,0));top.addView(info,new LinearLayout.LayoutParams(0,-2,1));
+            top.addView(pill(x.optString("status"),statusBg(x.optString("status")),statusColor(x.optString("status"))));c.addView(top);
+            body.addView(c,marginBottom(7));
+        }
+
+        section("Resources");
+        JSONArray rs=sync.optJSONArray("resources");if(rs.length()==0)body.addView(empty("No resources yet."));
+        for(int i=0;i<rs.length();i++){JSONObject r=rs.optJSONObject(i);if(!r.optBoolean("featured")&&i>4)continue;body.addView(studentResourceCard(r),marginBottom(8));}
+    }
+
     private void studentPlan(){
         JSONObject p=sync.optJSONObject("plan");pageTitle("My learning plan",p==null?"Victoria hasn’t set a plan yet.":p.optString("month_key"));
         if(p==null)return;LinearLayout c=card();c.addView(text(p.optInt("lesson_target")+" lessons",28,ORANGE,true));c.addView(text(p.optString("goal"),13,TEXT,false));body.addView(c,marginBottom(12));
