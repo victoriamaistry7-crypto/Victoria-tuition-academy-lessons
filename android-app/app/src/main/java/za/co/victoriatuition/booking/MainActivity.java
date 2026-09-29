@@ -378,12 +378,32 @@ public class MainActivity extends Activity {
     }
 
     private void adminMessages(){
-        pageTitle("Messages & announcements","Shared tutor/student communication.");
-        Button a=primary("＋ Post announcement");a.setOnClickListener(v->dialogAnnouncement());body.addView(a,marginBottom(14));
-        JSONArray ms=sync.optJSONArray("messages");
-        if(ms.length()==0)body.addView(empty("No messages yet."));
-        for(int i=0;i<ms.length();i++){JSONObject m=ms.optJSONObject(i);String sid=m.optString("student_id");LinearLayout c=card();c.addView(text(studentName(sid),14,NAVY,true));c.addView(text(m.optString("body"),13,TEXT,false),marginTopBottom(6,3));c.addView(text(m.optString("created_at"),10,MUTED,false));Button r=smallButton("Reply");r.setOnClickListener(v->dialogMessage(sid));c.addView(r,marginTopBottom(8,0));body.addView(c,marginBottom(8));}
-        section("Announcements");JSONArray an=sync.optJSONArray("announcements");for(int i=0;i<an.length();i++){JSONObject x=an.optJSONObject(i);LinearLayout c=card();c.addView(text(x.optString("title"),15,NAVY,true));c.addView(text(x.optString("body"),12,MUTED,false));body.addView(c,marginBottom(8));}
+        pageTitle("Messages","Student conversations.");
+        Button a=secondary("＋ Post announcement");a.setOnClickListener(v->dialogAnnouncement());body.addView(a,marginBottom(14));
+        JSONArray students=sync.optJSONArray("students"),ms=sync.optJSONArray("messages");
+        for(int i=0;i<students.length();i++){
+            JSONObject s=students.optJSONObject(i),last=null;
+            for(int j=0;j<ms.length();j++){JSONObject m=ms.optJSONObject(j);if(s.optString("id").equals(m.optString("student_id"))){last=m;break;}}
+            LinearLayout row=card();row.setPadding(dp(12),dp(12),dp(12),dp(12));LinearLayout top=row();top.setGravity(Gravity.CENTER_VERTICAL);
+            TextView av=text(initials(s.optString("display_name")),14,Color.WHITE,true);av.setGravity(Gravity.CENTER);av.setBackground(circle(colorFor(i)));top.addView(av,new LinearLayout.LayoutParams(dp(44),dp(44)));
+            LinearLayout info=col();info.setPadding(dp(11),0,0,0);info.addView(text(s.optString("display_name"),15,NAVY,true));info.addView(text(last==null?"No messages yet":last.optString("body"),11,MUTED,false));top.addView(info,new LinearLayout.LayoutParams(0,-2,1));
+            if(last!=null){String ts=last.optString("created_at");if(ts.length()>=16)ts=ts.substring(11,16);top.addView(text(ts,10,MUTED,false));}
+            row.addView(top);row.setOnClickListener(v->adminChat(s.optString("id")));body.addView(row,marginBottom(8));
+        }
+        section("Announcements");JSONArray an=sync.optJSONArray("announcements");for(int i=0;i<Math.min(3,an.length());i++){JSONObject x=an.optJSONObject(i);LinearLayout card=card();card.addView(text(x.optString("title"),14,NAVY,true));card.addView(text(x.optString("body"),11,MUTED,false),marginTopBottom(4,0));body.addView(card,marginBottom(8));}
+    }
+
+    private void adminChat(String studentId){
+        body.removeAllViews();TextView back=text("‹  Messages",14,NAVY,true);back.setPadding(0,0,0,dp(12));back.setOnClickListener(v->adminMessages());body.addView(back);
+        pageTitle(studentName(studentId),"Tutor chat");
+        JSONArray ms=sync.optJSONArray("messages");String me=sync.optJSONObject("user").optString("id");int count=0;
+        for(int i=ms.length()-1;i>=0;i--){JSONObject m=ms.optJSONObject(i);if(!studentId.equals(m.optString("student_id")))continue;count++;body.addView(chatBubble(m,me.equals(m.optString("sender_id"))),marginBottom(6));}
+        if(count==0)body.addView(empty("No messages yet."));
+        LinearLayout composer=row();composer.setGravity(Gravity.CENTER_VERTICAL);composer.setPadding(dp(6),dp(6),dp(6),dp(6));composer.setBackground(round(Color.WHITE,22,1,LINE));
+        EditText msg=input("Message "+studentName(studentId),false);msg.setSingleLine(false);msg.setMaxLines(4);composer.addView(msg,new LinearLayout.LayoutParams(0,-2,1));
+        TextView send=text("➤",19,Color.WHITE,true);send.setGravity(Gravity.CENTER);send.setBackground(circle(Color.rgb(0,168,132)));composer.addView(send,new LinearLayout.LayoutParams(dp(44),dp(44)));
+        send.setOnClickListener(v->{String value=msg.getText().toString().trim();if(value.isEmpty())return;msg.setText("");JSONObject q=new JSONObject();try{q.put("action","messageSend");q.put("studentId",studentId);q.put("message",value);}catch(Exception ignored){}action(q,()->adminChat(studentId));});
+        body.addView(composer,marginTopBottom(12,0));
     }
 
     private void adminResources(){
@@ -578,16 +598,27 @@ public class MainActivity extends Activity {
     }
 
     private void studentMessages(){
-        pageTitle("Chat with Victoria","Tutor chat • messages sync across devices.");
-        JSONArray ms=sync.optJSONArray("messages");if(ms.length()==0)body.addView(empty("No messages yet. Send a message below to start the conversation."));
-        String me=sync.optJSONObject("user").optString("id");
-        for(int i=0;i<ms.length();i++){JSONObject m=ms.optJSONObject(i);boolean mine=me.equals(m.optString("sender_id"));LinearLayout c=card();c.setBackground(round(mine?Color.rgb(220,252,231):Color.WHITE,16,1,mine?Color.rgb(187,247,208):LINE));c.addView(text(mine?"You":"Victoria",11,mine?GREEN:ORANGE,true));c.addView(text(m.optString("body"),14,TEXT,false),marginTopBottom(5,2));String stamp=m.optString("created_at");if(stamp.length()>=16)stamp=stamp.substring(11,16);TextView ts=text(stamp,9,MUTED,false);ts.setGravity(Gravity.RIGHT);c.addView(ts);body.addView(c,marginBottom(8));}
+        pageTitle("Victoria","Tutor chat");
+        JSONArray ms=sync.optJSONArray("messages");String me=sync.optJSONObject("user").optString("id");
+        if(ms.length()==0)body.addView(empty("No messages yet. Send a message below to start the conversation."));
+        for(int i=ms.length()-1;i>=0;i--){JSONObject m=ms.optJSONObject(i);body.addView(chatBubble(m,me.equals(m.optString("sender_id"))),marginBottom(6));}
 
-        LinearLayout composer=row();composer.setGravity(Gravity.CENTER_VERTICAL);composer.setPadding(dp(8),dp(8),dp(8),dp(8));composer.setBackground(round(Color.WHITE,18,1,LINE));
+        LinearLayout composer=row();composer.setGravity(Gravity.CENTER_VERTICAL);composer.setPadding(dp(6),dp(6),dp(6),dp(6));composer.setBackground(round(Color.WHITE,22,1,LINE));
         EditText msg=input("Message Victoria",false);msg.setSingleLine(false);msg.setMaxLines(4);composer.addView(msg,new LinearLayout.LayoutParams(0,-2,1));
-        TextView send=text("➤",20,Color.WHITE,true);send.setGravity(Gravity.CENTER);send.setBackground(circle(Color.rgb(0,168,132)));composer.addView(send,new LinearLayout.LayoutParams(dp(46),dp(46)));
+        TextView send=text("➤",19,Color.WHITE,true);send.setGravity(Gravity.CENTER);send.setBackground(circle(Color.rgb(0,168,132)));composer.addView(send,new LinearLayout.LayoutParams(dp(44),dp(44)));
         send.setOnClickListener(v->{String value=msg.getText().toString().trim();if(value.isEmpty())return;msg.setText("");JSONObject q=new JSONObject();try{q.put("action","messageSend");q.put("message",value);}catch(Exception ignored){}action(q,()->openTab("Messages"));});
         body.addView(composer,marginTopBottom(12,0));
+    }
+
+    private LinearLayout chatBubble(JSONObject m,boolean mine){
+        LinearLayout wrap=row();wrap.setGravity(mine?Gravity.RIGHT:Gravity.LEFT);
+        LinearLayout bubble=col();bubble.setPadding(dp(12),dp(8),dp(10),dp(6));
+        bubble.setBackground(round(mine?Color.rgb(217,253,211):Color.WHITE,16,1,mine?Color.rgb(187,247,208):LINE));
+        bubble.addView(text(m.optString("body"),14,TEXT,false));
+        String stamp=m.optString("created_at");if(stamp.length()>=16)stamp=stamp.substring(11,16);
+        TextView time=text(stamp,9,MUTED,false);time.setGravity(Gravity.RIGHT);bubble.addView(time,marginTopBottom(4,0));
+        int width=(int)(getResources().getDisplayMetrics().widthPixels*0.74f);
+        wrap.addView(bubble,new LinearLayout.LayoutParams(width,-2));return wrap;
     }
 
     // ---------- BOOKING ----------
