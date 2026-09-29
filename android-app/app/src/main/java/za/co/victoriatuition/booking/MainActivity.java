@@ -547,9 +547,34 @@ public class MainActivity extends Activity {
     }
 
     private void studentResources(){
-        pageTitle("My resources","Private slides, notes, worksheets and videos from Victoria.");
-        JSONArray rs=sync.optJSONArray("resources");if(rs.length()==0)body.addView(empty("No resources yet."));
-        for(int i=0;i<rs.length();i++){JSONObject r=rs.optJSONObject(i);LinearLayout c=card();c.addView(pill(r.optString("resource_type"),Color.rgb(245,243,255),PURPLE));c.addView(text(r.optString("title"),16,NAVY,true),marginTopBottom(8,2));c.addView(text(r.optString("file_name"),11,MUTED,false));Button o=smallButton("Preview / open");o.setOnClickListener(v->downloadResource(r));c.addView(o,marginTopBottom(10,0));body.addView(c,marginBottom(8));}
+        pageTitle("My resources","Choose a category, then open what you need.");
+        JSONArray rs=sync.optJSONArray("resources");if(rs.length()==0){body.addView(empty("No resources yet."));return;}
+        String[] types={"Interactive Lesson","Slides","PDF / Notes","Worksheet","Video","Image","Other"};
+        String[] labels={"Interactive lessons","Slides","Notes & PDFs","Worksheets","Videos","Images","Other"};
+        for(int i=0;i<types.length;i++){
+            String type=types[i];int count=0;for(int j=0;j<rs.length();j++)if(type.equals(rs.optJSONObject(j).optString("resource_type")))count++;
+            if(count==0)continue;
+            LinearLayout c=card();LinearLayout top=row();top.setGravity(Gravity.CENTER_VERTICAL);
+            LinearLayout info=col();info.addView(text(labels[i],16,NAVY,true));info.addView(text(count+" item"+(count==1?"":"s"),11,MUTED,false));top.addView(info,new LinearLayout.LayoutParams(0,-2,1));top.addView(text("›",26,NAVY,false));c.addView(top);
+            c.setOnClickListener(v->studentResourceCategory(type));body.addView(c,marginBottom(9));
+        }
+    }
+
+    private void studentResourceCategory(String type){
+        body.removeAllViews();TextView back=text("‹  My resources",14,NAVY,true);back.setPadding(0,0,0,dp(14));back.setOnClickListener(v->studentResources());body.addView(back);
+        pageTitle(type,"Resources shared with you by Victoria.");
+        JSONArray rs=sync.optJSONArray("resources");int count=0;
+        for(int i=0;i<rs.length();i++){JSONObject r=rs.optJSONObject(i);if(!type.equals(r.optString("resource_type")))continue;count++;body.addView(studentResourceCard(r),marginBottom(8));}
+        if(count==0)body.addView(empty("Nothing in this category yet."));
+    }
+
+    private LinearLayout studentResourceCard(JSONObject r){
+        LinearLayout c=card();LinearLayout top=row();top.setGravity(Gravity.CENTER_VERTICAL);
+        LinearLayout info=col();info.addView(text(r.optString("title"),15,NAVY,true));info.addView(text(r.optString("completion_status"),10,statusColor(r.optString("completion_status")),true));top.addView(info,new LinearLayout.LayoutParams(0,-2,1));
+        top.addView(pill(r.optString("resource_type"),Color.rgb(245,243,255),PURPLE));c.addView(top);
+        if(!r.optString("description").isEmpty())c.addView(text(r.optString("description"),11,MUTED,false),marginTopBottom(7,0));
+        if(!r.optString("access_note").isEmpty())c.addView(text(r.optString("access_note"),11,ORANGE,true),marginTopBottom(7,0));
+        Button open=smallButton("Open resource");open.setOnClickListener(v->downloadResource(r));c.addView(open,marginTopBottom(10,0));return c;
     }
 
     private void studentMessages(){
