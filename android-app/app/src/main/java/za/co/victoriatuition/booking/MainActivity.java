@@ -121,7 +121,7 @@ public class MainActivity extends Activity {
     private void showWelcome(){
         ScrollView sv=new ScrollView(this);LinearLayout root=col();root.setPadding(dp(20),dp(26),dp(20),dp(30));root.setBackgroundColor(themeColor(BG));sv.addView(root);setContentView(sv);
         LinearLayout brand=row();brand.setGravity(Gravity.CENTER_VERTICAL);
-        ImageView logo=new ImageView(this);int brandId=getResources().getIdentifier("vta"+"_"+"logo"+"_"+"brand","drawable",getPackageName());logo.setImageResource(brandId);logo.setScaleType(ImageView.ScaleType.CENTER_INSIDE);brand.addView(logo,new LinearLayout.LayoutParams(0,dp(62),1));
+        ImageView logo=new ImageView(this);logo.setImageResource(R.drawable.vta_logo);logo.setScaleType(ImageView.ScaleType.CENTER_INSIDE);brand.addView(logo,new LinearLayout.LayoutParams(0,dp(70),1));
         TextView theme=pill(darkMode?"Light":"Dark",Color.WHITE,NAVY);theme.setOnClickListener(v->{darkMode=!darkMode;prefs.edit().putBoolean("darkMode",darkMode).apply();showWelcome();});brand.addView(theme);root.addView(brand);
 
         LinearLayout hero=col();hero.setPadding(dp(22),dp(24),dp(22),dp(24));hero.setBackground(gradient(NAVY,NAVY2,22));
@@ -180,7 +180,7 @@ public class MainActivity extends Activity {
         LinearLayout root=col();root.setBackgroundColor(screenBg);
         LinearLayout header=row();header.setGravity(Gravity.CENTER_VERTICAL);header.setPadding(dp(16),dp(11),dp(12),dp(11));header.setBackgroundColor(NAVY);
 
-        ImageView brandMark=new ImageView(this);int brandRes=getResources().getIdentifier("vta"+"_"+"brand"+"_"+"mark","drawable",getPackageName());brandMark.setImageResource(brandRes);brandMark.setScaleType(ImageView.ScaleType.CENTER_INSIDE);header.addView(brandMark,new LinearLayout.LayoutParams(dp(42),dp(42)));
+        ImageView brandMark=new ImageView(this);brandMark.setImageResource(R.drawable.vta_logo);brandMark.setScaleType(ImageView.ScaleType.CENTER_INSIDE);header.addView(brandMark,new LinearLayout.LayoutParams(dp(108),dp(40)));
         LinearLayout brand=col();brand.setPadding(dp(9),0,0,0);
         brand.addView(text("Victoria Tuition Academy",15,Color.WHITE,true));
         brand.addView(text("LEARN • GROW • ACHIEVE",8,Color.rgb(203,213,225),true));
