@@ -490,7 +490,7 @@ public class MainActivity extends Activity {
                 JSONObject send=new JSONObject();try{send.put("action","quizSubmit");send.put("quizId",quiz.optString("id"));send.put("answers",ans);}catch(Exception ignored){}
                 api(send,true,(result,err)->{
                     if(err!=null){toast(err.getMessage());return;}
-                    d.dismiss();showQuizResult(result);refresh(null);
+                    d.dismiss();showQuizResult(result);refreshCurrent();
                 });
             }));d.show();
         });
