@@ -483,8 +483,14 @@ public class MainActivity extends Activity {
 
     private void studentHome(){
         JSONObject u=sync.optJSONObject("user");pageTitle("Hi, "+u.optString("displayName"),u.optString("grade")+" · "+u.optString("curriculum")+" · "+u.optString("subjects"));
+        JSONArray progress=sync.optJSONArray("topicProgress");int coveredCount=0,nextCount=0,totalCount=progress==null?0:progress.length();
+        if(progress!=null)for(int i=0;i<progress.length();i++){String st=progress.optJSONObject(i).optString("status");if("Covered".equals(st)||"Completed".equals(st))coveredCount++;if("Next".equals(st)||"Current".equals(st))nextCount++;}
+        int progressPct=totalCount==0?0:Math.round(coveredCount*100f/totalCount);
+        LinearLayout journey=card();journey.setBackground(gradient(NAVY,Color.rgb(31,55,96),20));journey.addView(text("YOUR LEARNING JOURNEY",10,Color.rgb(148,163,184),true));journey.addView(text(progressPct+"% syllabus progress",24,Color.WHITE,true),marginTopBottom(7,3));journey.addView(text(coveredCount+" covered  •  "+nextCount+" current/next",11,Color.rgb(203,213,225),false));body.addView(journey,marginBottom(12));
         JSONObject plan=sync.optJSONObject("plan");if(plan!=null){LinearLayout c=card();c.setBackground(gradient(NAVY,NAVY2,20));c.addView(text(plan.optString("month_key").toUpperCase()+" PLAN",10,Color.rgb(148,163,184),true));c.addView(text(plan.optInt("lesson_target")+" lessons planned",26,Color.WHITE,true));c.addView(text(plan.optString("goal"),12,Color.rgb(203,213,225),false));body.addView(c,marginBottom(14));}
         section("Next lesson");JSONObject next=nextStudentLesson();if(next==null)body.addView(empty("No upcoming lesson yet."));else body.addView(studentLessonCard(next),marginBottom(8));
+        section("Next up");
+        int nextShown=0;if(progress!=null)for(int i=0;i<progress.length()&&nextShown<3;i++){JSONObject x=progress.optJSONObject(i);String st=x.optString("status");if(!"Next".equals(st)&&!"Current".equals(st)&&!"Revisit".equals(st))continue;LinearLayout tc=card();LinearLayout tr=row();tr.setGravity(Gravity.CENTER_VERTICAL);LinearLayout ti=col();ti.addView(text(x.optString("topic"),14,NAVY,true));ti.addView(text(x.optString("strand"),10,MUTED,false));tr.addView(ti,new LinearLayout.LayoutParams(0,-2,1));tr.addView(pill(st,statusBg(st),statusColor(st)));tc.addView(tr);tc.setOnClickListener(v->{setTab("Book");openTab("Book");});body.addView(tc,marginBottom(7));nextShown++;}
         section("Announcements");JSONArray a=sync.optJSONArray("announcements");for(int i=0;i<a.length();i++){JSONObject x=a.optJSONObject(i);LinearLayout c=card();c.addView(text(x.optString("title"),15,NAVY,true));c.addView(text(x.optString("body"),12,MUTED,false));body.addView(c,marginBottom(8));}
     }
 
