@@ -813,8 +813,23 @@ public class MainActivity extends Activity {
     private int dp(int n){return Math.round(n*getResources().getDisplayMetrics().density);}
     private int colorFor(int i){int[] c={ORANGE,BLUE,PURPLE,GREEN,Color.rgb(234,88,12)};return c[i%c.length];}
     private int light(int c){if(c==ORANGE)return ORANGE_SOFT;if(c==GREEN)return GREEN_SOFT;if(c==BLUE)return Color.rgb(239,246,255);return Color.rgb(245,243,255);}
-    private int statusColor(String s){if("Completed".equals(s))return Color.rgb(21,128,61);if("Confirmed".equals(s)||"Scheduled".equals(s))return BLUE;if("Cancelled".equals(s)||"Declined".equals(s))return Color.rgb(185,28,28);return ORANGE;}
-    private int statusBg(String s){if("Completed".equals(s))return GREEN_SOFT;if("Confirmed".equals(s)||"Scheduled".equals(s))return Color.rgb(239,246,255);if("Cancelled".equals(s)||"Declined".equals(s))return Color.rgb(254,242,242);return ORANGE_SOFT;}
+    private int statusColor(String s){
+        if("Covered".equals(s)||"Completed".equals(s)||"Available".equals(s))return Color.rgb(21,128,61);
+        if("Current".equals(s)||"Confirmed".equals(s)||"Scheduled".equals(s))return BLUE;
+        if("Next".equals(s))return ORANGE;
+        if("Revisit".equals(s))return Color.rgb(217,119,6);
+        if("Resource Ready".equals(s))return PURPLE;
+        if("Cancelled".equals(s)||"Declined".equals(s))return Color.rgb(185,28,28);
+        return MUTED;
+    }
+    private int statusBg(String s){
+        if("Covered".equals(s)||"Completed".equals(s)||"Available".equals(s))return GREEN_SOFT;
+        if("Current".equals(s)||"Confirmed".equals(s)||"Scheduled".equals(s))return Color.rgb(239,246,255);
+        if("Next".equals(s)||"Revisit".equals(s))return ORANGE_SOFT;
+        if("Resource Ready".equals(s))return Color.rgb(245,243,255);
+        if("Cancelled".equals(s)||"Declined".equals(s))return Color.rgb(254,242,242);
+        return Color.rgb(248,250,252);
+    }
     private String initials(String s){if(s==null||s.trim().isEmpty())return "?";String[] p=s.trim().split("\\s+");return p.length==1?p[0].substring(0,1).toUpperCase():(p[0].substring(0,1)+p[p.length-1].substring(0,1)).toUpperCase();}
     private String shortTime(String s){return s==null||s.length()<5?"Time not recorded":s.substring(0,5);}
     private String nz(String s){return s==null||s.equals("null")||s.isEmpty()?"Not recorded":s;}
