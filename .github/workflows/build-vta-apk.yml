@@ -1,4 +1,4 @@
-name: Build VTA Student Portal APK
+name: Build VTA Supabase APK
 on:
   workflow_dispatch:
   push:
@@ -21,15 +21,15 @@ jobs:
         with:
           gradle-version: '8.9'
       - run: gradle -p android-app assembleDebug --no-daemon
-      - run: cp android-app/app/build/outputs/apk/debug/app-debug.apk VTA-Student-Portal-Native.apk
+      - run: cp android-app/app/build/outputs/apk/debug/app-debug.apk VTA-Student-Portal-Cloud.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: VTA-Student-Portal-Native-APK
-          path: VTA-Student-Portal-Native.apk
+          name: VTA-Student-Portal-Cloud-APK
+          path: VTA-Student-Portal-Cloud.apk
       - env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release delete vta-student-portal-native --cleanup-tag --yes || true
-          gh release create vta-student-portal-native VTA-Student-Portal-Native.apk \
-            --title "VTA Student Portal — Native Android App" \
-            --notes "Separate native Android portal app. Opens with role selection and username/password login. No booking access-code screen and no website wrapper."
+          gh release delete vta-cloud-latest --cleanup-tag --yes || true
+          gh release create vta-cloud-latest VTA-Student-Portal-Cloud.apk \
+            --title "VTA Student Portal — Supabase Cloud" \
+            --notes "Native Android VTA portal using Supabase shared backend. Cross-device accounts, bookings, messages, schedule, private resources, finance and live availability."
