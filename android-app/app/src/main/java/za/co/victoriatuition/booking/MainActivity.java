@@ -121,7 +121,7 @@ public class MainActivity extends Activity {
     private void showWelcome(){
         ScrollView sv=new ScrollView(this);LinearLayout root=col();root.setPadding(dp(20),dp(26),dp(20),dp(30));root.setBackgroundColor(BG);sv.addView(root);setContentView(sv);
         LinearLayout brand=row();brand.setGravity(Gravity.CENTER_VERTICAL);
-        TextView logo=text("V",24,Color.WHITE,true);logo.setGravity(Gravity.CENTER);logo.setBackground(circle(ORANGE));brand.addView(logo,new LinearLayout.LayoutParams(dp(52),dp(52)));
+        ImageView logo=new ImageView(this);int brandId=getResources().getIdentifier("vta"+"_"+"brand"+"_"+"mark","drawable",getPackageName());logo.setImageResource(brandId);logo.setScaleType(ImageView.ScaleType.CENTER_INSIDE);brand.addView(logo,new LinearLayout.LayoutParams(dp(58),dp(58)));
         LinearLayout bt=col();bt.setPadding(dp(12),0,0,0);bt.addView(text("Victoria Tuition Academy",19,NAVY,true));bt.addView(text("Better Understanding. Better Results.",11,MUTED,false));brand.addView(bt);root.addView(brand);
 
         LinearLayout hero=col();hero.setPadding(dp(22),dp(24),dp(22),dp(24));hero.setBackground(gradient(NAVY,NAVY2,22));
