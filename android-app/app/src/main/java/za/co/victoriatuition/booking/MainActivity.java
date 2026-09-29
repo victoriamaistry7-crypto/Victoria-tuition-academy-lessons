@@ -119,19 +119,19 @@ public class MainActivity extends Activity {
     // ---------- LOGIN ----------
 
     private void showWelcome(){
-        ScrollView sv=new ScrollView(this);LinearLayout root=col();root.setPadding(dp(20),dp(26),dp(20),dp(30));root.setBackgroundColor(BG);sv.addView(root);setContentView(sv);
+        ScrollView sv=new ScrollView(this);LinearLayout root=col();root.setPadding(dp(20),dp(26),dp(20),dp(30));root.setBackgroundColor(themeColor(BG));sv.addView(root);setContentView(sv);
         LinearLayout brand=row();brand.setGravity(Gravity.CENTER_VERTICAL);
         ImageView logo=new ImageView(this);int brandId=getResources().getIdentifier("vta"+"_"+"brand"+"_"+"mark","drawable",getPackageName());logo.setImageResource(brandId);logo.setScaleType(ImageView.ScaleType.CENTER_INSIDE);brand.addView(logo,new LinearLayout.LayoutParams(dp(58),dp(58)));
-        LinearLayout bt=col();bt.setPadding(dp(12),0,0,0);bt.addView(text("Victoria Tuition Academy",19,NAVY,true));bt.addView(text("Better Understanding. Better Results.",11,MUTED,false));brand.addView(bt);root.addView(brand);
+        LinearLayout bt=col();bt.setPadding(dp(12),0,0,0);bt.addView(text("Victoria Tuition Academy",20,NAVY,true));bt.addView(text("LEARN  •  GROW  •  ACHIEVE",10,MUTED,true));brand.addView(bt,new LinearLayout.LayoutParams(0,-2,1));TextView theme=pill(darkMode?"Light":"Dark",Color.WHITE,NAVY);theme.setOnClickListener(v->{darkMode=!darkMode;prefs.edit().putBoolean("darkMode",darkMode).apply();showWelcome();});brand.addView(theme);root.addView(brand);
 
         LinearLayout hero=col();hero.setPadding(dp(22),dp(24),dp(22),dp(24));hero.setBackground(gradient(NAVY,NAVY2,22));
         hero.addView(pill("PRIVATE LEARNING PORTAL",Color.rgb(51,65,85),Color.WHITE));
-        TextView h=text("Everything for tutoring,\nin one app.",31,Color.WHITE,true);h.setPadding(0,dp(16),0,dp(10));hero.addView(h);
-        hero.addView(text("Live lessons, bookings, resources and tutor communication.",14,Color.rgb(203,213,225),false));
+        TextView h=text("Your learning,\nbeautifully organised.",31,Color.WHITE,true);h.setPadding(0,dp(16),0,dp(10));hero.addView(h);
+        hero.addView(text("Lessons, progress, resources, booking and direct tutor support in one calm space.",14,Color.rgb(203,213,225),false));
         root.addView(hero,marginTopBottom(28,22));
 
-        root.addView(text("Continue as",18,NAVY,true));
-        TextView hint=text("Choose your role. Your username still determines what you can access.",12,MUTED,false);hint.setPadding(0,dp(4),0,dp(14));root.addView(hint);
+        root.addView(text("Choose your space",18,NAVY,true));
+        TextView hint=text("A private workspace designed for each student, parent and tutor.",12,MUTED,false);hint.setPadding(0,dp(4),0,dp(14));root.addView(hint);
         roleCard(root,"Admin","Run your tutoring week, students, finances and resources.","ADMIN",ORANGE);
         roleCard(root,"Student","Your lessons, bookings, resources and tutor messages.","STUDENT",BLUE);
         roleCard(root,"Parent","View the learner’s lessons and communication.","PARENT",GREEN);
