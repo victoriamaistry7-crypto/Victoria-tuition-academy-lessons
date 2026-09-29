@@ -180,9 +180,10 @@ public class MainActivity extends Activity {
         LinearLayout root=col();root.setBackgroundColor(screenBg);
         LinearLayout header=row();header.setGravity(Gravity.CENTER_VERTICAL);header.setPadding(dp(16),dp(11),dp(12),dp(11));header.setBackgroundColor(NAVY);
 
-        LinearLayout brand=col();
-        brand.addView(text("Victoria Tuition Academy",16,Color.WHITE,true));
-        brand.addView(text("LEARN • GROW • ACHIEVE",9,Color.rgb(203,213,225),true));
+        ImageView brandMark=new ImageView(this);int brandRes=getResources().getIdentifier("vta"+"_"+"brand"+"_"+"mark","drawable",getPackageName());brandMark.setImageResource(brandRes);brandMark.setScaleType(ImageView.ScaleType.CENTER_INSIDE);header.addView(brandMark,new LinearLayout.LayoutParams(dp(42),dp(42)));
+        LinearLayout brand=col();brand.setPadding(dp(9),0,0,0);
+        brand.addView(text("Victoria Tuition Academy",15,Color.WHITE,true));
+        brand.addView(text("LEARN • GROW • ACHIEVE",8,Color.rgb(203,213,225),true));
         header.addView(brand,new LinearLayout.LayoutParams(0,-2,1));
 
         syncStatus=text("● Live",10,Color.rgb(134,239,172),true);header.addView(syncStatus);
