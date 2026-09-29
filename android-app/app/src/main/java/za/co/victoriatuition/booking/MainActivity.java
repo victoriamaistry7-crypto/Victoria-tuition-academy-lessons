@@ -311,7 +311,7 @@ public class MainActivity extends Activity {
     }
 
     private void studentBook(){
-        pageTitle("Book a lesson","Choose a date and duration, then tap a live available time.");
+        pageTitle("Book a lesson","Start with a suggested topic, then choose a date and live available time.");
         Button b=primary("Open booking calendar");b.setOnClickListener(v->dialogBooking());body.addView(b,marginBottom(12));
         TextView p=text("You never see another student’s name or lesson. Busy periods only appear as unavailable.",12,MUTED,false);body.addView(p);
     }
