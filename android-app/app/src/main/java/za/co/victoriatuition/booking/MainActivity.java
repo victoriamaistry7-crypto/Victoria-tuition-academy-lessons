@@ -105,7 +105,7 @@ public class MainActivity extends Activity {
         JSONObject p=new JSONObject();try{p.put("action","sync");}catch(Exception ignored){}
         api(p,true,(r,e)->{
             if(e!=null){if(syncStatus!=null)syncStatus.setText("Offline");toast(e.getMessage());return;}
-            sync=r;cache();if(syncStatus!=null)syncStatus.setText("Live");openTab(currentTab());
+            sync=r;cache();showNewNotifications();if(syncStatus!=null)syncStatus.setText("Live");openTab(currentTab());
         });
     }
 
