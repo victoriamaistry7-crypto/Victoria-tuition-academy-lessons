@@ -383,7 +383,9 @@ public class MainActivity extends Activity {
 
     // ---------- BOOKING ----------
 
-    private void dialogBooking(){dialogBooking("");}\n\n    private void dialogBooking(String suggestedTopic){
+    private void dialogBooking(){dialogBooking("");}
+
+    private void dialogBooking(String suggestedTopic){
         LinearLayout box=col();box.setPadding(dp(4),dp(4),dp(4),0);
         final String[] date={""},time={""};final int[] dur={60};
         Button dateBtn=secondary("1. Choose date");box.addView(dateBtn,marginBottom(8));
