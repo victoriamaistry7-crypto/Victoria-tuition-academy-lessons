@@ -225,6 +225,7 @@ public class MainActivity extends Activity {
         pageTitle("More","Finance, resources and app settings.");
         LinearLayout finance=card();finance.addView(text("Finance & invoices",16,NAVY,true));finance.addView(text("Payments, completed lesson value and invoice drafts.",12,MUTED,false));finance.setOnClickListener(v->openTab("Finance"));body.addView(finance,marginBottom(10));
         LinearLayout resources=card();resources.addView(text("Resource library",16,NAVY,true));resources.addView(text("Interactive lessons, slides, notes, worksheets, videos and images.",12,MUTED,false));resources.setOnClickListener(v->openTab("Resources"));body.addView(resources,marginBottom(10));
+        LinearLayout quizzes=card();quizzes.addView(text("Quiz Studio",16,NAVY,true));quizzes.addView(text("Create exam-style quizzes and review student scores.",12,MUTED,false));quizzes.setOnClickListener(v->adminQuizzes());body.addView(quizzes,marginBottom(10));
         LinearLayout appearance=card();appearance.addView(text("Appearance",16,NAVY,true));appearance.addView(text(darkMode?"Dark mode is on":"Light mode is on",12,MUTED,false));appearance.setOnClickListener(v->{darkMode=!darkMode;prefs.edit().putBoolean("darkMode",darkMode).apply();showDashboard();});body.addView(appearance,marginBottom(10));
         LinearLayout out=card();out.addView(text("Log out",16,Color.rgb(185,28,28),true));out.setOnClickListener(v->logout());body.addView(out);
     }
