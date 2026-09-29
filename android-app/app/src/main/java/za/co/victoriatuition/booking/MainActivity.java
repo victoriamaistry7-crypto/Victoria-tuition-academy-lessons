@@ -556,34 +556,20 @@ public class MainActivity extends Activity {
     }
 
     private String[] recommendedBookingTopics(){
-        String name=sync.optJSONObject("user").optString("displayName").toLowerCase(Locale.ROOT);
-        if(name.contains("mitchell")) return new String[]{
-            "Electric Cells & Batteries",
-            "Current, Voltage & Resistance",
-            "Balanced & Unbalanced Forces",
-            "Gravity, Mass & Weight",
-            "Magnetism & Electrostatics"
-        };
-        if(name.contains("lateya")) return new String[]{
-            "Functions & Graphs",
-            "Parabola, Hyperbola & Exponential",
-            "Algebraic Expressions",
-            "Trigonometric Graphs",
-            "Exam-style Functions Practice"
-        };
-        if(name.contains("phelandi")) return new String[]{
-            "Equations of Motion",
-            "Factors Affecting Resistance",
-            "Electric Cells",
-            "Mathematics Term 1–3 Revision"
-        };
-        return new String[]{
-            "Speed & Velocity",
-            "Acceleration",
-            "1D Motion & Motion Graphs",
-            "Equations of Motion",
-            "Physics Exam Practice"
-        };
+        JSONArray topics=sync.optJSONArray("topicProgress");
+        ArrayList<String> out=new ArrayList<>();
+        String[] priority={"Next","Current","Revisit","Resource Ready"};
+        if(topics!=null){
+            for(String p:priority){
+                for(int i=0;i<topics.length()&&out.size()<6;i++){
+                    JSONObject x=topics.optJSONObject(i);
+                    String topic=x.optString("topic");
+                    if(p.equals(x.optString("status"))&&!topic.isEmpty()&&!out.contains(topic))out.add(topic);
+                }
+            }
+        }
+        if(out.isEmpty())out.add("Exam-style revision and problem solving");
+        return out.toArray(new String[0]);
     }
 
     private void studentResources(){
