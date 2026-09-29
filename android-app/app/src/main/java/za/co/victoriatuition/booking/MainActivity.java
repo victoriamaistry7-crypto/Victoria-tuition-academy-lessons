@@ -544,6 +544,16 @@ public class MainActivity extends Activity {
 
     private void pageTitle(String t,String s){body.addView(text(t,29,NAVY,true));TextView x=text(s,13,MUTED,false);x.setPadding(0,dp(4),0,dp(15));body.addView(x);}
     private void section(String t){TextView x=text(t,16,NAVY,true);x.setPadding(0,dp(18),0,dp(9));body.addView(x);}
+    private int themeColor(int c){
+        if(!darkMode)return c;
+        if(c==BG)return Color.rgb(9,15,26);
+        if(c==Color.WHITE)return Color.rgb(19,29,46);
+        if(c==NAVY||c==TEXT)return Color.rgb(241,245,249);
+        if(c==MUTED)return Color.rgb(148,163,184);
+        if(c==LINE||c==Color.rgb(203,213,225))return Color.rgb(51,65,85);
+        if(c==Color.rgb(248,250,252))return Color.rgb(28,39,58);
+        return c;
+    }
     private LinearLayout card(){LinearLayout c=col();c.setPadding(dp(16),dp(16),dp(16),dp(16));c.setBackground(round(Color.WHITE,18,1,LINE));return c;}
     private LinearLayout empty(String s){LinearLayout c=card();c.addView(text(s,13,MUTED,false));return c;}
     private LinearLayout metric(String l,String v,int color){LinearLayout c=card();c.addView(text(v,22,color,true));c.addView(text(l,10,MUTED,true));return c;}
@@ -552,13 +562,13 @@ public class MainActivity extends Activity {
     private Button primary(String s){return button(s,ORANGE,Color.WHITE);}
     private Button secondary(String s){Button b=button(s,Color.WHITE,NAVY);b.setBackground(round(Color.WHITE,14,1,LINE));return b;}
     private Button smallButton(String s){Button b=button(s,Color.rgb(248,250,252),NAVY);b.setTextSize(11);b.setBackground(round(Color.rgb(248,250,252),12,1,LINE));return b;}
-    private EditText input(String hint,boolean pass){EditText e=new EditText(this);e.setHint(hint);e.setTextColor(NAVY);e.setHintTextColor(Color.rgb(148,163,184));e.setTextSize(14);e.setPadding(dp(13),dp(11),dp(13),dp(11));e.setBackground(round(Color.WHITE,13,1,Color.rgb(203,213,225)));if(pass)e.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);return e;}
-    private Button button(String s,int bg,int fg){Button b=new Button(this);b.setText(s);b.setTextColor(fg);b.setTextSize(13);b.setAllCaps(false);b.setTypeface(Typeface.DEFAULT,Typeface.BOLD);b.setBackground(round(bg,14,0,0));return b;}
-    private TextView text(String s,float z,int c,boolean bold){TextView t=new TextView(this);t.setText(s);t.setTextSize(z);t.setTextColor(c);if(bold)t.setTypeface(Typeface.DEFAULT,Typeface.BOLD);return t;}
+    private EditText input(String hint,boolean pass){EditText e=new EditText(this);e.setHint(hint);e.setTextColor(themeColor(NAVY));e.setHintTextColor(themeColor(MUTED));e.setTextSize(14);e.setPadding(dp(13),dp(11),dp(13),dp(11));e.setBackground(round(Color.WHITE,13,1,Color.rgb(203,213,225)));if(pass)e.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);return e;}
+    private Button button(String s,int bg,int fg){Button b=new Button(this);b.setText(s);b.setTextColor(themeColor(fg));b.setTextSize(13);b.setAllCaps(false);b.setTypeface(Typeface.DEFAULT,Typeface.BOLD);b.setBackground(round(bg,14,0,0));return b;}
+    private TextView text(String s,float z,int c,boolean bold){TextView t=new TextView(this);t.setText(s);t.setTextSize(z);t.setTextColor(themeColor(c));if(bold)t.setTypeface(Typeface.DEFAULT,Typeface.BOLD);return t;}
     private LinearLayout row(){LinearLayout l=new LinearLayout(this);l.setOrientation(LinearLayout.HORIZONTAL);return l;}
     private LinearLayout col(){LinearLayout l=new LinearLayout(this);l.setOrientation(LinearLayout.VERTICAL);return l;}
     private LinearLayout formBox(){LinearLayout b=col();b.setPadding(dp(3),dp(8),dp(3),0);return b;}
-    private GradientDrawable round(int c,int r,int stroke,int sc){GradientDrawable g=new GradientDrawable();g.setColor(c);g.setCornerRadius(dp(r));if(stroke>0)g.setStroke(dp(stroke),sc);return g;}
+    private GradientDrawable round(int c,int r,int stroke,int sc){GradientDrawable g=new GradientDrawable();g.setColor(themeColor(c));g.setCornerRadius(dp(r));if(stroke>0)g.setStroke(dp(stroke),themeColor(sc));return g;}
     private GradientDrawable gradient(int a,int b,int r){GradientDrawable g=new GradientDrawable(GradientDrawable.Orientation.TL_BR,new int[]{a,b});g.setCornerRadius(dp(r));return g;}
     private GradientDrawable circle(int c){GradientDrawable g=new GradientDrawable();g.setShape(GradientDrawable.OVAL);g.setColor(c);return g;}
     private LinearLayout.LayoutParams marginBottom(int b){LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,-2);p.setMargins(0,0,0,dp(b));return p;}
