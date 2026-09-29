@@ -1,0 +1,396 @@
+    <!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+      <meta name="theme-color" content="#08050e">
+      <title>Phelandi | Circuit Foundations & Series/Parallel</title>
+      <style>
+:root{
+  --bg:#08050e;--panel:#120b1d;--panel2:#171021;--line:#2c2140;
+  --text:#f8f5ff;--muted:#bdb4cb;--purple:#a78bfa;--purple2:#7c3aed;
+  --cyan:#67e8f9;--gold:#fbbf24;--green:#4ade80;--red:#fb7185;
+  --shadow:0 26px 80px rgba(0,0,0,.35)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:
+ radial-gradient(circle at 10% 0%,rgba(124,58,237,.16),transparent 36%),
+ radial-gradient(circle at 100% 20%,rgba(103,232,249,.08),transparent 30%),
+ var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input{font:inherit}
+.app{min-height:100vh}
+.top{position:sticky;top:0;z-index:20;background:rgba(8,5,14,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.topin{height:64px;max-width:1240px;margin:auto;padding:0 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.mark{width:35px;height:35px;border-radius:12px;background:linear-gradient(135deg,var(--purple2),#4c1d95);display:grid;place-items:center;font-weight:950;box-shadow:0 8px 30px rgba(124,58,237,.28)}
+.brandText{min-width:0}.brandText b{display:block;font-size:13px;white-space:nowrap}.brandText small{display:block;color:var(--muted);font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:58vw}
+.progressWrap{display:flex;align-items:center;gap:8px}.pbar{height:7px;width:150px;border-radius:999px;background:#21172f;overflow:hidden}.pbar i{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--purple),var(--cyan));transition:.3s}.pct{font-size:11px;color:var(--muted);min-width:34px}
+.stage{max-width:1240px;margin:auto;padding:18px 18px 98px}
+.slide{display:none;grid-template-columns:minmax(0,1.02fr) minmax(340px,.98fr);gap:18px;align-items:stretch;min-height:690px}
+.slide.active{display:grid}
+.content,.visual{border:1px solid var(--line);border-radius:28px;background:linear-gradient(180deg,rgba(23,16,33,.96),rgba(14,9,22,.96));box-shadow:var(--shadow);overflow:hidden}
+.content{padding:42px;display:flex;flex-direction:column;justify-content:center}
+.visual{min-height:560px;padding:20px;position:relative;display:flex;align-items:center;justify-content:center}
+.gridbg{position:absolute;inset:0;background-image:linear-gradient(rgba(167,139,250,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,.055) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(to bottom,black,transparent 94%)}
+.eyebrow{display:flex;gap:9px;align-items:center;color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}.eyebrow em{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 20px var(--cyan)}
+h1,h2{margin:0;letter-spacing:-.045em;line-height:.98}h1{font-size:clamp(42px,6vw,76px)}h2{font-size:clamp(34px,5vw,58px)}
+h3{font-size:18px;margin:0 0 8px}.lead{color:var(--muted);font-size:17px;line-height:1.62;max-width:720px}.tiny{font-size:12px;color:var(--muted)}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0}.tag,.pill{border:1px solid var(--line);background:#140d20;border-radius:999px;padding:7px 10px;font-size:11px;color:#ddd5ea}
+.callout{margin-top:16px;border:1px solid var(--line);border-left:4px solid var(--purple);background:#100a19;border-radius:16px;padding:14px 15px;line-height:1.55}.callout.good{border-left-color:var(--green)}.callout.exam{border-left-color:var(--gold)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}.cards.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{border:1px solid var(--line);background:#100a19;border-radius:18px;padding:16px;min-width:0}.card p{margin:6px 0;color:var(--muted);line-height:1.5}
+.formula{margin:15px 0;border:1px solid #3c2d57;background:#0c0712;border-radius:18px;padding:16px;text-align:center;font-size:clamp(24px,4vw,38px);font-weight:900;letter-spacing:-.02em}
+.steps{margin-top:12px}.step{display:flex;gap:10px;margin:10px 0;color:#e7e0ef;line-height:1.48}.step b{flex:0 0 auto;width:27px;height:27px;border-radius:50%;display:grid;place-items:center;background:#21162f;color:var(--cyan);font-size:12px}
+.interact{margin-top:18px;border:1px solid var(--line);background:#0d0814;border-radius:20px;padding:16px}
+.qtitle{font-weight:850;line-height:1.45}.choice{display:grid;gap:8px;margin-top:12px}.choice button,.checkBtn,.btn{border:1px solid var(--line);border-radius:14px;background:#171021;color:var(--text);padding:12px 14px;min-height:46px;text-align:left;cursor:pointer;font-weight:700;transition:.15s}
+.choice button:hover,.btn:hover,.checkBtn:hover{border-color:#6d4e9b;background:#1c1329}.choice button.good{border-color:rgba(74,222,128,.75);background:rgba(74,222,128,.1)}.choice button.bad{border-color:rgba(251,113,133,.8);background:rgba(251,113,133,.1)}.choice button:disabled{cursor:default;opacity:1}
+.feedback{display:none;margin-top:11px;padding:12px 13px;border-radius:14px;background:#120d19;border:1px solid var(--line);color:#ddd5ea;line-height:1.5}.feedback.show{display:block}
+.svgWrap{position:relative;z-index:1;width:100%}.svgWrap svg{width:100%;height:auto;display:block;max-height:570px}.svgLabel{fill:#f8f5ff;font-family:Inter,system-ui,sans-serif}.svgMuted{fill:#bdb4cb;font-family:Inter,system-ui,sans-serif}
+.tableWrap{position:relative;z-index:1;width:100%;overflow:auto}.table{width:100%;border-collapse:collapse;background:#0d0814;border:1px solid var(--line);border-radius:18px;overflow:hidden}.table th,.table td{border-bottom:1px solid var(--line);padding:12px 10px;text-align:center}.table th{color:var(--cyan);font-size:12px;text-transform:uppercase;letter-spacing:.08em}.table td{color:#e9e1f3}
+.inputRow{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.inputRow input{flex:1;min-width:140px;background:#0c0712;border:1px solid var(--line);border-radius:14px;color:var(--text);padding:12px 13px;outline:none}.inputRow input:focus{border-color:var(--purple)}
+.navBottom{position:fixed;bottom:0;left:0;right:0;z-index:25;background:rgba(8,5,14,.92);backdrop-filter:blur(16px);border-top:1px solid var(--line)}
+.navInner{max-width:1240px;margin:auto;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}.dots{display:flex;gap:5px;align-items:center;justify-content:center;flex:1}.dot{width:7px;height:7px;border-radius:50%;background:#332541}.dot.active{background:var(--cyan);box-shadow:0 0 12px rgba(103,232,249,.55)}.btn{text-align:center;min-width:105px}.btn.primary{background:linear-gradient(135deg,#6d28d9,#7c3aed);border-color:#8b5cf6}
+.reportGrid{display:grid;grid-template-columns:180px 1fr;gap:18px;align-items:center}.scoreRing{width:160px;height:160px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--cyan) var(--score,0%),#21172f 0);position:relative}.scoreRing:after{content:"";position:absolute;inset:14px;border-radius:50%;background:#100a19}.scoreRing span{position:relative;z-index:1;font-size:34px;font-weight:950}.topicRow{display:grid;grid-template-columns:1fr auto;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.topicRow strong{color:var(--cyan)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.secondary{border:1px solid var(--line);background:#120b1d}
+@media(max-width:1020px){.slide{grid-template-columns:1fr;min-height:auto}.visual{min-height:420px}.content{max-width:none}.cards.three{grid-template-columns:1fr}.reportGrid{grid-template-columns:1fr}.scoreRing{margin:auto}}
+@media(max-width:680px){.topin{padding:0 12px;height:62px}.brandText b{font-size:11px}.brandText small{font-size:9px}.pbar{width:92px}.stage{padding:12px 10px 92px}.slide{gap:12px}.content{padding:27px 19px 29px;border-radius:20px}.visual{min-height:330px;padding:10px;border-radius:20px}h1{font-size:43px}h2{font-size:36px}.lead{font-size:15px}.cards,.cards.three{grid-template-columns:1fr}.navInner{padding:9px 10px}.dots{display:none}.btn{min-width:92px;padding:10px}.table{font-size:12px}.scoreRing{width:145px;height:145px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+    
+<style id="vta-gate-style">
+#vtaGate{position:fixed;inset:0;z-index:99999;background:radial-gradient(circle at 20% 0%,rgba(124,58,237,.25),transparent 38%),#08050e;display:grid;place-items:center;padding:18px;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+#vtaGate.unlocked{display:none}
+#vtaGate .gateCard{width:min(100%,420px);background:#120b1d;border:1px solid #34244d;border-radius:28px;padding:26px;box-shadow:0 30px 100px rgba(0,0,0,.5);color:#f8f5ff}
+#vtaGate .gateBrand{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:#67e8f9;font-weight:900}
+#vtaGate h1{font-size:32px;line-height:1.05;margin:15px 0 9px;letter-spacing:-.04em}
+#vtaGate p{color:#bdb4cb;line-height:1.55;margin:0 0 18px}
+#vtaGate label{display:block;font-size:12px;font-weight:850;letter-spacing:.08em;color:#ddd5ea;margin-bottom:7px}
+#vtaGate input{width:100%;box-sizing:border-box;border:1px solid #3c2d57;background:#0c0712;color:#fff;border-radius:14px;padding:13px 14px;font-size:16px;outline:none}
+#vtaGate input:focus{border-color:#a78bfa;box-shadow:0 0 0 4px rgba(167,139,250,.12)}
+#vtaGate button{width:100%;min-height:48px;margin-top:11px;border:0;border-radius:14px;background:linear-gradient(135deg,#6d28d9,#7c3aed);color:white;font-weight:900;font-size:16px;cursor:pointer}
+#vtaGate .gateError{min-height:20px;margin-top:10px;color:#fb7185;font-size:13px;font-weight:750}
+#vtaGate .micro{font-size:11px;color:#857b92;margin-top:12px;text-align:center}
+</style>
+</head>
+    <body>
+
+<div id="vtaGate" role="dialog" aria-modal="true" aria-labelledby="vtaGateTitle">
+  <div class="gateCard">
+    <div class="gateBrand">Victoria Tuition Academy</div>
+    <h1 id="vtaGateTitle">Phelandi's lesson</h1>
+    <p>Enter the lesson password to continue.</p>
+    <label for="vtaGatePassword">LESSON PASSWORD</label>
+    <input id="vtaGatePassword" type="password" autocomplete="current-password" placeholder="Enter password">
+    <button id="vtaGateUnlock" type="button">Open lesson</button>
+    <div class="gateError" id="vtaGateError" aria-live="polite"></div>
+    <div class="micro">Private classroom access • Victoria Tuition Academy</div>
+  </div>
+</div>
+    <div class="app">
+      <header class="top">
+        <div class="topin">
+          <div class="brand">
+            <div class="mark">V</div>
+            <div class="brandText"><b>Victoria Tuition Academy</b><small>Phelandi • Grade 9 Natural Sciences • Circuit Foundations & Series/Parallel</small></div>
+          </div>
+          <div class="progressWrap"><div class="pbar"><i id="bar"></i></div><div class="pct" id="pct">0%</div></div>
+        </div>
+      </header>
+      <main class="stage" id="slides">
+<section class="slide active">
+  <div class="content">
+    <div class="eyebrow"><em></em>01 • Continuation lesson</div>
+    <h1>Circuits.<br>Now make them make sense.</h1>
+    <p class="lead">Phelandi’s next Grade 9 physics-focused Natural Sciences lesson, continuing from resistance into circuit foundations, current, potential difference, series and parallel circuits, meters and exam reasoning.</p>
+    <div class="tags"><span class="tag">Resistance recap</span><span class="tag">Circuit symbols</span><span class="tag">Current</span><span class="tag">Potential difference</span><span class="tag">Series</span><span class="tag">Parallel</span><span class="tag">Meters</span><span class="tag">Exam mastery</span></div>
+    <div class="callout good"><b>Phelandi’s target:</b> stop memorising circuit rules in isolation. Trace the path, identify what is measured, then explain the circuit using evidence.</div>
+  </div>
+  <div class="visual"><div class="gridbg"></div><div class="svgWrap">
+    <svg viewBox="0 0 760 520" aria-label="Stylised electric circuit">
+      <defs><marker id="pa1" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 Z" fill="#67e8f9"/></marker></defs>
+      <rect x="75" y="70" width="610" height="380" rx="38" fill="#0c0712" stroke="#392952" stroke-width="3"/>
+      <path d="M160 160 H600 V365 H160 Z" fill="none" stroke="#c4b5fd" stroke-width="7" stroke-linejoin="round"/>
+      <line x1="330" y1="128" x2="330" y2="192" stroke="#f8f5ff" stroke-width="6"/><line x1="365" y1="112" x2="365" y2="208" stroke="#f8f5ff" stroke-width="10"/>
+      <circle cx="355" cy="365" r="56" fill="#171021" stroke="#67e8f9" stroke-width="5"/><path d="M320 330 L390 400 M390 330 L320 400" stroke="#67e8f9" stroke-width="5"/>
+      <path d="M205 132 C250 98 286 98 315 120" fill="none" stroke="#67e8f9" stroke-width="4" marker-end="url(#pa1)"/>
+      <text x="350" y="255" class="svgLabel" text-anchor="middle" font-size="27" font-weight="900">ONE COMPLETE PATH</text>
+      <text x="350" y="287" class="svgMuted" text-anchor="middle" font-size="18">Trace the path before using a rule.</text>
+    </svg>
+  </div></div>
+</section>
+
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><em></em>02 • Retrieve</div><h2>Resistance first.</h2>
+    <p class="lead">Before circuit analysis, reconnect to the idea you already covered: resistance is opposition to the flow of electric charge.</p>
+    <div class="cards">
+      <div class="card"><h3>Length</h3><p>Longer wire → more resistance.</p></div>
+      <div class="card"><h3>Thickness</h3><p>Thicker wire → less resistance.</p></div>
+      <div class="card"><h3>Material</h3><p>Different conductors resist charge differently.</p></div>
+      <div class="card"><h3>Temperature</h3><p>For metals, higher temperature generally increases resistance.</p></div>
+    </div>
+    <div class="interact" data-q="p1" data-cat="Resistance" data-correct="b">
+      <div class="qtitle">Which copper wire should have the LOWEST resistance if temperature is the same?</div>
+      <div class="choice"><button data-choice="a">A. Long and thin</button><button data-choice="b">B. Short and thick</button><button data-choice="c">C. Long and thick</button></div>
+      <div class="feedback" data-good="Correct. Shorter length reduces the distance charges travel through the material, while greater thickness gives more conducting space." data-bad="Use both factors together. Lower resistance comes from a shorter and thicker conductor."></div>
+    </div>
+  </div>
+  <div class="visual"><div class="gridbg"></div><div class="svgWrap">
+    <svg viewBox="0 0 760 520" aria-label="Comparison of thin and thick wires">
+      <text x="90" y="80" class="svgLabel" font-size="24" font-weight="900">THIN / LONG</text><text x="490" y="80" class="svgLabel" font-size="24" font-weight="900">THICK / SHORT</text>
+      <path d="M95 180 C180 110 270 250 350 180 C430 110 500 250 610 180" fill="none" stroke="#fb7185" stroke-width="7"/>
+      <path d="M150 345 H610" fill="none" stroke="#4ade80" stroke-width="22" stroke-linecap="round"/>
+      <text x="350" y="250" class="svgMuted" text-anchor="middle" font-size="20">More collisions → more opposition</text>
+      <text x="380" y="405" class="svgMuted" text-anchor="middle" font-size="20">More room + shorter path → less resistance</text>
+    </svg>
+  </div></div>
+</section>
+
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><em></em>03 • Circuit language</div><h2>Current and voltage are not the same thing.</h2>
+    <div class="cards">
+      <div class="card"><h3>Current, I</h3><p>The rate at which electric charge flows past a point in a circuit. Unit: ampere (A).</p></div>
+      <div class="card"><h3>Potential difference, V</h3><p>Energy transferred per unit charge between two points. Unit: volt (V).</p></div>
+    </div>
+    <div class="callout exam"><b>Exam trap:</b> a cell does not “store current”. The source provides energy; current is the movement of charge in a complete circuit.</div>
+    <div class="interact" data-q="p2" data-cat="Current & Voltage" data-correct="a">
+      <div class="qtitle">Which instrument measures current?</div>
+      <div class="choice"><button data-choice="a">A. Ammeter</button><button data-choice="b">B. Voltmeter</button><button data-choice="c">C. Resistor</button></div>
+      <div class="feedback" data-good="Correct. An ammeter measures current in amperes." data-bad="Remember A → ammeter → amperes → current."></div>
+    </div>
+  </div>
+  <div class="visual"><div class="gridbg"></div><div class="svgWrap">
+    <svg viewBox="0 0 760 520" aria-label="Current and voltage concept map">
+      <circle cx="220" cy="255" r="125" fill="#11101c" stroke="#67e8f9" stroke-width="5"/><circle cx="540" cy="255" r="125" fill="#11101c" stroke="#a78bfa" stroke-width="5"/>
+      <text x="220" y="225" class="svgLabel" text-anchor="middle" font-size="48" font-weight="950">I</text><text x="220" y="270" class="svgLabel" text-anchor="middle" font-size="25" font-weight="900">CURRENT</text><text x="220" y="305" class="svgMuted" text-anchor="middle" font-size="19">charge flow</text>
+      <text x="540" y="225" class="svgLabel" text-anchor="middle" font-size="48" font-weight="950">V</text><text x="540" y="270" class="svgLabel" text-anchor="middle" font-size="25" font-weight="900">VOLTAGE</text><text x="540" y="305" class="svgMuted" text-anchor="middle" font-size="19">energy per charge</text>
+    </svg>
+  </div></div>
+</section>
+
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><em></em>04 • Read the diagram</div><h2>Meters must be connected correctly.</h2>
+    <div class="steps">
+      <div class="step"><b>1</b><div><strong>Ammeter:</strong> place it in series so the current passes through it.</div></div>
+      <div class="step"><b>2</b><div><strong>Voltmeter:</strong> place it in parallel across the component whose potential difference you want.</div></div>
+    </div>
+    <div class="interact" data-q="p3" data-cat="Meters" data-correct="c">
+      <div class="qtitle">You want to measure the potential difference across a lamp. Where should the voltmeter be connected?</div>
+      <div class="choice"><button data-choice="a">A. Anywhere in the wire</button><button data-choice="b">B. In series before the lamp</button><button data-choice="c">C. Across the two terminals of the lamp</button></div>
+      <div class="feedback" data-good="Correct. A voltmeter compares two points, so it is connected across the component." data-bad="A voltmeter measures the difference between two points. It must be connected across the lamp, not in the single current path."></div>
+    </div>
+  </div>
+  <div class="visual"><div class="gridbg"></div><div class="svgWrap">
+    <svg viewBox="0 0 760 520" aria-label="Circuit with ammeter in series and voltmeter in parallel">
+      <path d="M120 120 H630 V390 H120 Z" fill="none" stroke="#ddd5ea" stroke-width="7"/>
+      <line x1="280" y1="91" x2="280" y2="149" stroke="#f8f5ff" stroke-width="5"/><line x1="314" y1="76" x2="314" y2="164" stroke="#f8f5ff" stroke-width="9"/>
+      <circle cx="215" cy="390" r="46" fill="#171021" stroke="#67e8f9" stroke-width="5"/><text x="215" y="404" class="svgLabel" text-anchor="middle" font-size="38" font-weight="900">A</text>
+      <circle cx="500" cy="390" r="48" fill="#171021" stroke="#a78bfa" stroke-width="5"/><path d="M468 358 L532 422 M532 358 L468 422" stroke="#a78bfa" stroke-width="5"/>
+      <path d="M440 335 V255 H560 V335" fill="none" stroke="#fbbf24" stroke-width="5"/>
+      <circle cx="500" cy="255" r="42" fill="#171021" stroke="#fbbf24" stroke-width="5"/><text x="500" y="268" class="svgLabel" text-anchor="middle" font-size="34" font-weight="900">V</text>
+      <text x="215" y="470" class="svgMuted" text-anchor="middle" font-size="17">series</text><text x="500" y="210" class="svgMuted" text-anchor="middle" font-size="17">parallel across lamp</text>
+    </svg>
+  </div></div>
+</section>
+
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><em></em>05 • Series circuits</div><h2>One path. Same current.</h2>
+    <p class="lead">In a series circuit, every charge follows the same path through each component.</p>
+    <div class="formula">R<sub>total</sub> = R<sub>1</sub> + R<sub>2</sub> + …</div>
+    <div class="cards"><div class="card"><h3>Current</h3><p>Same at every point in the single path.</p></div><div class="card"><h3>Voltage</h3><p>The source potential difference is shared across components.</p></div></div>
+    <div class="interact" data-q="p4" data-cat="Series Circuits" data-numeric="9" data-tol="0.01">
+      <div class="qtitle">Three resistors of 2 Ω, 3 Ω and 4 Ω are connected in series. Calculate total resistance.</div>
+      <div class="inputRow"><input inputmode="decimal" placeholder="Answer in Ω"><button class="checkBtn">Check answer</button></div>
+      <div class="feedback" data-good="Correct. 2 + 3 + 4 = 9 Ω." data-bad="In series, add every resistance: 2 Ω + 3 Ω + 4 Ω."></div>
+    </div>
+  </div>
+  <div class="visual"><div class="gridbg"></div><div class="svgWrap">
+    <svg viewBox="0 0 760 520" aria-label="Series circuit with three resistors">
+      <path d="M105 105 H655 V410 H105 Z" fill="none" stroke="#ddd5ea" stroke-width="7"/>
+      <line x1="350" y1="76" x2="350" y2="134" stroke="#f8f5ff" stroke-width="5"/><line x1="385" y1="61" x2="385" y2="149" stroke="#f8f5ff" stroke-width="9"/>
+      <rect x="155" y="365" width="105" height="88" rx="15" fill="#171021" stroke="#a78bfa" stroke-width="4"/><rect x="328" y="365" width="105" height="88" rx="15" fill="#171021" stroke="#a78bfa" stroke-width="4"/><rect x="500" y="365" width="105" height="88" rx="15" fill="#171021" stroke="#a78bfa" stroke-width="4"/>
+      <text x="207" y="418" class="svgLabel" text-anchor="middle" font-size="23">R₁</text><text x="380" y="418" class="svgLabel" text-anchor="middle" font-size="23">R₂</text><text x="552" y="418" class="svgLabel" text-anchor="middle" font-size="23">R₃</text>
+      <text x="380" y="255" class="svgLabel" text-anchor="middle" font-size="31" font-weight="900">ONE PATH</text>
+    </svg>
+  </div></div>
+</section>
+
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><em></em>06 • Parallel circuits</div><h2>Branches change the behaviour.</h2>
+    <p class="lead">Parallel circuits give charges more than one conducting path.</p>
+    <div class="cards"><div class="card"><h3>Voltage</h3><p>Each parallel branch is connected across the same two points, so branch potential difference is the same.</p></div><div class="card"><h3>Current</h3><p>Total current splits at a junction and recombines later.</p></div></div>
+    <div class="callout good"><b>Failure clue:</b> if one branch opens, another branch can still form a complete circuit.</div>
+    <div class="interact" data-q="p5" data-cat="Parallel Circuits" data-correct="b">
+      <div class="qtitle">One lamp in a parallel branch burns out. What should happen to a lamp in another healthy branch?</div>
+      <div class="choice"><button data-choice="a">A. It must switch off too</button><button data-choice="b">B. It can remain on</button><button data-choice="c">C. Current becomes zero everywhere</button></div>
+      <div class="feedback" data-good="Correct. The other branch still has its own complete path across the source." data-bad="A parallel branch is an independent conducting path. One broken branch does not necessarily break the others."></div>
+    </div>
+  </div>
+  <div class="visual"><div class="gridbg"></div><div class="svgWrap">
+    <svg viewBox="0 0 760 520" aria-label="Parallel circuit with two branches">
+      <path d="M110 95 H650 V430 H110 Z" fill="none" stroke="#ddd5ea" stroke-width="7"/><line x1="345" y1="67" x2="345" y2="123" stroke="#f8f5ff" stroke-width="5"/><line x1="380" y1="52" x2="380" y2="138" stroke="#f8f5ff" stroke-width="9"/>
+      <line x1="200" y1="225" x2="560" y2="225" stroke="#67e8f9" stroke-width="6"/><line x1="200" y1="340" x2="560" y2="340" stroke="#a78bfa" stroke-width="6"/><line x1="200" y1="225" x2="200" y2="340" stroke="#ddd5ea" stroke-width="6"/><line x1="560" y1="225" x2="560" y2="340" stroke="#ddd5ea" stroke-width="6"/>
+      <rect x="320" y="190" width="120" height="70" rx="14" fill="#171021" stroke="#67e8f9" stroke-width="4"/><rect x="320" y="305" width="120" height="70" rx="14" fill="#171021" stroke="#a78bfa" stroke-width="4"/>
+      <text x="380" y="233" class="svgLabel" text-anchor="middle" font-size="20">BRANCH 1</text><text x="380" y="348" class="svgLabel" text-anchor="middle" font-size="20">BRANCH 2</text>
+    </svg>
+  </div></div>
+</section>
+
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><em></em>07 • Compare</div><h2>Series or parallel? Prove it.</h2>
+    <div class="cards">
+      <div class="card"><h3>Series</h3><p>One route. Same current. Resistances add. A break opens the only path.</p></div>
+      <div class="card"><h3>Parallel</h3><p>More than one route. Current divides. Branches can operate independently.</p></div>
+    </div>
+    <div class="interact" data-q="p6" data-cat="Series vs Parallel" data-correct="a">
+      <div class="qtitle">Which observation actually proves a circuit contains parallel branches?</div>
+      <div class="choice"><button data-choice="a">A. Charge has more than one conducting path</button><button data-choice="b">B. The circuit has two bulbs</button><button data-choice="c">C. The circuit has a battery</button></div>
+      <div class="feedback" data-good="Exactly. Parallel is defined by multiple paths between junctions." data-bad="Do not identify circuits by component count or appearance. Trace the possible paths."></div>
+    </div>
+    <div class="callout exam"><b>Exam language:</b> “The circuit is parallel because the components are connected on separate branches between the same two junctions.”</div>
+  </div>
+  <div class="visual"><div class="gridbg"></div><div class="svgWrap">
+    <svg viewBox="0 0 760 520" aria-label="Flow decision for series versus parallel">
+      <rect x="225" y="65" width="310" height="85" rx="24" fill="#171021" stroke="#67e8f9" stroke-width="4"/><text x="380" y="105" class="svgLabel" text-anchor="middle" font-size="22" font-weight="900">HOW MANY PATHS?</text>
+      <path d="M380 150 V215 M380 215 H210 V275 M380 215 H550 V275" fill="none" stroke="#ddd5ea" stroke-width="5"/>
+      <rect x="95" y="275" width="230" height="125" rx="24" fill="#171021" stroke="#a78bfa" stroke-width="4"/><rect x="435" y="275" width="230" height="125" rx="24" fill="#171021" stroke="#67e8f9" stroke-width="4"/>
+      <text x="210" y="325" class="svgLabel" text-anchor="middle" font-size="29" font-weight="900">ONE</text><text x="210" y="360" class="svgMuted" text-anchor="middle" font-size="18">SERIES</text><text x="550" y="325" class="svgLabel" text-anchor="middle" font-size="29" font-weight="900">MORE THAN ONE</text><text x="550" y="360" class="svgMuted" text-anchor="middle" font-size="18">PARALLEL</text>
+    </svg>
+  </div></div>
+</section>
+
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><em></em>08 • Investigation skill</div><h2>Change one thing. Measure one thing.</h2>
+    <p class="lead">Suppose you investigate how wire length affects current while using the same material, thickness and source.</p>
+    <div class="cards three"><div class="card"><h3>IV</h3><p>Length of wire.</p></div><div class="card"><h3>DV</h3><p>Current measured by ammeter.</p></div><div class="card"><h3>Controls</h3><p>Material, thickness, source, temperature as far as possible.</p></div></div>
+    <div class="interact" data-q="p7" data-cat="Investigation" data-correct="c">
+      <div class="qtitle">Why must wire thickness be kept the same?</div>
+      <div class="choice"><button data-choice="a">A. To make the table look neat</button><button data-choice="b">B. Because thickness never affects resistance</button><button data-choice="c">C. So any current change can be linked fairly to wire length</button></div>
+      <div class="feedback" data-good="Correct. Thickness is a known factor affecting resistance, so it must be controlled in a fair length investigation." data-bad="Thickness affects resistance. If it changes too, you cannot isolate the effect of length."></div>
+    </div>
+  </div>
+  <div class="visual"><div class="gridbg"></div><div class="tableWrap">
+    <table class="table"><thead><tr><th>Wire length</th><th>Current</th><th>Material</th><th>Thickness</th></tr></thead><tbody><tr><td>10 cm</td><td>0.82 A</td><td>Constant</td><td>Constant</td></tr><tr><td>20 cm</td><td>0.63 A</td><td>Constant</td><td>Constant</td></tr><tr><td>30 cm</td><td>0.49 A</td><td>Constant</td><td>Constant</td></tr><tr><td>40 cm</td><td>0.39 A</td><td>Constant</td><td>Constant</td></tr></tbody></table>
+    <div class="callout"><b>Pattern:</b> increasing length increases resistance, so the measured current decreases when other important factors are controlled.</div>
+  </div></div>
+</section>
+
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><em></em>09 • Exam application</div><h2>Explain, don’t just name.</h2>
+    <div class="interact" data-q="p8" data-cat="Exam Reasoning" data-correct="c">
+      <div class="qtitle">A house needs lamps to keep working independently. Which explanation is scientifically strongest?</div>
+      <div class="choice"><button data-choice="a">A. Parallel circuits look neater.</button><button data-choice="b">B. Series circuits use fewer branches.</button><button data-choice="c">C. Parallel branches give each lamp its own complete path, so opening one branch does not necessarily open the others.</button></div>
+      <div class="feedback" data-good="Excellent. You named the arrangement and linked its structure to the observed behaviour." data-bad="A strong exam answer must connect the branch structure to the result, not just name the circuit."></div>
+    </div>
+    <div class="interact" data-q="p9" data-cat="Exam Reasoning" data-correct="b">
+      <div class="qtitle">Two more resistors are added in series to a simple circuit. What happens to total resistance?</div>
+      <div class="choice"><button data-choice="a">A. It decreases</button><button data-choice="b">B. It increases</button><button data-choice="c">C. It becomes zero</button></div>
+      <div class="feedback" data-good="Correct. Series resistances add, so total resistance increases." data-bad="In series, each added resistor adds more opposition to the single current path."></div>
+    </div>
+  </div>
+  <div class="visual"><div class="gridbg"></div><div class="svgWrap">
+    <svg viewBox="0 0 760 520" aria-label="Exam reasoning ladder">
+      <text x="380" y="75" class="svgLabel" text-anchor="middle" font-size="27" font-weight="900">THE 3-LINE EXPLANATION</text>
+      <rect x="135" y="120" width="490" height="85" rx="22" fill="#171021" stroke="#67e8f9" stroke-width="4"/><text x="380" y="172" class="svgLabel" text-anchor="middle" font-size="22"><tspan font-weight="900">1.</tspan> State the circuit fact</text>
+      <rect x="135" y="230" width="490" height="85" rx="22" fill="#171021" stroke="#a78bfa" stroke-width="4"/><text x="380" y="282" class="svgLabel" text-anchor="middle" font-size="22"><tspan font-weight="900">2.</tspan> Link it to current / voltage / path</text>
+      <rect x="135" y="340" width="490" height="85" rx="22" fill="#171021" stroke="#fbbf24" stroke-width="4"/><text x="380" y="392" class="svgLabel" text-anchor="middle" font-size="22"><tspan font-weight="900">3.</tspan> State the observed effect</text>
+    </svg>
+  </div></div>
+</section>
+
+<section class="slide" data-report="1">
+  <div class="content">
+    <div class="eyebrow"><em></em>10 • Diagnostic report</div><h2>Phelandi’s circuit mastery report.</h2>
+    <p class="lead" id="summary">Complete the scored activities to generate a diagnostic.</p>
+    <div class="reportGrid">
+      <div class="scoreRing" id="scoreRing"><span id="scoreText">0%</span></div>
+      <div><h3>Topic breakdown</h3><div id="topicReport"></div></div>
+    </div>
+    <div class="callout good"><b>Next teaching decision:</b> if circuit structure and meter placement are secure, move into mixed series/parallel interpretation and electrical safety. If not, rebuild with diagrams before adding harder calculations.</div>
+  </div>
+  <div class="visual"><div class="gridbg"></div><div class="svgWrap">
+    <svg viewBox="0 0 760 520" aria-label="Circuit mastery target">
+      <circle cx="380" cy="255" r="165" fill="#0d0814" stroke="#332541" stroke-width="26"/><path d="M275 260 L345 330 L500 170" fill="none" stroke="#4ade80" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="380" y="475" class="svgMuted" text-anchor="middle" font-size="20">Understand → Apply → Explain → Diagnose</text>
+    </svg>
+  </div></div>
+</section>
+</main>
+      <div class="navBottom"><div class="navInner">
+        <button class="btn secondary" id="prev">← Back</button><div class="dots" id="dots"></div><button class="btn primary" id="next">Next →</button>
+      </div></div>
+    </div>
+
+<script>
+(()=>{
+ const app=document.querySelector('.app'), slides=[...document.querySelectorAll('.slide')], bar=document.getElementById('bar'), pct=document.getElementById('pct'), dots=document.getElementById('dots');
+ let current=0; const answers={};
+ slides.forEach((_,i)=>{const d=document.createElement('i');d.className='dot';dots.appendChild(d)});
+ const dotEls=[...dots.children];
+ function show(i){
+   current=Math.max(0,Math.min(slides.length-1,i));
+   slides.forEach((s,n)=>s.classList.toggle('active',n===current));
+   dotEls.forEach((d,n)=>d.classList.toggle('active',n===current));
+   const p=Math.round((current+1)/slides.length*100);bar.style.width=p+'%';pct.textContent=p+'%';
+   document.getElementById('prev').disabled=current===0;
+   document.getElementById('next').textContent=current===slides.length-1?'Restart ↺':'Next →';
+   if(slides[current].dataset.report==='1') renderReport();
+   window.scrollTo({top:0,behavior:'smooth'});
+ }
+ document.getElementById('prev').addEventListener('click',()=>show(current-1));
+ document.getElementById('next').addEventListener('click',()=>show(current===slides.length-1?0:current+1));
+ document.querySelectorAll('[data-q]').forEach(q=>{
+   q.querySelectorAll('[data-choice]').forEach(btn=>btn.addEventListener('click',()=>{
+     const id=q.dataset.q;if(answers[id])return;
+     const correct=q.dataset.correct, picked=btn.dataset.choice, ok=picked===correct;
+     answers[id]={ok,cat:q.dataset.cat||'General'};
+     q.querySelectorAll('[data-choice]').forEach(b=>{b.disabled=true;if(b.dataset.choice===correct)b.classList.add('good');else if(b===btn&&!ok)b.classList.add('bad')});
+     const fb=q.querySelector('.feedback');fb.textContent=(ok?'✓ ':'✗ ')+(ok?fb.dataset.good:fb.dataset.bad);fb.classList.add('show');
+   }));
+ });
+ document.querySelectorAll('[data-numeric]').forEach(box=>{
+   const input=box.querySelector('input'),btn=box.querySelector('.checkBtn'),fb=box.querySelector('.feedback');
+   btn.addEventListener('click',()=>{
+     const id=box.dataset.q;if(answers[id])return;
+     const val=parseFloat(String(input.value).replace(',','.')), target=parseFloat(box.dataset.numeric), tol=parseFloat(box.dataset.tol||'0.01');
+     if(!Number.isFinite(val)){fb.textContent='Enter a number first.';fb.classList.add('show');return}
+     const ok=Math.abs(val-target)<=tol;answers[id]={ok,cat:box.dataset.cat||'Calculations'};input.disabled=true;btn.disabled=true;
+     fb.textContent=(ok?'✓ ':'✗ ')+(ok?fb.dataset.good:fb.dataset.bad);fb.classList.add('show');
+   })
+ });
+ function renderReport(){
+   const qs=[...document.querySelectorAll('[data-q]')], done=Object.keys(answers).length, right=Object.values(answers).filter(x=>x.ok).length, total=qs.length;
+   const score=done?Math.round(right/done*100):0;
+   const ring=document.getElementById('scoreRing'), scoreText=document.getElementById('scoreText'), summary=document.getElementById('summary'), topic=document.getElementById('topicReport');
+   if(!ring)return; ring.style.setProperty('--score',score+'%');scoreText.textContent=score+'%';
+   summary.textContent=done<total?`${done} of ${total} scored activities completed. Finish the remaining questions for a reliable diagnostic.`:
+     score>=80?'Strong mastery. Move to mixed exam questions and revisit only the individual concepts missed.':
+     score>=60?'Developing mastery. Re-teach the weakest category, then retry it using exam-style questions.':
+     'Foundation repair is needed. Rebuild the lowest-scoring concepts with worked examples before increasing difficulty.';
+   const cats={};qs.forEach(q=>{const c=q.dataset.cat||'General';cats[c]??={d:0,r:0};if(answers[q.dataset.q]){cats[c].d++;if(answers[q.dataset.q].ok)cats[c].r++}});
+   topic.innerHTML='';Object.entries(cats).forEach(([name,s])=>{const row=document.createElement('div');row.className='topicRow';row.innerHTML=`<span>${name}</span><strong>${s.d?s.r+' / '+s.d:'Not attempted'}</strong>`;topic.appendChild(row)});
+ }
+ show(0);
+})();
+</script>
+
+    
+<script id="vta-gate-script">
+(()=>{
+ const EXPECTED='edabc76e36033a63ac677c3d913db413fd4ff979f9838901c5a502254907b2f4';
+ const gate=document.getElementById('vtaGate'),input=document.getElementById('vtaGatePassword'),btn=document.getElementById('vtaGateUnlock'),err=document.getElementById('vtaGateError');
+ async function sha256(s){const b=new TextEncoder().encode(s);const h=await crypto.subtle.digest('SHA-256',b);return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+ async function unlock(){err.textContent='';btn.disabled=true;btn.textContent='Checking…';try{const h=await sha256(input.value);if(h===EXPECTED){sessionStorage.setItem('vtaPhelandiAccess','1');gate.classList.add('unlocked')}else{err.textContent='Incorrect password.';input.select()}}catch(e){err.textContent='Could not check the password in this browser.'}finally{btn.disabled=false;btn.textContent='Open lesson'}}
+ btn.addEventListener('click',unlock);input.addEventListener('keydown',e=>{if(e.key==='Enter')unlock()});
+ if(sessionStorage.getItem('vtaPhelandiAccess')==='1')gate.classList.add('unlocked');else setTimeout(()=>input.focus(),50);
+})();
+</script>
+</body></html>
