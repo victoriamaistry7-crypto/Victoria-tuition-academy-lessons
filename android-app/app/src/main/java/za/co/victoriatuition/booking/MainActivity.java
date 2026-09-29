@@ -428,7 +428,10 @@ public class MainActivity extends Activity {
 
     private void adminResources(){
         pageTitle("Resource library","Organised by type so the page stays clean.");
-        Button up=primary("↑ Upload from phone");up.setOnClickListener(v->chooseStudentForResource());body.addView(up,marginBottom(14));
+        LinearLayout actions=row();
+        Button up=primary("↑ Upload file");up.setOnClickListener(v->chooseStudentForResource());actions.addView(up,new LinearLayout.LayoutParams(0,dp(48),1));
+        Button link=secondary("＋ Add lesson link");link.setOnClickListener(v->dialogResourceLink());actions.addView(link,weightMarginHeight(1,8,48));
+        body.addView(actions,marginBottom(14));
         String[] types={"Interactive Lesson","Slides","PDF / Notes","Worksheet","Video","Image","Other"};
         String[] labels={"Interactive lessons","Slides","Notes & PDFs","Worksheets","Videos","Images","Other"};
         JSONArray rs=sync.optJSONArray("resources");
@@ -440,6 +443,32 @@ public class MainActivity extends Activity {
             LinearLayout info=col();info.addView(text(labels[i],16,NAVY,true));info.addView(text(count+" resource"+(count==1?"":"s"),11,MUTED,false));top.addView(info,new LinearLayout.LayoutParams(0,-2,1));top.addView(text("›",26,NAVY,false));c.addView(top);
             c.setOnClickListener(v->adminResourceCategory(type));body.addView(c,marginBottom(9));
         }
+    }
+
+    private void dialogResourceLink(){
+        JSONArray students=sync.optJSONArray("students");
+        if(students.length()==0){toast("Create a student first.");return;}
+        String[] names=new String[students.length()];for(int i=0;i<students.length();i++)names[i]=students.optJSONObject(i).optString("display_name");
+
+        LinearLayout b=formBox();
+        Spinner student=new Spinner(this);student.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,names));
+        Spinner type=new Spinner(this);String[] types={"Interactive Lesson","Slides","PDF / Notes","Worksheet","Video","Other"};type.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,types));
+        Spinner status=new Spinner(this);String[] statuses={"Available","Current","Completed","Archived"};status.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,statuses));
+        EditText title=input("Resource title",false),url=input("Link / URL",false),desc=input("Description",false),access=input("Password or access note",false);
+        b.addView(student,marginBottom(8));b.addView(type,marginBottom(8));b.addView(title,marginBottom(8));b.addView(url,marginBottom(8));b.addView(desc,marginBottom(8));b.addView(access,marginBottom(8));b.addView(status);
+
+        AlertDialog d=new AlertDialog.Builder(this).setTitle("Add resource by link").setView(b).setNegativeButton("Cancel",null).setPositiveButton("Add",null).create();
+        d.setOnShowListener(x->d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v->{
+            String t=title.getText().toString().trim(),u=url.getText().toString().trim();
+            if(t.isEmpty()||u.isEmpty()){toast("Add a title and link.");return;}
+            JSONObject s=students.optJSONObject(student.getSelectedItemPosition());
+            JSONObject q=new JSONObject();try{
+                q.put("action","resourceCreateLink");q.put("studentId",s.optString("id"));q.put("title",t);q.put("resourceType",type.getSelectedItem().toString());
+                q.put("externalUrl",u);q.put("fileName",t);q.put("description",desc.getText().toString());q.put("accessNote",access.getText().toString());
+                q.put("completionStatus",status.getSelectedItem().toString());q.put("featured",true);
+            }catch(Exception ignored){}
+            action(q,()->{d.dismiss();openTab("Resources");toast("Resource added.");});
+        }));d.show();
     }
 
     private void adminResourceCategory(String type){
