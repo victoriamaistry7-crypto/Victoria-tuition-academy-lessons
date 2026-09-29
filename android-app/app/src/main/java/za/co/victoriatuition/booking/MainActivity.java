@@ -241,19 +241,38 @@ public class MainActivity extends Activity {
     // ---------- ADMIN HOME ----------
 
     private void adminHome(){
-        JSONObject u=sync.optJSONObject("user");pageTitle(greeting()+", "+u.optString("displayName"),"Your live tutoring business at a glance.");
-        int students=sync.optJSONArray("students").length(), pending=countWhere(sync.optJSONArray("bookings"),"status","Pending"), unread=sync.optJSONArray("notifications").length();
-        LinearLayout hero=card();hero.setBackground(gradient(NAVY,NAVY2,20));hero.addView(text("THIS WEEK",10,Color.rgb(148,163,184),true));hero.addView(text(upcomingLessons()+" lessons",29,Color.WHITE,true));hero.addView(text("R"+invoiceReadyTotal()+" completed lesson value",12,Color.rgb(203,213,225),false));body.addView(hero,marginBottom(14));
-        LinearLayout stats=row();stats.addView(metric("Students",String.valueOf(students),BLUE),new LinearLayout.LayoutParams(0,-2,1));stats.addView(metric("Requests",String.valueOf(pending),ORANGE),weightMargin(1,8));stats.addView(metric("Alerts",String.valueOf(unread),GREEN),weightMargin(1,8));body.addView(stats);
+        JSONObject u=sync.optJSONObject("user");
+        pageTitle(greeting()+", "+u.optString("displayName"),"Your tutoring week, without the clutter.");
+        int students=sync.optJSONArray("students").length(), pending=countWhere(sync.optJSONArray("bookings"),"status","Pending"), alerts=sync.optJSONArray("notifications").length();
 
-        section("Upcoming lessons");
+        LinearLayout hero=card();hero.setPadding(dp(20),dp(20),dp(20),dp(20));hero.setBackground(gradient(NAVY,Color.rgb(31,55,96),22));
+        hero.addView(text("WEEK OVERVIEW",10,Color.rgb(148,163,184),true));
+        hero.addView(text(upcomingLessons()+" lessons ahead",28,Color.WHITE,true),marginTopBottom(7,3));
+        hero.addView(text("R"+invoiceReadyTotal()+" completed lesson value ready for records",12,Color.rgb(203,213,225),false));
+        LinearLayout hstats=row();hstats.setPadding(0,dp(16),0,0);
+        hstats.addView(pill(students+" students",Color.rgb(38,58,91),Color.WHITE));
+        hstats.addView(pill(pending+" requests",Color.rgb(68,46,42),Color.rgb(255,205,190)),marginLeft(8));
+        hstats.addView(pill(alerts+" alerts",Color.rgb(28,70,55),Color.rgb(187,247,208)),marginLeft(8));
+        hero.addView(hstats);body.addView(hero,marginBottom(16));
+
+        section("Next lessons");
         JSONArray ls=sync.optJSONArray("lessons");int shown=0;
-        for(int i=0;i<ls.length()&&shown<6;i++){JSONObject l=ls.optJSONObject(i);if(!"Completed".equals(l.optString("status"))){body.addView(adminLessonCard(l),marginBottom(8));shown++;}}
-        if(shown==0)body.addView(empty("No upcoming lessons."));
+        for(int i=0;i<ls.length()&&shown<4;i++){JSONObject l=ls.optJSONObject(i);if(!"Completed".equals(l.optString("status"))&&!"Cancelled".equals(l.optString("status"))){body.addView(adminLessonCard(l),marginBottom(8));shown++;}}
+        if(shown==0)body.addView(empty("No upcoming lessons recorded."));
+
+        if(pending>0){
+            section("Needs your attention");
+            LinearLayout request=card();request.addView(text(pending+" booking request"+(pending==1?"":"s"),17,ORANGE,true));request.addView(text("Review requested dates, topics and times.",11,MUTED,false),marginTopBottom(4,8));
+            Button open=secondary("Review bookings");open.setOnClickListener(v->{setTab("Schedule");openTab("Schedule");});request.addView(open);body.addView(request,marginBottom(8));
+        }
 
         section("Quick actions");
-        LinearLayout q=row();q.addView(quick("＋","Student","Create portal",ORANGE,v->dialogCreateStudent()),new LinearLayout.LayoutParams(0,-2,1));q.addView(quick("▣","Lesson","Add / log",BLUE,v->dialogAddLesson()),weightMargin(1,8));body.addView(q,marginBottom(8));
-        LinearLayout q2=row();q2.addView(quick("↑","Resource","Upload",PURPLE,v->chooseStudentForResource()),new LinearLayout.LayoutParams(0,-2,1));q2.addView(quick("●","Announcement","Post",GREEN,v->dialogAnnouncement()),weightMargin(1,8));body.addView(q2);
+        LinearLayout q=row();q.addView(quick("＋","Add student","Create portal",ORANGE,v->dialogCreateStudent()),new LinearLayout.LayoutParams(0,-2,1));q.addView(quick("▣","Log lesson","Teaching record",BLUE,v->dialogAddLesson()),weightMargin(1,8));body.addView(q,marginBottom(8));
+        LinearLayout q2=row();q2.addView(quick("↑","Upload","Student resource",PURPLE,v->chooseStudentForResource()),new LinearLayout.LayoutParams(0,-2,1));q2.addView(quick("●","Update","Announcement",GREEN,v->dialogAnnouncement()),weightMargin(1,8));body.addView(q2,marginBottom(14));
+
+        LinearLayout finance=card();LinearLayout ft=row();ft.setGravity(Gravity.CENTER_VERTICAL);
+        LinearLayout fi=col();fi.addView(text("Finance",15,NAVY,true));fi.addView(text("Completed lesson value · R"+invoiceReadyTotal(),11,MUTED,false));ft.addView(fi,new LinearLayout.LayoutParams(0,-2,1));ft.addView(text("›",25,NAVY,false));finance.addView(ft);
+        finance.setOnClickListener(v->openTab("Finance"));body.addView(finance);
     }
 
     private void adminStudents(){
