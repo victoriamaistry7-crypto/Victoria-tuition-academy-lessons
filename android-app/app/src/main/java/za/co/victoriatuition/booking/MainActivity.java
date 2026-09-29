@@ -312,8 +312,59 @@ public class MainActivity extends Activity {
 
     private void studentBook(){
         pageTitle("Book a lesson","Start with a suggested topic, then choose a date and live available time.");
-        Button b=primary("Open booking calendar");b.setOnClickListener(v->dialogBooking());body.addView(b,marginBottom(12));
-        TextView p=text("You never see another student’s name or lesson. Busy periods only appear as unavailable.",12,MUTED,false);body.addView(p);
+
+        LinearLayout intro=card();
+        intro.addView(text("Not sure what to cover?",16,NAVY,true));
+        intro.addView(text("Choose one of the recommended topics below. They are based on your current subject and progress.",12,MUTED,false));
+        body.addView(intro,marginBottom(14));
+
+        section("Recommended for you");
+        String[] suggestions=recommendedBookingTopics();
+        for(String topic:suggestions){
+            LinearLayout option=card();
+            option.addView(text(topic,15,NAVY,true));
+            option.addView(text("Tap to book this topic",11,MUTED,false));
+            option.setOnClickListener(v->dialogBooking(topic));
+            body.addView(option,marginBottom(8));
+        }
+
+        Button other=secondary("Choose another topic");
+        other.setOnClickListener(v->dialogBooking(""));
+        body.addView(other,marginBottom(12));
+
+        TextView p=text("Your booking calendar only shows Available / Unavailable. Other students’ names and lesson details stay private.",12,MUTED,false);
+        body.addView(p);
+    }
+
+    private String[] recommendedBookingTopics(){
+        String name=sync.optJSONObject("user").optString("displayName").toLowerCase(Locale.ROOT);
+        if(name.contains("mitchell")) return new String[]{
+            "Electric Cells & Batteries",
+            "Current, Voltage & Resistance",
+            "Balanced & Unbalanced Forces",
+            "Gravity, Mass & Weight",
+            "Magnetism & Electrostatics"
+        };
+        if(name.contains("lateya")) return new String[]{
+            "Functions & Graphs",
+            "Parabola, Hyperbola & Exponential",
+            "Algebraic Expressions",
+            "Trigonometric Graphs",
+            "Exam-style Functions Practice"
+        };
+        if(name.contains("phelandi")) return new String[]{
+            "Equations of Motion",
+            "Factors Affecting Resistance",
+            "Electric Cells",
+            "Mathematics Term 1–3 Revision"
+        };
+        return new String[]{
+            "Speed & Velocity",
+            "Acceleration",
+            "1D Motion & Motion Graphs",
+            "Equations of Motion",
+            "Physics Exam Practice"
+        };
     }
 
     private void studentResources(){
@@ -332,13 +383,13 @@ public class MainActivity extends Activity {
 
     // ---------- BOOKING ----------
 
-    private void dialogBooking(){
+    private void dialogBooking(){dialogBooking("");}\n\n    private void dialogBooking(String suggestedTopic){
         LinearLayout box=col();box.setPadding(dp(4),dp(4),dp(4),0);
         final String[] date={""},time={""};final int[] dur={60};
         Button dateBtn=secondary("1. Choose date");box.addView(dateBtn,marginBottom(8));
         Spinner duration=new Spinner(this);duration.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,new String[]{"1 hour","2 hours"}));box.addView(duration,marginBottom(8));
         Spinner subject=new Spinner(this);subject.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,new String[]{"Mathematics","Physics","Natural Sciences"}));box.addView(subject,marginBottom(8));
-        EditText topic=input("Topic",false),help=input("What exactly do you need help with?",false);box.addView(topic,marginBottom(8));box.addView(help,marginBottom(8));
+        EditText topic=input("Topic",false),help=input("What exactly do you need help with?",false);topic.setText(suggestedTopic);box.addView(topic,marginBottom(8));box.addView(help,marginBottom(8));
         TextView label=text("Available times",12,MUTED,true);box.addView(label);
         GridLayout grid=new GridLayout(this);grid.setColumnCount(3);box.addView(grid);
 
