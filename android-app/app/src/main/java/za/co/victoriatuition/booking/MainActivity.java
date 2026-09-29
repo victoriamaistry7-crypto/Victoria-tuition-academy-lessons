@@ -121,8 +121,8 @@ public class MainActivity extends Activity {
     private void showWelcome(){
         ScrollView sv=new ScrollView(this);LinearLayout root=col();root.setPadding(dp(20),dp(26),dp(20),dp(30));root.setBackgroundColor(themeColor(BG));sv.addView(root);setContentView(sv);
         LinearLayout brand=row();brand.setGravity(Gravity.CENTER_VERTICAL);
-        ImageView logo=new ImageView(this);int brandId=getResources().getIdentifier("vta"+"_"+"brand"+"_"+"mark","drawable",getPackageName());logo.setImageResource(brandId);logo.setScaleType(ImageView.ScaleType.CENTER_INSIDE);brand.addView(logo,new LinearLayout.LayoutParams(dp(58),dp(58)));
-        LinearLayout bt=col();bt.setPadding(dp(12),0,0,0);bt.addView(text("Victoria Tuition Academy",20,NAVY,true));bt.addView(text("LEARN  •  GROW  •  ACHIEVE",10,MUTED,true));brand.addView(bt,new LinearLayout.LayoutParams(0,-2,1));TextView theme=pill(darkMode?"Light":"Dark",Color.WHITE,NAVY);theme.setOnClickListener(v->{darkMode=!darkMode;prefs.edit().putBoolean("darkMode",darkMode).apply();showWelcome();});brand.addView(theme);root.addView(brand);
+        ImageView logo=new ImageView(this);int brandId=getResources().getIdentifier("vta"+"_"+"logo"+"_"+"brand","drawable",getPackageName());logo.setImageResource(brandId);logo.setScaleType(ImageView.ScaleType.CENTER_INSIDE);brand.addView(logo,new LinearLayout.LayoutParams(0,dp(62),1));
+        TextView theme=pill(darkMode?"Light":"Dark",Color.WHITE,NAVY);theme.setOnClickListener(v->{darkMode=!darkMode;prefs.edit().putBoolean("darkMode",darkMode).apply();showWelcome();});brand.addView(theme);root.addView(brand);
 
         LinearLayout hero=col();hero.setPadding(dp(22),dp(24),dp(22),dp(24));hero.setBackground(gradient(NAVY,NAVY2,22));
         hero.addView(pill("PRIVATE LEARNING PORTAL",Color.rgb(51,65,85),Color.WHITE));
@@ -145,7 +145,7 @@ public class MainActivity extends Activity {
     }
 
     private void showLogin(){
-        ScrollView sv=new ScrollView(this);LinearLayout root=col();root.setPadding(dp(20),dp(24),dp(20),dp(30));root.setBackgroundColor(BG);sv.addView(root);setContentView(sv);
+        ScrollView sv=new ScrollView(this);LinearLayout root=col();root.setPadding(dp(20),dp(24),dp(20),dp(30));root.setBackgroundColor(themeColor(BG));sv.addView(root);setContentView(sv);
         TextView back=text("‹  Back",15,NAVY,true);back.setPadding(0,dp(6),0,dp(24));back.setOnClickListener(v->showWelcome());root.addView(back);
         root.addView(pill(selectedRole+" ACCESS",ORANGE_SOFT,ORANGE));
         TextView title=text(selectedRole.equals("ADMIN")?"Welcome back, Victoria":"Welcome back",32,NAVY,true);title.setPadding(0,dp(14),0,dp(6));root.addView(title);
@@ -626,11 +626,11 @@ public class MainActivity extends Activity {
         LinearLayout wrap=row();wrap.setGravity(mine?Gravity.RIGHT:Gravity.LEFT);
         LinearLayout bubble=col();bubble.setPadding(dp(12),dp(8),dp(10),dp(6));
         bubble.setBackground(round(mine?Color.rgb(217,253,211):Color.WHITE,16,1,mine?Color.rgb(187,247,208):LINE));
-        bubble.addView(text(m.optString("body"),14,TEXT,false));
+        int max=(int)(getResources().getDisplayMetrics().widthPixels*0.76f);
+        TextView message=text(m.optString("body"),14,TEXT,false);message.setMaxWidth(max);bubble.addView(message);
         String stamp=m.optString("created_at");if(stamp.length()>=16)stamp=stamp.substring(11,16);
         TextView time=text(stamp,9,MUTED,false);time.setGravity(Gravity.RIGHT);bubble.addView(time,marginTopBottom(4,0));
-        int width=(int)(getResources().getDisplayMetrics().widthPixels*0.74f);
-        wrap.addView(bubble,new LinearLayout.LayoutParams(width,-2));return wrap;
+        wrap.addView(bubble,new LinearLayout.LayoutParams(-2,-2));return wrap;
     }
 
     // ---------- BOOKING ----------
