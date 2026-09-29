@@ -214,10 +214,26 @@ public class MainActivity extends Activity {
     private void openTab(String tab){
         if(body==null)return;body.removeAllViews();JSONObject u=sync.optJSONObject("user");if(u==null)return;
         if(u.optString("role").equals("ADMIN")){
-            switch(tab){case "Students":adminStudents();break;case "Schedule":adminSchedule();break;case "Finance":adminFinance();break;case "Messages":adminMessages();break;case "Resources":adminResources();break;case "Format":adminFormat();break;default:adminHome();}
+            switch(tab){case "Students":adminStudents();break;case "Schedule":adminSchedule();break;case "Messages":adminMessages();break;case "More":adminMore();break;case "Finance":adminFinance();break;case "Resources":adminResources();break;case "Format":adminFormat();break;default:adminHome();}
         }else{
-            switch(tab){case "Plan":studentPlan();break;case "Lessons":studentLessons();break;case "Book":studentBook();break;case "Resources":studentResources();break;case "Messages":studentMessages();break;default:studentHome();}
+            switch(tab){case "Learn":studentLearning();break;case "Book":studentBook();break;case "Messages":studentMessages();break;case "More":studentMore();break;case "Lessons":studentLessons();break;case "Resources":studentResources();break;default:studentHome();}
         }
+    }
+
+    private void adminMore(){
+        pageTitle("More","Finance, resources and app settings.");
+        LinearLayout finance=card();finance.addView(text("Finance & invoices",16,NAVY,true));finance.addView(text("Payments, completed lesson value and invoice drafts.",12,MUTED,false));finance.setOnClickListener(v->openTab("Finance"));body.addView(finance,marginBottom(10));
+        LinearLayout resources=card();resources.addView(text("Resource library",16,NAVY,true));resources.addView(text("Interactive lessons, slides, notes, worksheets, videos and images.",12,MUTED,false));resources.setOnClickListener(v->openTab("Resources"));body.addView(resources,marginBottom(10));
+        LinearLayout appearance=card();appearance.addView(text("Appearance",16,NAVY,true));appearance.addView(text(darkMode?"Dark mode is on":"Light mode is on",12,MUTED,false));appearance.setOnClickListener(v->{darkMode=!darkMode;prefs.edit().putBoolean("darkMode",darkMode).apply();showDashboard();});body.addView(appearance,marginBottom(10));
+        LinearLayout out=card();out.addView(text("Log out",16,Color.rgb(185,28,28),true));out.setOnClickListener(v->logout());body.addView(out);
+    }
+
+    private void studentMore(){
+        pageTitle("More","Your lessons, resources and preferences.");
+        LinearLayout lessons=card();lessons.addView(text("Lesson history",16,NAVY,true));lessons.addView(text("Upcoming, completed and requested lessons.",12,MUTED,false));lessons.setOnClickListener(v->openTab("Lessons"));body.addView(lessons,marginBottom(10));
+        LinearLayout resources=card();resources.addView(text("All resources",16,NAVY,true));resources.addView(text("Open your interactive lessons, slides, notes and worksheets.",12,MUTED,false));resources.setOnClickListener(v->openTab("Resources"));body.addView(resources,marginBottom(10));
+        LinearLayout appearance=card();appearance.addView(text("Appearance",16,NAVY,true));appearance.addView(text(darkMode?"Switch to light mode":"Switch to dark mode",12,MUTED,false));appearance.setOnClickListener(v->{darkMode=!darkMode;prefs.edit().putBoolean("darkMode",darkMode).apply();showDashboard();});body.addView(appearance,marginBottom(10));
+        LinearLayout out=card();out.addView(text("Log out",16,Color.rgb(185,28,28),true));out.setOnClickListener(v->logout());body.addView(out);
     }
 
     private void logout(){token="";sync=new JSONObject();prefs.edit().clear().apply();showWelcome();}
