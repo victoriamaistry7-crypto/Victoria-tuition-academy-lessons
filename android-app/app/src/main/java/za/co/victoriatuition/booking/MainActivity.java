@@ -378,7 +378,7 @@ public class MainActivity extends Activity {
         Button b=primary("＋ Message Victoria");b.setOnClickListener(v->dialogMessage(null));body.addView(b,marginBottom(14));
         JSONArray ms=sync.optJSONArray("messages");if(ms.length()==0)body.addView(empty("No messages yet."));
         String me=sync.optJSONObject("user").optString("id");
-        for(int i=0;i<ms.length();i++){JSONObject m=ms.optJSONObject(i);boolean mine=me.equals(m.optString("sender_id"));LinearLayout c=card();c.addView(text(mine?"You":"Victoria",12,mine?BLUE:ORANGE,true));c.addView(text(m.optString("body"),13,TEXT,false),marginTopBottom(5,2));c.addView(text(m.optString("created_at"),10,MUTED,false));body.addView(c,marginBottom(8));}
+        for(int i=0;i<ms.length();i++){JSONObject m=ms.optJSONObject(i);boolean mine=me.equals(m.optString("sender_id"));LinearLayout c=card();c.setBackground(round(mine?Color.rgb(220,252,231):Color.WHITE,16,1,mine?Color.rgb(187,247,208):LINE));c.addView(text(mine?"You":"Victoria",11,mine?GREEN:ORANGE,true));c.addView(text(m.optString("body"),14,TEXT,false),marginTopBottom(5,2));String stamp=m.optString("created_at");if(stamp.length()>=16)stamp=stamp.substring(11,16);TextView ts=text(stamp,9,MUTED,false);ts.setGravity(Gravity.RIGHT);c.addView(ts);body.addView(c,marginBottom(8));}
     }
 
     // ---------- BOOKING ----------
