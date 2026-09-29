@@ -34,14 +34,14 @@ public class MainActivity extends Activity {
     private LinearLayout body;
     private JSONObject pendingStudent=null;
     private String pendingResourceTitle="", pendingResourceType="Other";
-    private TextView syncStatus;
+    private TextView syncStatus;\n    private boolean darkMode=false;
 
     @Override public void onCreate(Bundle b){
         super.onCreate(b);
         getWindow().setStatusBarColor(NAVY);
         getWindow().setNavigationBarColor(Color.WHITE);
         prefs=getSharedPreferences("vta_cloud_app",MODE_PRIVATE);
-        token=prefs.getString("token","");
+        token=prefs.getString("token","");\n        darkMode=prefs.getBoolean("darkMode",false);
         try{sync=new JSONObject(prefs.getString("cache","{}"));}catch(Exception ignored){}
         createNotificationChannel();
         if(!token.isEmpty()) refreshAndOpen(); else showWelcome();
