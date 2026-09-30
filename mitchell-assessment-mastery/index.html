@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#5b21b6">
+<title>Mitchell Grade 9 Natural Sciences Mastery | Victoria Tuition Academy</title>
+<style>
+:root{--bg:#0b0b12;--panel:#151522;--panel2:#1c1c2b;--text:#f6f4ff;--muted:#b9b5c9;--accent:#8b5cf6;--accent2:#c4b5fd;--good:#34d399;--bad:#fb7185;--line:#2d2b3d;--term1:#38bdf8;--term2:#fbbf24;--term3:#a78bfa}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#09090f,#11111b 34%,#0b0b12);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
+button,select,input{font:inherit}
+button{cursor:pointer}
+.app{max-width:980px;margin:auto;padding:18px 14px 72px}
+.hero{padding:16px 0 10px}
+.kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);font-weight:800}
+h1{font-size:clamp(27px,7vw,48px);line-height:1.05;margin:7px 0 10px}
+h2{font-size:23px;margin:0 0 8px}
+h3{font-size:17px;margin:0 0 8px}
+p{margin:0 0 10px}
+.muted{color:var(--muted)}
+.grid{display:grid;gap:12px}
+.stats{grid-template-columns:repeat(3,1fr);margin-top:16px}
+.stat,.card,.quiz,.report{background:rgba(21,21,34,.92);border:1px solid var(--line);border-radius:17px;padding:14px}
+.stat strong{display:block;font-size:20px}
+.progress-wrap{height:9px;background:#222233;border-radius:999px;overflow:hidden;margin-top:13px}
+.progress{height:100%;width:11.11%;background:linear-gradient(90deg,var(--accent),#c084fc);transition:.25s}
+.nav{display:flex;gap:8px;overflow:auto;padding:12px 0 8px;scrollbar-width:none;position:sticky;top:0;z-index:10;background:rgba(11,11,18,.94);backdrop-filter:blur(12px)}
+.nav::-webkit-scrollbar{display:none}
+.tab{white-space:nowrap;border:1px solid var(--line);background:var(--panel);color:var(--text);padding:10px 13px;border-radius:999px;min-height:44px}
+.tab.active{background:var(--accent);border-color:var(--accent);color:white;font-weight:800}
+.station{display:none;padding-top:10px}
+.station.active{display:block}
+.term{display:inline-flex;border-radius:999px;padding:5px 9px;font-weight:800;font-size:12px;margin-bottom:8px}
+.t1{background:color-mix(in srgb,var(--term1) 18%,transparent);color:#7dd3fc}.t2{background:color-mix(in srgb,var(--term2) 18%,transparent);color:#fde68a}.t3{background:color-mix(in srgb,var(--term3) 18%,transparent);color:#ddd6fe}
+.lesson-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:14px}
+.card strong{color:#fff}
+.key{display:inline-block;background:#242438;border:1px solid #35334b;border-radius:8px;padding:2px 7px;margin:2px}
+.flow{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.flow span{background:var(--panel2);border:1px solid var(--line);padding:8px 10px;border-radius:10px;font-size:14px}
+.visual{margin-top:14px;background:#11111c;border:1px solid var(--line);border-radius:17px;padding:12px;overflow:auto}
+.visual svg{width:100%;min-width:300px;display:block}
+.quiz-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:16px}
+.quiz label{display:block;font-weight:750;font-size:14px;min-height:44px}
+.quiz select,.quiz input{width:100%;margin-top:8px;background:#0e0e17;color:var(--text);border:1px solid #3a3850;border-radius:11px;padding:12px;min-height:48px}
+.check{width:100%;margin-top:8px;min-height:46px;border:0;border-radius:11px;background:var(--accent);color:white;font-weight:850}
+.feedback{font-size:13px;margin-top:9px;border-radius:10px;padding:9px;display:none}
+.feedback.good{display:block;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.35)}
+.feedback.bad{display:block;background:rgba(251,113,133,.10);border:1px solid rgba(251,113,133,.35)}
+.controls{display:flex;gap:10px;justify-content:space-between;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.controls button,.report button{min-height:48px;border-radius:12px;padding:10px 15px;font-weight:850}
+.secondary{border:1px solid var(--line);background:var(--panel);color:var(--text)}.primary{border:0;background:var(--accent);color:white}
+.formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#0e0e17;border:1px solid #333147;border-radius:11px;padding:12px;margin:8px 0;overflow:auto}
+.report{margin-top:18px}
+.report-row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding:10px 0}
+.badge{font-size:12px;font-weight:800;border-radius:999px;padding:4px 8px;background:#25243a}
+.summary{font-size:30px;font-weight:900}
+.note{border-left:3px solid var(--accent);padding:9px 12px;background:rgba(139,92,246,.08);border-radius:0 10px 10px 0;margin-top:10px}
+.small{font-size:13px}
+@media(max-width:720px){.lesson-grid,.quiz-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.app{padding-left:12px;padding-right:12px}.card,.quiz,.report,.stat{border-radius:14px;padding:13px}.nav{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px}.quiz label{min-height:auto}}
+@media(max-width:360px){.stats{grid-template-columns:1fr}.stats .stat:last-child{grid-column:auto}.controls{flex-direction:column}.controls button{width:100%}}
+</style>
+</head>
+<body>
+<main class="app">
+<section class="hero">
+<div class="kicker">Victoria Tuition Academy · Grade 9 Natural Sciences</div>
+<h1>Mitchell's Terms 1–3 Mastery Lesson</h1>
+<p class="muted">Built around the full 100-mark baseline assessment. Learn each concept, study the exam traps, answer the checks, and use the final report to decide what needs reteaching.</p>
+<div class="grid stats">
+<div class="stat"><span class="muted small">Stations</span><strong><span id="stationNum">1</span> / 9</strong></div>
+<div class="stat"><span class="muted small">Checks completed</span><strong id="doneCount">0 / 27</strong></div>
+<div class="stat"><span class="muted small">Correct</span><strong id="score">0 / 27</strong></div>
+</div>
+<div class="progress-wrap"><div class="progress" id="progress"></div></div>
+</section>
+
+<nav class="nav" id="tabs">
+<button class="tab active" data-i="0">1 Cells</button><button class="tab" data-i="1">2 Systems</button><button class="tab" data-i="2">3 Reproduction</button><button class="tab" data-i="3">4 Matter</button><button class="tab" data-i="4">5 Reactions</button><button class="tab" data-i="5">6 pH</button><button class="tab" data-i="6">7 Forces</button><button class="tab" data-i="7">8 Circuits</button><button class="tab" data-i="8">9 Electricity</button>
+</nav>
+
+<section class="station active" data-station="0" data-topic="Cells & organisation">
+<div class="term t1">TERM 1 · LIFE & LIVING</div>
+<h2>1. Cells & levels of organisation</h2>
+<p>A <strong>cell</strong> is the basic structural and functional unit of life. Plant and animal cells share a cell membrane, cytoplasm and nucleus. Typical plant cells also have a <strong>cell wall</strong>, <strong>chloroplasts</strong> and a large permanent <strong>vacuole</strong>.</p>
+<div class="grid lesson-grid">
+<div class="card"><h3>Know the structures</h3><p><strong>Nucleus:</strong> contains genetic material and controls cell activities.</p><p><strong>Cell wall:</strong> rigid support outside the plant cell membrane.</p><p><strong>Chloroplast:</strong> contains chlorophyll; site of photosynthesis.</p><p><strong>Vacuole:</strong> cell sap; helps maintain plant-cell shape.</p></div>
+<div class="card"><h3>Organisation hierarchy</h3><div class="flow"><span>cell</span>→<span>tissue</span>→<span>organ</span>→<span>organ system</span>→<span>organism</span></div><div class="note small"><strong>Exam trap:</strong> tissues are groups of similar cells working together; organs are made from different tissues working together.</div></div>
+</div>
+<div class="visual"><svg viewBox="0 0 620 310" role="img" aria-label="Simplified labelled plant cell">
+<rect x="75" y="35" width="455" height="230" rx="28" fill="none" stroke="#f6f4ff" stroke-width="7"/><rect x="91" y="51" width="423" height="198" rx="22" fill="none" stroke="#a6a1bb" stroke-width="2"/>
+<ellipse cx="205" cy="140" rx="48" ry="39" fill="#7c3aed"/><ellipse cx="365" cy="145" rx="86" ry="57" fill="#2563eb" opacity=".52"/><ellipse cx="137" cy="95" rx="30" ry="14" fill="#22c55e"/><ellipse cx="465" cy="93" rx="30" ry="14" fill="#22c55e"/>
+<line x1="205" y1="100" x2="180" y2="67" stroke="#fff"/><text x="129" y="61" fill="#fff" font-size="15">Nucleus</text><line x1="430" y1="145" x2="542" y2="145" stroke="#fff"/><text x="548" y="150" fill="#fff" font-size="15">Vacuole</text><line x1="137" y1="95" x2="76" y2="116" stroke="#fff"/><text x="7" y="121" fill="#fff" font-size="15">Chloroplast</text><line x1="77" y1="236" x2="35" y2="280" stroke="#fff"/><text x="4" y="301" fill="#fff" font-size="15">Cell wall</text></svg></div>
+<div class="grid quiz-grid">
+<div class="quiz" data-q="1" data-a="cell wall" data-topic="Cells & organisation" data-exp="A typical plant cell has a rigid cell wall outside its membrane; animal cells do not."><label>1. Which structure is found in plant cells but not typical animal cells?</label><select><option value="">Choose…</option><option>cell membrane</option><option>cell wall</option><option>nucleus</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="2" data-a="cell → tissue → organ → organ system → organism" data-topic="Cells & organisation" data-exp="Cells form tissues, tissues form organs, organs work together in organ systems, and organ systems make an organism."><label>2. Choose the correct order from smallest to largest.</label><select><option value="">Choose…</option><option>cell → tissue → organ → organ system → organism</option><option>cell → organ → tissue → organism → organ system</option><option>tissue → cell → organ → organ system → organism</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="3" data-a="chloroplast" data-topic="Cells & organisation" data-exp="Chloroplasts contain chlorophyll and absorb light energy for photosynthesis."><label>3. Which organelle is the site of photosynthesis?</label><select><option value="">Choose…</option><option>nucleus</option><option>chloroplast</option><option>vacuole</option></select><button class="check">Check</button><div class="feedback"></div></div>
+</div>
+</section>
+
+<section class="station" data-station="1" data-topic="Human body systems & data">
+<div class="term t1">TERM 1 · LIFE & LIVING</div><h2>2. Human body systems & data</h2>
+<div class="grid lesson-grid">
+<div class="card"><h3>Four key systems</h3><p><strong>Nervous:</strong> detects stimuli and coordinates responses.</p><p><strong>Musculoskeletal:</strong> support, protection and movement.</p><p><strong>Excretory:</strong> removes metabolic wastes and regulates body fluids.</p><p><strong>Circulatory:</strong> transports oxygen, nutrients and wastes.</p></div>
+<div class="card"><h3>Blood vessels</h3><p><strong>Artery:</strong> carries blood <em>away</em> from the heart.</p><p><strong>Vein:</strong> carries blood toward the heart.</p><p><strong>Capillary:</strong> tiny vessel where exchange occurs with tissues.</p><div class="note small"><strong>Memory:</strong> Artery = Away.</div></div>
+</div>
+<div class="card" style="margin-top:12px"><h3>Heart-rate investigation</h3><p>Before exercise: <strong>72 bpm</strong> → immediately after: <strong>132 bpm</strong> → five minutes later: <strong>88 bpm</strong>.</p><p>The <strong>dependent variable</strong> is heart rate because it is measured. Exercise makes muscles demand more oxygen and glucose and increases carbon-dioxide removal, so the heart pumps faster. The <strong>respiratory system</strong> supplies oxygen to the blood.</p></div>
+<div class="grid quiz-grid">
+<div class="quiz" data-q="4" data-a="capillary" data-topic="Human body systems & data" data-exp="Capillaries have very thin walls, allowing substances to move between blood and tissues."><label>4. Which vessel allows exchange between blood and tissues?</label><select><option value="">Choose…</option><option>artery</option><option>vein</option><option>capillary</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="5" data-a="heart rate" data-topic="Human body systems & data" data-exp="The dependent variable is what is measured in response to the investigation. Here that is heart rate."><label>5. What is the dependent variable in the exercise data?</label><select><option value="">Choose…</option><option>exercise</option><option>heart rate</option><option>learner name</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="6" data-a="respiratory system" data-topic="Human body systems & data" data-exp="The respiratory system brings oxygen into the lungs; the circulatory system transports it."><label>6. Which system works with circulation to supply oxygen to blood?</label><select><option value="">Choose…</option><option>digestive system</option><option>respiratory system</option><option>excretory system</option></select><button class="check">Check</button><div class="feedback"></div></div>
+</div>
+</section>
+
+<section class="station" data-station="2" data-topic="Reproduction & digestion">
+<div class="term t1">TERM 1 · LIFE & LIVING</div><h2>3. Reproduction & digestion</h2>
+<div class="grid lesson-grid">
+<div class="card"><h3>Human reproduction</h3><p><strong>Puberty:</strong> stage during which the body becomes sexually mature.</p><p><strong>Testes</strong> produce sperm; <strong>ovaries</strong> produce ova (egg cells).</p><div class="flow"><span>Ovulation</span>→<span>Fertilisation</span>→<span>Implantation</span></div><p style="margin-top:10px"><strong>Menstruation:</strong> shedding of the uterine lining when pregnancy does not occur.</p><p><strong>Placenta:</strong> exchange of oxygen, nutrients and wastes between mother and foetus.</p></div>
+<div class="card"><h3>Digestion</h3><div class="flow"><span>Mouth</span>→<span>Oesophagus</span>→<span>Stomach</span>→<span>Small intestine</span>→<span>Large intestine</span></div><p style="margin-top:10px"><strong>Mechanical digestion</strong> physically breaks food into smaller pieces. <strong>Chemical digestion</strong> uses enzymes and digestive chemicals to form smaller soluble molecules.</p><p>Most nutrient absorption occurs in the <strong>small intestine</strong>.</p><p><strong>Egestion:</strong> removal of undigested food.</p></div>
+</div>
+<div class="grid quiz-grid">
+<div class="quiz" data-q="7" data-a="ovulation → fertilisation → implantation" data-topic="Reproduction & digestion" data-exp="An egg is released first, fertilisation may occur next, and the embryo then implants in the uterus."><label>7. Correct reproductive sequence?</label><select><option value="">Choose…</option><option>ovulation → fertilisation → implantation</option><option>fertilisation → ovulation → implantation</option><option>implantation → ovulation → fertilisation</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="8" data-a="small intestine" data-topic="Reproduction & digestion" data-exp="The small intestine is adapted for absorbing digested nutrients into the blood."><label>8. Where does most nutrient absorption occur?</label><select><option value="">Choose…</option><option>stomach</option><option>small intestine</option><option>large intestine</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="9" data-a="removal of undigested food" data-topic="Reproduction & digestion" data-exp="Egestion is removal of undigested material. Excretion is removal of metabolic waste made by cells."><label>9. Egestion means…</label><select><option value="">Choose…</option><option>removal of undigested food</option><option>removal of metabolic waste</option><option>absorption of nutrients</option></select><button class="check">Check</button><div class="feedback"></div></div>
+</div>
+</section>
+
+<section class="station" data-station="3" data-topic="Elements, compounds & mixtures">
+<div class="term t2">TERM 2 · MATTER & MATERIALS</div><h2>4. Elements, compounds & mixtures</h2>
+<div class="grid lesson-grid">
+<div class="card"><h3>Read a Periodic Table tile</h3><div style="max-width:180px;margin:10px auto;background:#0f0f18;border:1px solid var(--line);padding:16px;border-radius:14px;text-align:center"><div style="text-align:left">12</div><div style="font-size:54px;font-weight:900">Mg</div><div>Magnesium</div><div class="muted small">metal</div></div></div>
+<div class="card"><h3>Classify substances</h3><p><strong>Element:</strong> one type of atom. O₂ is an element because both atoms are oxygen.</p><p><strong>Compound:</strong> different elements chemically bonded in a fixed ratio. CO₂ is a compound.</p><p><strong>Mixture:</strong> substances physically mixed, not bonded in a fixed ratio. Air is a mixture.</p><p><strong>Subscripts</strong> count atoms in a formula: CO₂ = 1 carbon + 2 oxygen atoms.</p></div>
+</div>
+<div class="grid quiz-grid">
+<div class="quiz" data-q="10" data-a="12" data-topic="Elements, compounds & mixtures" data-exp="Magnesium has atomic number 12."><label>10. What is magnesium's atomic number?</label><select><option value="">Choose…</option><option>12</option><option>24</option><option>2</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="11" data-a="element" data-topic="Elements, compounds & mixtures" data-exp="O₂ contains only oxygen atoms, so it is an element even though it has two atoms per molecule."><label>11. O₂ is classified as a…</label><select><option value="">Choose…</option><option>element</option><option>compound</option><option>mixture</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="12" data-a="2" data-topic="Elements, compounds & mixtures" data-exp="The subscript 2 shows two oxygen atoms in CO₂."><label>12. How many oxygen atoms are represented in CO₂?</label><select><option value="">Choose…</option><option>1</option><option>2</option><option>3</option></select><button class="check">Check</button><div class="feedback"></div></div>
+</div>
+</section>
+
+<section class="station" data-station="4" data-topic="Chemical reactions & rusting">
+<div class="term t2">TERM 2 · MATTER & MATERIALS</div><h2>5. Chemical reactions, oxygen & rusting</h2>
+<div class="grid lesson-grid">
+<div class="card"><h3>Balance without changing formulas</h3><p>Atoms are conserved. Change only the <strong>coefficients</strong> in front of formulas.</p><div class="formula">2Mg + O₂ → 2MgO</div><p>Left: 2 Mg, 2 O. Right: 2 Mg, 2 O.</p><p><strong>Word equation:</strong> magnesium + oxygen → magnesium oxide</p></div>
+<div class="card"><h3>Patterns to know</h3><div class="formula">metal + oxygen → metal oxide</div><div class="formula">non-metal + oxygen → non-metal oxide</div><p>Iron rusting requires both <strong>oxygen and water</strong>. Paint protects iron by creating a barrier.</p><p>Burning fossil fuels can release sulfur dioxide and nitrogen oxides, which can contribute to <strong>acid rain</strong>.</p></div>
+</div>
+<div class="grid quiz-grid">
+<div class="quiz" data-q="13" data-a="2mg + o₂ → 2mgo" data-topic="Chemical reactions & rusting" data-exp="2Mg + O₂ → 2MgO balances both magnesium and oxygen atoms."><label>13. Which is correctly balanced?</label><select><option value="">Choose…</option><option>Mg + O₂ → MgO</option><option>2Mg + O₂ → 2MgO</option><option>Mg₂ + O₂ → Mg₂O₂</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="14" data-a="oxygen and water" data-topic="Chemical reactions & rusting" data-exp="Rusting of iron requires oxygen and water."><label>14. Which two conditions are needed for rusting?</label><select><option value="">Choose…</option><option>oxygen and water</option><option>heat and carbon dioxide</option><option>water and salt only</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="15" data-a="metal oxide" data-topic="Chemical reactions & rusting" data-exp="The general reaction is metal + oxygen → metal oxide."><label>15. metal + oxygen → ?</label><select><option value="">Choose…</option><option>metal oxide</option><option>acid</option><option>metal hydroxide</option></select><button class="check">Check</button><div class="feedback"></div></div>
+</div>
+</section>
+
+<section class="station" data-station="5" data-topic="Acids, bases & pH">
+<div class="term t2">TERM 2 · MATTER & MATERIALS</div><h2>6. Acids, bases, pH & neutralisation</h2>
+<div class="visual"><div style="display:grid;grid-template-columns:repeat(14,minmax(42px,1fr));gap:4px;min-width:650px;text-align:center"><span class="key">1</span><span class="key">2</span><span class="key">3</span><span class="key">4</span><span class="key">5</span><span class="key">6</span><span class="key">7</span><span class="key">8</span><span class="key">9</span><span class="key">10</span><span class="key">11</span><span class="key">12</span><span class="key">13</span><span class="key">14</span></div><div style="min-width:650px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;margin-top:8px" class="small muted"><span>acidic</span><span>neutral</span><span>basic / alkaline</span></div></div>
+<div class="grid lesson-grid">
+<div class="card"><h3>Read the pH scale</h3><p><strong>pH &lt; 7:</strong> acidic</p><p><strong>pH = 7:</strong> neutral</p><p><strong>pH &gt; 7:</strong> basic/alkaline</p><p>Universal indicator: strong acid ≈ <strong>red</strong>; neutral ≈ <strong>green</strong>; strong base ≈ <strong>purple/violet</strong>.</p></div>
+<div class="card"><h3>Neutralisation & investigations</h3><div class="formula">acid + metal oxide → salt + water</div><p>hydrochloric acid + magnesium oxide → <strong>magnesium chloride + water</strong></p><p>In a limestone/acidic-soil investigation: <strong>IV</strong> = amount of limestone changed; <strong>DV</strong> = soil pH measured.</p></div>
+</div>
+<div class="grid quiz-grid">
+<div class="quiz" data-q="16" data-a="acidic" data-topic="Acids, bases & pH" data-exp="A pH below 7 is acidic; pH 2 is strongly acidic."><label>16. A substance with pH 2 is…</label><select><option value="">Choose…</option><option>acidic</option><option>neutral</option><option>alkaline</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="17" data-a="salt + water" data-topic="Acids, bases & pH" data-exp="Acid + metal oxide produces a salt and water."><label>17. acid + metal oxide →</label><select><option value="">Choose…</option><option>salt + water</option><option>metal + oxygen</option><option>acid + water</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="18" data-a="amount of limestone" data-topic="Acids, bases & pH" data-exp="The independent variable is deliberately changed. The measured pH is the dependent variable."><label>18. If soil pH is measured after changing limestone amount, the IV is…</label><select><option value="">Choose…</option><option>soil pH</option><option>amount of limestone</option><option>indicator colour</option></select><button class="check">Check</button><div class="feedback"></div></div>
+</div>
+</section>
+
+<section class="station" data-station="6" data-topic="Forces, magnetism & electrostatics">
+<div class="term t3">TERM 3 · ENERGY & CHANGE</div><h2>7. Forces, magnetism & electrostatics</h2>
+<div class="grid lesson-grid">
+<div class="card"><h3>Force basics</h3><p>A <strong>force</strong> is a push or pull that can change motion, direction or shape. SI unit: <strong>newton (N)</strong>.</p><p><strong>Contact forces:</strong> friction, tension.</p><p><strong>Field/non-contact forces:</strong> gravity, magnetic force, electrostatic force.</p></div>
+<div class="card"><h3>Mass, weight & interactions</h3><p><strong>Mass:</strong> amount of matter, measured in <strong>kg</strong>; approximately constant with location.</p><p><strong>Weight:</strong> gravitational force, measured in <strong>N</strong>; changes if gravitational field strength changes.</p><p>Like magnetic poles <strong>repel</strong>; unlike poles attract. Like electric charges <strong>repel</strong>; unlike charges attract.</p></div>
+</div>
+<div class="grid quiz-grid">
+<div class="quiz" data-q="19" data-a="field force" data-topic="Forces, magnetism & electrostatics" data-exp="Gravity acts at a distance, so it is a field/non-contact force."><label>19. Gravity is a…</label><select><option value="">Choose…</option><option>contact force</option><option>field force</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="20" data-a="newton" data-topic="Forces, magnetism & electrostatics" data-exp="Weight is a force, and force is measured in newtons."><label>20. What is the SI unit of weight?</label><select><option value="">Choose…</option><option>kilogram</option><option>newton</option><option>metre</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="21" data-a="repel" data-topic="Forces, magnetism & electrostatics" data-exp="Like magnetic poles repel. Two north poles therefore repel."><label>21. Two north poles brought together will…</label><select><option value="">Choose…</option><option>attract</option><option>repel</option><option>become neutral</option></select><button class="check">Check</button><div class="feedback"></div></div>
+</div>
+</section>
+
+<section class="station" data-station="7" data-topic="Circuits, resistance & investigations">
+<div class="term t3">TERM 3 · ENERGY & CHANGE</div><h2>8. Electric circuits, resistance & investigations</h2>
+<div class="grid lesson-grid">
+<div class="card"><h3>Cell, battery & meters</h3><p>A <strong>cell</strong> is one electrochemical source. A <strong>battery</strong> is two or more cells connected together.</p><p>An <strong>ammeter</strong> is connected in <strong>series</strong>. A <strong>voltmeter</strong> is connected in <strong>parallel</strong> across the component being measured.</p><p>In a simple series circuit, current is the <strong>same at all points</strong>. Across parallel branches, the <strong>potential difference is the same</strong>.</p></div>
+<div class="card"><h3>Resistance</h3><p>Four important factors affecting a conductor's resistance:</p><p><span class="key">material</span><span class="key">length</span><span class="key">thickness / cross-sectional area</span><span class="key">temperature</span></p><div class="note small">Longer wire generally means more resistance. A thicker wire generally means less resistance.</div></div>
+</div>
+<div class="visual"><svg viewBox="0 0 650 300" role="img" aria-label="Circuit with two cells in series, ammeter in series, resistor, voltmeter across resistor and closed switch">
+<path d="M45 65H100 M170 65H245 M305 65H380 M490 65H585V235H45V65" fill="none" stroke="#f6f4ff" stroke-width="4"/>
+<line x1="105" y1="42" x2="105" y2="88" stroke="#fff" stroke-width="3"/><line x1="122" y1="50" x2="122" y2="80" stroke="#fff" stroke-width="3"/><line x1="140" y1="42" x2="140" y2="88" stroke="#fff" stroke-width="3"/><line x1="157" y1="50" x2="157" y2="80" stroke="#fff" stroke-width="3"/>
+<circle cx="275" cy="65" r="30" fill="#1c1c2b" stroke="#fff" stroke-width="3"/><text x="264" y="73" fill="#fff" font-size="24" font-weight="700">A</text>
+<rect x="380" y="46" width="110" height="38" rx="6" fill="#1c1c2b" stroke="#fff" stroke-width="3"/><text x="398" y="70" fill="#fff" font-size="14">resistor</text>
+<path d="M380 65V150H397 M473 150H490V65" fill="none" stroke="#fff" stroke-width="3"/><circle cx="435" cy="150" r="38" fill="#1c1c2b" stroke="#fff" stroke-width="3"/><text x="423" y="159" fill="#fff" font-size="25" font-weight="700">V</text>
+<circle cx="585" cy="235" r="5" fill="#fff"/><circle cx="525" cy="235" r="5" fill="#fff"/><line x1="525" y1="235" x2="579" y2="235" stroke="#fff" stroke-width="4"/>
+<text x="84" y="112" fill="#c7c3d7" font-size="14">2 cells</text><text x="237" y="112" fill="#c7c3d7" font-size="14">ammeter: series</text><text x="384" y="213" fill="#c7c3d7" font-size="14">voltmeter: parallel</text><text x="514" y="265" fill="#c7c3d7" font-size="14">closed switch</text>
+</svg></div>
+<div class="card" style="margin-top:12px"><h3>Investigation: number of cells vs current</h3><p><strong>Independent variable:</strong> number of cells connected in series.</p><p><strong>Dependent variable:</strong> current measured by the ammeter.</p><p><strong>Hypothesis:</strong> if the number of cells in series increases, current will increase, provided the rest of the circuit is kept constant.</p></div>
+<div class="grid quiz-grid">
+<div class="quiz" data-q="22" data-a="ammeter in series and voltmeter in parallel" data-topic="Circuits, resistance & investigations" data-exp="Ammeters measure current through the circuit and go in series; voltmeters measure potential difference and go in parallel."><label>22. Correct meter connection?</label><select><option value="">Choose…</option><option>ammeter in series and voltmeter in parallel</option><option>both in series</option><option>ammeter in parallel and voltmeter in series</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="23" data-a="number of cells" data-topic="Circuits, resistance & investigations" data-exp="The number of cells is deliberately changed, so it is the independent variable."><label>23. In a cells-vs-current investigation, what is the IV?</label><select><option value="">Choose…</option><option>current</option><option>number of cells</option><option>ammeter unit</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="24" data-a="length, thickness, material, temperature" data-topic="Circuits, resistance & investigations" data-exp="Resistance depends on length, thickness/cross-sectional area, conductor material and temperature."><label>24. Which list contains four resistance factors?</label><select><option value="">Choose…</option><option>length, thickness, material, temperature</option><option>colour, voltage, time, mass</option><option>charge, speed, gravity, distance</option></select><button class="check">Check</button><div class="feedback"></div></div>
+</div>
+</section>
+
+<section class="station" data-station="8" data-topic="Safety, generation, grid & cost">
+<div class="term t3">TERM 3 · ENERGY & CHANGE</div><h2>9. Electrical safety, generation, national grid & cost</h2>
+<div class="grid lesson-grid">
+<div class="card"><h3>Safety at home</h3><p>Protection includes <strong>fuses</strong>, <strong>circuit breakers</strong> and <strong>earth-leakage protection</strong>.</p><p>The <strong>earth wire</strong> gives fault current a low-resistance path to earth if a metal casing becomes live. This helps the protective device disconnect the supply and reduces electric-shock risk.</p></div>
+<div class="card"><h3>Coal-fired generation & grid</h3><div class="flow"><span>Coal provides heat</span>→<span>Water becomes steam</span>→<span>Steam turns turbine</span>→<span>Generator produces electricity</span></div><p style="margin-top:10px">Electricity is transmitted at <strong>high voltage</strong> so the current can be lower for the same power transfer, reducing heating losses in transmission lines.</p></div>
+</div>
+<div class="card" style="margin-top:12px"><h3>Cost calculation</h3><div class="formula">Energy (kWh) = Power (kW) × time (h)</div><div class="formula">2 kW × 3 h = 6 kWh</div><div class="formula">Cost = 6 kWh × R3.50/kWh = R21.00</div></div>
+<div class="grid quiz-grid">
+<div class="quiz" data-q="25" data-a="provide a safe low-resistance path to earth" data-topic="Safety, generation, grid & cost" data-exp="The earth wire carries fault current safely to earth and helps protection operate."><label>25. What is the purpose of the earth wire?</label><select><option value="">Choose…</option><option>increase appliance voltage</option><option>provide a safe low-resistance path to earth</option><option>reduce electricity price</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="26" data-a="coal heats water → steam turns turbine → generator produces electricity" data-topic="Safety, generation, grid & cost" data-exp="Heat makes steam, steam turns the turbine, and the turbine drives the generator."><label>26. Which sequence is correct?</label><select><option value="">Choose…</option><option>coal heats water → steam turns turbine → generator produces electricity</option><option>generator heats coal → turbine boils water → steam stores electricity</option><option>steam produces coal → generator boils water → turbine cools it</option></select><button class="check">Check</button><div class="feedback"></div></div>
+<div class="quiz" data-q="27" data-a="21" data-type="number" data-topic="Safety, generation, grid & cost" data-exp="2 kW × 3 h = 6 kWh. 6 × R3.50 = R21.00."><label>27. A 2 kW heater runs for 3 h at R3.50/kWh. Cost in rand?</label><input inputmode="decimal" placeholder="Type the number, e.g. 21"><button class="check">Check</button><div class="feedback"></div></div>
+</div>
+
+<div class="report">
+<h2>Mitchell's mastery report</h2>
+<p class="muted small">Complete the checks above, then generate a topic-by-topic diagnostic.</p>
+<button class="primary" id="reportBtn">Generate report</button>
+<div id="reportBody"></div>
+</div>
+</section>
+
+<div class="controls">
+<button class="secondary" id="prev">← Previous station</button>
+<button class="primary" id="next">Next station →</button>
+</div>
+</main>
+<script>
+(function(){
+var stations=[].slice.call(document.querySelectorAll('.station'));
+var tabs=[].slice.call(document.querySelectorAll('.tab'));
+var progress=document.getElementById('progress');
+var current=0;
+var results={};
+var storageKey='vta-mitchell-grade9-ns-mastery-v1';
+try{var saved=JSON.parse(localStorage.getItem(storageKey)||'{}');if(saved&&saved.results)results=saved.results;if(Number.isInteger(saved.current))current=Math.max(0,Math.min(8,saved.current));}catch(e){}
+function norm(v){return String(v==null?'':v).trim().toLowerCase().replace(/\s+/g,' ');}
+function save(){try{localStorage.setItem(storageKey,JSON.stringify({current:current,results:results}));}catch(e){}}
+function updateStats(){
+ var keys=Object.keys(results), correct=keys.filter(function(k){return results[k].correct;}).length;
+ document.getElementById('doneCount').textContent=keys.length+' / 27';
+ document.getElementById('score').textContent=correct+' / 27';
+}
+function show(i){
+ current=Math.max(0,Math.min(stations.length-1,i));
+ stations.forEach(function(s,idx){s.classList.toggle('active',idx===current);});
+ tabs.forEach(function(t,idx){t.classList.toggle('active',idx===current);});
+ document.getElementById('stationNum').textContent=current+1;
+ progress.style.width=((current+1)/stations.length*100)+'%';
+ document.getElementById('prev').disabled=current===0;
+ document.getElementById('prev').style.opacity=current===0?'.45':'1';
+ document.getElementById('next').textContent=current===stations.length-1?'Go to mastery report':'Next station →';
+ save();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+tabs.forEach(function(t){t.addEventListener('click',function(){show(Number(t.getAttribute('data-i')));});});
+document.getElementById('prev').addEventListener('click',function(){show(current-1);});
+document.getElementById('next').addEventListener('click',function(){
+ if(current<stations.length-1)show(current+1);else document.querySelector('.report').scrollIntoView({behavior:'smooth',block:'start'});
+});
+document.querySelectorAll('.quiz').forEach(function(card){
+ var q=card.getAttribute('data-q'), control=card.querySelector('select,input'), btn=card.querySelector('.check'), fb=card.querySelector('.feedback');
+ if(results[q]){
+   control.disabled=true;btn.disabled=true;btn.style.opacity='.55';
+   fb.className='feedback '+(results[q].correct?'good':'bad');fb.style.display='block';
+   fb.innerHTML=(results[q].correct?'<strong>Correct.</strong> ':'<strong>Reviewed.</strong> ')+card.getAttribute('data-exp');
+   btn.textContent=results[q].correct?'Mastered ✓':'Reviewed';
+ }
+ btn.addEventListener('click',function(){
+   var raw=control.value;
+   if(!String(raw).trim()){fb.className='feedback bad';fb.style.display='block';fb.textContent='Choose or enter an answer first.';return;}
+   var ok=false;
+   if(card.getAttribute('data-type')==='number'){var n=parseFloat(String(raw).replace(/[^0-9.\-]/g,''));ok=Number.isFinite(n)&&Math.abs(n-Number(card.getAttribute('data-a')))<0.01;}
+   else ok=norm(raw)===norm(card.getAttribute('data-a'));
+   results[q]={correct:ok,topic:card.getAttribute('data-topic')};
+   fb.className='feedback '+(ok?'good':'bad');fb.style.display='block';
+   fb.innerHTML=(ok?'<strong>Correct.</strong> ':'<strong>Not yet.</strong> ')+card.getAttribute('data-exp');
+   control.disabled=true;btn.disabled=true;btn.style.opacity='.55';btn.textContent=ok?'Mastered ✓':'Reviewed';
+   updateStats();save();
+ });
+});
+document.getElementById('reportBtn').addEventListener('click',function(){
+ var topics=stations.map(function(s){return s.getAttribute('data-topic');});
+ var vals=Object.keys(results).map(function(k){return results[k];});
+ var correct=vals.filter(function(v){return v.correct;}).length;
+ var done=vals.length;
+ var body=document.getElementById('reportBody');
+ var out='<div class="card" style="margin-top:14px"><div class="summary">'+correct+' / 27</div><div class="muted">'+done+' of 27 checks completed · '+(done?Math.round(correct/done*100):0)+'% of attempted checks correct</div></div>';
+ topics.forEach(function(topic){
+   var x=vals.filter(function(v){return v.topic===topic;}), c=x.filter(function(v){return v.correct;}).length;
+   var status=x.length<3?'Incomplete':c===3?'Secure':c===2?'Consolidate':'Re-teach';
+   out+='<div class="report-row"><span>'+topic+'</span><span><strong>'+c+'/'+x.length+'</strong> <span class="badge">'+status+'</span></span></div>';
+ });
+ out+='<div class="note small"><strong>Tutor action:</strong> re-teach topics at 0–1/3, consolidate 2/3, and move 3/3 topics into harder exam-style application questions.</div>';
+ body.innerHTML=out;
+});
+show(current);updateStats();
+})();
+</script>
+</body>
+</html>
