@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#5b21b6">
+<title>Mitchell Electric Circuits Quiz | Victoria Tuition Academy</title>
+<style>
+:root{--bg:#09090f;--panel:#151522;--panel2:#1d1d2c;--line:#302d44;--text:#f7f5ff;--muted:#bcb7cf;--accent:#8b5cf6;--accent2:#c4b5fd;--good:#34d399;--bad:#fb7185;--warn:#fbbf24}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#09090f,#11111b 45%,#09090f);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.wrap{max-width:980px;margin:auto;padding:16px 13px 80px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(9,9,15,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:9px 0}
+.topgrid{display:grid;grid-template-columns:1fr auto auto;gap:9px;align-items:center}
+.brand{font-weight:900;font-size:13px;letter-spacing:.04em}
+.pill{border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:var(--panel);font-weight:800;font-size:13px}
+.timer{color:var(--accent2)}
+.hero{padding:24px 0 12px}
+.kicker{font-size:12px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--accent2)}
+h1{font-size:clamp(28px,7vw,48px);line-height:1.04;margin:7px 0 10px}
+h2{font-size:22px;margin:0 0 7px}
+h3{font-size:16px;margin:0 0 7px}
+p{margin:0 0 9px}
+.muted{color:var(--muted)}
+.card,.q,.summary{background:rgba(21,21,34,.95);border:1px solid var(--line);border-radius:17px;padding:15px}
+.start{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.stat strong{display:block;font-size:22px}
+.btn{border:0;border-radius:12px;padding:12px 16px;min-height:46px;font-weight:900}
+.primary{background:var(--accent);color:#fff}.secondary{background:var(--panel2);color:#fff;border:1px solid var(--line)}
+.progress-shell{height:9px;background:#232235;border-radius:999px;overflow:hidden;margin:12px 0 4px}
+.progress{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#c084fc);transition:.25s}
+.section{margin-top:26px}
+.section-head{display:flex;justify-content:space-between;gap:10px;align-items:end;margin-bottom:10px}
+.section-badge{font-size:12px;font-weight:900;border-radius:999px;padding:5px 9px;background:rgba(139,92,246,.15);color:#ddd6fe;border:1px solid rgba(139,92,246,.32)}
+.q{margin:12px 0}
+.qhead{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px}
+.qnum{font-weight:900;color:var(--accent2)}.marks{font-size:12px;color:var(--muted)}
+.option{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);background:#0f0f19;border-radius:12px;padding:11px;margin:8px 0;min-height:48px}
+.option input{margin-top:4px;transform:scale(1.18)}
+.option:has(input:checked){border-color:#7c3aed;background:rgba(124,58,237,.13)}
+.answer-input{width:100%;background:#0f0f19;color:#fff;border:1px solid var(--line);border-radius:11px;padding:12px;min-height:48px}
+.check{width:100%;margin-top:9px;background:var(--accent);color:#fff;border:0;border-radius:11px;min-height:45px;font-weight:900}
+.check:disabled{opacity:.55}
+.feedback{display:none;margin-top:10px;border-radius:11px;padding:11px;font-size:14px}
+.feedback.good{display:block;background:rgba(52,211,153,.10);border:1px solid rgba(52,211,153,.35)}
+.feedback.bad{display:block;background:rgba(251,113,133,.10);border:1px solid rgba(251,113,133,.35)}
+.teach{margin-top:7px;color:#e8e3f7}
+.visual{background:#0c0c15;border:1px solid var(--line);border-radius:14px;padding:10px;overflow:auto;margin:10px 0}
+.visual svg{display:block;width:100%;min-width:300px;max-height:300px}
+.formula{background:#0c0c15;border:1px solid var(--line);border-radius:10px;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;margin:8px 0}
+.report{display:none;margin-top:22px}
+.score{font-size:42px;font-weight:950;line-height:1}
+.row{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding:10px 0}
+.goodtxt{color:var(--good)}.badtxt{color:var(--bad)}.warntxt{color:var(--warn)}
+.locked .option,.locked .answer-input{opacity:.75}
+footer{margin-top:24px;text-align:center;color:var(--muted);font-size:12px}
+@media(max-width:700px){.start{grid-template-columns:1fr 1fr}.start .stat:last-child{grid-column:1/-1}.topgrid{grid-template-columns:1fr auto}.topgrid .pill:nth-child(3){display:none}.q,.card,.summary{border-radius:14px;padding:13px}.wrap{padding-left:11px;padding-right:11px}.section-head{align-items:flex-start;flex-direction:column}.row{font-size:14px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="wrap" style="padding-top:0;padding-bottom:0">
+    <div class="topgrid">
+      <div class="brand">Victoria Tuition Academy</div>
+      <div class="pill timer" id="timer">60:00</div>
+      <div class="pill"><span id="done">0</span>/25 answered</div>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+<section class="hero">
+  <div class="kicker">Grade 9 Natural Sciences · Mitchell</div>
+  <h1>Electric Circuits — 1 Hour Quiz</h1>
+  <p class="muted">A 50-mark browser quiz covering cells and batteries, circuit symbols, current, potential difference, series and parallel circuits, resistance and scientific investigations.</p>
+
+  <div class="start">
+    <div class="card stat"><span class="muted">Time</span><strong>60 min</strong></div>
+    <div class="card stat"><span class="muted">Questions</span><strong>25</strong></div>
+    <div class="card stat"><span class="muted">Total</span><strong>50 marks</strong></div>
+  </div>
+
+  <div class="card" id="intro">
+    <h2>Before you begin</h2>
+    <p>Answer each question before checking it. Once checked, the answer locks. If you get something wrong, read the explanation before moving on — the quiz will teach the concept immediately.</p>
+    <button class="btn primary" id="startBtn">Start 60-minute quiz</button>
+  </div>
+
+  <div class="progress-shell"><div class="progress" id="progress"></div></div>
+</section>
+
+<div id="quiz" style="display:none">
+
+<section class="section">
+<div class="section-head"><div><div class="section-badge">SECTION A · FUNDAMENTALS</div><h2>Circuit basics</h2></div><div class="muted">16 marks</div></div>
+
+<div class="q" data-id="q1" data-answer="B" data-marks="2" data-topic="Cells & batteries">
+<div class="qhead"><span class="qnum">1. Cell vs battery</span><span class="marks">2 marks</span></div>
+<p>Which statement correctly describes the difference between an electric cell and a battery?</p>
+<label class="option"><input type="radio" name="q1" value="A">A cell always has two resistors; a battery has one.</label>
+<label class="option"><input type="radio" name="q1" value="B">A cell is one electrochemical source; a battery consists of two or more cells connected together.</label>
+<label class="option"><input type="radio" name="q1" value="C">A battery measures current; a cell measures voltage.</label>
+<label class="option"><input type="radio" name="q1" value="D">There is no difference between a cell and a battery.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q2" data-answer="C" data-marks="2" data-topic="Circuit basics">
+<div class="qhead"><span class="qnum">2. Complete circuit</span><span class="marks">2 marks</span></div>
+<div class="visual">
+<svg viewBox="0 0 620 180" aria-label="Simple circuit">
+<path d="M60 40H190 M250 40H390 M470 40H560V140H60V40" fill="none" stroke="#f7f5ff" stroke-width="4"/>
+<line x1="195" y1="18" x2="195" y2="62" stroke="#fff" stroke-width="4"/><line x1="215" y1="26" x2="215" y2="54" stroke="#fff" stroke-width="4"/>
+<circle cx="430" cy="40" r="36" fill="none" stroke="#fff" stroke-width="4"/><path d="M405 15L455 65M455 15L405 65" stroke="#fff" stroke-width="3"/>
+<circle cx="525" cy="140" r="5" fill="#fff"/><circle cx="470" cy="140" r="5" fill="#fff"/><line x1="470" y1="140" x2="525" y2="140" stroke="#fff" stroke-width="4"/>
+</svg>
+</div>
+<p>Why can current flow continuously in the circuit shown?</p>
+<label class="option"><input type="radio" name="q2" value="A">Because the lamp creates electric charge.</label>
+<label class="option"><input type="radio" name="q2" value="B">Because the switch removes resistance.</label>
+<label class="option"><input type="radio" name="q2" value="C">Because there is a closed conducting path from one terminal of the cell to the other.</label>
+<label class="option"><input type="radio" name="q2" value="D">Because current can jump through any gap in a circuit.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q3" data-answer="A" data-marks="2" data-topic="Current">
+<div class="qhead"><span class="qnum">3. Electric current</span><span class="marks">2 marks</span></div>
+<p>What is the SI unit used for electric current?</p>
+<label class="option"><input type="radio" name="q3" value="A">ampere (A)</label>
+<label class="option"><input type="radio" name="q3" value="B">volt (V)</label>
+<label class="option"><input type="radio" name="q3" value="C">ohm (Ω)</label>
+<label class="option"><input type="radio" name="q3" value="D">watt (W)</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q4" data-answer="D" data-marks="2" data-topic="Current">
+<div class="qhead"><span class="qnum">4. Ammeter</span><span class="marks">2 marks</span></div>
+<p>How must an ammeter be connected when measuring the current through a lamp?</p>
+<label class="option"><input type="radio" name="q4" value="A">Across the cell only.</label>
+<label class="option"><input type="radio" name="q4" value="B">In parallel with the lamp.</label>
+<label class="option"><input type="radio" name="q4" value="C">Outside the complete circuit.</label>
+<label class="option"><input type="radio" name="q4" value="D">In series with the lamp.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q5" data-answer="B" data-marks="2" data-topic="Potential difference">
+<div class="qhead"><span class="qnum">5. Potential difference</span><span class="marks">2 marks</span></div>
+<p>Potential difference is measured in:</p>
+<label class="option"><input type="radio" name="q5" value="A">amperes</label>
+<label class="option"><input type="radio" name="q5" value="B">volts</label>
+<label class="option"><input type="radio" name="q5" value="C">newtons</label>
+<label class="option"><input type="radio" name="q5" value="D">kilograms</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q6" data-answer="C" data-marks="2" data-topic="Potential difference">
+<div class="qhead"><span class="qnum">6. Voltmeter</span><span class="marks">2 marks</span></div>
+<p>Where should a voltmeter be connected to measure the potential difference across a resistor?</p>
+<label class="option"><input type="radio" name="q6" value="A">In series before the cell.</label>
+<label class="option"><input type="radio" name="q6" value="B">In series after the resistor.</label>
+<label class="option"><input type="radio" name="q6" value="C">In parallel across the resistor.</label>
+<label class="option"><input type="radio" name="q6" value="D">Across the open switch only.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q7" data-answer="A" data-marks="2" data-topic="Circuit symbols">
+<div class="qhead"><span class="qnum">7. Closed switch</span><span class="marks">2 marks</span></div>
+<p>What happens when a switch in a simple circuit is closed?</p>
+<label class="option"><input type="radio" name="q7" value="A">The conducting path becomes complete and current can flow.</label>
+<label class="option"><input type="radio" name="q7" value="B">The cell stops supplying energy.</label>
+<label class="option"><input type="radio" name="q7" value="C">The resistance becomes exactly zero everywhere.</label>
+<label class="option"><input type="radio" name="q7" value="D">The circuit changes automatically from series to parallel.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q8" data-answer="D" data-marks="2" data-topic="Energy source">
+<div class="qhead"><span class="qnum">8. Energy conversion in a cell</span><span class="marks">2 marks</span></div>
+<p>An electrochemical cell mainly converts:</p>
+<label class="option"><input type="radio" name="q8" value="A">electrical energy into chemical energy while supplying the circuit.</label>
+<label class="option"><input type="radio" name="q8" value="B">sound energy into electrical energy.</label>
+<label class="option"><input type="radio" name="q8" value="C">light energy directly into heat only.</label>
+<label class="option"><input type="radio" name="q8" value="D">chemical energy into electrical energy.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-head"><div><div class="section-badge">SECTION B · SERIES & PARALLEL</div><h2>Current and potential difference</h2></div><div class="muted">14 marks</div></div>
+
+<div class="q" data-id="q9" data-answer="B" data-marks="2" data-topic="Series circuits">
+<div class="qhead"><span class="qnum">9. Current in series</span><span class="marks">2 marks</span></div>
+<p>Two lamps are connected in series. An ammeter before the first lamp reads 0.40 A. What will an ammeter after the second lamp read in an ideal simple series circuit?</p>
+<label class="option"><input type="radio" name="q9" value="A">0.20 A</label>
+<label class="option"><input type="radio" name="q9" value="B">0.40 A</label>
+<label class="option"><input type="radio" name="q9" value="C">0.80 A</label>
+<label class="option"><input type="radio" name="q9" value="D">1.20 A</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q10" data-answer="C" data-marks="2" data-topic="Series circuits">
+<div class="qhead"><span class="qnum">10. Series pathway</span><span class="marks">2 marks</span></div>
+<p>Which feature best identifies a series circuit?</p>
+<label class="option"><input type="radio" name="q10" value="A">Every component has its own separate cell.</label>
+<label class="option"><input type="radio" name="q10" value="B">There are several independent branches.</label>
+<label class="option"><input type="radio" name="q10" value="C">There is one main path for current through the components.</label>
+<label class="option"><input type="radio" name="q10" value="D">Current can flow without a complete path.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q11" data-answer="A" data-marks="2" data-topic="Parallel circuits">
+<div class="qhead"><span class="qnum">11. Parallel branches</span><span class="marks">2 marks</span></div>
+<p>In a parallel circuit, what happens to the current at a junction?</p>
+<label class="option"><input type="radio" name="q11" value="A">It splits between the available branches.</label>
+<label class="option"><input type="radio" name="q11" value="B">It disappears at the junction.</label>
+<label class="option"><input type="radio" name="q11" value="C">It becomes voltage.</label>
+<label class="option"><input type="radio" name="q11" value="D">It must be the same in every branch regardless of branch resistance.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q12" data-answer="D" data-marks="2" data-topic="Parallel circuits">
+<div class="qhead"><span class="qnum">12. Voltage across branches</span><span class="marks">2 marks</span></div>
+<p>A 6 V battery is connected across two parallel branches. What is the potential difference across each complete branch?</p>
+<label class="option"><input type="radio" name="q12" value="A">1 V</label>
+<label class="option"><input type="radio" name="q12" value="B">3 V</label>
+<label class="option"><input type="radio" name="q12" value="C">12 V</label>
+<label class="option"><input type="radio" name="q12" value="D">6 V</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q13" data-answer="B" data-marks="2" data-topic="Parallel circuits">
+<div class="qhead"><span class="qnum">13. Total current</span><span class="marks">2 marks</span></div>
+<p>At a junction, 0.30 A goes through branch 1 and 0.20 A goes through branch 2. What total current enters the junction?</p>
+<label class="option"><input type="radio" name="q13" value="A">0.10 A</label>
+<label class="option"><input type="radio" name="q13" value="B">0.50 A</label>
+<label class="option"><input type="radio" name="q13" value="C">0.60 A</label>
+<label class="option"><input type="radio" name="q13" value="D">1.50 A</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q14" data-answer="C" data-marks="2" data-topic="Series vs parallel">
+<div class="qhead"><span class="qnum">14. One lamp fails</span><span class="marks">2 marks</span></div>
+<p>Two lamps are connected on separate parallel branches. One lamp breaks and creates an open circuit in its branch. What happens to the other lamp, assuming the supply remains connected?</p>
+<label class="option"><input type="radio" name="q14" value="A">It must also go off because all current stops.</label>
+<label class="option"><input type="radio" name="q14" value="B">It becomes an ammeter.</label>
+<label class="option"><input type="radio" name="q14" value="C">It can remain on because its branch still forms a complete path.</label>
+<label class="option"><input type="radio" name="q14" value="D">It causes the battery voltage to become zero.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q15" data-answer="A" data-marks="2" data-topic="Series circuits">
+<div class="qhead"><span class="qnum">15. Adding lamps in series</span><span class="marks">2 marks</span></div>
+<p>For the same battery, adding another identical lamp in series generally causes the total circuit resistance to increase. What is the expected effect on current?</p>
+<label class="option"><input type="radio" name="q15" value="A">Current decreases.</label>
+<label class="option"><input type="radio" name="q15" value="B">Current increases without limit.</label>
+<label class="option"><input type="radio" name="q15" value="C">Current becomes voltage.</label>
+<label class="option"><input type="radio" name="q15" value="D">Current must stay identical regardless of total resistance.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-head"><div><div class="section-badge">SECTION C · RESISTANCE & INVESTIGATIONS</div><h2>Why current changes</h2></div><div class="muted">12 marks</div></div>
+
+<div class="q" data-id="q16" data-answer="A|B|C|D" data-marks="2" data-topic="Resistance" data-multi="true">
+<div class="qhead"><span class="qnum">16. Factors affecting resistance</span><span class="marks">2 marks</span></div>
+<p>Select ALL four factors that can affect the resistance of a conducting wire.</p>
+<label class="option"><input type="checkbox" value="A">Length</label>
+<label class="option"><input type="checkbox" value="B">Thickness / cross-sectional area</label>
+<label class="option"><input type="checkbox" value="C">Material</label>
+<label class="option"><input type="checkbox" value="D">Temperature</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q17" data-answer="B" data-marks="2" data-topic="Resistance">
+<div class="qhead"><span class="qnum">17. Length of wire</span><span class="marks">2 marks</span></div>
+<p>Two wires are made of the same material and have the same thickness and temperature. Wire X is longer than wire Y. Which wire generally has the greater resistance?</p>
+<label class="option"><input type="radio" name="q17" value="A">Wire Y</label>
+<label class="option"><input type="radio" name="q17" value="B">Wire X</label>
+<label class="option"><input type="radio" name="q17" value="C">They must have zero resistance.</label>
+<label class="option"><input type="radio" name="q17" value="D">Length cannot affect resistance.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q18" data-answer="C" data-marks="2" data-topic="Resistance">
+<div class="qhead"><span class="qnum">18. Thickness of wire</span><span class="marks">2 marks</span></div>
+<p>Two wires are identical except that one is thicker. Which statement is generally correct?</p>
+<label class="option"><input type="radio" name="q18" value="A">The thicker wire always has more resistance.</label>
+<label class="option"><input type="radio" name="q18" value="B">Both wires must have exactly the same resistance.</label>
+<label class="option"><input type="radio" name="q18" value="C">The thicker wire generally has lower resistance.</label>
+<label class="option"><input type="radio" name="q18" value="D">Thickness changes voltage but cannot influence resistance.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q19" data-answer="A" data-marks="2" data-topic="Investigations">
+<div class="qhead"><span class="qnum">19. Independent variable</span><span class="marks">2 marks</span></div>
+<p>A learner investigates: “How does increasing the number of cells connected in series affect the current in the circuit?” What is the independent variable?</p>
+<label class="option"><input type="radio" name="q19" value="A">Number of cells connected in series</label>
+<label class="option"><input type="radio" name="q19" value="B">Current measured by the ammeter</label>
+<label class="option"><input type="radio" name="q19" value="C">The unit ampere</label>
+<label class="option"><input type="radio" name="q19" value="D">The conclusion written after the experiment</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q20" data-answer="D" data-marks="2" data-topic="Investigations">
+<div class="qhead"><span class="qnum">20. Dependent variable</span><span class="marks">2 marks</span></div>
+<p>In the same investigation, what is the dependent variable?</p>
+<label class="option"><input type="radio" name="q20" value="A">Type of worksheet used</label>
+<label class="option"><input type="radio" name="q20" value="B">Number of cells deliberately changed</label>
+<label class="option"><input type="radio" name="q20" value="C">The learner's name</label>
+<label class="option"><input type="radio" name="q20" value="D">Current measured in the circuit</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q21" data-answer="B" data-marks="2" data-topic="Investigations">
+<div class="qhead"><span class="qnum">21. Suitable hypothesis</span><span class="marks">2 marks</span></div>
+<p>Which is the best testable hypothesis for the investigation, assuming the rest of the circuit is kept constant?</p>
+<label class="option"><input type="radio" name="q21" value="A">Cells are useful in circuits.</label>
+<label class="option"><input type="radio" name="q21" value="B">If the number of cells in series increases, the current will increase.</label>
+<label class="option"><input type="radio" name="q21" value="C">Current is measured in amperes.</label>
+<label class="option"><input type="radio" name="q21" value="D">The experiment will probably be interesting.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-head"><div><div class="section-badge">SECTION D · EXAM APPLICATION</div><h2>Read circuits and reason</h2></div><div class="muted">8 marks</div></div>
+
+<div class="q" data-id="q22" data-answer="C" data-marks="2" data-topic="Meters & diagrams">
+<div class="qhead"><span class="qnum">22. Correct meter placement</span><span class="marks">2 marks</span></div>
+<div class="visual">
+<svg viewBox="0 0 680 260" aria-label="Circuit with two cells, ammeter in series, resistor and voltmeter across resistor">
+<path d="M50 55H95 M170 55H260 M320 55H390 M500 55H610V210H50V55" fill="none" stroke="#f7f5ff" stroke-width="4"/>
+<line x1="100" y1="30" x2="100" y2="80" stroke="#fff" stroke-width="4"/><line x1="118" y1="38" x2="118" y2="72" stroke="#fff" stroke-width="4"/><line x1="140" y1="30" x2="140" y2="80" stroke="#fff" stroke-width="4"/><line x1="158" y1="38" x2="158" y2="72" stroke="#fff" stroke-width="4"/>
+<circle cx="290" cy="55" r="30" fill="#161625" stroke="#fff" stroke-width="3"/><text x="279" y="63" fill="#fff" font-size="23" font-weight="800">A</text>
+<rect x="390" y="38" width="110" height="34" rx="5" fill="#161625" stroke="#fff" stroke-width="3"/><text x="411" y="60" fill="#fff" font-size="14">resistor</text>
+<path d="M390 55V145H410 M480 145H500V55" fill="none" stroke="#fff" stroke-width="3"/>
+<circle cx="445" cy="145" r="35" fill="#161625" stroke="#fff" stroke-width="3"/><text x="434" y="153" fill="#fff" font-size="23" font-weight="800">V</text>
+</svg>
+</div>
+<p>Why is this meter arrangement correct?</p>
+<label class="option"><input type="radio" name="q22" value="A">Both meters must always be in series.</label>
+<label class="option"><input type="radio" name="q22" value="B">Both meters must always be in parallel.</label>
+<label class="option"><input type="radio" name="q22" value="C">The ammeter is in series to measure current through the component, while the voltmeter is across the resistor to measure potential difference.</label>
+<label class="option"><input type="radio" name="q22" value="D">The ammeter supplies current and the voltmeter supplies resistance.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q23" data-answer="A" data-marks="2" data-topic="Current & cells">
+<div class="qhead"><span class="qnum">23. More cells in series</span><span class="marks">2 marks</span></div>
+<p>A simple circuit contains one resistor and one cell. A second identical cell is added in series in the same direction. Assume the resistor and all other conditions remain unchanged. What would you generally expect?</p>
+<label class="option"><input type="radio" name="q23" value="A">A larger potential difference from the source and a larger current through the resistor.</label>
+<label class="option"><input type="radio" name="q23" value="B">The current must become zero.</label>
+<label class="option"><input type="radio" name="q23" value="C">The resistor disappears from the circuit.</label>
+<label class="option"><input type="radio" name="q23" value="D">The ammeter automatically changes into a voltmeter.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q24" data-answer="D" data-marks="2" data-topic="Series & parallel">
+<div class="qhead"><span class="qnum">24. Compare two circuits</span><span class="marks">2 marks</span></div>
+<p>Circuit P has two identical lamps in series. Circuit Q has the same two identical lamps connected on separate parallel branches across the same battery. Which statement is most accurate at Grade 9 level?</p>
+<label class="option"><input type="radio" name="q24" value="A">In Q, each branch has half the battery voltage.</label>
+<label class="option"><input type="radio" name="q24" value="B">In P, the current must split at each lamp.</label>
+<label class="option"><input type="radio" name="q24" value="C">In Q, if one branch opens, every other branch must also stop conducting.</label>
+<label class="option"><input type="radio" name="q24" value="D">Q provides separate current paths, while P has one current path through both lamps.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+
+<div class="q" data-id="q25" data-answer="B" data-marks="2" data-topic="Integrated circuit reasoning">
+<div class="qhead"><span class="qnum">25. Final challenge</span><span class="marks">2 marks</span></div>
+<p>A learner wants to test whether a longer wire has a higher resistance. Which setup gives the fairest comparison?</p>
+<label class="option"><input type="radio" name="q25" value="A">Change the wire's length, material and thickness at the same time.</label>
+<label class="option"><input type="radio" name="q25" value="B">Use wires of the same material and thickness, change only the length, and measure the circuit response under the same supply conditions.</label>
+<label class="option"><input type="radio" name="q25" value="C">Use different batteries and different wire materials for each length.</label>
+<label class="option"><input type="radio" name="q25" value="D">Change the length but do not measure anything.</label>
+<button class="check">Check answer</button><div class="feedback"></div>
+</div>
+</section>
+
+<div class="summary">
+<h2>Finish the quiz</h2>
+<p class="muted">Your score is based on checked questions. Complete all 25 before submitting for the most useful report.</p>
+<button class="btn primary" id="finishBtn">Finish & generate report</button>
+</div>
+
+<div class="report" id="report">
+<div class="summary">
+<div class="kicker">Mitchell's result</div>
+<div class="score" id="score">0/50</div>
+<p id="percent" class="muted"></p>
+<div id="topicRows"></div>
+<div class="formula" id="nextStep"></div>
+<button class="btn secondary" id="resetBtn">Reset quiz</button>
+</div>
+</div>
+
+</div>
+<footer>Victoria Tuition Academy · Grade 9 Natural Sciences</footer>
+</main>
+
+<script>
+(function(){
+const key='vta_mitchell_circuits_quiz_v2';
+const explanations={
+q1:'A cell is a single electrochemical source. A battery is made from two or more cells connected together.',
+q2:'Current needs a complete conducting path. A closed circuit gives charges a continuous route through the components and back to the source.',
+q3:'Electric current is measured in amperes, symbol A. Volts measure potential difference and ohms measure resistance.',
+q4:'An ammeter must be placed in series so the same current that passes through the lamp also passes through the meter.',
+q5:'Potential difference is measured in volts, symbol V.',
+q6:'A voltmeter compares potential difference between two points, so it is connected in parallel across the component.',
+q7:'Closing the switch completes the conducting path, allowing current to flow if the rest of the circuit is complete.',
+q8:'An electrochemical cell converts stored chemical energy into electrical energy supplied to the circuit.',
+q9:'Current is the same at all points in a simple series circuit, so both ammeters read 0.40 A.',
+q10:'A series circuit has one main path through all components.',
+q11:'At a junction in a parallel circuit, the total current splits among the available branches.',
+q12:'Parallel branches are connected across the same two points of the supply, so each complete branch has the same potential difference as the battery.',
+q13:'Current entering a junction equals the total current leaving it. 0.30 A + 0.20 A = 0.50 A.',
+q14:'Parallel branches provide separate paths. If one branch opens, another complete branch can still conduct.',
+q15:'Adding another lamp in series increases total resistance. With the same supply, this generally reduces the circuit current.',
+q16:'For a conducting wire, resistance depends on length, cross-sectional area or thickness, material and temperature.',
+q17:'A longer wire generally offers more resistance because charge carriers travel through more material and encounter more collisions.',
+q18:'A thicker conductor provides more conducting pathways, so its resistance is generally lower than a thinner wire of the same material and length.',
+q19:'The independent variable is what the learner deliberately changes: the number of cells connected in series.',
+q20:'The dependent variable is what is measured in response: the current in the circuit.',
+q21:'A hypothesis must predict a relationship between the variables. Here it predicts what happens to current when the number of cells is increased.',
+q22:'The ammeter is in the main path, so it is in series. The voltmeter bridges the resistor, so it measures potential difference across it.',
+q23:'Adding an identical cell in series in the same direction increases the source potential difference. With resistance unchanged, the current generally increases.',
+q24:'Series circuits have one current path. Parallel circuits have separate branches, each providing another path for current.',
+q25:'A fair test changes only the independent variable. To test length, material, thickness and supply conditions should be kept the same.'
+};
+let state={started:false,startTime:null,answers:{}};
+try{const s=JSON.parse(localStorage.getItem(key)||'{}');if(s&&typeof s==='object')state=Object.assign(state,s);}catch(e){}
+const quiz=document.getElementById('quiz'), intro=document.getElementById('intro'), timer=document.getElementById('timer'), progress=document.getElementById('progress'), done=document.getElementById('done');
+function save(){try{localStorage.setItem(key,JSON.stringify(state));}catch(e){}}
+function checkedCount(){return Object.keys(state.answers||{}).length}
+function updateProgress(){const n=checkedCount();done.textContent=n;progress.style.width=(n/25*100)+'%'}
+function getChoice(card){
+ if(card.dataset.multi==='true'){
+  return Array.from(card.querySelectorAll('input[type=checkbox]:checked')).map(x=>x.value).sort().join('|');
+ }
+ const r=card.querySelector('input[type=radio]:checked');
+ return r?r.value:'';
+}
+function lockCard(card,result){
+ card.classList.add('locked');
+ card.querySelectorAll('input').forEach(x=>x.disabled=true);
+ const b=card.querySelector('.check');b.disabled=true;b.textContent=result.correct?'Correct ✓':'Reviewed';
+ const f=card.querySelector('.feedback');
+ f.className='feedback '+(result.correct?'good':'bad');
+ f.innerHTML=(result.correct?'<strong>Correct.</strong> ':'<strong>Not quite.</strong> ')+'<div class="teach">'+explanations[card.dataset.id]+'</div>';
+}
+function restore(){
+ document.querySelectorAll('.q').forEach(card=>{
+   const r=state.answers[card.dataset.id];
+   if(r) lockCard(card,r);
+ });
+ updateProgress();
+}
+function start(){
+ state.started=true;if(!state.startTime)state.startTime=Date.now();save();
+ intro.style.display='none';quiz.style.display='block';restore();tick();
+}
+document.getElementById('startBtn').addEventListener('click',start);
+document.querySelectorAll('.q').forEach(card=>{
+ card.querySelector('.check').addEventListener('click',()=>{
+   if(state.answers[card.dataset.id])return;
+   const val=getChoice(card);
+   if(!val){const f=card.querySelector('.feedback');f.className='feedback bad';f.innerHTML='<strong>Choose an answer first.</strong>';return}
+   const correct=val===card.dataset.answer;
+   state.answers[card.dataset.id]={value:val,correct:correct,marks:correct?Number(card.dataset.marks):0,topic:card.dataset.topic};
+   save();lockCard(card,state.answers[card.dataset.id]);updateProgress();
+ });
+});
+function tick(){
+ if(!state.started)return;
+ const elapsed=Math.floor((Date.now()-state.startTime)/1000);
+ let left=Math.max(0,3600-elapsed),m=Math.floor(left/60),s=left%60;
+ timer.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+ if(left<=300)timer.style.color='#fbbf24';
+ if(left===0){timer.textContent='00:00';finish(true);return}
+ setTimeout(tick,1000);
+}
+function finish(auto){
+ let total=0;Object.values(state.answers).forEach(r=>total+=r.marks||0);
+ const pct=Math.round(total/50*100);
+ document.getElementById('score').textContent=total+'/50';
+ document.getElementById('percent').textContent=pct+'% · '+checkedCount()+' of 25 questions completed'+(auto?' · Time ended':'');
+ const topics={};
+ document.querySelectorAll('.q').forEach(card=>{
+  const t=card.dataset.topic;
+  if(!topics[t])topics[t]={got:0,max:0,done:0};
+  topics[t].max+=2;
+  const r=state.answers[card.dataset.id];
+  if(r){topics[t].done++;topics[t].got+=r.marks||0}
+ });
+ const rows=document.getElementById('topicRows');rows.innerHTML='';
+ Object.keys(topics).forEach(t=>{
+   const x=topics[t], ratio=x.max?x.got/x.max:0;
+   const cls=ratio>=.8?'goodtxt':ratio>=.5?'warntxt':'badtxt';
+   rows.innerHTML+='<div class="row"><span>'+t+'</span><strong class="'+cls+'">'+x.got+'/'+x.max+'</strong></div>';
+ });
+ let msg='Next step: ';
+ if(pct>=80)msg+='Move to harder exam-style circuit calculations and mixed diagrams.';
+ else if(pct>=60)msg+='Review the red/yellow topics, then repeat with new circuit applications.';
+ else msg+='Re-teach meter placement, series/parallel rules and resistance before another timed attempt.';
+ document.getElementById('nextStep').textContent=msg;
+ document.getElementById('report').style.display='block';
+ document.getElementById('report').scrollIntoView({behavior:'smooth',block:'start'});
+}
+document.getElementById('finishBtn').addEventListener('click',()=>finish(false));
+document.getElementById('resetBtn').addEventListener('click',()=>{localStorage.removeItem(key);location.reload()});
+if(state.started)start();else updateProgress();
+})();
+</script>
+</body>
+</html>
