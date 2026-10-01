@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#17131f">
+<title>Acne-Prone Skin — Visual Lesson</title>
+<style>
+:root{--bg:#fbf9fc;--ink:#211b27;--muted:#6e6674;--card:#fff;--line:#e8e2eb;--accent:#7d4aa8;--accent2:#efe6f7;--good:#e8f5ec;--warn:#fff5df;--bad:#fdeaea;--deep:#17131f}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input{font:inherit}button{cursor:pointer}a{color:var(--accent)}
+.wrap{width:min(100%,980px);margin:auto;padding:0 16px 64px}.hero{padding:28px 0 16px}.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(2rem,8vw,4rem);line-height:1.02;margin:.35rem 0 .8rem;letter-spacing:-.045em}.lede{font-size:1.05rem;color:var(--muted);max-width:680px;margin:0}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(251,249,252,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:10px 0}.topinner{width:min(100%,980px);padding:0 16px;margin:auto;display:flex;gap:8px;align-items:center;overflow:auto}
+.pill,.voiceBtn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;min-height:44px;padding:0 14px;font-weight:700;white-space:nowrap}.voiceBtn.primary{background:var(--deep);color:white;border-color:var(--deep)}.voiceBtn.stop{background:#fff;border-color:#d7ccd9}
+.progress{height:4px;background:#eee9f0;position:sticky;top:65px;z-index:19}.progress>div{height:100%;width:0;background:var(--accent);transition:width .2s}
+.section{padding:26px 0 8px;scroll-margin-top:98px}.kicker{font-size:.78rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.09em}.section h2{font-size:clamp(1.55rem,5vw,2.35rem);line-height:1.1;margin:.35rem 0 .65rem;letter-spacing:-.03em}.sectionIntro{color:var(--muted);margin:0 0 18px;max-width:760px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px}.grid2{display:grid;grid-template-columns:1fr;gap:14px}.grid3{display:grid;grid-template-columns:1fr;gap:12px}
+.visualCard{display:grid;grid-template-columns:104px 1fr;gap:14px;align-items:center}.visual{width:104px;height:104px;border-radius:20px;overflow:hidden;border:1px solid #eadfe3;background:#d9a38f;position:relative}.visual svg{width:100%;height:100%;display:block}
+.visualCard h3,.card h3{margin:0 0 4px;font-size:1.02rem}.small{font-size:.9rem;color:var(--muted);margin:0}.tag{display:inline-block;font-size:.72rem;font-weight:800;border-radius:999px;padding:4px 8px;margin:4px 4px 0 0;background:var(--accent2);color:#633884}.tag.red{background:var(--bad);color:#8a3434}.tag.green{background:var(--good);color:#37664a}.tag.gold{background:var(--warn);color:#765a19}
+.listen{margin-top:10px;border:0;background:var(--accent2);color:#5d347c;font-weight:800;border-radius:12px;padding:9px 11px;min-height:40px}
+.poreWrap{background:linear-gradient(180deg,#fff,#faf5fb);border:1px solid var(--line);border-radius:22px;padding:14px}.poreWrap svg{width:100%;height:auto;display:block}.steps{display:grid;gap:10px;margin-top:12px}.step{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start}.num{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--deep);color:#fff;font-weight:900}.step b{display:block}
+.treatGrid{display:grid;gap:12px}.treat{border-left:4px solid var(--accent)}.treat strong{display:block;font-size:1.04rem}.do{margin-top:8px;padding:10px 12px;background:var(--good);border-radius:12px}.dont{margin-top:8px;padding:10px 12px;background:var(--bad);border-radius:12px}
+.routine{display:grid;gap:14px}.routineCol{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px}.routineCol h3{margin:0 0 12px}.routineStep{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line)}.routineStep:first-of-type{border-top:0}.routineStep span{width:30px;height:30px;border-radius:10px;background:var(--accent2);display:grid;place-items:center;font-weight:900;color:#683f85;flex:0 0 auto}
+.ingredientGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ingredient{border:1px solid var(--line);background:white;border-radius:16px;padding:13px;min-height:128px}.ingredient b{display:block}.ingredient em{font-style:normal;font-size:.77rem;font-weight:800;color:var(--accent);text-transform:uppercase}.ingredient p{font-size:.86rem;color:var(--muted);margin:5px 0 0}
+.rule{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--line)}.rule:first-child{border-top:0}.icon{font-size:1.4rem;line-height:1}.rule b{display:block}
+.quiz{display:grid;gap:14px}.q{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}.q p{font-weight:800;margin:0 0 10px}.answers{display:grid;gap:8px}.answer{border:1px solid var(--line);background:#fff;border-radius:12px;text-align:left;padding:11px 12px;min-height:44px}.answer.correct{background:var(--good);border-color:#add0b8}.answer.wrong{background:var(--bad);border-color:#e2b2b2}.feedback{min-height:24px;font-size:.9rem;margin-top:8px;color:var(--muted)}.score{padding:15px;border-radius:16px;background:var(--accent2);font-weight:800}
+.callout{background:var(--deep);color:white;border-radius:22px;padding:20px}.callout p{color:#ded6e1}.caption{font-size:.82rem;color:var(--muted);margin-top:8px}.voiceStatus{font-size:.82rem;color:var(--muted);padding:0 4px;min-width:90px}
+.references{font-size:.88rem;color:var(--muted)}.references li{margin:7px 0}
+@media(min-width:700px){.grid2,.routine{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:repeat(3,1fr)}.ingredientGrid{grid-template-columns:repeat(4,1fr)}.treatGrid{grid-template-columns:1fr 1fr}.hero{padding-top:54px}.visualCard{grid-template-columns:120px 1fr}.visual{width:120px;height:120px}}
+@media(max-width:390px){.visualCard{grid-template-columns:88px 1fr}.visual{width:88px;height:88px}.ingredientGrid{grid-template-columns:1fr}.wrap{padding-left:13px;padding-right:13px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topinner">
+    <button class="voiceBtn primary" id="playAll" type="button">▶ Start voice lesson</button>
+    <button class="voiceBtn stop" id="stopVoice" type="button">■ Stop</button>
+    <span class="voiceStatus" id="voiceStatus" aria-live="polite">Ready</span>
+    <a class="pill" href="#types">Acne types</a>
+    <a class="pill" href="#routine">Routine</a>
+    <a class="pill" href="#ingredients">Ingredients</a>
+    <a class="pill" href="#quiz">Quiz</a>
+  </div>
+</div>
+<div class="progress"><div id="progressBar"></div></div>
+
+<main class="wrap">
+<header class="hero">
+  <div class="eyebrow">Visual Skin School • Acne-prone skin</div>
+  <h1>Learn what your skin is telling you.</h1>
+  <p class="lede">A friendly, visual lesson on what common acne lesions look like, what is happening inside the pore, what treatments are meant to do, and how to care for acne-prone skin without destroying your barrier.</p>
+</header>
+
+<section class="section lesson" id="types" data-title="Acne types">
+  <div class="kicker">Lesson 1</div>
+  <h2>First: identify what you’re actually looking at</h2>
+  <p class="sectionIntro">Different bumps can need different strategies. These are simplified educational illustrations — real skin varies in colour, size and appearance.</p>
+  <div class="grid2">
+    <article class="card visualCard">
+      <div class="visual" aria-label="Illustration of a closed comedone">
+        <svg viewBox="0 0 100 100" role="img"><rect width="100" height="100" fill="#b97863"/><circle cx="52" cy="50" r="15" fill="#d79c86"/><circle cx="52" cy="48" r="8" fill="#e9c2b2"/><path d="M5 76 Q45 66 95 78" stroke="#a56555" opacity=".3" fill="none"/></svg>
+      </div>
+      <div><h3>Whitehead / closed comedone</h3><p class="small">A small flesh-coloured or pale bump. The clogged pore is <b>closed</b> at the surface.</p><span class="tag">Clogged pore</span><span class="tag green">Often non-inflamed</span><button class="listen" type="button">🔊 Explain this</button></div>
+    </article>
+
+    <article class="card visualCard">
+      <div class="visual" aria-label="Illustration of a blackhead">
+        <svg viewBox="0 0 100 100" role="img"><rect width="100" height="100" fill="#c48972"/><circle cx="50" cy="50" r="15" fill="#d89d87"/><circle cx="50" cy="49" r="6" fill="#423335"/><circle cx="48" cy="47" r="2" fill="#766064"/></svg>
+      </div>
+      <div><h3>Blackhead / open comedone</h3><p class="small">The pore is clogged but stays <b>open</b>. The dark colour is oxidation — not dirt.</p><span class="tag">Open clog</span><span class="tag gold">Do not scrub</span><button class="listen" type="button">🔊 Explain this</button></div>
+    </article>
+
+    <article class="card visualCard">
+      <div class="visual" aria-label="Illustration of an acne papule">
+        <svg viewBox="0 0 100 100" role="img"><rect width="100" height="100" fill="#9b604f"/><circle cx="51" cy="50" r="20" fill="#a94343" opacity=".72"/><circle cx="51" cy="49" r="12" fill="#c75b55"/></svg>
+      </div>
+      <div><h3>Papule</h3><p class="small">A red, inflamed bump without a visible pus-filled centre. It can feel tender or firm.</p><span class="tag red">Inflamed</span><button class="listen" type="button">🔊 Explain this</button></div>
+    </article>
+
+    <article class="card visualCard">
+      <div class="visual" aria-label="Illustration of an acne pustule">
+        <svg viewBox="0 0 100 100" role="img"><rect width="100" height="100" fill="#8e584a"/><circle cx="50" cy="52" r="20" fill="#a53e43" opacity=".72"/><circle cx="50" cy="48" r="11" fill="#d3625b"/><circle cx="50" cy="45" r="6" fill="#f3e5d5"/></svg>
+      </div>
+      <div><h3>Pustule</h3><p class="small">An inflamed pimple with a visible white or yellow centre containing pus.</p><span class="tag red">Inflamed</span><span class="tag gold">Don’t pop</span><button class="listen" type="button">🔊 Explain this</button></div>
+    </article>
+
+    <article class="card visualCard">
+      <div class="visual" aria-label="Illustration of a deep acne nodule">
+        <svg viewBox="0 0 100 100" role="img"><rect width="100" height="100" fill="#805043"/><ellipse cx="52" cy="53" rx="29" ry="23" fill="#8b3139" opacity=".68"/><ellipse cx="52" cy="54" rx="18" ry="14" fill="#a84047" opacity=".75"/></svg>
+      </div>
+      <div><h3>Nodule / cystic-type breakout</h3><p class="small">A deeper, often painful lump under the skin. These have a higher risk of scarring.</p><span class="tag red">Deep + painful</span><span class="tag gold">Dermatologist territory</span><button class="listen" type="button">🔊 Explain this</button></div>
+    </article>
+
+    <article class="card visualCard">
+      <div class="visual" aria-label="Illustration of post-inflammatory hyperpigmentation">
+        <svg viewBox="0 0 100 100" role="img"><rect width="100" height="100" fill="#8a5645"/><circle cx="29" cy="37" r="8" fill="#5c352e" opacity=".68"/><circle cx="60" cy="58" r="10" fill="#60362e" opacity=".62"/><circle cx="76" cy="28" r="6" fill="#673b32" opacity=".58"/></svg>
+      </div>
+      <div><h3>PIH: the flat dark mark after acne</h3><p class="small">If it is flat and only the colour changed, it may be post-inflammatory hyperpigmentation rather than a true scar.</p><span class="tag">Pigment</span><span class="tag green">Can fade</span><button class="listen" type="button">🔊 Explain this</button></div>
+    </article>
+  </div>
+</section>
+
+<section class="section lesson" id="pore" data-title="Inside the pore">
+  <div class="kicker">Lesson 2</div>
+  <h2>What is happening underneath the skin?</h2>
+  <p class="sectionIntro">Acne is not proof that your face is dirty. It forms inside the hair follicle when oil, shedding skin cells, microbes and inflammation interact.</p>
+  <div class="poreWrap">
+    <svg viewBox="0 0 720 340" role="img" aria-label="Cross section showing formation of a clogged and inflamed pore">
+      <defs><linearGradient id="skin" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#d8a48e"/><stop offset="1" stop-color="#bf806b"/></linearGradient></defs>
+      <rect x="10" y="50" width="700" height="270" rx="30" fill="url(#skin)"/>
+      <rect x="10" y="50" width="700" height="34" rx="18" fill="#e6b7a2"/>
+      <path d="M335 50 C328 105 320 145 325 220 C329 285 385 288 394 225 C402 168 386 108 381 50Z" fill="#7e5043" opacity=".65"/>
+      <path d="M351 51 C350 112 347 158 351 232" stroke="#342523" stroke-width="8" stroke-linecap="round"/>
+      <ellipse cx="365" cy="102" rx="38" ry="26" fill="#6d4f28" opacity=".72"/>
+      <g fill="#553b27"><circle cx="348" cy="88" r="6"/><circle cx="371" cy="96" r="7"/><circle cx="382" cy="112" r="5"/><circle cx="356" cy="115" r="7"/></g>
+      <g fill="#9d3541" opacity=".75"><circle cx="334" cy="166" r="7"/><circle cx="385" cy="180" r="8"/><circle cx="342" cy="202" r="6"/></g>
+      <path d="M265 143 C288 136 299 137 324 145" stroke="#6b4a3d" stroke-width="4" fill="none"/>
+      <ellipse cx="245" cy="138" rx="42" ry="24" fill="#d6b45f"/><path d="M270 142 C294 150 301 164 323 173" stroke="#d6b45f" stroke-width="12" stroke-linecap="round"/>
+      <text x="56" y="112" font-size="23" font-weight="700" fill="#382d31">Surface</text>
+      <text x="52" y="250" font-size="20" fill="#4f4145">Dermis</text>
+      <text x="430" y="95" font-size="18" font-weight="700" fill="#36292d">1. Oil + dead cells collect</text>
+      <text x="430" y="131" font-size="18" font-weight="700" fill="#36292d">2. Follicle becomes clogged</text>
+      <text x="430" y="167" font-size="18" font-weight="700" fill="#36292d">3. Inflammation can develop</text>
+      <text x="430" y="203" font-size="18" font-weight="700" fill="#36292d">4. A visible lesion appears</text>
+      <text x="196" y="102" font-size="16" fill="#4d3e37">oil gland</text>
+    </svg>
+    <p class="caption">Simplified cross-section for learning; not to scale.</p>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><div><b>Sebum is normal.</b><span class="small">Your oil glands make sebum to protect the skin. Acne-prone follicles are more likely to become obstructed.</span></div></div>
+    <div class="step"><div class="num">2</div><div><b>Cells + oil form a plug.</b><span class="small">This can become a whitehead or blackhead depending on whether the pore opening is closed or open.</span></div></div>
+    <div class="step"><div class="num">3</div><div><b>Inflammation changes the picture.</b><span class="small">A blocked follicle can become red, swollen and painful, producing papules, pustules or deeper lesions.</span></div></div>
+  </div>
+  <button class="listen" type="button">🔊 Teach me this section</button>
+</section>
+
+<section class="section lesson" id="treat" data-title="Treat by acne type">
+  <div class="kicker">Lesson 3</div>
+  <h2>Match the treatment to the problem</h2>
+  <p class="sectionIntro">You do not need every active. Pick the treatment that addresses what your skin is doing, then give it enough time to work.</p>
+  <div class="treatGrid">
+    <article class="card treat"><strong>Whiteheads + blackheads</strong><p class="small">Think: clogged follicles.</p><div class="do"><b>Useful:</b> salicylic acid and topical retinoids such as adapalene can help unclog pores and prevent new comedones.</div><div class="dont"><b>Avoid:</b> squeezing or abrasive scrubs.</div></article>
+    <article class="card treat"><strong>Red papules + pustules</strong><p class="small">Think: clogging + inflammation.</p><div class="do"><b>Useful:</b> benzoyl peroxide is especially useful for inflammatory acne; salicylic acid can also help some people.</div><div class="dont"><b>Avoid:</b> piling multiple harsh treatments onto irritated skin.</div></article>
+    <article class="card treat"><strong>Acne + dark marks</strong><p class="small">Think: acne control + pigment control.</p><div class="do"><b>Useful:</b> azelaic acid can target acne and post-acne discoloration. Daily broad-spectrum sunscreen matters.</div><div class="dont"><b>Avoid:</b> picking — trauma increases the chance of a lasting mark.</div></article>
+    <article class="card treat"><strong>Deep painful nodules/cysts</strong><p class="small">Think: deeper disease + scar risk.</p><div class="do"><b>Best next step:</b> see a dermatologist. Store-bought skincare is often not enough for deep, scarring acne.</div><div class="dont"><b>Never:</b> attempt to lance or squeeze a deep lesion yourself.</div></article>
+  </div>
+  <button class="listen" type="button">🔊 Teach me this section</button>
+</section>
+
+<section class="section lesson" id="routine" data-title="Daily routine">
+  <div class="kicker">Lesson 4</div>
+  <h2>Your routine should be boring in the best way</h2>
+  <p class="sectionIntro">The strongest acne routine is one you can tolerate and repeat. Clean gently, use a targeted treatment, moisturise, and protect from UV.</p>
+  <div class="routine">
+    <div class="routineCol">
+      <h3>☀️ Morning</h3>
+      <div class="routineStep"><span>1</span><div><b>Gentle cleanse or rinse</b><div class="small">You are removing excess oil and residue, not stripping the barrier.</div></div></div>
+      <div class="routineStep"><span>2</span><div><b>Optional hydrating layer</b><div class="small">Glycerin, betaine, sodium PCA, panthenol, hyaluronic acid or amino acids can help with dehydration.</div></div></div>
+      <div class="routineStep"><span>3</span><div><b>Moisturiser</b><div class="small">Acne-prone skin still needs water retention and barrier support.</div></div></div>
+      <div class="routineStep"><span>4</span><div><b>Broad-spectrum SPF 30+</b><div class="small">Especially important when you are treating post-acne marks.</div></div></div>
+    </div>
+    <div class="routineCol">
+      <h3>🌙 Night</h3>
+      <div class="routineStep"><span>1</span><div><b>Gentle cleanse</b><div class="small">Remove sunscreen, makeup, sweat and excess oil.</div></div></div>
+      <div class="routineStep"><span>2</span><div><b>One main acne treatment</b><div class="small">For example: azelaic acid, benzoyl peroxide, salicylic acid or a retinoid — chosen for your needs.</div></div></div>
+      <div class="routineStep"><span>3</span><div><b>Hydration if needed</b><div class="small">A light humectant layer can help if treatment makes you tight or flaky.</div></div></div>
+      <div class="routineStep"><span>4</span><div><b>Moisturiser</b><div class="small">Seal in hydration and support your barrier overnight.</div></div></div>
+    </div>
+  </div>
+  <button class="listen" type="button">🔊 Teach me this section</button>
+</section>
+
+<section class="section lesson" id="ingredients" data-title="Ingredient guide">
+  <div class="kicker">Lesson 5</div>
+  <h2>Know the job of each ingredient</h2>
+  <p class="sectionIntro">A product is useful when its formula performs a job you actually need. These are the ingredient families worth recognising.</p>
+  <div class="ingredientGrid">
+    <div class="ingredient"><em>Hydrate</em><b>Glycerin</b><p>Reliable humectant that helps the outer skin hold water.</p></div>
+    <div class="ingredient"><em>Hydrate</em><b>Betaine / Sodium PCA</b><p>Help maintain water balance without needing a heavy cream.</p></div>
+    <div class="ingredient"><em>Barrier</em><b>Dimethicone</b><p>Smooths skin and reduces water loss. Silicone is not automatically pore-clogging.</p></div>
+    <div class="ingredient"><em>Barrier</em><b>Ceramides + cholesterol + fatty acids</b><p>Components used to support the lipid barrier.</p></div>
+    <div class="ingredient"><em>Unclog</em><b>Salicylic acid</b><p>BHA used for clogged pores, blackheads and whiteheads.</p></div>
+    <div class="ingredient"><em>Inflammation</em><b>Benzoyl peroxide</b><p>Reduces acne-associated bacteria and helps inflammatory acne.</p></div>
+    <div class="ingredient"><em>Multi-task</em><b>Azelaic acid</b><p>Useful for acne, inflammation and post-acne pigmentation.</p></div>
+    <div class="ingredient"><em>Prevent clogs</em><b>Adapalene / retinoids</b><p>Normalize follicular cell turnover and help prevent future clogged pores.</p></div>
+    <div class="ingredient"><em>Soothe</em><b>Panthenol / allantoin</b><p>Useful supportive ingredients when skin is irritated or dehydrated.</p></div>
+    <div class="ingredient"><em>Brighten</em><b>Niacinamide</b><p>Can support barrier function and uneven tone. Higher percentages are not automatically better.</p></div>
+    <div class="ingredient"><em>Protect</em><b>UV filters</b><p>Broad-spectrum sunscreen helps prevent dark marks from becoming more persistent.</p></div>
+    <div class="ingredient"><em>Be cautious</em><b>Harsh scrubs + too many acids</b><p>Irritation can make acne care harder and can worsen discoloration from picking or inflammation.</p></div>
+  </div>
+  <button class="listen" type="button">🔊 Teach me this section</button>
+</section>
+
+<section class="section lesson" id="mistakes" data-title="Common mistakes">
+  <div class="kicker">Lesson 6</div>
+  <h2>Acne habits that quietly sabotage progress</h2>
+  <div class="card">
+    <div class="rule"><div class="icon">🫧</div><div><b>Washing more is not the answer.</b><span class="small">Gentle cleansing up to twice daily is usually enough. Repeated harsh washing can irritate skin.</span></div></div>
+    <div class="rule"><div class="icon">✋</div><div><b>Picking creates extra inflammation.</b><span class="small">That increases your chance of post-acne discoloration and scarring.</span></div></div>
+    <div class="rule"><div class="icon">🧪</div><div><b>Do not start five actives together.</b><span class="small">If your barrier becomes irritated, you will not know which product caused it.</span></div></div>
+    <div class="rule"><div class="icon">⏳</div><div><b>Give treatment time.</b><span class="small">Meaningful acne improvement usually takes weeks, not two nights.</span></div></div>
+    <div class="rule"><div class="icon">💧</div><div><b>Oily skin can still be dehydrated.</b><span class="small">Oil is not the same thing as water. Acne treatment often becomes easier to tolerate with appropriate moisturisation.</span></div></div>
+    <div class="rule"><div class="icon">🧴</div><div><b>Watch what touches the hairline.</b><span class="small">Oily hair products can contribute to tiny forehead/hairline breakouts in some people.</span></div></div>
+  </div>
+  <button class="listen" type="button">🔊 Teach me this section</button>
+</section>
+
+<section class="section lesson" id="doctor" data-title="When to see a dermatologist">
+  <div class="kicker">Lesson 7</div>
+  <h2>Know when skincare needs medical backup</h2>
+  <div class="callout">
+    <h3 style="margin-top:0">See a clinician sooner if acne is deep, painful or scarring.</h3>
+    <p>Also get medical advice if breakouts are widespread, suddenly change, do not improve despite a consistent evidence-based routine, or are seriously affecting how you feel. Deep nodules and cysts have a higher scar risk and often need prescription treatment.</p>
+    <p style="margin-bottom:0"><b>Urgent reaction?</b> Significant facial swelling, blistering, breathing difficulty or rapidly worsening severe skin symptoms need prompt medical assessment rather than another skincare experiment.</p>
+  </div>
+  <button class="listen" type="button">🔊 Teach me this section</button>
+</section>
+
+<section class="section" id="quiz">
+  <div class="kicker">Knowledge check</div>
+  <h2>Can you read the skin now?</h2>
+  <p class="sectionIntro">Tap an answer. You cannot “fail” — the explanation teaches the point immediately.</p>
+  <div class="quiz" id="quizBox">
+    <div class="q" data-answer="1"><p>1. A dark dot in an open clogged pore is most likely…</p><div class="answers"><button class="answer" type="button">Dirt trapped in the pore</button><button class="answer" type="button">A blackhead, darkened by oxidation</button><button class="answer" type="button">Always a scar</button></div><div class="feedback"></div></div>
+    <div class="q" data-answer="2"><p>2. Which problem is salicylic acid especially useful for?</p><div class="answers"><button class="answer" type="button">Sun protection</button><button class="answer" type="button">Deep scarring</button><button class="answer" type="button">Clogged pores and comedones</button></div><div class="feedback"></div></div>
+    <div class="q" data-answer="0"><p>3. What should you do with repeated deep painful nodules?</p><div class="answers"><button class="answer" type="button">Seek dermatologist/medical care</button><button class="answer" type="button">Pop them early</button><button class="answer" type="button">Scrub harder</button></div><div class="feedback"></div></div>
+    <div class="q" data-answer="1"><p>4. Oily skin can still be…</p><div class="answers"><button class="answer" type="button">Impossible to moisturise</button><button class="answer" type="button">Dehydrated</button><button class="answer" type="button">Immune to irritation</button></div><div class="feedback"></div></div>
+    <div class="q" data-answer="2"><p>5. A good basic morning routine ends with…</p><div class="answers"><button class="answer" type="button">A scrub</button><button class="answer" type="button">Another acid</button><button class="answer" type="button">Broad-spectrum sunscreen</button></div><div class="feedback"></div></div>
+  </div>
+  <div class="score" id="scoreBox">Score: 0 / 5 • Answer all five to finish.</div>
+</section>
+
+<section class="section">
+  <div class="kicker">Evidence base</div>
+  <h2>Where this lesson comes from</h2>
+  <p class="sectionIntro">This is education, not a diagnosis. Acne-like rashes can have other causes, so persistent or unusual symptoms deserve professional assessment.</p>
+  <ul class="references">
+    <li>American Academy of Dermatology — Acne overview and acne types.</li>
+    <li>American Academy of Dermatology — Updated acne management guideline.</li>
+    <li>American Academy of Dermatology — Acne-prone skin care and moisturiser guidance.</li>
+    <li>NHS — Acne treatment information.</li>
+  </ul>
+</section>
+</main>
+
+<script>
+(function(){
+  const sections=[...document.querySelectorAll('.lesson')];
+  const status=document.getElementById('voiceStatus');
+  const playAll=document.getElementById('playAll');
+  const stop=document.getElementById('stopVoice');
+  const synth=window.speechSynthesis;
+  let queueMode=false, currentIndex=0;
+
+  function cleanText(el){
+    const clone=el.cloneNode(true);
+    clone.querySelectorAll('button,svg,.caption').forEach(n=>n.remove());
+    return clone.innerText.replace(/\s+/g,' ').trim();
+  }
+  function chooseVoice(){
+    const voices=synth?synth.getVoices():[];
+    return voices.find(v=>/en-ZA/i.test(v.lang)) ||
+           voices.find(v=>/en-GB/i.test(v.lang)) ||
+           voices.find(v=>/^en/i.test(v.lang)) || null;
+  }
+  function speakSection(el,onEnd){
+    if(!synth){status.textContent='Voice not supported';return}
+    synth.cancel();
+    const u=new SpeechSynthesisUtterance(cleanText(el));
+    const voice=chooseVoice(); if(voice)u.voice=voice;
+    u.lang=voice?voice.lang:'en-ZA'; u.rate=.94; u.pitch=1.04;
+    u.onstart=()=>{status.textContent='Speaking: '+(el.dataset.title||'section')};
+    u.onend=()=>{status.textContent='Ready';if(onEnd)onEnd()};
+    u.onerror=()=>{status.textContent='Voice stopped'};
+    synth.speak(u);
+  }
+  function speakCard(btn){
+    const parent=btn.closest('article')||btn.closest('.section');
+    speakSection(parent);
+  }
+  document.querySelectorAll('.listen').forEach(btn=>btn.addEventListener('click',()=>speakCard(btn)));
+  playAll.addEventListener('click',()=>{
+    if(!synth){status.textContent='Voice not supported';return}
+    queueMode=true; currentIndex=0;
+    function next(){
+      if(!queueMode||currentIndex>=sections.length){queueMode=false;status.textContent='Lesson complete';return}
+      const el=sections[currentIndex++];
+      el.scrollIntoView({behavior:'smooth',block:'start'});
+      speakSection(el,next);
+    }
+    next();
+  });
+  stop.addEventListener('click',()=>{queueMode=false;if(synth)synth.cancel();status.textContent='Stopped'});
+  if(synth && 'onvoiceschanged' in synth){synth.onvoiceschanged=()=>chooseVoice()}
+
+  const qs=[...document.querySelectorAll('.q')]; let correct=0,done=0;
+  qs.forEach(q=>{
+    const right=Number(q.dataset.answer),buttons=[...q.querySelectorAll('.answer')],fb=q.querySelector('.feedback');
+    buttons.forEach((b,i)=>b.addEventListener('click',()=>{
+      if(q.dataset.done)return;
+      q.dataset.done='1';done++;
+      buttons.forEach(x=>x.disabled=true);
+      if(i===right){b.classList.add('correct');correct++;fb.textContent='Correct — you understood the key idea.'}
+      else{b.classList.add('wrong');buttons[right].classList.add('correct');fb.textContent='Not quite. The highlighted answer is the safer, evidence-based choice.'}
+      document.getElementById('scoreBox').textContent='Score: '+correct+' / 5'+(done===5?' • Finished! Revisit any section you missed.':' • '+(5-done)+' question'+(5-done===1?'':'s')+' left.');
+    }))
+  });
+
+  const bar=document.getElementById('progressBar');
+  function updateProgress(){
+    const doc=document.documentElement;
+    const max=doc.scrollHeight-window.innerHeight;
+    const pct=max>0?(window.scrollY/max)*100:0;
+    bar.style.width=Math.max(0,Math.min(100,pct))+'%';
+  }
+  addEventListener('scroll',updateProgress,{passive:true});updateProgress();
+})();
+</script>
+</body>
+</html>
