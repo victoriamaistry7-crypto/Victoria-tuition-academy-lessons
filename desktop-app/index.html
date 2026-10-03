@@ -4,12 +4,24 @@
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://xrmljvdyxqyegclkazei.supabase.co; img-src 'self' data: blob:; style-src 'self'; script-src 'self';">
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="description" content="Victoria Tuition Academy student and admin portal" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/logo.jpg" />
   <title>VTA Student Portal</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div id="app"></div>
   <div id="toast-root"></div>
+  <script>
+    if (!window.desktop) {
+      window.desktop = { openExternal: (url) => window.open(url, '_blank', 'noopener'), platform: 'web' };
+    }
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
+    }
+  </script>
   <script src="app.js"></script>
 </body>
 </html>
