@@ -376,12 +376,12 @@ public class MainActivity extends Activity {
 
     private void dialogStudentProfile(JSONObject s){
         LinearLayout b=formBox();
-        EditText name=input("Student name",false),grade=input("Grade",false),curr=input("Curriculum",false),subjects=input("Subjects",false),note=input("Profile note",false);
-        name.setText(s.optString("display_name"));grade.setText(s.optString("grade"));curr.setText(s.optString("curriculum"));subjects.setText(s.optString("subjects"));note.setText(s.optString("profile_note"));
-        for(EditText e:new EditText[]{name,grade,curr,subjects,note})b.addView(e,marginBottom(8));
+        EditText name=input("Student name",false),username=input("Login username",false),grade=input("Grade",false),curr=input("Curriculum",false),subjects=input("Subjects",false),note=input("Profile note",false);
+        name.setText(s.optString("display_name"));username.setText(s.optString("username"));grade.setText(s.optString("grade"));curr.setText(s.optString("curriculum"));subjects.setText(s.optString("subjects"));note.setText(s.optString("profile_note"));
+        for(EditText e:new EditText[]{name,username,grade,curr,subjects,note})b.addView(e,marginBottom(8));
         AlertDialog d=new AlertDialog.Builder(this).setTitle("Edit student profile").setView(b).setNegativeButton("Cancel",null).setPositiveButton("Save",null).create();
         d.setOnShowListener(x->d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v->{
-            JSONObject q=new JSONObject();try{q.put("action","studentUpdate");q.put("studentId",s.optString("id"));q.put("name",name.getText().toString());q.put("grade",grade.getText().toString());q.put("curriculum",curr.getText().toString());q.put("subjects",subjects.getText().toString());q.put("profileNote",note.getText().toString());q.put("active",true);}catch(Exception ignored){}
+            JSONObject q=new JSONObject();try{q.put("action","studentUpdate");q.put("studentId",s.optString("id"));q.put("name",name.getText().toString());q.put("username",username.getText().toString());q.put("grade",grade.getText().toString());q.put("curriculum",curr.getText().toString());q.put("subjects",subjects.getText().toString());q.put("profileNote",note.getText().toString());q.put("active",true);}catch(Exception ignored){}
             action(q,()->{d.dismiss();JSONObject updated=findBy(sync.optJSONArray("students"),"id",s.optString("id"));adminStudentProfile(updated==null?s:updated);});
         }));d.show();
     }
