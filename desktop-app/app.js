@@ -219,6 +219,7 @@ function renderStudentDetail(id){
   document.getElementById('add-topic').onclick=()=>openTopicEditor(s,null);
   document.getElementById('edit-plan').onclick=()=>openPlanEditor(s,plan);
   document.querySelectorAll('.topic-row').forEach(r=>r.onclick=()=>openTopicEditor(s,topics.find(t=>t.id===r.dataset.id)));
+  hydrateResourcePreviews(document.getElementById('student-detail'));
 }
 
 function renderSchedule(){
@@ -254,7 +255,23 @@ function renderChat(admin){
 }
 
 const resourceIcon=t=>/interactive/i.test(t)?'✦':/slide/i.test(t)?'▤':/worksheet/i.test(t)?'✎':/video/i.test(t)?'▶':/quiz/i.test(t)?'✓':'□';
-function resourceRow(r){return `<div class="list-row resource-open" data-id="${r.id}"><div class="avatar">${resourceIcon(r.resource_type)}</div><div class="grow"><h4>${esc(r.title)}</h4><p>${esc(r.resource_type)} · ${esc(r.completion_status||'Available')}</p>${r.access_note?'<p><b>Access:</b> '+esc(r.access_note)+'</p>':''}</div><button class="btn soft">Open</button></div>`}
+function isImageResource(r){return /image/i.test(String(r?.resource_type||''))||/^image\//i.test(String(r?.mime_type||''))||/\.(png|jpe?g|gif|webp|svg)$/i.test(String(r?.file_name||''))}
+function resourceVisual(r){return isImageResource(r)?`<div class="resource-thumb" data-resource-image="${esc(r.id)}"><span>${resourceIcon(r.resource_type)}</span></div>`:`<div class="avatar resource-avatar">${resourceIcon(r.resource_type)}</div>`}
+async function hydrateResourcePreviews(root=document){
+  const nodes=[...root.querySelectorAll('[data-resource-image]')].filter(el=>!el.dataset.loading&&!el.querySelector('img'));
+  await Promise.allSettled(nodes.map(async el=>{
+    el.dataset.loading='1';
+    try{
+      const out=await api({action:'resourceDownload',id:el.dataset.resourceImage});
+      if(out?.signedUrl){
+        const img=document.createElement('img');img.alt='';img.loading='lazy';img.src=out.signedUrl;
+        el.replaceChildren(img);
+      }
+    }catch{}
+    finally{delete el.dataset.loading}
+  }));
+}
+function resourceRow(r){return `<div class="list-row resource-open" data-id="${r.id}">${resourceVisual(r)}<div class="grow"><h4>${esc(r.title)}</h4><p>${esc(r.resource_type)} · ${esc(r.completion_status||'Available')}</p>${r.access_note?'<p><b>Access:</b> '+esc(r.access_note)+'</p>':''}</div><button class="btn soft">Open</button></div>`}
 function resourceGroups(resources){
   const types=['Interactive Lesson','Slides','PDF / Notes','Worksheet','Video','Image','Other'];
   return types.map(t=>({type:t,items:resources.filter(r=>String(r.resource_type).toLowerCase().includes(t.split(' ')[0].toLowerCase())||(t==='PDF / Notes'&&/pdf|notes/i.test(r.resource_type)))})).filter(g=>g.items.length);
@@ -272,9 +289,10 @@ function showResourceCategory(type,admin){
   state.resourceCategory=type;
   const list=(state.data.resources||[]).filter(r=>String(r.resource_type).toLowerCase().includes(type.split(' ')[0].toLowerCase())||(type==='PDF / Notes'&&/pdf|notes/i.test(r.resource_type)));
   const root=document.getElementById('resource-list');if(!root)return;
-  root.innerHTML=`<div class="section-title"><h3>${esc(type)}</h3><span class="small muted">${list.length} resource(s)</span></div><div class="list">${list.map(r=>`<div class="list-row"><div class="avatar">${resourceIcon(r.resource_type)}</div><div class="grow"><h4>${esc(r.title)}</h4><p>${admin?esc(studentName(r.student_id))+' · ':''}${esc(r.description||'')}</p>${r.access_note?'<p><b>Access:</b> '+esc(r.access_note)+'</p>':''}</div><button class="btn secondary open-resource" data-id="${r.id}">Open</button>${admin?'<button class="btn soft edit-resource" data-id="'+r.id+'">Edit</button>':''}</div>`).join('')}</div>`;
+  root.innerHTML=`<div class="section-title"><h3>${esc(type)}</h3><span class="small muted">${list.length} resource(s)</span></div><div class="list">${list.map(r=>`<div class="list-row">${resourceVisual(r)}<div class="grow"><h4>${esc(r.title)}</h4><p>${admin?esc(studentName(r.student_id))+' · ':''}${esc(r.description||'')}</p>${r.access_note?'<p><b>Access:</b> '+esc(r.access_note)+'</p>':''}</div><button class="btn secondary open-resource" data-id="${r.id}">Open</button>${admin?'<button class="btn soft edit-resource" data-id="'+r.id+'">Edit</button>':''}</div>`).join('')}</div>`;
   root.querySelectorAll('.open-resource').forEach(b=>b.onclick=()=>openResource(b.dataset.id));
   root.querySelectorAll('.edit-resource').forEach(b=>b.onclick=()=>openResourceEditor((state.data.resources||[]).find(r=>r.id===b.dataset.id)));
+  hydrateResourcePreviews(root);
 }
 
 function renderQuizzes(admin){
@@ -305,10 +323,13 @@ function renderStudentHome(){
   const next=(state.data.lessons||[]).filter(l=>l.status!=='Completed'&&l.status!=='Cancelled').sort((a,b)=>(a.lesson_date+(a.start_time||'')).localeCompare(b.lesson_date+(b.start_time||'')))[0];
   const topics=state.data.topicProgress||[],covered=topics.filter(t=>t.status==='Covered'||t.status==='Completed').length;
   const plan=state.data.plan;
+  const featured=(state.data.resources||[]).filter(r=>r.featured!==false).slice(0,3);
   document.getElementById('view').innerHTML=pageHead('Hi, '+state.data.user.displayName,'Your learning dashboard.')+
   `<div class="grid cols-3"><div class="card hero student-hero"><div class="student-hero-copy"><div class="eyebrow">${esc(state.data.user.grade||'')} · ${esc(state.data.user.curriculum||'')}</div><h3>${esc(state.data.user.subjects||'Your subjects')}</h3><p>${esc(state.data.user.profileNote||'Keep building confidence one topic at a time.')}</p></div><img src="${VTA_DASHBOARD_VISUAL}" alt="" aria-hidden="true"></div>${metric('Syllabus progress',covered+'/'+topics.length,'topics marked covered')}${metric('Monthly plan',(plan?.lesson_target||0)+' lessons',plan?.goal||'No goal added yet')}</div>
   <div class="grid cols-2" style="margin-top:18px"><div><div class="section-title"><h3>Next lesson</h3></div>${next?lessonRow(next):'<div class="empty">No upcoming lesson yet. Use Book to request one.</div>'}</div><div><div class="section-title"><h3>Recommended next</h3></div><div class="list">${recommendedTopics().map(t=>`<div class="list-row"><div class="grow"><h4>${esc(t.topic)}</h4><p>${esc(t.strand||'')} · ${esc(t.term_label||'')}</p></div>${badge(t.status)}</div>`).join('')||'<div class="empty">No topic recommendations yet.</div>'}</div></div></div>
-  <div class="section-title"><h3>Announcements</h3></div><div class="grid cols-3">${(state.data.announcements||[]).slice(0,3).map(a=>`<div class="card"><div class="strong">${esc(a.title)}</div><p class="small muted">${esc(a.body)}</p></div>`).join('')||'<div class="empty">No announcements.</div>'}</div>`;
+  <div class="section-title"><h3>Featured resources</h3><span class="small muted">Open a lesson, note or visual</span></div><div class="grid cols-3">${featured.length?featured.map(r=>`<div class="card clickable featured-resource" data-id="${r.id}">${resourceVisual(r)}<div class="featured-resource-copy"><div class="small muted">${esc(r.resource_type||'Resource')}</div><div class="strong">${esc(r.title)}</div><p class="small muted">${esc(r.description||'Ready when you are.')}</p></div></div>`).join(''):'<div class="empty">No featured resources yet.</div>'}</div>\n  <div class="section-title"><h3>Announcements</h3></div><div class="grid cols-3">${(state.data.announcements||[]).slice(0,3).map(a=>`<div class="card"><div class="strong">${esc(a.title)}</div><p class="small muted">${esc(a.body)}</p></div>`).join('')||'<div class="empty">No announcements.</div>'}</div>`;
+  document.querySelectorAll('.featured-resource').forEach(c=>c.onclick=()=>openResource(c.dataset.id));
+  hydrateResourcePreviews(document.getElementById('view'));
 }
 function renderLearn(){
   const groups={};(state.data.topicProgress||[]).forEach(t=>{const k=t.strand||'Other';(groups[k]??=[]).push(t)});
