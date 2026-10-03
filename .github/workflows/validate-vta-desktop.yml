@@ -1,0 +1,32 @@
+name: Validate VTA Desktop Web App
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'desktop-app/**'
+      - '.github/workflows/validate-vta-desktop.yml'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: |
+          node --check desktop-app/app.js
+          node --check desktop-app/browser-init.js
+          node --check desktop-app/service-worker.js
+      - name: Verify required desktop files
+        run: |
+          test -f desktop-app/index.html
+          test -f desktop-app/styles.css
+          test -f desktop-app/manifest.json
+          test -f desktop-app/assets/logo.jpg
+          grep -q "Victoria Tuition Academy" desktop-app/index.html
+          grep -q "Install on Windows" desktop-app/app.js
+          grep -q "service-worker.js" desktop-app/browser-init.js
