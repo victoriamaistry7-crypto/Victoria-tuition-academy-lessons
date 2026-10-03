@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 512 512" role="img" aria-label="Victoria Tuition Academy">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e54d2e"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+  <circle cx="424" cy="74" r="104" fill="#e54d2e" opacity=".96"/>
+  <circle cx="76" cy="452" r="108" fill="#7c3aed" opacity=".72"/>
+  <rect x="70" y="70" width="372" height="372" rx="96" fill="#fff"/>
+  <path d="M142 154h228v30H142zm24 65h180v24H166zm0 56h180v24H166z" fill="#e2e8f0"/>
+  <text x="256" y="360" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-weight="800" font-size="112" fill="#0f172a">VTA</text>
+  <rect x="177" y="385" width="158" height="12" rx="6" fill="url(#accent)"/>
+</svg>
