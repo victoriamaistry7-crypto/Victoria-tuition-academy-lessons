@@ -30,3 +30,12 @@ jobs:
           grep -q "Victoria Tuition Academy" desktop-app/index.html
           grep -q "Install on Windows" desktop-app/app.js
           grep -q "service-worker.js" desktop-app/browser-init.js
+
+      - name: Verify hosted desktop app
+        run: |
+          BASE="https://raw.githack.com/victoriamaistry7-crypto/Victoria-tuition-academy-lessons/main/desktop-app"
+          curl --fail --silent --show-error --location "$BASE/index.html" | grep -q "VTA Student Portal"
+          curl --fail --silent --show-error --location "$BASE/app.js" > /tmp/vta-app.js
+          curl --fail --silent --show-error --location "$BASE/service-worker.js" > /tmp/vta-sw.js
+          test -s /tmp/vta-app.js
+          test -s /tmp/vta-sw.js
