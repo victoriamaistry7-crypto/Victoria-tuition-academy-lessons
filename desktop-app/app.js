@@ -91,6 +91,7 @@ function renderApp(){
       <div class="brand">${logo()}<div class="brand-copy"><strong>VTA Portal</strong><span>${esc(user.role)}</span></div></div>
       <nav class="nav">${items.map(x=>`<button data-nav="${x}" class="${x===state.tab?'active':''}"><span class="dot"></span>${x}</button>`).join('')}</nav>
       <div class="sidebar-bottom">
+        ${window.desktop?.platform==='web'?'<button id="install-btn">⊞  Install on Windows</button>':''}
         <button id="theme-btn">${state.theme==='dark'?'☀  Light mode':'◐  Dark mode'}</button>
         <button id="logout-btn">↗  Log out</button>
       </div>
@@ -101,6 +102,11 @@ function renderApp(){
     </main>
   </div>`;
   document.querySelectorAll('[data-nav]').forEach(b=>b.onclick=()=>{state.tab=b.dataset.nav;renderApp()});
+  const installBtn=document.getElementById('install-btn');
+  if(installBtn)installBtn.onclick=async()=>{
+    const installed=window.vtaInstall?await window.vtaInstall():false;
+    if(!installed)toast('Use the browser menu → Apps → Install VTA Portal if the install prompt is not available yet.');
+  };
   document.getElementById('theme-btn').onclick=()=>setTheme(state.theme==='dark'?'light':'dark');
   document.getElementById('logout-btn').onclick=logout;
   document.getElementById('refresh-btn').onclick=()=>sync(true);
