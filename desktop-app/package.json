@@ -1,0 +1,26 @@
+{
+  "name": "vta-student-portal-desktop",
+  "version": "1.0.0",
+  "description": "Victoria Tuition Academy desktop portal",
+  "main": "main.cjs",
+  "author": "Victoria Tuition Academy",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "40.1.0",
+    "electron-builder": "26.0.12"
+  },
+  "build": {
+    "appId": "za.co.victoriatuition.desktop",
+    "productName": "VTA Student Portal",
+    "directories": { "output": "dist" },
+    "files": ["main.cjs","preload.cjs","index.html","styles.css","app.js","assets/**/*"],
+    "win": {
+      "target": ["portable"],
+      "artifactName": "VTA-Student-Portal-Windows.exe"
+    }
+  }
+}
