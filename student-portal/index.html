@@ -23,18 +23,94 @@ input,select,textarea{width:100%;border:1px solid var(--line);border-radius:13px
 .mobile-nav{display:none}
 @media(max-width:1050px){.app{grid-template-columns:210px minmax(0,1fr)}.resource-grid,.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.login{grid-template-columns:1fr}.login-art{display:none}.app{display:block}.sidebar{display:none}.topbar{height:64px;padding:0 14px}.content{padding:16px 12px 90px}.grid2,.grid3,.grid4,.resource-grid{grid-template-columns:1fr}.hero{padding:22px;border-radius:21px}.hero h2{font-size:27px}.chat-layout{grid-template-columns:1fr;height:calc(100vh - 145px)}.chat-people{display:none}.bubble{max-width:86%}.mobile-nav{display:flex;position:fixed;left:8px;right:8px;bottom:8px;z-index:30;background:#0f172a;border-radius:18px;padding:7px;justify-content:space-around;box-shadow:0 16px 45px rgba(0,0,0,.25)}.mobile-nav button{background:transparent;color:#9eabc0;border-radius:12px;padding:9px 8px;font-size:10px;font-weight:800}.mobile-nav button.active{background:#243149;color:#fff}.slot-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.lesson{grid-template-columns:70px minmax(0,1fr)}.lesson>.btn{grid-column:1/-1}.brand-logo{width:110px}}
-.vta-brand-svg{display:block;max-width:100%;filter:none}.brand-logo.vta-brand-svg{width:150px;height:auto;background:#fff;padding:4px;border-radius:12px}.side-logo{width:170px;height:auto;background:#fff;border-radius:12px;padding:5px}.resource-card{overflow:hidden}.resource-thumb{height:112px;border-radius:15px;margin:-2px -2px 13px;display:grid;place-items:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#eef4ff,#fff5f0);border:1px solid var(--line)}.resource-thumb svg{width:100%;height:100%;display:block}.resource-thumb .rtag{position:absolute;left:10px;bottom:9px;background:rgba(255,255,255,.92);border:1px solid rgba(15,23,42,.08);padding:5px 8px;border-radius:999px;font-size:9px;font-weight:900;color:#17345f;letter-spacing:.04em}.featured-grid .resource-card{border-color:#d7e2f3;box-shadow:0 16px 40px rgba(15,55,111,.08)}@media(max-width:760px){.brand-logo.vta-brand-svg{width:132px}.resource-thumb{height:96px}}</style>
+.vta-brand-svg{display:block;max-width:100%;filter:none}.brand-logo.vta-brand-svg{width:150px;height:auto;background:#fff;padding:4px;border-radius:12px}.side-logo{width:170px;height:auto;background:#fff;border-radius:12px;padding:5px}.resource-card{overflow:hidden}.resource-thumb{height:112px;border-radius:15px;margin:-2px -2px 13px;display:grid;place-items:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#eef4ff,#fff5f0);border:1px solid var(--line)}.resource-thumb svg{width:100%;height:100%;display:block}.resource-thumb .rtag{position:absolute;left:10px;bottom:9px;background:rgba(255,255,255,.92);border:1px solid rgba(15,23,42,.08);padding:5px 8px;border-radius:999px;font-size:9px;font-weight:900;color:#17345f;letter-spacing:.04em}.featured-grid .resource-card{border-color:#d7e2f3;box-shadow:0 16px 40px rgba(15,55,111,.08)}@media(max-width:760px){.brand-logo.vta-brand-svg{width:132px}.resource-thumb{height:96px}}
+/* VTA premium workspace pass */
+:root{--brand:#ef4e2f;--brand2:#ff6c4b;--ink:#111a2e;--blue:#17345f;--blue2:#244a86;--success:#159447}
+body{background:
+radial-gradient(circle at 88% 2%,rgba(239,78,47,.055),transparent 22rem),
+radial-gradient(circle at 4% 95%,rgba(23,52,95,.045),transparent 26rem),var(--bg)}
+.brand-logo.vta-brand-svg{width:min(100%,330px);height:auto;padding:0;background:transparent;border-radius:0}
+.side-logo{width:210px;height:auto;padding:0;background:transparent;border-radius:0}
+.side-brand{padding:4px 7px 25px}.side-brand p{margin:5px 4px 0}
+.sidebar{background:linear-gradient(180deg,#0c1529 0%,#111d35 64%,#0b1325 100%);border-right:1px solid rgba(255,255,255,.05)}
+.nav button{display:flex;align-items:center;gap:11px;padding:11px 12px;border:1px solid transparent}
+.nav button svg{width:18px;height:18px;flex:0 0 auto;opacity:.84}.nav button.active svg,.nav button:hover svg{opacity:1}
+.nav button.active,.nav button:hover{background:linear-gradient(90deg,rgba(239,78,47,.16),rgba(255,255,255,.04));border-color:rgba(255,255,255,.055)}
+.nav button.active{box-shadow:inset 3px 0 0 var(--brand)}
+.profile-mini{background:rgba(255,255,255,.035);display:grid;grid-template-columns:38px 1fr;column-gap:9px;align-items:center}
+.profile-avatar{grid-row:1/3;width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--brand),#ff8f72);display:grid;place-items:center;font-weight:950;color:#fff}
+.topbar{height:78px;padding:0 30px}.topbar h1{font-size:20px;letter-spacing:-.025em}.top-date{text-transform:uppercase;letter-spacing:.11em;color:var(--muted);font-size:9px;font-weight:900;margin-bottom:3px}
+.sync-pill{height:38px;padding:0 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel);display:flex;align-items:center;gap:8px;font-size:10px;font-weight:800;color:var(--muted)}
+.sync-pill .dot{box-shadow:0 0 0 4px rgba(34,197,94,.12)}
+.content{padding-top:28px}
+.hero{background:linear-gradient(120deg,#101b33 0%,#17345f 70%,#253f6c 100%);padding:31px 34px;border:1px solid rgba(255,255,255,.04)}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 0 55%,rgba(255,255,255,.035) 55% 56%,transparent 56% 62%,rgba(255,255,255,.028) 62% 63%,transparent 63%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center;position:relative;z-index:2}.hero-copy{max-width:760px}
+.hero-actions{display:grid;grid-template-columns:repeat(2,minmax(132px,1fr));gap:9px}.hero-action{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;border-radius:16px;padding:12px 13px;text-align:left;min-width:135px}.hero-action:hover{background:rgba(255,255,255,.13);transform:translateY(-1px)}.hero-action b{display:block;font-size:12px}.hero-action span{display:block;color:#bac7da;font-size:9px;margin-top:3px}
+.metric-card{position:relative;overflow:hidden;padding:18px 18px 17px}.metric-card:after{content:"";position:absolute;width:80px;height:80px;border-radius:50%;right:-28px;top:-32px;background:rgba(239,78,47,.08)}
+.metric-top{display:flex;align-items:center;justify-content:space-between}.metric-icon{width:36px;height:36px;border-radius:12px;background:#fff1ec;display:grid;place-items:center;color:var(--brand);font-weight:950}.metric-card .metric-value{font-size:28px;font-weight:950;letter-spacing:-.04em;margin-top:13px}.metric-card .metric-label{font-size:10px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.065em}.metric-card .metric-foot{font-size:10px;color:var(--muted);margin-top:4px}
+.workspace-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,.7fr);gap:14px;align-items:start}.workspace-side{display:grid;gap:14px}
+.quick-panel{padding:18px}.quick-panel h4{margin:0 0 3px}.quick-list{display:grid;gap:8px;margin-top:13px}.quick-item{display:flex;align-items:center;gap:11px;width:100%;text-align:left;padding:11px;border:1px solid var(--line);border-radius:14px;background:var(--panel2);color:var(--text)}.quick-item:hover{border-color:#f2b09f;background:#fff8f5}.quick-ico{width:34px;height:34px;border-radius:11px;background:#fff1ec;color:var(--brand);display:grid;place-items:center;font-weight:950}.quick-item b{font-size:11px}.quick-item span{display:block;font-size:9px;color:var(--muted);margin-top:2px}
+.next-card{background:linear-gradient(145deg,var(--panel),var(--panel2));padding:18px}.next-card .eyebrow{font-size:9px;font-weight:900;color:var(--brand);letter-spacing:.09em;text-transform:uppercase}.next-card h4{margin:8px 0 5px;font-size:16px}.next-card p{font-size:11px;color:var(--muted);margin:0}.next-card .when{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+.card,.list-row,.day{transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}.card:hover{border-color:#d9dee8}.student-card:hover,.resource-card:hover{transform:translateY(-2px);box-shadow:0 20px 48px rgba(15,23,42,.1)}
+.week{gap:10px}.day{min-height:158px}.day.today{border-color:#f1a08c;box-shadow:inset 0 0 0 1px rgba(239,78,47,.18)}.day.today .num{color:var(--brand)}
+.event{background:linear-gradient(135deg,#fff0eb,#fff7f4);border:1px solid #ffddd4}
+.list-row.lesson{padding:12px 14px}.lesson-avatar{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#eaf1fb,#f7f9fd);color:var(--blue);display:grid;place-items:center;font-weight:950}
+.student-card{position:relative;overflow:hidden}.student-card:before{content:"";position:absolute;height:4px;left:0;right:0;top:0;background:linear-gradient(90deg,var(--brand),#ff8a68)}
+.student-head{display:flex;align-items:center;gap:10px}.student-avatar{width:43px;height:43px;border-radius:14px;background:linear-gradient(135deg,#17345f,#315c9b);color:#fff;display:grid;place-items:center;font-weight:950;font-size:14px}
+.progress{height:8px}.progress i{background:linear-gradient(90deg,var(--brand),#ff8465)}
+.student-dashboard{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);gap:14px;align-items:stretch}.progress-card{display:grid;grid-template-columns:124px 1fr;align-items:center;gap:18px}.progress-ring{--p:0;width:118px;height:118px;border-radius:50%;background:conic-gradient(var(--brand) calc(var(--p)*1%),#edf0f5 0);display:grid;place-items:center}.progress-ring:after{content:"";width:86px;height:86px;border-radius:50%;background:var(--panel);position:absolute}.progress-ring{position:relative}.progress-ring span{position:relative;z-index:2;font-weight:950;font-size:23px}.progress-ring small{font-size:9px;color:var(--muted);display:block;text-align:center}
+.student-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.student-action{padding:10px 12px;border-radius:13px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:11px;font-weight:850}.student-action.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+.resource-card h4{font-size:14px}.resource-thumb{height:128px}.featured-grid .resource-card{background:linear-gradient(180deg,var(--panel),color-mix(in srgb,var(--panel) 92%,#fff3ef))}
+.empty-state{border:1px dashed #cfd7e4;background:linear-gradient(135deg,var(--panel2),var(--panel));border-radius:18px;padding:24px;text-align:center;color:var(--muted)}.empty-state b{display:block;color:var(--text);margin-bottom:5px}
+.loading-bar{position:fixed;top:0;left:0;height:3px;width:100%;z-index:300;background:linear-gradient(90deg,transparent,var(--brand),transparent);background-size:220% 100%;animation:loadslide 1.1s linear infinite}.loading-bar.hidden{display:none}@keyframes loadslide{from{background-position:220% 0}to{background-position:-220% 0}}
+.mobile-more-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.mobile-more-grid button{padding:16px;border:1px solid var(--line);border-radius:16px;background:var(--panel);color:var(--text);font-weight:850}.mobile-more-grid button svg{display:block;margin:0 auto 7px;width:22px;height:22px}
+.mobile-nav button{min-width:55px}.mobile-nav svg{display:block;width:18px;height:18px;margin:0 auto 3px}
+[data-theme="dark"] .resource-thumb .rtag{background:rgba(18,26,44,.92);color:#e7edf7}[data-theme="dark"] .event{background:#2a1d22;border-color:#573027}[data-theme="dark"] .quick-item:hover{background:#221a1d}
+@media(max-width:1000px){.hero-grid{grid-template-columns:1fr}.hero-actions{grid-template-columns:repeat(4,minmax(0,1fr))}.workspace-grid{grid-template-columns:1fr}.student-dashboard{grid-template-columns:1fr}}
+@media(max-width:760px){.topbar{height:68px}.top-date{display:none}.sync-pill{display:none}.hero{padding:22px}.hero-actions{grid-template-columns:repeat(2,1fr);gap:7px;margin-top:5px}.hero-action{min-width:0;padding:10px}.metric-card .metric-value{font-size:24px}.student-dashboard{grid-template-columns:1fr}.progress-card{grid-template-columns:100px 1fr}.progress-ring{width:96px;height:96px}.progress-ring:after{width:70px;height:70px}.resource-thumb{height:112px}.mobile-nav{overflow:visible}.mobile-nav button{font-size:9px;padding:7px 5px}.content{padding-bottom:100px}}
+</style>
 </head>
 <body>
 <section id="login" class="login">
   <div class="login-art">
-    <div class="login-brand"><svg class="brand-logo vta-brand-svg" viewBox="0 0 430 145" role="img" aria-label="Victoria Tuition Academy"><rect width="430" height="145" rx="18" fill="#fff"/><g transform="translate(300 12)"><path d="M0 20 38 3l38 17-38 17z" fill="#0f376f"/><path d="M68 22v25" stroke="#0f376f" stroke-width="5" stroke-linecap="round"/><path d="M14 28v18c12 10 36 10 48 0V28" fill="none" stroke="#0f376f" stroke-width="5" stroke-linecap="round"/></g><text x="24" y="72" font-family="Segoe Script, Brush Script MT, cursive" font-size="58" font-weight="700" fill="#0f376f">Victoria</text><text x="33" y="108" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="6" fill="#18345f">TUITION ACADEMY</text><line x1="70" y1="126" x2="176" y2="126" stroke="#7ca64a" stroke-width="4" stroke-linecap="round"/><circle cx="215" cy="126" r="7" fill="#7ca64a"/><line x1="254" y1="126" x2="360" y2="126" stroke="#7ca64a" stroke-width="4" stroke-linecap="round"/></svg><div><b>Victoria Tuition Academy</b><div class="tiny" style="color:#94a3b8">Better Understanding. Better Results.</div></div></div>
+    <div class="login-brand"><svg class="brand-logo vta-brand-svg" viewBox="0 0 520 130" role="img" aria-label="Victoria Tuition Academy">
+<rect width="520" height="130" rx="18" fill="#fff"/>
+<g transform="translate(20 20)">
+<path d="M44 24c-20 0-34 15-34 36 0 27 17 47 34 47 10 0 14-5 20-5s10 5 20 5c17 0 34-20 34-47 0-21-14-36-34-36-9 0-15 4-20 9-5-5-11-9-20-9z" fill="#ef4e2f"/>
+<path d="M66 21c4-14 15-21 27-20-2 13-11 21-27 23z" fill="#17345f"/>
+<path d="M59 20c-10-12-19-14-28-12 4 11 12 17 27 17z" fill="#17345f"/>
+<path d="M64 33v67" stroke="#d94227" stroke-width="3" opacity=".45"/>
+</g>
+<text x="150" y="61" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="900" letter-spacing="1" fill="#111a2e">VICTORIA TUITION ACADEMY</text>
+<text x="151" y="94" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="850" letter-spacing="6" fill="#ef4e2f">PRIVATE TUTORING</text>
+</svg><div><b>Victoria Tuition Academy</b><div class="tiny" style="color:#94a3b8">Better Understanding. Better Results.</div></div></div>
     <div><h1>Your tuition workspace,<br>on any screen.</h1><p>Manage lessons, student progress, bookings, resources, quizzes and messages from one secure portal.</p></div>
     <div class="tiny" style="color:#94a3b8">Private portal • Victoria Tuition Academy</div>
   </div>
   <div class="login-form">
     <form id="loginForm" class="login-box">
-      <svg class="brand-logo vta-brand-svg" style="margin-bottom:22px" viewBox="0 0 430 145" role="img" aria-label="Victoria Tuition Academy"><rect width="430" height="145" rx="18" fill="#fff"/><g transform="translate(300 12)"><path d="M0 20 38 3l38 17-38 17z" fill="#0f376f"/><path d="M68 22v25" stroke="#0f376f" stroke-width="5" stroke-linecap="round"/><path d="M14 28v18c12 10 36 10 48 0V28" fill="none" stroke="#0f376f" stroke-width="5" stroke-linecap="round"/></g><text x="24" y="72" font-family="Segoe Script, Brush Script MT, cursive" font-size="58" font-weight="700" fill="#0f376f">Victoria</text><text x="33" y="108" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="6" fill="#18345f">TUITION ACADEMY</text><line x1="70" y1="126" x2="176" y2="126" stroke="#7ca64a" stroke-width="4" stroke-linecap="round"/><circle cx="215" cy="126" r="7" fill="#7ca64a"/><line x1="254" y1="126" x2="360" y2="126" stroke="#7ca64a" stroke-width="4" stroke-linecap="round"/></svg>
+      <svg class="brand-logo vta-brand-svg" style="margin-bottom:22px" viewBox="0 0 520 130" role="img" aria-label="Victoria Tuition Academy">
+<rect width="520" height="130" rx="18" fill="#fff"/>
+<g transform="translate(20 20)">
+<path d="M44 24c-20 0-34 15-34 36 0 27 17 47 34 47 10 0 14-5 20-5s10 5 20 5c17 0 34-20 34-47 0-21-14-36-34-36-9 0-15 4-20 9-5-5-11-9-20-9z" fill="#ef4e2f"/>
+<path d="M66 21c4-14 15-21 27-20-2 13-11 21-27 23z" fill="#17345f"/>
+<path d="M59 20c-10-12-19-14-28-12 4 11 12 17 27 17z" fill="#17345f"/>
+<path d="M64 33v67" stroke="#d94227" stroke-width="3" opacity=".45"/>
+</g>
+<text x="150" y="61" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="900" letter-spacing="1" fill="#111a2e">VICTORIA TUITION ACADEMY</text>
+<text x="151" y="94" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="850" letter-spacing="6" fill="#ef4e2f">PRIVATE TUTORING</text>
+</svg> viewBox="0 0 520 130" role="img" aria-label="Victoria Tuition Academy">
+<rect width="520" height="130" rx="18" fill="#fff"/>
+<g transform="translate(20 20)">
+<path d="M44 24c-20 0-34 15-34 36 0 27 17 47 34 47 10 0 14-5 20-5s10 5 20 5c17 0 34-20 34-47 0-21-14-36-34-36-9 0-15 4-20 9-5-5-11-9-20-9z" fill="#ef4e2f"/>
+<path d="M66 21c4-14 15-21 27-20-2 13-11 21-27 23z" fill="#17345f"/>
+<path d="M59 20c-10-12-19-14-28-12 4 11 12 17 27 17z" fill="#17345f"/>
+<path d="M64 33v67" stroke="#d94227" stroke-width="3" opacity=".45"/>
+</g>
+<text x="150" y="61" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="900" letter-spacing="1" fill="#111a2e">VICTORIA TUITION ACADEMY</text>
+<text x="151" y="94" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="850" letter-spacing="6" fill="#ef4e2f">PRIVATE TUTORING</text>
+</svg>
       <h2>Welcome back</h2><p>Use the same VTA account you use in the Android app.</p>
       <div class="field"><label>Username</label><input id="username" autocomplete="username" required placeholder="Your username"></div>
       <div class="field"><label>Password</label><input id="password" type="password" autocomplete="current-password" required placeholder="Your password"></div>
@@ -46,7 +122,17 @@ input,select,textarea{width:100%;border:1px solid var(--line);border-radius:13px
 
 <div id="app" class="app hidden">
   <aside class="sidebar">
-    <div class="side-brand"><svg class="vta-brand-svg side-logo" viewBox="0 0 430 145" role="img" aria-label="Victoria Tuition Academy"><rect width="430" height="145" rx="18" fill="#fff"/><g transform="translate(300 12)"><path d="M0 20 38 3l38 17-38 17z" fill="#0f376f"/><path d="M68 22v25" stroke="#0f376f" stroke-width="5" stroke-linecap="round"/><path d="M14 28v18c12 10 36 10 48 0V28" fill="none" stroke="#0f376f" stroke-width="5" stroke-linecap="round"/></g><text x="24" y="72" font-family="Segoe Script, Brush Script MT, cursive" font-size="58" font-weight="700" fill="#0f376f">Victoria</text><text x="33" y="108" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="6" fill="#18345f">TUITION ACADEMY</text><line x1="70" y1="126" x2="176" y2="126" stroke="#7ca64a" stroke-width="4" stroke-linecap="round"/><circle cx="215" cy="126" r="7" fill="#7ca64a"/><line x1="254" y1="126" x2="360" y2="126" stroke="#7ca64a" stroke-width="4" stroke-linecap="round"/></svg><p>Better Understanding. Better Results.</p></div>
+    <div class="side-brand"><svg class="vta-brand-svg side-logo" viewBox="0 0 520 130" role="img" aria-label="Victoria Tuition Academy">
+<rect width="520" height="130" rx="18" fill="#fff"/>
+<g transform="translate(20 20)">
+<path d="M44 24c-20 0-34 15-34 36 0 27 17 47 34 47 10 0 14-5 20-5s10 5 20 5c17 0 34-20 34-47 0-21-14-36-34-36-9 0-15 4-20 9-5-5-11-9-20-9z" fill="#ef4e2f"/>
+<path d="M66 21c4-14 15-21 27-20-2 13-11 21-27 23z" fill="#17345f"/>
+<path d="M59 20c-10-12-19-14-28-12 4 11 12 17 27 17z" fill="#17345f"/>
+<path d="M64 33v67" stroke="#d94227" stroke-width="3" opacity=".45"/>
+</g>
+<text x="150" y="61" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="900" letter-spacing="1" fill="#111a2e">VICTORIA TUITION ACADEMY</text>
+<text x="151" y="94" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="850" letter-spacing="6" fill="#ef4e2f">PRIVATE TUTORING</text>
+</svg><p>Better Understanding. Better Results.</p></div>
     <nav id="nav" class="nav"></nav>
     <div class="side-bottom">
       <div id="sideProfile" class="profile-mini"></div>
@@ -56,14 +142,18 @@ input,select,textarea{width:100%;border:1px solid var(--line);border-radius:13px
   </aside>
   <main class="main">
     <header class="topbar">
-      <div><h1 id="pageTitle">Dashboard</h1><div id="syncText" class="tiny muted">Live cloud portal</div></div>
-      <div class="top-actions"><button class="iconbtn" title="Refresh" onclick="sync()">↻</button><button class="iconbtn" title="Theme" onclick="toggleTheme()">◐</button></div>
+      <div><div id="topDate" class="top-date"></div><h1 id="pageTitle">Dashboard</h1></div>
+      <div class="top-actions">
+        <div class="sync-pill"><span class="dot"></span><span id="syncText">Live cloud portal</span></div>
+        <button class="iconbtn" title="Refresh" onclick="sync()">↻</button>
+        <button class="iconbtn" title="Theme" onclick="toggleTheme()">◐</button>
+      </div>
     </header>
     <div id="content" class="content"></div>
   </main>
   <nav id="mobileNav" class="mobile-nav"></nav>
 </div>
-<div id="modal" class="modal hidden"></div>
+<div id="loadingBar" class="loading-bar hidden"></div><div id="modal" class="modal hidden"></div>
 <div id="toast" class="toast hidden"></div>
 
 <script>
@@ -93,28 +183,41 @@ $('#loginForm').addEventListener('submit',async e=>{
 });
 async function sync(first=false){
   if(!token)return showLogin();
-  const s=$('#syncText');if(s)s.textContent='Syncing…';
-  try{data=await api({action:'sync'});showApp();render();if(s)s.textContent='Live • synced '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});if(first)toast('Signed in')}
+  const s=$('#syncText'),bar=$('#loadingBar');if(s)s.textContent='Syncing…';if(bar)bar.classList.remove('hidden');
+  try{data=await api({action:'sync'});showApp();render();if(s)s.textContent='Synced '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});if(first)toast('Welcome to Victoria Tuition Academy')}
   catch(err){if(/Unauthorized/i.test(err.message)){logout();return}if(s)s.textContent='Offline • '+err.message}
+  finally{if(bar)bar.classList.add('hidden')}
 }
 function showLogin(){$('#login').classList.remove('hidden');$('#app').classList.add('hidden')}
 function showApp(){$('#login').classList.add('hidden');$('#app').classList.remove('hidden');buildNav();if(liveTimer)clearInterval(liveTimer);liveTimer=setInterval(()=>sync(),45000)}
 function logout(){token='';data=null;localStorage.removeItem('vta_web_token');if(liveTimer)clearInterval(liveTimer);showLogin()}
 function role(){return data&&data.user?data.user.role:''}
+function initials(name){return String(name||'V').trim().split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase()}
+function greeting(){const h=new Date().getHours();return h<12?'Good morning':h<17?'Good afternoon':'Good evening'}
+function navIcon(k){
+ const paths={home:'<path d="M3 10.5 12 3l9 7.5v9a1.5 1.5 0 0 1-1.5 1.5H15v-6H9v6H4.5A1.5 1.5 0 0 1 3 19.5z"/>',students:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',schedule:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/>',messages:'<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>',resources:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',quizzes:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',finance:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M7 15h.01"/>',learning:'<path d="M2 10l10-5 10 5-10 5z"/><path d="M6 12.5V17c3 2 9 2 12 0v-4.5"/>',book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 7v6M9 10h6"/>',work:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6M9 11h2"/>',more:'<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>'};
+ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(paths[k]||paths.more)+'</svg>';
+}
+function emptyState(title,sub){return '<div class="empty-state"><b>'+esc(title)+'</b><span class="tiny">'+esc(sub||'')+'</span></div>'}
+function openMoreNav(){
+ const items=navItems().slice(4);modal('More','<div class="mobile-more-grid">'+items.map(x=>'<button onclick="closeModal();go(\''+x[0]+'\')">'+navIcon(x[0])+esc(x[1])+'</button>').join('')+'</div>');
+}
 function navItems(){
   if(role()==='ADMIN')return [['home','Home'],['students','Students'],['schedule','Schedule'],['messages','Messages'],['resources','Resources'],['quizzes','Quizzes'],['finance','Finance']];
   return [['home','Home'],['learning','Learning'],['book','Book'],['messages','Messages'],['resources','Resources'],['work','Work Sent'],['quizzes','Quizzes']];
 }
 function buildNav(){
   const items=navItems();if(!items.some(x=>x[0]===tab))tab='home';
-  $('#nav').innerHTML=items.map(x=>'<button class="'+(tab===x[0]?'active':'')+'" onclick="go(\''+x[0]+'\')">'+x[1]+'</button>').join('');
-  $('#mobileNav').innerHTML=items.slice(0,5).map(x=>'<button class="'+(tab===x[0]?'active':'')+'" onclick="go(\''+x[0]+'\')">'+x[1]+'</button>').join('');
-  $('#sideProfile').innerHTML='<strong>'+esc(data.user.displayName)+'</strong><span>'+esc(data.user.role)+'</span>';
+  $('#nav').innerHTML=items.map(x=>'<button class="'+(tab===x[0]?'active':'')+'" onclick="go(\''+x[0]+'\')">'+navIcon(x[0])+'<span>'+esc(x[1])+'</span></button>').join('');
+  const primary=items.slice(0,4);
+  $('#mobileNav').innerHTML=primary.map(x=>'<button class="'+(tab===x[0]?'active':'')+'" onclick="go(\''+x[0]+'\')">'+navIcon(x[0])+'<span>'+esc(x[1])+'</span></button>').join('')+'<button onclick="openMoreNav()">'+navIcon('more')+'<span>More</span></button>';
+  $('#sideProfile').innerHTML='<div class="profile-avatar">'+esc(initials(data.user.displayName))+'</div><strong>'+esc(data.user.displayName)+'</strong><span>'+esc(data.user.role==='ADMIN'?'Tutor / Admin':'Student')+'</span>';
 }
 function go(t){tab=t;buildNav();render();window.scrollTo({top:0,behavior:'smooth'})}
 function render(){
   if(!data)return;buildNav();const titles={home:'Dashboard',students:'Students',schedule:'Schedule & bookings',messages:'Messages',resources:'Resources',quizzes:'Quizzes',finance:'Finance',learning:'My learning',book:'Book a lesson',work:'Work sent'};
   $('#pageTitle').textContent=titles[tab]||'VTA Portal';
+  const td=$('#topDate');if(td)td.textContent=new Date().toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long'});
   if(role()==='ADMIN')renderAdmin();else renderStudent();
 }
 function section(title,sub,action){return '<div class="section-title"><div><h3>'+esc(title)+'</h3>'+(sub?'<p>'+esc(sub)+'</p>':'')+'</div>'+(action||'')+'</div>'}
@@ -123,31 +226,38 @@ function renderAdmin(){
   if(tab==='home')adminHome();else if(tab==='students')adminStudents();else if(tab==='schedule')adminSchedule();else if(tab==='messages')adminMessages();else if(tab==='resources')adminResources();else if(tab==='quizzes')adminQuizzes();else if(tab==='finance')adminFinance();
 }
 function adminHome(){
-  const lessons=data.lessons||[],bookings=data.bookings||[],messages=data.messages||[],students=data.students||[];
-  const completed=lessons.filter(x=>x.status==='Completed');const hours=completed.reduce((a,x)=>a+Number(x.duration_minutes||0)/60,0);
+  const lessons=data.lessons||[],bookings=data.bookings||[],students=data.students||[],subs=data.submissions||[],resources=data.resources||[];
+  const completed=lessons.filter(x=>x.status==='Completed');
+  const hours=completed.reduce((a,x)=>a+Number(x.duration_minutes||0)/60,0);
   const pending=bookings.filter(x=>x.status==='Pending').length;
+  const pendingWork=subs.filter(x=>x.status==='Sent').length;
   const future=lessons.filter(x=>x.lesson_date>=today()&&x.status!=='Cancelled').sort((a,b)=>(a.lesson_date+(a.start_time||'')).localeCompare(b.lesson_date+(b.start_time||''))).slice(0,6);
-  let h='<section class="hero"><div class="tiny strong" style="color:#fca58f">ADMIN WORKSPACE</div><h2>Good to see you, '+esc(data.user.displayName)+'.</h2><p>Your lessons, students, bookings and teaching resources are synced with the Android app.</p></section>';
-  h+=section('Overview','Live from your VTA cloud data');
-  h+='<div class="grid4"><div class="card metric"><span>ACTIVE STUDENTS</span><b>'+students.filter(x=>x.active!==false).length+'</b></div><div class="card metric"><span>COMPLETED HOURS</span><b>'+hours.toFixed(1)+'</b></div><div class="card metric"><span>PENDING BOOKINGS</span><b>'+pending+'</b></div><div class="card metric"><span>RECORDED LESSON VALUE</span><b>R'+Math.round(hours*150)+'</b></div></div>';
-  h+=section('This week','A desktop planner view of your teaching week');
+  const next=future[0];
+  let h='<section class="hero"><div class="hero-grid"><div class="hero-copy"><div class="tiny strong" style="color:#ffad98">VICTORIA TUITION ACADEMY</div><h2>'+greeting()+', '+esc(data.user.displayName)+'.</h2><p>Your teaching week, student progress and lesson preparation are together in one workspace.</p></div><div class="hero-actions"><button class="hero-action" onclick="openLesson()"><b>+ Add lesson</b><span>Schedule a session</span></button><button class="hero-action" onclick="openStudentCreate()"><b>+ Add student</b><span>Create login & profile</span></button><button class="hero-action" onclick="openUpload()"><b>Upload resource</b><span>Notes or lesson files</span></button><button class="hero-action" onclick="go(\'messages\')"><b>Messages</b><span>Open student chats</span></button></div></div></section>';
+  h+=section('Today at a glance','Useful teaching information — finance stays in the Finance section');
+  h+='<div class="grid4"><div class="card metric-card"><div class="metric-top"><span class="metric-label">ACTIVE STUDENTS</span><div class="metric-icon">S</div></div><div class="metric-value">'+students.filter(x=>x.active!==false).length+'</div><div class="metric-foot">Student profiles ready</div></div><div class="card metric-card"><div class="metric-top"><span class="metric-label">LESSON HOURS</span><div class="metric-icon">H</div></div><div class="metric-value">'+hours.toFixed(1)+'</div><div class="metric-foot">Completed and recorded</div></div><div class="card metric-card"><div class="metric-top"><span class="metric-label">BOOKING REQUESTS</span><div class="metric-icon">B</div></div><div class="metric-value">'+pending+'</div><div class="metric-foot">'+(pending?'Needs your attention':'All caught up')+'</div></div><div class="card metric-card"><div class="metric-top"><span class="metric-label">WORK TO REVIEW</span><div class="metric-icon">W</div></div><div class="metric-value">'+pendingWork+'</div><div class="metric-foot">'+resources.length+' teaching resources available</div></div></div>';
+  h+=section('This week','A clear teaching planner');
   h+=weekView(lessons);
-  h+=section('Next lessons','Your upcoming confirmed and planned sessions','<button class="btn small primary" onclick="openLesson()">+ Add lesson</button>');
-  h+='<div class="list">'+(future.length?future.map(lessonRow).join(''):'<div class="card muted">No upcoming lessons recorded.</div>')+'</div>';
+  h+='<div class="workspace-grid">';
+  h+='<div><div class="section-title"><div><h3>Upcoming lessons</h3><p>Next confirmed and planned sessions</p></div><button class="btn small primary" onclick="openLesson()">+ Add lesson</button></div><div class="list">'+(future.length?future.map(lessonRow).join(''):emptyState('Your calendar is clear','Add a lesson when you are ready.'))+'</div></div>';
+  h+='<div class="workspace-side">';
+  h+='<div class="card next-card"><div class="eyebrow">NEXT LESSON</div>'+(next?'<h4>'+esc(studentName(next.student_id))+'</h4><p>'+esc(next.subject||'Lesson')+' • '+esc(next.topic||'Topic to confirm')+'</p><div class="when"><span class="chip orange">'+esc(dateFmt(next.lesson_date))+'</span><span class="chip">'+esc(timeFmt(next.start_time))+'</span></div>':'<h4>No lesson queued</h4><p>Your next scheduled lesson will appear here.</p>')+'</div>';
+  h+='<div class="card quick-panel"><h4>Quick actions</h4><div class="tiny muted">Common tutor tasks</div><div class="quick-list"><button class="quick-item" onclick="go(\'students\')"><span class="quick-ico">S</span><span><b>Student profiles</b><span>Progress, syllabus and plans</span></span></button><button class="quick-item" onclick="go(\'resources\')"><span class="quick-ico">R</span><span><b>Teaching resources</b><span>Interactive lessons and notes</span></span></button><button class="quick-item" onclick="go(\'quizzes\')"><span class="quick-ico">Q</span><span><b>Quizzes</b><span>Create and review practice</span></span></button></div></div>';
+  h+='</div></div>';
   $('#content').innerHTML=h;
 }
 function weekView(lessons){
   const d=new Date();const day=(d.getDay()+6)%7;d.setDate(d.getDate()-day);
   let h='<div class="week">';
   for(let i=0;i<7;i++){const x=new Date(d);x.setDate(d.getDate()+i);const key=x.toISOString().slice(0,10);const ls=lessons.filter(l=>l.lesson_date===key&&l.status!=='Cancelled');
-    h+='<div class="day"><div class="dn">'+x.toLocaleDateString('en-ZA',{weekday:'short'}).toUpperCase()+'</div><div class="num">'+x.getDate()+'</div>'+(ls.length?ls.map(l=>'<div class="event"><b>'+esc(timeFmt(l.start_time))+' • '+esc(studentName(l.student_id))+'</b>'+esc(l.topic||l.subject)+'</div>').join(''):'<span class="tiny muted">Open</span>')+'</div>'}
+    h+='<div class="day '+(key===today()?'today':'')+'"><div class="dn">'+x.toLocaleDateString('en-ZA',{weekday:'short'}).toUpperCase()+'</div><div class="num">'+x.getDate()+'</div>'+(ls.length?ls.map(l=>'<div class="event"><b>'+esc(timeFmt(l.start_time))+' • '+esc(studentName(l.student_id))+'</b>'+esc(l.topic||l.subject)+'</div>').join(''):'<span class="tiny muted">Open</span>')+'</div>'}
   return h+'</div>';
 }
-function lessonRow(l){return '<div class="list-row lesson"><div class="date"><b>'+new Date(l.lesson_date+'T12:00:00').getDate()+'</b><span class="tiny muted">'+new Date(l.lesson_date+'T12:00:00').toLocaleDateString('en-ZA',{month:'short'})+'</span></div><div><h4>'+esc(studentName(l.student_id))+' • '+esc(l.subject||'Lesson')+'</h4><p>'+esc(l.topic||'Topic not recorded')+' • '+esc(timeFmt(l.start_time))+' • '+esc(l.duration_minutes)+' min</p></div>'+status(l.status)+'</div>'}
+function lessonRow(l){const n=studentName(l.student_id);return '<div class="list-row lesson"><div class="date"><b>'+new Date(l.lesson_date+'T12:00:00').getDate()+'</b><span class="tiny muted">'+new Date(l.lesson_date+'T12:00:00').toLocaleDateString('en-ZA',{month:'short'})+'</span></div><div class="row"><div class="lesson-avatar">'+esc(initials(n))+'</div><div><h4>'+esc(n)+' • '+esc(l.subject||'Lesson')+'</h4><p>'+esc(l.topic||'Topic not recorded')+' • '+esc(timeFmt(l.start_time))+' • '+esc(l.duration_minutes)+' min</p></div></div>'+status(l.status)+'</div>'}
 function adminStudents(){
   const students=data.students||[];let h=section('Students','Edit profiles, monthly plans, syllabus and lesson progress','<button class="btn small primary" onclick="openStudentCreate()">+ Student</button>');
   h+='<div class="grid3">'+students.map(s=>{const tp=(data.topicProgress||[]).filter(x=>x.student_id===s.id),done=tp.filter(x=>x.status==='Covered').length,pct=tp.length?Math.round(done/tp.length*100):0;
-    return '<div class="card student-card"><div class="row between"><h4>'+esc(s.display_name)+'</h4>'+status(s.active===false?'Inactive':'Active')+'</div><p>'+esc(s.grade||'Grade not set')+' • '+esc(s.curriculum||'Curriculum not set')+'<br>'+esc(s.subjects||'Subjects not set')+'</p><div class="row between tiny muted"><span>Syllabus progress</span><span>'+done+'/'+tp.length+'</span></div><div class="progress" style="margin:6px 0 14px"><i style="width:'+pct+'%"></i></div><button class="btn small" onclick="studentDetail(\''+s.id+'\')">Open profile</button></div>'}).join('')+'</div>';
+    return '<div class="card student-card"><div class="row between"><div class="student-head"><div class="student-avatar">'+esc(initials(s.display_name))+'</div><div><h4>'+esc(s.display_name)+'</h4><div class="tiny muted">'+esc(s.grade||'Grade not set')+' • '+esc(s.curriculum||'Curriculum not set')+'</div></div></div>'+status(s.active===false?'Inactive':'Active')+'</div><p>'+esc(s.subjects||'Subjects not set')+'</p><div class="row between tiny muted"><span>Syllabus progress</span><span>'+done+'/'+tp.length+'</span></div><div class="progress" style="margin:6px 0 14px"><i style="width:'+pct+'%"></i></div><button class="btn small" onclick="studentDetail(\''+s.id+'\')">Open profile</button></div>'}).join('')+'</div>';
   $('#content').innerHTML=h;
 }
 function studentDetail(id){
@@ -220,13 +330,17 @@ function renderStudent(){
   if(tab==='home')studentHome();else if(tab==='learning')studentLearning();else if(tab==='book')studentBook();else if(tab==='messages')studentMessages();else if(tab==='resources')studentResources();else if(tab==='work')studentWork();else if(tab==='quizzes')studentQuizzes();
 }
 function studentHome(){
-  const next=(data.lessons||[]).filter(x=>x.lesson_date>=today()&&x.status!=='Cancelled').sort((a,b)=>(a.lesson_date+(a.start_time||'')).localeCompare(b.lesson_date+(b.start_time||'')))[0];const tp=data.topicProgress||[],covered=tp.filter(x=>x.status==='Covered').length;
-  let h='<section class="hero"><div class="tiny strong" style="color:#fca58f">STUDENT PORTAL</div><h2>Hi, '+esc(data.user.displayName)+'.</h2><p>Your lessons, learning plan, resources and tutor messages are all here.</p></section>';
-  h+=section('Your progress','Keep building topic by topic');h+='<div class="grid3"><div class="card metric"><span>TOPICS COVERED</span><b>'+covered+'</b></div><div class="card metric"><span>TOTAL TOPICS</span><b>'+tp.length+'</b></div><div class="card metric"><span>LESSONS RECORDED</span><b>'+(data.lessons||[]).length+'</b></div></div>';
-  h+=section('Next lesson','Your next confirmed or planned session');h+=next?'<div class="card">'+lessonRow(next)+'</div>':'<div class="card muted">No upcoming lesson is recorded yet.</div>';
-  const focus=tp.filter(x=>['Next','Current','Revisit'].includes(x.status));h+=section('What to focus on next','Suggested from your learning progress');h+='<div class="grid3">'+(focus.length?focus.slice(0,6).map(x=>'<div class="card"><div class="row between"><b>'+esc(x.topic)+'</b>'+status(x.status)+'</div><p class="tiny muted">'+esc(x.notes||x.strand||'')+'</p></div>').join(''):'<div class="card muted">Your tutor will add focus topics here.</div>')+'</div>';
+  const lessons=data.lessons||[],tp=data.topicProgress||[],covered=tp.filter(x=>x.status==='Covered').length,pct=tp.length?Math.round(covered/tp.length*100):0;
+  const next=lessons.filter(x=>x.lesson_date>=today()&&x.status!=='Cancelled').sort((a,b)=>(a.lesson_date+(a.start_time||'')).localeCompare(b.lesson_date+(b.start_time||'')))[0];
+  const focus=tp.filter(x=>['Next','Current','Revisit'].includes(x.status));
   const featured=(data.resources||[]).filter(r=>r.featured).slice(0,3);
-  if(featured.length){h+=section('Featured resources','Recommended lessons, notes and practice selected for you');h+=resourceCards(featured,false,true)}
+  let h='<section class="hero"><div class="hero-grid"><div class="hero-copy"><div class="tiny strong" style="color:#ffad98">YOUR VTA LEARNING SPACE</div><h2>'+greeting()+', '+esc(data.user.displayName)+'.</h2><p>See what is next, book support when you need it, and keep your learning resources in one place.</p></div><div class="hero-actions"><button class="hero-action" onclick="go(\'book\')"><b>Book a lesson</b><span>Choose topic & time</span></button><button class="hero-action" onclick="go(\'messages\')"><b>Message Victoria</b><span>Ask for help</span></button><button class="hero-action" onclick="go(\'resources\')"><b>Open resources</b><span>Lessons & notes</span></button><button class="hero-action" onclick="go(\'work\')"><b>Send work</b><span>Homework & assessments</span></button></div></div></section>';
+  h+=section('Your learning dashboard','A quick view of your progress and next session');
+  h+='<div class="student-dashboard"><div class="card progress-card"><div class="progress-ring" style="--p:'+pct+'"><span>'+pct+'%</span></div><div><div class="tiny strong muted">SYLLABUS PROGRESS</div><h3 style="margin:5px 0 6px">'+covered+' of '+tp.length+' topics covered</h3><div class="tiny muted">'+(pct>=80?'Strong progress — keep practising exam questions.':pct>=40?'You are building momentum topic by topic.':'Your progress will grow as topics are completed.')+'</div><div class="student-actions"><button class="student-action primary" onclick="go(\'learning\')">View learning</button><button class="student-action" onclick="go(\'resources\')">Resources</button></div></div></div>';
+  h+='<div class="card next-card"><div class="eyebrow">YOUR NEXT LESSON</div>'+(next?'<h4>'+esc(next.subject||'Lesson')+'</h4><p>'+esc(next.topic||'Topic to confirm')+'</p><div class="when"><span class="chip orange">'+esc(dateFmt(next.lesson_date))+'</span><span class="chip">'+esc(timeFmt(next.start_time))+'</span><span class="chip">'+esc(next.duration_minutes)+' min</span></div><div class="student-actions"><button class="student-action primary" onclick="go(\'messages\')">Ask a question</button><button class="student-action" onclick="go(\'book\')">Book another lesson</button></div>':'<h4>No upcoming lesson yet</h4><p>Book a session when you are ready for the next topic.</p><div class="student-actions"><button class="student-action primary" onclick="go(\'book\')">Book a lesson</button></div>')+'</div></div>';
+  if(featured.length){h+=section('Featured for you','Recommended lessons, notes and practice from Victoria');h+=resourceCards(featured,false,true)}
+  h+=section('What to focus on next','Based on your syllabus progress');
+  h+='<div class="grid3">'+(focus.length?focus.slice(0,6).map(x=>'<div class="card"><div class="row between"><b>'+esc(x.topic)+'</b>'+status(x.status)+'</div><p class="tiny muted">'+esc(x.notes||x.strand||'')+'</p></div>').join(''):emptyState('No focus topics yet','Victoria will add your next focus areas here.'))+'</div>';
   $('#content').innerHTML=h;
 }
 function studentLearning(){
