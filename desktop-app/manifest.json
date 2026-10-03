@@ -1,0 +1,14 @@
+{
+  "name":"Victoria Tuition Academy Student Portal",
+  "short_name":"VTA Portal",
+  "description":"Victoria Tuition Academy lessons, bookings, resources, quizzes and messages.",
+  "start_url":"./",
+  "scope":"./",
+  "display":"standalone",
+  "background_color":"#f4f6f8",
+  "theme_color":"#0f172a",
+  "orientation":"any",
+  "icons":[
+    {"src":"assets/logo.jpg","sizes":"any","type":"image/jpeg","purpose":"any"}
+  ]
+}
