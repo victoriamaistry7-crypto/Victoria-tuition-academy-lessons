@@ -22,3 +22,10 @@ window.vtaInstall = async () => {
   deferredInstallPrompt = null;
   return result.outcome === 'accepted';
 };
+window.vtaIsInstalled = () =>
+  window.matchMedia?.('(display-mode: standalone)').matches ||
+  window.navigator.standalone === true;
+window.addEventListener('appinstalled', () => {
+  deferredInstallPrompt = null;
+  window.dispatchEvent(new CustomEvent('vta-app-installed'));
+});
