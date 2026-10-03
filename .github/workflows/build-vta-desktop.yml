@@ -1,0 +1,48 @@
+name: Build VTA Windows Desktop App
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'desktop-app/**'
+      - '.github/workflows/build-vta-desktop.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: desktop-app/package-lock.json
+
+      - name: Install dependencies
+        working-directory: desktop-app
+        run: npm install
+
+      - name: Build portable Windows app
+        working-directory: desktop-app
+        run: npm run dist:win
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: VTA-Student-Portal-Windows
+          path: desktop-app/dist/VTA-Student-Portal-Windows.exe
+
+      - name: Publish desktop release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete vta-desktop-latest --cleanup-tag --yes || true
+          gh release create vta-desktop-latest desktop-app/dist/VTA-Student-Portal-Windows.exe \
+            --title "VTA Student Portal - Windows Desktop" \
+            --notes "Desktop edition synced to the same Supabase backend as the Android app. Includes admin dashboard, students, syllabus progress, schedule, bookings, WhatsApp-style messaging, categorized resources, quizzes and finance."
