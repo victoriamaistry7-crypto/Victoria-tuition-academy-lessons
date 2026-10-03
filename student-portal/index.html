@@ -165,9 +165,25 @@ $('#loginForm').addEventListener('submit',async e=>{
 async function sync(first=false){
   if(!token)return showLogin();
   const s=$('#syncText'),bar=$('#loadingBar');if(s)s.textContent='Syncing…';if(bar)bar.classList.remove('hidden');
-  try{data=await api({action:'sync'});showApp();render();if(s)s.textContent='Synced '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});if(first)toast('Welcome to Victoria Tuition Academy')}
-  catch(err){if(/Unauthorized/i.test(err.message)){logout();return}if(s)s.textContent='Offline • '+err.message}
-  finally{if(bar)bar.classList.add('hidden')}
+  try{
+    data=await api({action:'sync'});
+  }catch(err){
+    if(/Unauthorized/i.test(err.message)){logout();return}
+    if(s)s.textContent='Connection issue • '+err.message;
+    if(bar)bar.classList.add('hidden');
+    return;
+  }
+  try{
+    showApp();render();
+    if(s)s.textContent='Synced '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    if(first)toast('Welcome to Victoria Tuition Academy');
+  }catch(err){
+    console.error('VTA render error',err);
+    if(s)s.textContent='Synced • display issue';
+    toast('The data synced, but one screen needs refreshing.');
+  }finally{
+    if(bar)bar.classList.add('hidden');
+  }
 }
 function showLogin(){$('#login').classList.remove('hidden');$('#app').classList.add('hidden')}
 function showApp(){$('#login').classList.add('hidden');$('#app').classList.remove('hidden');buildNav();if(liveTimer)clearInterval(liveTimer);liveTimer=setInterval(()=>sync(),45000)}
@@ -186,6 +202,18 @@ function openMoreNav(){
 function routineFor(id){return (data.routines||[]).find(x=>x.student_id===id)||null}
 function monthKeyNow(){return today().slice(0,7)}
 function monthHoursFor(id,statuses){const m=monthKeyNow();return (data.lessons||[]).filter(x=>x.student_id===id&&String(x.lesson_date||'').slice(0,7)===m&&x.status!=='Cancelled'&&(!statuses||statuses.includes(x.status))).reduce((a,x)=>a+Number(x.duration_minutes||0)/60,0)}
+function lessonStats(id){
+  const ls=(data.lessons||[]).filter(x=>x.student_id===id);
+  const completed=ls.filter(x=>x.status==='Completed');
+  const known=completed.filter(x=>x.duration_minutes!=null);
+  return {
+    completed:completed.length,
+    completedHours:known.reduce((a,x)=>a+Number(x.duration_minutes||0)/60,0),
+    unknownHours:completed.length-known.length,
+    needs:ls.filter(x=>x.status==='Needs confirmation').length,
+    scheduled:ls.filter(x=>!['Cancelled','Rescheduled'].includes(x.status)).length
+  };
+}
 function dueClass(t){if(!t.due_date)return '';if(t.due_date<today())return 'task-overdue';if(t.due_date===today())return 'task-today';return ''}
 function dueText(t){if(!t.due_date)return 'No date';if(t.due_date<today())return 'Overdue';if(t.due_date===today())return 'Today';const d=new Date(t.due_date+'T12:00:00');return d.toLocaleDateString('en-ZA',{weekday:'short',day:'numeric',month:'short'})}
 function taskRow(t){return '<div class="task-item"><button class="task-check" title="Mark done" onclick="completeTask(\''+t.id+'\')">✓</button><div class="task-copy"><b>'+esc(t.title)+'</b><span>'+esc(studentName(t.student_id))+(t.notes?' • '+esc(t.notes):'')+'</span></div><div class="task-meta"><span class="task-type">'+esc(t.task_type||'Task')+'</span><span class="tiny '+dueClass(t)+'">'+esc(dueText(t))+'</span></div></div>'}
@@ -339,11 +367,18 @@ function adminQuizzes(){
   $('#content').innerHTML=h;
 }
 function adminFinance(){
-  const lessons=(data.lessons||[]).filter(x=>x.status==='Completed'),hours=lessons.reduce((a,x)=>a+Number(x.duration_minutes||0)/60,0),earned=hours*15000;const payments=data.payments||[],paid=payments.reduce((a,x)=>a+Number(x.amount_cents||0),0);
-  let h=section('Finance','R150 per completed teaching hour','<button class="btn small primary" onclick="openPayment()">+ Record payment</button>');
-  h+='<div class="grid3"><div class="card metric"><span>COMPLETED HOURS</span><b>'+hours.toFixed(1)+'</b></div><div class="card metric"><span>LESSON VALUE</span><b>'+money(earned)+'</b></div><div class="card metric"><span>PAYMENTS RECORDED</span><b>'+money(paid)+'</b></div></div>';
-  h+=section('Payments','Amounts are only shown when they are actually recorded');h+='<div class="list">'+(payments.length?payments.map(p=>'<div class="list-row"><div><h4>'+esc(p.payer||'Payment')+'</h4><p>'+dateFmt(p.payment_date)+' • '+esc(p.note||'')+'</p></div><b>'+(p.amount_cents==null?'Amount not verified':money(p.amount_cents))+'</b></div>').join(''):'<div class="card muted">No verified payments recorded.</div>')+'</div>';
-  h+=section('Completed lessons','Invoice-ready lesson history');h+='<div class="list">'+lessons.slice().sort((a,b)=>b.lesson_date.localeCompare(a.lesson_date)).map(lessonRow).join('')+'</div>';$('#content').innerHTML=h;
+  const lessons=(data.lessons||[]).filter(x=>x.status==='Completed');
+  const known=lessons.filter(x=>x.duration_minutes!=null);
+  const unknown=lessons.filter(x=>x.duration_minutes==null);
+  const hours=known.reduce((a,x)=>a+Number(x.duration_minutes||0)/60,0),earned=hours*15000;
+  const payments=data.payments||[],paid=payments.reduce((a,x)=>a+Number(x.amount_cents||0),0);
+  let h=section('Finance','R150 per confirmed completed teaching hour','<button class="btn small primary" onclick="openPayment()">+ Record payment</button>');
+  h+='<div class="grid3"><div class="card metric"><span>CONFIRMED KNOWN HOURS</span><b>'+hours.toFixed(1)+'</b></div><div class="card metric"><span>CONFIRMED MINIMUM VALUE</span><b>'+money(earned)+'</b></div><div class="card metric"><span>COMPLETED LESSONS</span><b>'+lessons.length+'</b></div></div>';
+  if(unknown.length){h+='<div class="card soft" style="margin-top:12px;border-color:#f3c9bd"><b>Amount not final yet</b><p class="tiny muted" style="margin:6px 0 0">'+unknown.length+' completed lesson'+(unknown.length===1?' has':'s have')+' no saved duration, so '+money(earned)+' is the confirmed minimum—not the final total.</p></div>'}
+  h+=section('Verified teaching value by student','Only completed lessons with a known duration are priced');
+  h+='<div class="grid4">'+(data.students||[]).map(s=>{const st=lessonStats(s.id),value=st.completedHours*15000;return '<div class="card metric"><span>'+esc(s.display_name.toUpperCase())+'</span><b>'+money(value)+'</b><div class="tiny muted">'+st.completed+' completed lesson'+(st.completed===1?'':'s')+' • '+st.completedHours.toFixed(1)+' known hrs'+(st.unknownHours?' • '+st.unknownHours+' duration missing':'')+'</div></div>'}).join('')+'</div>';
+  h+=section('Payments recorded','This is separate from lesson value');h+='<div class="list">'+(payments.length?payments.map(p=>'<div class="list-row"><div><h4>'+esc(p.payer||'Payment')+'</h4><p>'+dateFmt(p.payment_date)+' • '+esc(p.note||'')+'</p></div><b>'+(p.amount_cents==null?'Amount not verified':money(p.amount_cents))+'</b></div>').join(''):emptyState('No verified payments recorded','Lesson value above is not the same as money received.'))+'</div>';
+  h+=section('Completed lessons','Confirmed lesson history');h+='<div class="list">'+lessons.slice().sort((a,b)=>b.lesson_date.localeCompare(a.lesson_date)).map(lessonRow).join('')+'</div>';$('#content').innerHTML=h;
 }
 function renderStudent(){
   if(tab==='home')studentHome();else if(tab==='learning')studentLearning();else if(tab==='book')studentBook();else if(tab==='messages')studentMessages();else if(tab==='resources')studentResources();else if(tab==='work')studentWork();else if(tab==='quizzes')studentQuizzes();
