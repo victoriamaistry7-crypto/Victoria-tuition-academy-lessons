@@ -1,14 +1,32 @@
 {
-  "name":"Victoria Tuition Academy Student Portal",
-  "short_name":"VTA Portal",
-  "description":"Victoria Tuition Academy lessons, bookings, resources, quizzes and messages.",
-  "start_url":"./",
-  "scope":"./",
-  "display":"standalone",
-  "background_color":"#f4f6f8",
-  "theme_color":"#0f172a",
-  "orientation":"any",
-  "icons":[
-    {"src":"assets/logo.jpg","sizes":"any","type":"image/jpeg","purpose":"any"}
+  "id": "./",
+  "name": "Victoria Tuition Academy Student Portal",
+  "short_name": "VTA Portal",
+  "description": "Victoria Tuition Academy lessons, bookings, resources, quizzes, finance and messages.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
+  "background_color": "#f4f6f8",
+  "theme_color": "#0f172a",
+  "orientation": "any",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "assets/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
   ]
 }
