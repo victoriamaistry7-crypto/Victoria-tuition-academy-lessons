@@ -108,6 +108,26 @@ details.later{margin-top:10px;border-top:1px solid var(--line);padding-top:9px}d
 .chat-layout{height:calc(100dvh - 245px);min-height:480px;max-height:720px}.messages{background:var(--panel2)}.chat-head{display:flex;justify-content:space-between;align-items:center}.chat-note{font-size:9px;color:var(--muted);font-weight:600}
 @media(max-width:1180px){.week{grid-template-columns:repeat(7,minmax(118px,1fr));overflow-x:auto}.day{min-width:118px}}
 @media(max-width:760px){.week{grid-template-columns:repeat(7,130px);overflow-x:auto}.day{min-width:130px}.plan-meta{grid-template-columns:1fr 1fr}.chat-layout{height:calc(100dvh - 170px);min-height:430px}}
+/* Compact premium students page */
+.students-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:stretch}
+.student-card.compact{padding:18px;min-height:310px;display:flex;flex-direction:column}
+.student-card.compact .student-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.student-card.compact .student-title h4{font-size:16px;margin:4px 0 0}
+.student-card.compact .student-sub{font-size:10px;color:var(--muted);margin:8px 0 15px;min-height:28px}
+.month-allocation{padding:13px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.month-allocation .allocation-head{display:flex;justify-content:space-between;gap:10px;align-items:end}
+.month-allocation .allocation-head span{font-size:9px;color:var(--muted);font-weight:800}
+.month-allocation .allocation-head b{font-size:24px;letter-spacing:-.035em;white-space:nowrap}
+.month-allocation .allocation-foot{display:flex;justify-content:space-between;gap:8px;margin-top:7px;font-size:9px;color:var(--muted)}
+.catchup-pill{margin-top:12px;padding:10px 11px;border-radius:12px;border:1px solid #f0d4cc;background:#fff8f5;color:#7f3525}
+.catchup-pill b{font-size:12px}.catchup-pill span{display:block;font-size:9px;margin-top:2px;color:#9a5b4d}
+.prev-clear{margin-top:12px;padding:9px 0;font-size:9px;color:var(--muted)}
+.curriculum-mini{margin-top:auto;padding-top:14px}
+.curriculum-mini .curr-row{display:flex;justify-content:space-between;gap:8px;font-size:9px;color:var(--muted);margin-bottom:6px}
+.curriculum-mini .progress{height:5px}
+.student-open{margin-top:13px;width:100%}
+@media(max-width:1280px){.students-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.students-grid{grid-template-columns:1fr}.student-card.compact{min-height:0}}
 </style>
 </head>
 <body>
@@ -333,9 +353,22 @@ function weekView(lessons){
 function lessonRow(l){const n=studentName(l.student_id),action=role()==='ADMIN'?'<button class="btn small" onclick="openLessonWorkflow(\''+l.id+'\')">Plan</button>':'';return '<div class="list-row lesson"><div class="date"><b>'+new Date(l.lesson_date+'T12:00:00').getDate()+'</b><span class="tiny muted">'+new Date(l.lesson_date+'T12:00:00').toLocaleDateString('en-ZA',{month:'short'})+'</span></div><div><h4>'+esc(n)+' • '+esc(l.subject||'Lesson')+'</h4><p>'+esc(l.topic||'Topic not recorded')+' • '+esc(timeFmt(l.start_time))+' • '+esc(l.duration_minutes)+' min</p></div><div class="row">'+status(l.status)+action+'</div></div>'}
 function adminStudents(){
   const students=(data.students||[]).slice().sort((a,b)=>planCatchup(b.id)-planCatchup(a.id)||a.display_name.localeCompare(b.display_name));
-  let h=section('Students','Current month plan first; lifetime history stays inside each student profile','<button class="btn small primary" onclick="openStudentCreate()">+ Student</button>');
-  h+='<div class="grid3">'+students.map(s=>{const cr=(data.curriculumSubtopics||[]).filter(x=>x.student_id===s.id),done=cr.filter(x=>curriculumStatus(x.status)==='Completed').length,pct=cr.length?Math.round(done/cr.length*100):0,p=currentPlanFor(s.id),prev=previousPlanFor(s.id),target=Number(p?.target_hours||0),current=Number(p?.completed_hours||0),weekly=Number(p?.weekly_target_hours||0),catchup=planCatchup(s.id);
-    return '<div class="card student-card student-month-card"><div class="row between"><div><div class="period-label">NEW MONTH</div><h4 style="margin-top:3px">'+esc(s.display_name)+'</h4></div>'+status(s.active===false?'Inactive':'Active')+'</div><p>'+esc(s.grade||'Grade not set')+' • '+esc(s.subjects||'Subjects not set')+'</p><div class="student-plan-line"><div><span>Regular allocation</span><b>'+current.toFixed(1)+' / '+target.toFixed(0)+'h</b></div><span>'+weekly.toFixed(0)+'h/week</span></div><div class="progress"><i style="width:'+(target?Math.min(100,Math.round(current/target*100)):0)+'%"></i></div>'+(catchup?'<div class="student-catch"><strong>'+catchup.toFixed(0)+'h catch-up</strong> from previous month • '+esc(prev?.status||'Outstanding')+'</div>':'<div class="tiny muted">Previous month: '+esc(prev?.status||'clear')+'</div>')+'<div class="row between tiny muted"><span>Curriculum</span><span>'+done+'/'+cr.length+' subtopics</span></div><div class="progress"><i style="width:'+pct+'%"></i></div><button class="btn small" onclick="studentDetail(\''+s.id+'\')">Open student</button></div>'}).join('')+'</div>';
+  let h=section('Students','Current month allocation and previous catch-up at a glance','<button class="btn small primary" onclick="openStudentCreate()">+ Student</button>');
+  h+='<div class="students-grid">'+students.map(s=>{
+    const cr=(data.curriculumSubtopics||[]).filter(x=>x.student_id===s.id);
+    const done=cr.filter(x=>curriculumStatus(x.status)==='Completed').length;
+    const pct=cr.length?Math.round(done/cr.length*100):0;
+    const p=currentPlanFor(s.id),prev=previousPlanFor(s.id);
+    const target=Number(p?.target_hours||0),current=Number(p?.completed_hours||0),weekly=Number(p?.weekly_target_hours||0),catchup=planCatchup(s.id);
+    return '<div class="card student-card compact">'+
+      '<div class="student-top"><div class="student-title"><div class="period-label">NEW MONTH</div><h4>'+esc(s.display_name)+'</h4></div>'+status(s.active===false?'Inactive':'Active')+'</div>'+
+      '<div class="student-sub">'+esc(s.grade||'Grade not set')+' • '+esc(s.subjects||'Subjects not set')+'</div>'+
+      '<div class="month-allocation"><div class="allocation-head"><span>REGULAR ALLOCATION</span><b>'+current.toFixed(1)+' / '+target.toFixed(0)+'h</b></div><div class="allocation-foot"><span>'+weekly.toFixed(0)+'h per week</span><span>R'+(target*150).toFixed(0)+' monthly value</span></div><div class="progress" style="margin-top:9px"><i style="width:'+(target?Math.min(100,Math.round(current/target*100)):0)+'%"></i></div></div>'+
+      (catchup?'<div class="catchup-pill"><b>'+catchup.toFixed(0)+'h previous-month catch-up</b><span>'+esc(prev?.status||'Outstanding')+'</span></div>':'<div class="prev-clear">✓ Previous month complete</div>')+
+      '<div class="curriculum-mini"><div class="curr-row"><span>Curriculum progress</span><span>'+pct+'%</span></div><div class="progress"><i style="width:'+pct+'%"></i></div></div>'+
+      '<button class="btn small student-open" onclick="studentDetail(\''+s.id+'\')">Open student</button>'+
+    '</div>';
+  }).join('')+'</div>';
   $('#content').innerHTML=h;
 }
 function studentDetail(id){
