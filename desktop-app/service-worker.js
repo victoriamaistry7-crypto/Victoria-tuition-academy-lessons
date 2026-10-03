@@ -1,4 +1,4 @@
-const CACHE_NAME = 'vta-portal-v2';
+const CACHE_NAME = 'vta-portal-v3';
 const APP_SHELL = [
   './',
   './index.html',
@@ -6,7 +6,10 @@ const APP_SHELL = [
   './browser-init.js',
   './app.js',
   './manifest.json',
-  './assets/logo.jpg'
+  './assets/logo.jpg',
+  './assets/icon-192.svg',
+  './assets/icon-512.svg',
+  './assets/dashboard-visual.svg'
 ];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
