@@ -1,4 +1,4 @@
-const CACHE_NAME = 'vta-portal-v3';
+const CACHE_NAME = 'vta-portal-v4';
 const APP_SHELL = [
   './',
   './index.html',
