@@ -161,6 +161,99 @@ body{letter-spacing:-.005em}.content{max-width:1380px;margin:0 auto;padding-left
 @media(max-width:1050px){.content{padding-left:22px;padding-right:22px}.projection-hero{grid-template-columns:1fr}.forecast-breakdown{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){.content{padding-left:14px;padding-right:14px}.hero h2{font-size:23px}.projection-main .big{font-size:34px}.forecast-breakdown{grid-template-columns:1fr}.projection-main,.projection-side{padding:18px}.topbar{padding-left:16px;padding-right:16px}}
 </style>
+
+<style id="vta-ultra-polish">
+:root{
+  --navy:#111827;--navy2:#182033;--orange:#c85f43;--orange2:#e27a5f;--green:#159a6b;
+  --bg:#f6f6f3;--panel:#ffffff;--panel2:#f2f3f1;--text:#17191f;--muted:#777c86;
+  --line:#e7e8e4;--danger:#b42318;--shadow:0 10px 30px rgba(17,24,39,.045);--r:18px;
+  --lux:#101828;--cream:#fbfaf7;--soft-accent:#f8eee9;--soft-navy:#eef1f6;
+}
+[data-theme="dark"]{
+  --bg:#0f1115;--panel:#15181e;--panel2:#1b1f26;--text:#f4f4f1;--muted:#979da8;
+  --line:#282d35;--shadow:0 12px 34px rgba(0,0,0,.2);--lux:#f7f7f4;--cream:#15181e;
+  --soft-accent:#291c18;--soft-navy:#1b2230;
+}
+html{scroll-behavior:smooth}
+body{letter-spacing:-.005em;background:
+  radial-gradient(circle at 95% 0%,rgba(200,95,67,.035),transparent 22rem),
+  radial-gradient(circle at 4% 100%,rgba(17,24,39,.028),transparent 24rem),var(--bg)}
+.card{box-shadow:var(--shadow);border-color:var(--line);border-radius:18px;padding:18px;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.card:hover{border-color:color-mix(in srgb,var(--line) 65%,var(--text));box-shadow:0 15px 36px rgba(17,24,39,.065)}
+.btn{border-radius:12px;font-weight:780;letter-spacing:-.01em;transition:transform .16s ease,background .16s ease,border-color .16s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--lux);border-color:var(--lux);color:var(--panel)}
+.btn.dark{background:var(--lux);border-color:var(--lux);color:var(--panel)}
+.btn.ghost:hover{background:rgba(255,255,255,.055)}
+input,select,textarea{border-radius:12px;background:var(--panel);transition:border .16s ease,box-shadow .16s ease}
+input:focus,select:focus,textarea:focus{border-color:#aeb4be;box-shadow:0 0 0 4px rgba(17,24,39,.055)}
+.chip{padding:6px 9px;background:var(--panel2);font-size:10px}.chip.orange{background:var(--soft-accent);color:#9d4934;border-color:#ecd3ca}
+.status{font-size:9px;letter-spacing:.015em}.status.next,.status.current,.status.pending{background:var(--soft-accent);color:#9d4934}
+.sidebar{width:auto;background:#101319;padding:18px 13px;border-right:1px solid rgba(255,255,255,.045)}
+.side-brand{padding:3px 8px 22px}.side-brand p{color:#798291;letter-spacing:.02em}
+.side-logo{width:190px!important;filter:saturate(.92)}
+.nav{gap:4px}.nav button{display:flex;align-items:center;gap:11px;border-radius:12px;padding:11px 12px;color:#8f98a7;font-size:12px;font-weight:720}
+.nav button svg{width:17px;height:17px;opacity:.82}.nav button:hover{background:rgba(255,255,255,.055);color:#f5f5f3}
+.nav button.active{background:#1a1f27;color:#fff;box-shadow:none;border:1px solid rgba(255,255,255,.07)}
+.nav button.active:before{content:"";width:3px;height:18px;border-radius:999px;background:#d9785d;margin-left:-4px}
+.profile-mini{border:1px solid rgba(255,255,255,.07);background:#151a21;border-radius:14px}
+.profile-avatar{background:#242b36;color:#f6c7b9}
+.topbar{height:72px;padding:0 28px;background:color-mix(in srgb,var(--bg) 88%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(18px)}
+.topbar h1{font-size:17px}.top-date{font-size:8px;letter-spacing:.12em}
+.iconbtn{border-radius:11px;box-shadow:none}.sync-pill{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 10px;font-size:10px}
+.content{padding:26px 30px 100px;max-width:1440px}
+.section-title{margin:28px 2px 12px;align-items:center}.section-title h3{font-size:17px;font-weight:820}.section-title p{font-size:11px}
+.hero{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:var(--shadow)}
+.hero:after{display:none}.hero h2{font-size:clamp(27px,3vw,36px);line-height:1.02;letter-spacing:-.045em;margin:6px 0 8px}
+.hero p{color:var(--muted);max-width:700px}
+.vta-kicker{font-size:9px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:#a15a47}
+.ultra-hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end}
+.ultra-hero-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.quick-action{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:12px;padding:10px 12px;font-size:11px;font-weight:800}
+.quick-action.primary{background:var(--lux);color:var(--panel);border-color:var(--lux)}
+.workspace-grid{display:grid;grid-template-columns:1.55fr repeat(3,minmax(0,.75fr));gap:12px}
+.focus-card{min-height:148px;position:relative;overflow:hidden}.focus-card.primary{background:var(--lux);color:#fff;border-color:var(--lux)}
+.focus-card.primary .muted,.focus-card.primary p{color:#aeb7c5}.focus-card .label{font-size:8px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.focus-card.primary .label{color:#dca18f}.focus-card .big{font-size:29px;font-weight:850;letter-spacing:-.045em;margin-top:8px}
+.focus-card .focus-title{font-size:17px;font-weight:820;margin:8px 0 4px}.focus-card p{margin:0;font-size:11px;color:var(--muted);line-height:1.5}
+.focus-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.focus-meta span{font-size:9px;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.08)}
+.today-list{display:grid;gap:8px}.today-row{display:grid;grid-template-columns:78px minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:15px;background:var(--panel)}
+.today-time{font-size:13px;font-weight:850;letter-spacing:-.02em}.today-row h4{margin:0 0 3px;font-size:13px}.today-row p{margin:0;color:var(--muted);font-size:10px}
+.action-dock{display:flex;gap:8px;flex-wrap:wrap}.action-tile{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--panel);padding:10px 12px;border-radius:12px;font-size:11px;font-weight:800;color:var(--text)}
+.action-tile span{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:var(--panel2);font-size:14px}
+.student-pulse{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.pulse-card{padding:15px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
+.pulse-top{display:flex;gap:10px;align-items:center}.pulse-avatar{width:38px;height:38px;border-radius:12px;background:var(--soft-navy);color:#35405a;display:grid;place-items:center;font-weight:900}
+.pulse-card h4{margin:0;font-size:13px}.pulse-card p{margin:3px 0 0;font-size:9px;color:var(--muted)}
+.pulse-line{display:flex;justify-content:space-between;gap:10px;margin-top:12px;font-size:9px;color:var(--muted)}.pulse-line b{color:var(--text)}
+.task-list{gap:8px}.list-row{border-radius:14px;box-shadow:none}.previous-month-details{border:1px solid var(--line);border-radius:15px;background:var(--panel);margin-top:18px}
+.previous-month-details summary{padding:13px 15px;font-size:11px;font-weight:800;color:var(--muted);cursor:pointer}
+.students-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.student-card.compact{min-height:280px;padding:17px;border-radius:18px}.student-identity{display:flex;align-items:center;gap:11px}.student-avatar{width:42px;height:42px;border-radius:13px;background:var(--soft-navy);display:grid;place-items:center;font-weight:900;color:#3b455a}
+.student-card.compact .student-title h4{font-size:15px;margin:0}.student-card.compact .student-sub{margin:4px 0 0;min-height:0}
+.month-allocation{margin-top:15px;padding:13px 0}.month-allocation .allocation-head b{font-size:21px}.month-allocation .allocation-foot{justify-content:flex-start;gap:12px}
+.catchup-pill{border-color:#ead7cf;background:var(--soft-accent)}.prev-clear{color:#4d7564}
+.student-open{margin-top:12px;background:var(--lux)!important;color:var(--panel)!important;border-color:var(--lux)!important}
+.resource-grid{gap:12px}.resource-card{padding:14px;border-radius:17px}.resource-thumb{height:104px;border-radius:13px;margin:-1px -1px 12px}.resource-card .icon{width:36px;height:36px;border-radius:11px;background:var(--soft-accent)}
+.resource-card h4{font-size:13px;margin:10px 0 3px}.resource-card p{font-size:10px;min-height:30px}.resource-card .note{font-size:9px;border:1px solid var(--line)}
+.login{background:var(--cream)}.login-art{background:#101319;padding:58px}.login-art:after{width:360px;height:360px;background:rgba(200,95,67,.16)}
+.login-art h1{font-size:clamp(40px,4.8vw,66px);font-weight:760}.login-art p{color:#949dac}
+.login-box{padding:24px}.login-box h2{font-size:29px}.login-form{background:var(--cream)}
+.progress{height:6px}.progress i{background:linear-gradient(90deg,#b95339,#d37b63)}
+.mobile-nav{border:1px solid rgba(255,255,255,.07)}
+@media(max-width:1180px){.workspace-grid{grid-template-columns:1.4fr 1fr 1fr}.workspace-grid>.focus-card:last-child{display:none}.student-pulse{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:960px){.students-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){
+  .content{padding:15px 12px 92px}.topbar{padding:0 10px}.hero{padding:19px;border-radius:18px}
+  .ultra-hero{grid-template-columns:1fr;gap:16px}.ultra-hero-actions{justify-content:flex-start}
+  .workspace-grid{grid-template-columns:1fr 1fr}.workspace-grid .focus-card.primary{grid-column:1/-1}.workspace-grid>.focus-card:last-child{display:block}
+  .focus-card{min-height:120px;padding:15px}.focus-card .big{font-size:24px}.focus-card .focus-title{font-size:15px}
+  .today-row{grid-template-columns:60px minmax(0,1fr);gap:10px}.today-row>.status{grid-column:2}
+  .student-pulse{grid-template-columns:1fr 1fr}.students-grid{grid-template-columns:1fr}
+  .section-title{margin-top:23px}.action-dock{display:grid;grid-template-columns:1fr 1fr}.action-tile{justify-content:flex-start}
+  .resource-card{padding:13px}.mobile-nav{left:7px;right:7px;bottom:7px;border-radius:16px}
+}
+@media(max-width:430px){.workspace-grid,.student-pulse{grid-template-columns:1fr}.action-dock{grid-template-columns:1fr 1fr}.ultra-hero-actions{display:grid;grid-template-columns:1fr 1fr}.quick-action{width:100%}}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -403,17 +496,40 @@ function renderAdmin(){
 }
 function adminHome(){
   const students=(data.students||[]).slice().sort((a,b)=>planCatchup(b.id)-planCatchup(a.id)||a.display_name.localeCompare(b.display_name));
+  const activeStudents=students.filter(s=>s.active!==false);
   const tasks=(data.tasks||[]).filter(x=>x.status!=='Done').slice().sort((a,b)=>(String(a.due_date||'9999')+String(a.sort_order||0)).localeCompare(String(b.due_date||'9999')+String(b.sort_order||0)));
-  const newLessons=(data.lessons||[]).filter(x=>x.allocation_bucket==='New month'&&!['Cancelled','Rescheduled'].includes(x.status)).sort((a,b)=>(a.lesson_date+(a.start_time||'')).localeCompare(b.lesson_date+(b.start_time||'')));
+  const lessons=(data.lessons||[]).filter(x=>!['Cancelled','Rescheduled'].includes(x.status)).slice().sort((a,b)=>(a.lesson_date+(a.start_time||'')).localeCompare(b.lesson_date+(b.start_time||'')));
+  const upcoming=lessons.filter(x=>x.lesson_date>=today());
+  const todays=upcoming.filter(x=>x.lesson_date===today());
+  const next=upcoming[0];
+  const newLessons=lessons.filter(x=>x.allocation_bucket==='New month');
+  const monthHours=newLessons.reduce((s,l)=>s+(Number(l.duration_minutes)||0)/60,0);
   const catchStudents=students.filter(s=>planCatchup(s.id)>0);
   const top=tasks.slice(0,4);
-  let h='<section class="hero"><div class="tiny strong" style="color:#fca58f">THIS MONTH</div><h2>'+greeting()+', '+esc(data.user.displayName)+'.</h2><p>Your current month is the main view. Previous-month catch-up stays visible without taking over the dashboard.</p></section>';
-  h+=section('This month','Regular allocation for the new month','<button class="btn small primary" onclick="openLesson()">+ Add lesson</button>');
-  h+='<div class="target-strip">'+students.map(targetCard).join('')+'</div>';
-  h+=section('Lessons this month','Only lessons tagged New month');
-  h+='<div class="month-focus"><div class="month-lessons">'+(newLessons.length?newLessons.map(l=>'<div class="month-lesson"><div><b>'+esc(dateFmt(l.lesson_date))+' • '+esc(studentName(l.student_id))+'</b><p>'+esc(timeFmt(l.start_time))+' • '+esc(l.topic||l.subject)+' • '+esc(l.duration_minutes||'?')+' min</p></div>'+status(l.status)+'</div>').join(''):emptyState('No new-month lessons yet','Add the first regular lesson for the new month.'))+'</div><div class="catchup-compact"><h4>Previous month catch-up</h4>'+(catchStudents.length?catchStudents.map(s=>'<div class="catchup-mini"><span>'+esc(s.display_name)+'</span><b>'+planCatchup(s.id).toFixed(0)+'h missing</b></div>').join(''):'<div class="tiny muted">Previous month is fully closed.</div>')+'</div></div>';
-  if(top.length){h+=section('Needs attention','Only the next few admin tasks');h+='<div class="task-list">'+top.map(taskRow).join('')+'</div>'}
-  h+='<details class="previous-month-details"><summary>Previous month details</summary><div style="padding:0 14px 14px">'+previousMonthPlans().map(p=>'<div class="catchup-mini"><span>'+esc(studentName(p.student_id))+' • '+esc(p.status)+'</span><b>'+bucketCompletedHours(p.student_id,'Previous month').toFixed(0)+' / '+Number(p.target_hours||0).toFixed(0)+'h completed</b></div>').join('')+'</div></details>';
+  const pulse=activeStudents.slice(0,4);
+
+  let h='<section class="hero"><div class="ultra-hero"><div><div class="vta-kicker">Victoria Tuition Academy · Tutor workspace</div><h2>'+greeting()+', '+esc(data.user.displayName)+'.</h2><p>Your day, students and lesson prep in one calm view. Everything else stays one click away.</p></div><div class="ultra-hero-actions"><button class="quick-action primary" onclick="openLesson()">+ Add lesson</button><button class="quick-action" onclick="go(\'messages\')">Messages</button><button class="quick-action" onclick="go(\'resources\')">Resources</button></div></div></section>';
+
+  h+='<div class="workspace-grid" style="margin-top:12px">';
+  h+='<div class="card focus-card primary"><div class="label">NEXT LESSON</div>'+(next?'<div class="focus-title">'+esc(studentName(next.student_id))+'</div><p>'+esc(next.topic||next.subject||'Lesson topic')+'</p><div class="focus-meta"><span>'+esc(dateFmt(next.lesson_date))+'</span><span>'+esc(timeFmt(next.start_time))+'</span><span>'+esc(next.duration_minutes||'?')+' min</span></div>':'<div class="focus-title">Your schedule is clear</div><p>No upcoming lesson is currently booked.</p><div class="focus-meta"><span>Use Add lesson when ready</span></div>')+'</div>';
+  h+='<div class="card focus-card"><div class="label">TODAY</div><div class="big">'+todays.length+'</div><p>'+(todays.length===1?'lesson scheduled':todays.length?'lessons scheduled':'no lessons scheduled')+'</p></div>';
+  h+='<div class="card focus-card"><div class="label">ACTIVE STUDENTS</div><div class="big">'+activeStudents.length+'</div><p>currently in your teaching workspace</p></div>';
+  h+='<div class="card focus-card"><div class="label">THIS MONTH</div><div class="big">'+monthHours.toFixed(1)+'h</div><p>scheduled teaching time</p></div></div>';
+
+  h+=section('Quick actions','The actions you use most — without opening extra menus');
+  h+='<div class="action-dock"><button class="action-tile" onclick="openLesson()"><span>＋</span>Add lesson</button><button class="action-tile" onclick="openTaskCreate()"><span>✓</span>Add task</button><button class="action-tile" onclick="go(\'students\')"><span>◎</span>Open students</button><button class="action-tile" onclick="go(\'messages\')"><span>✦</span>Message student</button><button class="action-tile" onclick="go(\'resources\')"><span>↗</span>Open resources</button></div>';
+
+  h+=section(todays.length?'Today':'Coming up',todays.length?'Your teaching schedule for today':'The next lessons on your schedule');
+  const shown=(todays.length?todays:upcoming.slice(0,4));
+  h+='<div class="today-list">'+(shown.length?shown.map(l=>'<div class="today-row"><div class="today-time">'+esc(timeFmt(l.start_time))+'</div><div><h4>'+esc(studentName(l.student_id))+' · '+esc(l.subject||'Lesson')+'</h4><p>'+esc(l.topic||'Topic to confirm')+' · '+esc(l.duration_minutes||'?')+' min</p></div>'+status(l.status)+'</div>').join(''):emptyState('Nothing scheduled','Your next lesson will appear here automatically.'))+'</div>';
+
+  if(pulse.length){
+    h+=section('Student pulse','A light-touch view of progress — open a student only when you need detail');
+    h+='<div class="student-pulse">'+pulse.map(s=>{const cr=(data.curriculumSubtopics||[]).filter(x=>x.student_id===s.id),done=cr.filter(x=>curriculumStatus(x.status)==='Completed').length,pct=cr.length?Math.round(done/cr.length*100):0,p=currentPlanFor(s.id),target=Number(p?.target_hours||0),current=Number(p?.completed_hours||0);return '<button class="pulse-card" onclick="studentDetail(\''+s.id+'\')"><div class="pulse-top"><div class="pulse-avatar">'+esc(initials(s.display_name))+'</div><div style="text-align:left"><h4>'+esc(s.display_name)+'</h4><p>'+esc(s.grade||'Grade not set')+' · '+esc(s.subjects||'Subjects not set')+'</p></div></div><div class="pulse-line"><span>Curriculum <b>'+pct+'%</b></span><span>Month <b>'+current.toFixed(1)+'/'+target.toFixed(0)+'h</b></span></div><div class="progress" style="margin-top:7px"><i style="width:'+pct+'%"></i></div></button>'}).join('')+'</div>';
+  }
+
+  if(top.length){h+=section('Needs attention','Only the next few things that genuinely need action');h+='<div class="task-list">'+top.map(taskRow).join('')+'</div>'}
+  if(catchStudents.length){h+='<details class="previous-month-details"><summary>Previous month catch-up · '+catchStudents.length+' student'+(catchStudents.length===1?'':'s')+'</summary><div style="padding:0 14px 14px">'+catchStudents.map(s=>'<div class="catchup-mini"><span>'+esc(s.display_name)+'</span><b>'+planCatchup(s.id).toFixed(0)+'h remaining</b></div>').join('')+'</div></details>'}
   $('#content').innerHTML=h;
 }
 function weekView(lessons){
@@ -429,7 +545,7 @@ function weekView(lessons){
 function lessonRow(l){const n=studentName(l.student_id),action=role()==='ADMIN'?'<button class="btn small" onclick="openLessonWorkflow(\''+l.id+'\')">Plan</button>':'';return '<div class="list-row lesson"><div class="date"><b>'+new Date(l.lesson_date+'T12:00:00').getDate()+'</b><span class="tiny muted">'+new Date(l.lesson_date+'T12:00:00').toLocaleDateString('en-ZA',{month:'short'})+'</span></div><div><h4>'+esc(n)+' • '+esc(l.subject||'Lesson')+'</h4><p>'+esc(l.topic||'Topic not recorded')+' • '+esc(timeFmt(l.start_time))+' • '+esc(l.duration_minutes)+' min</p></div><div class="row">'+status(l.status)+action+'</div></div>'}
 function adminStudents(){
   const students=(data.students||[]).slice().sort((a,b)=>planCatchup(b.id)-planCatchup(a.id)||a.display_name.localeCompare(b.display_name));
-  let h=section('Students','Current month allocation and previous catch-up at a glance','<button class="btn small primary" onclick="openStudentCreate()">+ Student</button>');
+  let h=section('Students','Simple progress cards with the details you actually need','<button class="btn small primary" onclick="openStudentCreate()">+ Student</button>');
   h+='<div class="students-grid">'+students.map(s=>{
     const cr=(data.curriculumSubtopics||[]).filter(x=>x.student_id===s.id);
     const done=cr.filter(x=>curriculumStatus(x.status)==='Completed').length;
@@ -437,10 +553,9 @@ function adminStudents(){
     const p=currentPlanFor(s.id),prev=previousPlanFor(s.id);
     const target=Number(p?.target_hours||0),current=Number(p?.completed_hours||0),weekly=Number(p?.weekly_target_hours||0),catchup=planCatchup(s.id);
     return '<div class="card student-card compact">'+
-      '<div class="student-top"><div class="student-title"><div class="period-label">NEW MONTH</div><h4>'+esc(s.display_name)+'</h4></div>'+status(s.active===false?'Inactive':'Active')+'</div>'+
-      '<div class="student-sub">'+esc(s.grade||'Grade not set')+' • '+esc(s.subjects||'Subjects not set')+'</div>'+
-      '<div class="month-allocation"><div class="allocation-head"><span>REGULAR ALLOCATION</span><b>'+current.toFixed(1)+' / '+target.toFixed(0)+'h</b></div><div class="allocation-foot"><span>'+weekly.toFixed(0)+'h per week</span><span>R'+(target*150).toFixed(0)+' monthly value</span></div><div class="progress" style="margin-top:9px"><i style="width:'+(target?Math.min(100,Math.round(current/target*100)):0)+'%"></i></div></div>'+
-      (catchup?'<div class="catchup-pill"><b>'+catchup.toFixed(0)+'h previous-month catch-up</b><span>'+esc(prev?.status||'Outstanding')+'</span></div>':'<div class="prev-clear">✓ Previous month complete</div>')+
+      '<div class="student-top"><div class="student-identity"><div class="student-avatar">'+esc(initials(s.display_name))+'</div><div class="student-title"><h4>'+esc(s.display_name)+'</h4><div class="student-sub">'+esc(s.grade||'Grade not set')+' · '+esc(s.subjects||'Subjects not set')+'</div></div></div>'+status(s.active===false?'Inactive':'Active')+'</div>'+
+      '<div class="month-allocation"><div class="allocation-head"><span>MONTHLY LESSON PROGRESS</span><b>'+current.toFixed(1)+' / '+target.toFixed(0)+'h</b></div><div class="allocation-foot"><span>'+weekly.toFixed(0)+'h weekly target</span></div><div class="progress" style="margin-top:9px"><i style="width:'+(target?Math.min(100,Math.round(current/target*100)):0)+'%"></i></div></div>'+
+      (catchup?'<div class="catchup-pill"><b>'+catchup.toFixed(0)+'h catch-up remaining</b><span>'+esc(prev?.status||'Outstanding')+'</span></div>':'<div class="prev-clear">✓ Previous month complete</div>')+
       '<div class="curriculum-mini"><div class="curr-row"><span>Curriculum progress</span><span>'+pct+'%</span></div><div class="progress"><i style="width:'+pct+'%"></i></div></div>'+
       '<button class="btn small student-open" onclick="studentDetail(\''+s.id+'\')">Open student</button>'+
     '</div>';
@@ -492,7 +607,7 @@ function chatHtml(id){const msgs=(data.messages||[]).filter(x=>x.student_id===id
 async function sendMessage(e,id){e.preventDefault();const inp=$('#msg');const v=inp.value.trim();if(!v)return;inp.value='';try{await api({action:'messageSend',studentId:id,message:v});await sync()}catch(err){toast(err.message)}}
 function resourceCards(rs,admin,featured=false){
   if(!rs.length)return '<div class="card muted">No resources here yet.</div>';
-  return '<div class="resource-grid '+(featured?'featured-grid':'')+'">'+rs.map(r=>'<div class="card resource-card">'+resourceVisual(r)+'<div class="row between"><div class="icon">'+resourceIcon(r.resource_type)+'</div>'+status(r.completion_status||'Available')+'</div><h4>'+esc(r.title)+'</h4><div class="tiny strong muted">'+esc(r.resource_type||'Resource')+'</div><p>'+esc(r.description||'')+'</p>'+(r.access_note?'<div class="note"><b>Access:</b> '+esc(r.access_note)+'</div>':'')+'<div class="row wrap"><button class="btn small primary" onclick="openResource(\''+r.id+'\')">Open</button>'+(admin?'<button class="btn small" onclick="editResource(\''+r.id+'\')">Edit</button>':'')+'</div></div>').join('')+'</div>';
+  return '<div class="resource-grid '+(featured?'featured-grid':'')+'">'+rs.map(r=>'<div class="card resource-card">'+resourceVisual(r)+'<div class="row between"><div class="icon">'+resourceIcon(r.resource_type)+'</div>'+status(r.completion_status||'Available')+'</div><h4>'+esc(r.title)+'</h4><div class="tiny strong muted">'+esc(r.resource_type||'Resource')+'</div>'+(r.description?'<p>'+esc(r.description)+'</p>':'')+(r.access_note?'<div class="note">'+esc(r.access_note)+'</div>':'')+'<div class="row wrap" style="margin-top:10px"><button class="btn small primary" onclick="openResource(\''+r.id+'\')">Open</button>'+(admin?'<button class="btn small" onclick="editResource(\''+r.id+'\')">Edit</button>':'')+'</div></div>').join('')+'</div>';
 }
 function resourceVisual(r){
   const s=(String(r.subject||'')+' '+String(r.title||'')+' '+String(r.resource_type||'')).toLowerCase();
@@ -558,14 +673,14 @@ function studentHome(){
   const next=lessons.filter(x=>x.lesson_date>=today()&&x.status!=='Cancelled').sort((a,b)=>(a.lesson_date+(a.start_time||'')).localeCompare(b.lesson_date+(b.start_time||'')))[0];
   const focus=tp.filter(x=>['In progress','Revisit','Current','Next'].includes(curriculumStatus(x.status)));
   const featured=(data.resources||[]).filter(r=>r.featured).slice(0,3);
-  let h='<section class="hero"><div class="hero-grid"><div class="hero-copy"><div class="tiny strong" style="color:#ffad98">YOUR VTA LEARNING SPACE</div><h2>'+greeting()+', '+esc(data.user.displayName)+'.</h2><p>See what is next, book support when you need it, and keep your learning resources in one place.</p></div><div class="hero-actions"><button class="hero-action" onclick="go(\'book\')"><b>Book a lesson</b><span>Choose topic & time</span></button><button class="hero-action" onclick="go(\'messages\')"><b>Message Victoria</b><span>Ask for help</span></button><button class="hero-action" onclick="go(\'resources\')"><b>Open resources</b><span>Lessons & notes</span></button><button class="hero-action" onclick="go(\'work\')"><b>Send work</b><span>Homework & assessments</span></button></div></div></section>';
-  h+=section('Your learning dashboard','A quick view of your progress and next session');
-  h+='<div class="student-dashboard"><div class="card progress-card"><div class="progress-ring" style="--p:'+pct+'"><span>'+pct+'%</span></div><div><div class="tiny strong muted">SYLLABUS PROGRESS</div><h3 style="margin:5px 0 6px">'+covered+' of '+tp.length+' topics covered</h3><div class="tiny muted">'+(pct>=80?'Strong progress — keep practising exam questions.':pct>=40?'You are building momentum topic by topic.':'Your progress will grow as topics are completed.')+'</div><div class="student-actions"><button class="student-action primary" onclick="go(\'learning\')">View learning</button><button class="student-action" onclick="go(\'resources\')">Resources</button></div></div></div>';
-  h+='<div class="card next-card"><div class="eyebrow">YOUR NEXT LESSON</div>'+(next?'<h4>'+esc(next.subject||'Lesson')+'</h4><p>'+esc(next.topic||'Topic to confirm')+'</p><div class="when"><span class="chip orange">'+esc(dateFmt(next.lesson_date))+'</span><span class="chip">'+esc(timeFmt(next.start_time))+'</span><span class="chip">'+esc(next.duration_minutes)+' min</span></div><div class="student-actions"><button class="student-action primary" onclick="go(\'messages\')">Ask a question</button><button class="student-action" onclick="go(\'book\')">Book another lesson</button></div>':'<h4>No upcoming lesson yet</h4><p>Book a session when you are ready for the next topic.</p><div class="student-actions"><button class="student-action primary" onclick="go(\'book\')">Book a lesson</button></div>')+'</div></div>';
-  if(featured.length){h+=section('Featured for you','Recommended lessons, notes and practice from Victoria');h+=resourceCards(featured,false,true)}
-  h+=section('What to focus on next','Based on your syllabus progress');
-  h+='<div class="grid3">'+(focus.length?focus.slice(0,6).map(x=>'<div class="card"><div class="row between"><b>'+esc(x.subtopic||x.topic)+'</b>'+status(x.status)+'</div><p class="tiny muted">'+esc(x.topic+(x.notes?' • '+x.notes:''))+'</p></div>').join(''):emptyState('No focus topics yet','Victoria will add your next focus areas here.'))+'</div>';
-  const todo=data.studentTasks||[];if(todo.length){h+=section('Your next actions','Only the work that needs attention now');h+='<div class="list">'+todo.slice(0,4).map(t=>'<div class="list-row"><div><h4>'+esc(t.title)+'</h4><p>'+esc(t.notes||'')+'</p></div><span class="chip orange">'+esc(dueText(t))+'</span></div>').join('')+'</div>'}
+  const todo=data.studentTasks||[];
+  let h='<section class="hero"><div class="ultra-hero"><div><div class="vta-kicker">Your learning space</div><h2>'+greeting()+', '+esc(data.user.displayName)+'.</h2><p>Your next lesson, current focus and study resources — kept simple.</p></div><div class="ultra-hero-actions"><button class="quick-action primary" onclick="go(\'book\')">Book lesson</button><button class="quick-action" onclick="go(\'messages\')">Message Victoria</button></div></div></section>';
+  h+='<div class="workspace-grid" style="margin-top:12px"><div class="card focus-card primary"><div class="label">NEXT LESSON</div>'+(next?'<div class="focus-title">'+esc(next.subject||'Lesson')+'</div><p>'+esc(next.topic||'Topic to confirm')+'</p><div class="focus-meta"><span>'+esc(dateFmt(next.lesson_date))+'</span><span>'+esc(timeFmt(next.start_time))+'</span><span>'+esc(next.duration_minutes)+' min</span></div>':'<div class="focus-title">No lesson booked yet</div><p>Book your next session when you are ready.</p>')+'</div><div class="card focus-card"><div class="label">SYLLABUS</div><div class="big">'+pct+'%</div><p>'+covered+' of '+tp.length+' topics completed</p></div><div class="card focus-card"><div class="label">FOCUS TOPICS</div><div class="big">'+focus.length+'</div><p>topics currently in progress</p></div><div class="card focus-card"><div class="label">TO DO</div><div class="big">'+todo.length+'</div><p>items needing attention</p></div></div>';
+  h+=section('Quick actions','Everything important is one tap away');
+  h+='<div class="action-dock"><button class="action-tile" onclick="go(\'learning\')"><span>◎</span>Learning progress</button><button class="action-tile" onclick="go(\'resources\')"><span>↗</span>Resources</button><button class="action-tile" onclick="go(\'work\')"><span>✓</span>Send work</button><button class="action-tile" onclick="go(\'messages\')"><span>✦</span>Ask for help</button></div>';
+  if(focus.length){h+=section('What to focus on next','Only your current and next topics');h+='<div class="grid3">'+focus.slice(0,6).map(x=>'<div class="card"><div class="row between"><b>'+esc(x.subtopic||x.topic)+'</b>'+status(x.status)+'</div><p class="tiny muted">'+esc(x.topic+(x.notes?' · '+x.notes:''))+'</p></div>').join('')+'</div>'}
+  if(featured.length){h+=section('Recommended for you','Lessons, notes and practice selected by Victoria');h+=resourceCards(featured,false,true)}
+  if(todo.length){h+=section('Next actions','Just the work that needs attention now');h+='<div class="list">'+todo.slice(0,4).map(t=>'<div class="list-row"><div><h4>'+esc(t.title)+'</h4><p>'+esc(t.notes||'')+'</p></div><span class="chip orange">'+esc(dueText(t))+'</span></div>').join('')+'</div>'}
   $('#content').innerHTML=h;
 }
 function studentLearning(){
