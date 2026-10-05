@@ -1317,35 +1317,45 @@ function forecastWeeksToCutoff(){
 }
 
 function adminFinance(){
-  const rate=150,cur=monthBounds(0),prev=monthBounds(-1),cutoff=cutoffDateForCurrentMonth();
+  const rate=150,cur=monthBounds(0),prev=monthBounds(-1);
   const currentLessons=lessonsInCalendarMonth(0,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date));
   const previousLessons=lessonsInCalendarMonth(-1,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date));
-  const currentEarned=currentLessons.reduce((s,l)=>s+lessonValue(l,rate),0),previousEarned=previousLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
-  const weeks=forecastWeeksToCutoff(),plannedRemaining=weeks.reduce((s,w)=>s+w.remain,0),plannedRemainingValue=plannedRemaining*rate;
+  const earned=currentLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
+  const previousEarned=previousLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
+  const currentRemainingRows=newMonthPlans().map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:completedHoursInCalendarMonth(0,p.student_id),remain:thisMonthRemaining(p.student_id)}));
+  const currentRemain=currentRemainingRows.reduce((s,x)=>s+x.remain,0);
   const catchupRows=previousMonthPlans().map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:previousMonthCompletedHoursByDate(p.student_id),remain:previousMonthCatchupRemaining(p.student_id)})).filter(x=>x.remain>0);
   const catchupHours=catchupRows.reduce((s,x)=>s+x.remain,0),catchupValue=catchupHours*rate;
+  const regularTargetHours=currentMonthRegularTarget(),regularTargetValue=regularTargetHours*rate;
+  const teachingTotal=earned+previousEarned;
+  const potential=regularTargetValue+catchupValue;
   const oldDue=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
-  const projectedTeachingByCutoff=currentEarned+plannedRemainingValue+catchupValue;
-  const expectedReceivable=projectedTeachingByCutoff+oldDue;
 
-  function monthRows(ls){
-    return ls.map(l=>'<div class="finance-history-row"><div>'+esc(dateFmt(l.lesson_date))+'</div><div><strong>'+esc(studentName(l.student_id))+'</strong></div><div>'+esc(l.subject||'Lesson')+' · '+esc(l.topic||'Topic not recorded')+'</div><div>'+((Number(l.duration_minutes||0)/60).toFixed(1))+'h</div><div class="value">R'+lessonValue(l,rate).toFixed(0)+'</div></div>').join('')
+  function ledger(ls){
+    return '<div class="finance-ledger"><div class="finance-ledger-row head"><div>Date</div><div>Student</div><div>Subject</div><div>Topic / subtopic</div><div>Hours</div><div class="money">Value</div></div>'+ls.map(l=>'<div class="finance-ledger-row"><div>'+esc(dateFmt(l.lesson_date))+'</div><div><b>'+esc(studentName(l.student_id))+'</b></div><div>'+esc(l.subject||'—')+'</div><div>'+esc(l.topic||l.notes||'Topic not recorded')+'</div><div>'+((Number(l.duration_minutes||0)/60).toFixed(1))+'h</div><div class="money">R'+lessonValue(l,rate).toFixed(0)+'</div></div>').join('')+'</div>'
   }
 
-  let h='<div class="finance-shell"><div class="finance-hero"><div class="kicker">PAYMENT VIEW · TO 15 '+new Date(cutoff+'T12:00:00').toLocaleDateString('en-ZA',{month:'short'}).toUpperCase()+'</div><h2>Finance</h2><p>Open a month to see every lesson date and student. Future teaching is planned separately so completed money never gets mixed with work you still need to teach.</p></div>';
+  let h='<div class="finance-shell"><div class="finance-hero"><div class="kicker">FINANCE AT A GLANCE</div><h2>Finance</h2><p>Every number can be opened to see exactly how it was calculated.</p></div>';
 
-  h+='<div class="finance-main-grid">'+
-    '<details class="finance-month-accordion"><summary><div class="finance-month-title"><span>Previous month</span><b>'+esc(prev.label)+'</b></div><div class="finance-month-total"><b>R'+previousEarned.toFixed(0)+'</b><span>'+completedHoursInCalendarMonth(-1).toFixed(1)+'h completed</span></div></summary><div class="finance-month-body">'+(previousLessons.length?monthRows(previousLessons):'<div class="tiny muted" style="padding:12px 0">No completed lessons.</div>')+'<div class="finance-history-row"><div></div><div></div><div><strong>'+esc(prev.label)+' total</strong></div><div><strong>'+completedHoursInCalendarMonth(-1).toFixed(1)+'h</strong></div><div class="value">R'+previousEarned.toFixed(0)+'</div></div></div></details>'+
-    '<details class="finance-month-accordion"><summary><div class="finance-month-title"><span>This month so far</span><b>'+esc(cur.label)+'</b></div><div class="finance-month-total"><b>R'+currentEarned.toFixed(0)+'</b><span>'+completedHoursInCalendarMonth(0).toFixed(1)+'h completed</span></div></summary><div class="finance-month-body">'+(currentLessons.length?monthRows(currentLessons):'<div class="tiny muted" style="padding:12px 0">No completed lessons.</div>')+'<div class="finance-history-row"><div></div><div></div><div><strong>'+esc(cur.label)+' total so far</strong></div><div><strong>'+completedHoursInCalendarMonth(0).toFixed(1)+'h</strong></div><div class="value">R'+currentEarned.toFixed(0)+'</div></div></div></details>'+
+  h+='<div class="finance-v2-grid">'+
+    '<div class="finance-v2-card primary clickable" onclick="openFinanceCalculation(\'current\')"><span>Earned so far · '+esc(cur.label)+'</span><b>R'+earned.toFixed(0)+'</b><p>'+completedHoursInCalendarMonth(0).toFixed(1)+'h completed this month</p></div>'+
+    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'remaining\')"><span>Still to cover this month</span><b>'+currentRemain.toFixed(1)+'h</b><p>R'+(currentRemain*rate).toFixed(0)+' remaining teaching value</p></div>'+
+    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'previous\')"><span>'+esc(prev.label)+' earnings</span><b>R'+previousEarned.toFixed(0)+'</b><p>'+completedHoursInCalendarMonth(-1).toFixed(1)+'h completed last month</p></div>'+
+    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'catchup\')"><span>Previous-month catch-up</span><b>'+catchupHours.toFixed(1)+'h</b><p>R'+catchupValue.toFixed(0)+' still to recover</p></div>'+
   '</div>';
 
-  h+=section('Still to teach before the 15th','Regular weekly targets, minus lessons you have already completed in each period');
-  h+='<div class="finance-forecast-card"><div class="eyebrow">REGULAR LESSONS STILL TO TEACH</div><div class="amount">'+plannedRemaining.toFixed(1)+'h · R'+plannedRemainingValue.toFixed(0)+'</div><p>This is a planning estimate based on your normal weekly student targets through '+esc(dateFmt(cutoff))+'.</p><div class="week-plan">'+weeks.map((w,i)=>'<div class="week-plan-block"><div class="week-plan-head"><b>'+(i===0?'This week':'Cutoff week')+' · '+esc(dateFmt(w.start))+' – '+esc(dateFmt(w.end))+'</b><span>'+w.done.toFixed(1)+'h done · '+w.remain.toFixed(1)+'h left</span></div><div class="week-plan-students">'+w.rows.map(r=>'<div class="week-plan-student"><b>'+esc(studentName(r.studentId))+'</b>'+r.done.toFixed(1)+'h done / '+r.target.toFixed(1)+'h target<br><span class="muted">'+r.remain.toFixed(1)+'h left</span></div>').join('')+'</div></div>').join('')+'</div></div>';
+  h+='<div class="finance-v2-card clickable" style="margin-top:12px" onclick="openFinanceCalculation(\'total\')"><span>Teaching total · completed '+esc(prev.label)+' + '+esc(cur.label)+'</span><b>R'+teachingTotal.toFixed(0)+'</b><p>Tap to see completed teaching, remaining work, catch-up and the separate R'+oldDue.toFixed(0)+' outstanding invoice balance.</p></div>';
 
-  h+=section('Previous-month catch-up','These hours still belong to the previous month. Schedule the dates when you are ready.');
-  h+='<div class="finance-forecast-card">'+(catchupRows.length?catchupRows.map(x=>'<div class="catchup-student-row"><div><b>'+esc(studentName(x.studentId))+'</b><p>'+x.done.toFixed(1)+' of '+x.target.toFixed(1)+'h was completed during '+esc(prev.label)+'.</p></div><div style="text-align:right"><b>'+x.remain.toFixed(1)+'h left</b><p>R'+(x.remain*rate).toFixed(0)+'</p></div></div>').join(''):'<div class="tiny muted">No previous-month catch-up remains.</div>')+'</div>';
+  h+=section('Students this month','Completed and remaining regular lessons');
+  h+='<div class="grid2">'+currentRemainingRows.map(x=>'<div class="student-finance-card"><div class="student-finance-head"><h4>'+esc(studentName(x.studentId))+'</h4><b>R'+(x.target*rate).toFixed(0)+'</b></div><div class="student-finance-meta"><span>'+x.done.toFixed(1)+'h completed</span><span>'+x.remain.toFixed(1)+'h still to cover</span><span>'+x.target.toFixed(0)+'h target</span></div><div class="progress" style="margin-top:9px"><i style="width:'+(x.target?Math.min(100,Math.round(x.done/x.target*100)):0)+'%"></i></div></div>').join('')+'</div>';
 
-  h+='<div class="receivable-card"><div class="eyebrow">EXPECTED RECEIVABLE IF PLANNED WORK IS COMPLETED</div><div class="big">R'+expectedReceivable.toFixed(0)+'</div><p>This keeps historical '+esc(prev.label)+' earnings visible above, but does not add all of them again because some may already have been paid or invoiced.</p><div class="receivable-breakdown"><div><span>'+esc(cur.label)+' earned so far</span><b>R'+currentEarned.toFixed(0)+'</b></div><div><span>Regular teaching still planned to 15th</span><b>R'+plannedRemainingValue.toFixed(0)+'</b></div><div><span>Previous-month catch-up if completed</span><b>R'+catchupValue.toFixed(0)+'</b></div><div><span>Separate outstanding payment</span><b>R'+oldDue.toFixed(0)+'</b></div><div><span>Projected teaching by 15th</span><b>R'+projectedTeachingByCutoff.toFixed(0)+'</b></div><div><span>Expected receivable</span><b>R'+expectedReceivable.toFixed(0)+'</b></div></div><div class="finance-note-clean">Historical '+esc(prev.label)+' teaching value: R'+previousEarned.toFixed(0)+'. It is shown for reference and lesson auditing, but is not blindly added again to the receivable because the R'+oldDue.toFixed(0)+' outstanding balance may already be part of that prior invoicing.</div></div>';
+  h+='<div class="finance-period"><h4>'+esc(cur.label)+' completed lessons</h4><p>Every completed lesson dated this month is counted here as this month.</p>'+(currentLessons.length?ledger(currentLessons):emptyState('No completed lessons','No completed lessons this month.'))+'</div>';
+
+  h+='<div class="finance-period"><h4>Previous-month catch-up still outstanding</h4><p>Only hours that were not completed during '+esc(prev.label)+' remain here.</p><div class="list">'+(catchupRows.length?catchupRows.map(x=>'<div class="list-row"><div><h4>'+esc(studentName(x.studentId))+'</h4><p>'+x.done.toFixed(1)+' of '+x.target.toFixed(1)+'h completed last month · '+x.remain.toFixed(1)+'h still owed</p></div><b>R'+(x.remain*rate).toFixed(0)+'</b></div>').join(''):emptyState('No old catch-up','The previous month is fully covered.'))+'</div></div>';
+
+  h+='<details class="previous-month-details"><summary>'+esc(prev.label)+' lesson history · R'+previousEarned.toFixed(0)+'</summary><div style="padding:0 12px 12px">'+(previousLessons.length?ledger(previousLessons):emptyState('No completed lessons','No completed lesson history for this month.'))+'</div></details>';
+
+  if(oldDue>0)h+='<div class="finance-note"><div class="mark">!</div><div><b>Separate outstanding invoice balance</b><p>Not added to the teaching total because it can overlap with lessons already counted above.</p></div><div class="amount">R'+oldDue.toFixed(0)+'</div></div>';
 
   h+='</div>';$('#content').innerHTML=h;
 }
