@@ -285,6 +285,72 @@ input,select,textarea{transition:border-color .16s ease,box-shadow .16s ease}
  .term-progress span{max-width:82px}.topic-block>summary{gap:8px}.topic-block>summary>span{white-space:normal;max-width:82px}
 }
 </style>
+
+<style id="vta-curriculum-clarity">
+/* Clear hierarchy: subject > term > topic > subtopic */
+.curriculum-wrap{display:grid;gap:14px}
+.curriculum-subject{margin:20px 2px 7px;padding:0 2px}
+.curriculum-subject h4{font-size:19px;line-height:1.2;letter-spacing:-.025em}
+.curriculum-total{font-size:12px;line-height:1.45;margin-top:4px}
+.term-block{border:1px solid var(--line);border-radius:20px;background:var(--panel);overflow:hidden;box-shadow:0 8px 24px rgba(15,23,42,.035)}
+.term-block+.term-block{margin-top:12px}
+.term-block>summary{padding:17px 18px;min-height:78px}
+.term-block[open]{border-color:#cfd7e4;box-shadow:0 14px 34px rgba(15,23,42,.07)}
+.term-block[open]>summary{background:linear-gradient(180deg,#fff8f5,#fff);border-bottom:1px solid #eadfd9}
+.term-block[open] .term-num{background:#ffe8e0;box-shadow:inset 0 0 0 1px #f9cfc2}
+.term-title{gap:13px}.term-num{width:44px;height:44px;border-radius:14px;font-size:18px}
+.term-title b{font-size:18px;letter-spacing:-.025em}.term-title .tiny{font-size:12px!important;margin-top:3px}
+.term-progress b{font-size:15px}.term-progress span{font-size:11px;line-height:1.3}
+.term-body{padding:13px;gap:12px;background:#fbfcfe}
+.topic-block{border:1px solid #e2e6ed;border-radius:16px;background:#f6f8fb;overflow:hidden;box-shadow:none}
+.topic-block+ .topic-block{margin-top:2px}
+.topic-block>summary{padding:15px 16px;min-height:82px;align-items:center}
+.topic-block>summary>div{min-width:0;display:grid;gap:5px;padding-right:10px}
+.topic-block>summary>div>b{font-size:15px;line-height:1.3;letter-spacing:-.015em}
+.topic-block>summary>div>span{font-size:11px;line-height:1.4}
+.topic-block>summary>span{font-size:11px;line-height:1.35;text-align:right;white-space:nowrap}
+.topic-block[open]{background:#fff;border-color:#9fb0ca;box-shadow:0 12px 28px rgba(15,55,111,.10)}
+.topic-block[open]>summary{background:#eef3f9;border-bottom:1px solid #cfdae8}
+.topic-block[open]>summary>div>b{color:#0f376f}
+.topic-block[open]>summary:after{content:"OPEN";font-size:8px;font-weight:950;letter-spacing:.1em;color:#0f376f;background:#dce7f4;border-radius:999px;padding:5px 7px;margin-left:5px}
+.topic-block>summary:active{background:#e8eef6}
+.subtopic-list{display:grid;gap:9px;padding:11px;background:#fff}
+.subtopic-card{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(135px,.55fr) minmax(0,1fr);gap:12px;align-items:center;padding:13px 14px;border:1px solid #e3e7ed;border-radius:14px;background:#fff;box-shadow:0 4px 12px rgba(15,23,42,.025);position:relative}
+.subtopic-card:before{content:"";position:absolute;left:0;top:11px;bottom:11px;width:3px;border-radius:999px;background:#cbd5e1}
+.subtopic-card[data-progress="completed"]:before{background:#22a06b}
+.subtopic-card[data-progress="in-progress"]:before{background:#e88745}
+.subtopic-card[data-progress="revisit"]:before{background:#a978d1}
+.subtopic-name{font-size:13px!important;font-weight:820;line-height:1.35;padding-left:4px}
+.subtopic-status-label{display:block;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:5px}
+.subtopic-status select{font-size:11px;padding:8px 9px;border-radius:10px;width:100%}
+.progress-badge{display:inline-flex;align-items:center;min-height:30px;padding:6px 9px;border-radius:999px;font-size:10px;font-weight:850;background:#eef1f5;color:#667085}
+.progress-badge.completed{background:#eaf8f0;color:#147a46}.progress-badge.in-progress{background:#fff3e9;color:#a95521}.progress-badge.revisit{background:#f5eefb;color:#79529c}
+.subtopic-note-box{min-width:0;padding:9px 10px;border-radius:11px;background:#f8fafc;border:1px solid #edf0f4}
+.subtopic-note-title{font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.subtopic-note-text{font-size:11px;line-height:1.45;margin-top:4px;color:var(--text);overflow-wrap:anywhere}
+.subtopic-note-empty{font-size:10px;color:var(--muted);margin-top:4px;font-style:italic}
+.note-edit{margin-top:7px;border:0;background:transparent;color:#b63b22;font-size:10px;font-weight:900;padding:0}
+.note-edit:hover{text-decoration:underline}
+@media(max-width:760px){
+ .curriculum-wrap{gap:12px}.curriculum-subject{margin-top:15px}.curriculum-subject h4{font-size:20px}.curriculum-total{font-size:13px}
+ .term-block>summary{padding:16px 14px}.term-title{gap:11px}.term-num{width:43px;height:43px}
+ .term-title b{font-size:19px}.term-title .tiny{font-size:13px!important}
+ .term-progress{min-width:86px}.term-progress b{font-size:15px}.term-progress span{font-size:11px;max-width:86px}
+ .term-body{padding:11px;gap:12px}
+ .topic-block>summary{padding:16px 13px;min-height:92px;align-items:flex-start;position:relative}
+ .topic-block>summary>div>b{font-size:16px;line-height:1.32}.topic-block>summary>div>span{font-size:12px;line-height:1.42}
+ .topic-block>summary>span{font-size:11px;white-space:normal;max-width:80px;padding-top:2px}
+ .topic-block[open]>summary{padding-bottom:38px}
+ .topic-block[open]>summary:after{position:absolute;left:13px;bottom:11px;margin:0}
+ .subtopic-list{padding:10px;gap:10px;background:#f8fafc}
+ .subtopic-card{grid-template-columns:1fr;padding:14px 13px 13px;gap:11px;border-color:#dde3eb;box-shadow:0 6px 16px rgba(15,23,42,.035)}
+ .subtopic-card:before{top:12px;bottom:12px}.subtopic-name{font-size:15px!important;line-height:1.35;padding-left:5px}
+ .subtopic-status-label{font-size:9px}.subtopic-status select{font-size:13px;min-height:42px}
+ .progress-badge{font-size:11px;min-height:32px}
+ .subtopic-note-box{padding:11px}.subtopic-note-title{font-size:9px}.subtopic-note-text{font-size:12px;line-height:1.5}.subtopic-note-empty{font-size:11px}
+ .note-edit{font-size:11px;min-height:28px}
+}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -429,6 +495,12 @@ function targetCard(s){
   const pct=target?Math.min(100,Math.round(done/target*100)):0;
   return '<div class="card target-card"><div class="row between"><div><div class="period-label">NEW MONTH</div><h4 style="margin:3px 0 0">'+esc(s.display_name)+'</h4></div><span class="chip">'+weekly.toFixed(0)+'h / week</span></div><div class="target-num">'+done.toFixed(1)+' / '+target.toFixed(0)+' hrs</div><div class="tiny muted">regular monthly allocation</div><div class="target-progress"><i style="width:'+pct+'%"></i></div><div class="plan-meta"><div><span>Monthly value</span><b>R'+(target*150).toFixed(0)+'</b></div><div class="catch"><span>Old catch-up</span><b>'+catchup.toFixed(0)+'h</b></div></div><div class="target-state"><span class="tiny muted">'+esc(prev?.status||'No previous balance')+'</span>'+status(p?.status||'Planned')+'</div></div>';
 }
+
+function curriculumOpenKeys(){return [...document.querySelectorAll('details[open][data-curr-key]')].map(x=>x.getAttribute('data-curr-key')).filter(Boolean)}
+function restoreCurriculumOpenKeys(keys){if(!keys||!keys.length)return;keys.forEach(k=>{const el=[...document.querySelectorAll('details[data-curr-key]')].find(x=>x.getAttribute('data-curr-key')===k);if(el)el.open=true})}
+function progressDisplay(s){const v=curriculumStatus(s);return v==='Not started'?'Not completed':v==='Revisit'?'Needs revisit':v}
+function progressClass(s){const v=curriculumStatus(s);return v==='Completed'?'completed':v==='In progress'?'in-progress':v==='Revisit'?'revisit':'not-completed'}
+
 function curriculumStatus(s){return s==='Covered'?'Completed':s==='Current'||s==='Next'?'In progress':s==='Future'||s==='Resource Ready'?'Not started':s||'Not started'}
 function curriculumTracker(rows,editable){
   if(!rows.length)return emptyState('No curriculum loaded','Curriculum subtopics will appear here.');
@@ -442,21 +514,48 @@ function curriculumTracker(rows,editable){
       if(!tr.length)continue;
       const td=tr.filter(x=>curriculumStatus(x.status)==='Completed').length;
       const topics=[...new Set(tr.map(x=>x.topic))];
-      out+='<details class="term-block" '+(term===1?'open':'')+'><summary><div class="term-title"><div class="term-num">'+term+'</div><div><b>Term '+term+'</b><div class="tiny muted">'+topics.length+' topic'+(topics.length===1?'':'s')+'</div></div></div><div class="term-progress"><b>'+td+' / '+tr.length+'</b><span>subtopics complete</span></div></summary><div class="term-body">';
+      const termKey='term:'+subject+':'+term;
+      out+='<details class="term-block" data-curr-key="'+esc(termKey)+'" '+(term===1?'open':'')+'><summary><div class="term-title"><div class="term-num">'+term+'</div><div><b>Term '+term+'</b><div class="tiny muted">'+topics.length+' topic'+(topics.length===1?'':'s')+'</div></div></div><div class="term-progress"><b>'+td+' / '+tr.length+'</b><span>subtopics complete</span></div></summary><div class="term-body">';
       for(const topic of topics){
         const ar=tr.filter(x=>x.topic===topic),ad=ar.filter(x=>curriculumStatus(x.status)==='Completed').length;
-        out+='<details class="topic-block"><summary><div><b>'+esc(topic)+'</b><span>'+esc(ar[0].strand||'')+'</span></div><span>'+ad+' / '+ar.length+' complete</span></summary><table class="subtopic-table"><thead><tr><th>Subtopic</th><th>Status</th><th>Note</th></tr></thead><tbody>';
-        out+=ar.map(x=>'<tr><td class="subtopic-name">'+esc(x.subtopic)+'</td><td>'+(editable?'<select onchange="setCurriculumStatus(\''+x.id+'\',this.value)">'+['Not started','In progress','Completed','Revisit'].map(s=>'<option '+(curriculumStatus(x.status)===s?'selected':'')+'>'+s+'</option>').join('')+'</select>':status(curriculumStatus(x.status)))+'</td><td class="muted">'+(editable?'<div class="note-cell"><span class="note-text">'+esc(x.notes||'No note')+'</span><button class="note-edit" onclick="editCurriculumNote(\''+x.id+'\')">Edit note</button></div>':esc(x.notes||''))+'</td></tr>').join('');
-        out+='</tbody></table></details>';
+        const topicKey='topic:'+subject+':'+term+':'+topic;
+        out+='<details class="topic-block" data-curr-key="'+esc(topicKey)+'"><summary><div><b>'+esc(topic)+'</b><span>'+esc(ar[0].strand||'')+'</span></div><span>'+ad+' / '+ar.length+' complete</span></summary><div class="subtopic-list">';
+        out+=ar.map(x=>{
+          const cls=progressClass(x.status),label=progressDisplay(x.status),note=String(x.notes||'').trim();
+          const stat=editable?'<div class="subtopic-status"><span class="subtopic-status-label">Progress</span><select onchange="setCurriculumStatus(\''+x.id+'\',this.value)"><option value="Not started" '+(curriculumStatus(x.status)==='Not started'?'selected':'')+'>Not completed</option><option value="In progress" '+(curriculumStatus(x.status)==='In progress'?'selected':'')+'>In progress</option><option value="Completed" '+(curriculumStatus(x.status)==='Completed'?'selected':'')+'>Completed</option><option value="Revisit" '+(curriculumStatus(x.status)==='Revisit'?'selected':'')+'>Needs revisit</option></select></div>':'<div class="subtopic-status"><span class="subtopic-status-label">Progress</span><span class="progress-badge '+cls+'">'+esc(label)+'</span></div>';
+          const noteBox='<div class="subtopic-note-box"><div class="subtopic-note-title">Tutor note</div>'+(note?'<div class="subtopic-note-text">'+esc(note)+'</div>':'<div class="subtopic-note-empty">No note added yet</div>')+(editable?'<button class="note-edit" onclick="editCurriculumNote(\''+x.id+'\')">'+(note?'Edit note':'Add note')+'</button>':'')+'</div>';
+          return '<div class="subtopic-card" data-progress="'+cls+'"><div class="subtopic-name">'+esc(x.subtopic)+'</div>'+stat+noteBox+'</div>';
+        }).join('');
+        out+='</div></details>';
       }
       out+='</div></details>';
     }
     return out;
   }).join('')+'</div>';
 }
-async function setCurriculumStatus(id,value){try{await api({action:'curriculumSubtopicUpdate',id,status:value});toast('Subtopic updated');const r=(data.curriculumSubtopics||[]).find(x=>x.id===id);if(r)r.status=value;render()}catch(err){toast(err.message)}}
-function editCurriculumNote(id){const r=(data.curriculumSubtopics||[]).find(x=>x.id===id);if(!r)return;modal('Note • '+r.subtopic,'<div class="field"><label>Teaching note</label><textarea id="cnNote" style="min-height:150px">'+esc(r.notes||'')+'</textarea></div>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveCurriculumNote(\''+id+'\')">Save note</button>')}
-async function saveCurriculumNote(id){const r=(data.curriculumSubtopics||[]).find(x=>x.id===id);try{await api({action:'curriculumSubtopicUpdate',id,status:curriculumStatus(r?.status||'Not started'),notes:$('#cnNote').value});closeModal();toast('Note saved');await sync()}catch(err){toast(err.message)}}
+async function setCurriculumStatus(id,value){
+  const open=curriculumOpenKeys();
+  try{
+    await api({action:'curriculumSubtopicUpdate',id,status:value});
+    toast('Progress saved');
+    const r=(data.curriculumSubtopics||[]).find(x=>x.id===id);if(r)r.status=value;
+    render();restoreCurriculumOpenKeys(open);
+  }catch(err){toast(err.message)}
+}
+function editCurriculumNote(id){
+  const r=(data.curriculumSubtopics||[]).find(x=>x.id===id);if(!r)return;
+  modal((r.notes?'Edit note':'Add note')+' · '+r.subtopic,
+    '<div class="field"><label>Tutor note for this subtopic</label><textarea id="cnNote" style="min-height:170px" placeholder="Example: Understands the concept but needs more practice with exam questions.">'+esc(r.notes||'')+'</textarea></div><div class="tiny muted" style="margin-top:8px">This note will be visible to the student under this subtopic.</div>',
+    '<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveCurriculumNote(\''+id+'\')">Save note</button>');
+}
+async function saveCurriculumNote(id){
+  const r=(data.curriculumSubtopics||[]).find(x=>x.id===id),open=curriculumOpenKeys(),note=$('#cnNote').value;
+  try{
+    await api({action:'curriculumSubtopicUpdate',id,status:curriculumStatus(r?.status||'Not started'),notes:note});
+    if(r)r.notes=note;
+    closeModal();toast('Note saved');render();restoreCurriculumOpenKeys(open);
+  }catch(err){toast(err.message)}
+}
 async function setLessonStatus(id,value){try{await api({action:'lessonStatusUpdate',id,status:value});toast(value==='Completed'?'Lesson counted as completed':'Lesson updated');await sync()}catch(err){toast(err.message)}}
 function activeCycleTargets(){return (data.cycleTargets||[]).filter(x=>x.cycle_start==='2026-09-15'&&x.cycle_end==='2026-10-15')}
 function cycleEarnedHours(id){return (data.lessons||[]).filter(x=>x.student_id===id&&x.status==='Completed'&&x.lesson_date>='2026-09-15'&&x.lesson_date<='2026-10-15'&&x.duration_minutes!=null).reduce((a,x)=>a+Number(x.duration_minutes)/60,0)}
