@@ -947,6 +947,85 @@ input,select,textarea{transition:border-color .16s ease,box-shadow .16s ease}
  .chat-head-avatar{width:32px;height:32px}.chat-v3 .bubble{max-width:85%!important}
 }
 </style>
+
+<style id="vta-pages-polish-v7">
+/* Finance contrast */
+.finance-total-premium{
+  background:linear-gradient(135deg,#0a1220 0%,#16243a 56%,#2e4668 100%)!important;
+  border:1px solid #496383!important;
+  box-shadow:0 18px 42px rgba(15,23,42,.22)!important;
+}
+.finance-total-premium span,
+.finance-total-premium small{color:#d8e2ef!important;opacity:1!important}
+.finance-total-premium b,
+.finance-total-premium strong{color:#ffffff!important;opacity:1!important;font-weight:950!important;text-shadow:0 1px 2px rgba(0,0,0,.18)}
+.finance-total-premium>div:first-child>b{font-size:31px!important}
+.finance-total-premium .total-side strong{font-size:29px!important}
+.finance-total-premium p{color:#d0dae7!important;opacity:1!important}
+.finance-toggle-value{font-size:18px!important;font-weight:950!important;color:var(--text)!important}
+
+/* Schedule */
+.schedule-summary-v4{display:grid;grid-template-columns:1.35fr repeat(2,minmax(0,.8fr));gap:10px;margin-bottom:12px}
+.schedule-summary-card{padding:14px;border-radius:16px;border:1px solid #d3deea;background:linear-gradient(145deg,#fff,#f5f8fb);box-shadow:0 8px 24px rgba(15,23,42,.04)}
+.schedule-summary-card.primary{background:linear-gradient(135deg,#111827,#2d4465);border-color:#3a5273;color:#fff}
+.schedule-summary-card .label{font-size:8px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.schedule-summary-card.primary .label{color:#f1aa94}
+.schedule-summary-card .value{font-size:22px;font-weight:950;letter-spacing:-.035em;margin-top:5px}
+.schedule-summary-card p{font-size:9px;color:var(--muted);margin:4px 0 0;line-height:1.4}
+.schedule-summary-card.primary p{color:#c1ccda}
+.calendar-pro{border:1.5px solid #bdcad9!important;box-shadow:0 16px 38px rgba(15,23,42,.085)!important}
+.calendar-pro-toolbar{padding:14px 15px!important;background:linear-gradient(180deg,#fff,#f4f7fa)!important}
+.calendar-pro-title{font-size:12px!important;font-weight:950!important}
+.time-grid-head .dayhead{padding:11px 8px!important}
+.time-grid-head .dayhead span{font-size:8px!important}.time-grid-head .dayhead b{font-size:15px!important}
+.calendar-block{border-radius:11px!important;padding:7px 8px!important;border-left-width:4px!important}
+.calendar-block b{font-size:9px!important}.calendar-block small{font-size:7.5px!important}
+.cal-month-day:hover{box-shadow:inset 0 0 0 2px rgba(78,106,144,.18);background:#f0f5fa!important}
+[data-theme="dark"] .schedule-summary-card{background:#171f29;border-color:#354252}
+[data-theme="dark"] .schedule-summary-card.primary{background:linear-gradient(135deg,#0d1420,#233650);border-color:#3c536f}
+
+/* Quizzes */
+.quiz-grid-v4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.quiz-card-v4{
+  border:1px solid #d7e0ea;border-radius:19px;background:var(--panel);
+  padding:0;overflow:hidden;box-shadow:0 9px 26px rgba(15,23,42,.045);
+  transition:.16s ease
+}
+.quiz-card-v4:hover{transform:translateY(-2px);border-color:#9fb1c7;box-shadow:0 15px 34px rgba(15,23,42,.08)}
+.quiz-card-band{height:7px;background:linear-gradient(90deg,#d86144,#f0a58c)}
+.quiz-card-v4:nth-child(4n+2) .quiz-card-band{background:linear-gradient(90deg,#365f8a,#86a8cf)}
+.quiz-card-v4:nth-child(4n+3) .quiz-card-band{background:linear-gradient(90deg,#72568f,#b29ac8)}
+.quiz-card-v4:nth-child(4n+4) .quiz-card-band{background:linear-gradient(90deg,#2d6a60,#7fb0a4)}
+.quiz-card-inner{padding:15px}
+.quiz-card-head-v4{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:10px;align-items:start}
+.quiz-icon-v4{width:42px;height:42px;border-radius:13px;background:#fff1eb;color:#ad4a30;display:grid;place-items:center;font-size:17px;font-weight:950;border:1px solid #f3d2c7}
+.quiz-card-v4 h4{margin:0;font-size:14px;line-height:1.3}
+.quiz-card-v4 .meta{font-size:9px;color:var(--muted);line-height:1.45;margin-top:4px}
+.quiz-type-v4{font-size:8px;font-weight:900;padding:5px 7px;border-radius:999px;background:var(--panel2);color:var(--muted);white-space:nowrap;border:1px solid var(--line)}
+.quiz-topic-v4{margin-top:11px;padding:9px 10px;border-radius:11px;background:var(--panel2);border:1px solid var(--line);font-size:9px;color:var(--muted)}
+.quiz-topic-v4 b{color:var(--text)}
+.quiz-actions-v4{display:flex;gap:7px;margin-top:12px}.quiz-actions-v4 .btn{flex:1}
+[data-theme="dark"] .quiz-card-v4{background:#151c25;border-color:#354151}.quiz-icon-v4{background:#4a2922;border-color:#6d4035;color:#ffd2c5}
+
+/* Resources */
+.resource-category-v4{margin-top:18px;border:1px solid #d9e1eb;border-radius:18px;background:var(--panel);overflow:hidden;box-shadow:0 8px 24px rgba(15,23,42,.035)}
+.resource-category-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 15px;background:linear-gradient(135deg,#f8fafc,#f0f4f8);border-bottom:1px solid #dce4ed}
+.resource-category-head h3{font-size:14px;margin:0}.resource-category-head p{font-size:9px;color:var(--muted);margin:3px 0 0}.resource-count-v4{font-size:9px;font-weight:900;padding:6px 8px;border-radius:999px;background:#fff;border:1px solid #d7e0ea;color:#52657b}
+.resource-category-body{padding:12px}
+.resource-category-body .resource-grid{margin:0!important}
+.resource-card{border:1px solid #d9e2ec!important;border-radius:17px!important;box-shadow:0 7px 20px rgba(15,23,42,.035)!important}
+.resource-card:hover{transform:translateY(-2px);border-color:#9eb0c6!important;box-shadow:0 13px 29px rgba(15,23,42,.075)!important}
+.resource-card h4{font-size:13px!important;line-height:1.3!important}
+.resource-card .icon{width:38px!important;height:38px!important;border-radius:12px!important}
+.resource-card .note{background:#f8fafc!important;border:1px solid #e0e7ef!important;border-radius:10px!important}
+[data-theme="dark"] .resource-category-v4{background:#151c25;border-color:#354151}
+[data-theme="dark"] .resource-category-head{background:linear-gradient(135deg,#1a222d,#171f29);border-color:#344052}
+[data-theme="dark"] .resource-count-v4{background:#111821;border-color:#354151;color:#b7c3d2}
+[data-theme="dark"] .resource-card .note{background:#171f29!important;border-color:#344052!important}
+
+@media(max-width:900px){.quiz-grid-v4{grid-template-columns:1fr}.schedule-summary-v4{grid-template-columns:1fr 1fr}.schedule-summary-card.primary{grid-column:1/-1}}
+@media(max-width:520px){.schedule-summary-v4{grid-template-columns:1fr}.schedule-summary-card.primary{grid-column:auto}.quiz-card-head-v4{grid-template-columns:38px minmax(0,1fr)}.quiz-type-v4{grid-column:2;justify-self:start}.resource-category-body{padding:8px}}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -1056,6 +1135,8 @@ function logout(){
   showLogin();
   const u=$('#username'),p=$('#password');if(u)u.value='';if(p)p.value='';
 }
+window.addEventListener('focus',()=>{if(token&&data)sync()});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&token&&data)sync()});
 function role(){return data&&data.user?data.user.role:''}
 function initials(name){return String(name||'V').trim().split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase()}
 function greeting(){const h=new Date().getHours();return h<12?'Good morning':h<17?'Good afternoon':'Good evening'}
@@ -1348,8 +1429,11 @@ function studentDetail(id){
 }
 function adminSchedule(){
   if(!scheduleAnchor)scheduleAnchor=today();
-  const pending=(data.bookings||[]).filter(x=>x.status==='Pending'),needs=(data.lessons||[]).filter(x=>x.status==='Needs confirmation');
-  let h=section('Schedule','Google Calendar-style view of portal lessons and synced calendar lessons','<button class="btn small primary" onclick="openLesson()">+ Add lesson</button>');
+  const pending=(data.bookings||[]).filter(x=>x.status==='Pending'),needs=(data.lessons||[]).filter(x=>x.status==='Needs confirmation'),events=mergedLessonEvents();
+  const todays=events.filter(e=>e.event_date===today()),googleCount=events.filter(e=>e.event_date>=today()&&e.source==='Google Calendar').length;
+  const todayHours=todays.reduce((s,e)=>{const st=String(e.start_time||'00:00').slice(0,5).split(':').map(Number),et=String(e.end_time||e.start_time||'00:00').slice(0,5).split(':').map(Number);return s+Math.max(0,(et[0]*60+et[1]-st[0]*60-st[1])/60)},0);
+  let h=section('Schedule','Portal lessons and synced Google Calendar lessons in one view','<button class="btn small primary" onclick="openLesson()">+ Add lesson</button>');
+  h+='<div class="schedule-summary-v4"><div class="schedule-summary-card primary"><div class="label">TODAY</div><div class="value">'+(todays.length?todays.length+' lesson'+(todays.length===1?'':'s'):'No lessons')+'</div><p>'+new Date(today()+'T12:00:00').toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long'})+'</p></div><div class="schedule-summary-card"><div class="label">TEACHING TIME TODAY</div><div class="value">'+todayHours.toFixed(1)+'h</div><p>Based on scheduled calendar blocks</p></div><div class="schedule-summary-card"><div class="label">CALENDAR SYNC</div><div class="value">'+googleCount+'</div><p>Upcoming Google Calendar lesson'+(googleCount===1?'':'s')+'</p></div></div>';
   if(needs.length){h+='<details class="previous-month-details"><summary>'+needs.length+' past lesson'+(needs.length===1?'':'s')+' need confirmation</summary><div class="list" style="padding:0 12px 12px">'+needs.map(l=>'<div class="list-row"><div><h4>'+esc(studentName(l.student_id))+' · '+esc(l.subject||'Lesson')+'</h4><p>'+esc(dateFmt(l.lesson_date))+' · '+esc(timeFmt(l.start_time))+' · '+esc(l.topic||'')+'</p></div><div class="confirm-actions"><button class="btn primary" onclick="setLessonStatus(\''+l.id+'\',\'Completed\')">Completed</button><button class="btn" onclick="setLessonStatus(\''+l.id+'\',\'Cancelled\')">Did not happen</button></div></div>').join('')+'</div></details>'}
   if(pending.length){h+='<details class="previous-month-details" open><summary>'+pending.length+' booking request'+(pending.length===1?'':'s')+'</summary><div class="list" style="padding:0 12px 12px">'+pending.map(x=>'<div class="list-row"><div><h4>'+esc(studentName(x.student_id))+' · '+esc(x.subject)+'</h4><p>'+esc(dateFmt(x.requested_date))+' at '+esc(timeFmt(x.requested_time))+' · '+esc(x.duration_minutes)+' min</p></div><div class="row"><button class="btn small primary" onclick="bookingStatus(\''+x.id+'\',\'Confirmed\')">Confirm</button><button class="btn small danger" onclick="bookingStatus(\''+x.id+'\',\'Declined\')">Decline</button></div></div>').join('')+'</div></details>'}
   h+=calendarToolbar()+lessonCalendar();$('#content').innerHTML=h;
@@ -1405,9 +1489,18 @@ function resourceVisual(r){
 }
 function resourceIcon(t){t=String(t||'').toLowerCase();if(t.includes('interactive'))return '✦';if(t.includes('pdf')||t.includes('note'))return '▤';if(t.includes('slide'))return '▣';if(t.includes('video'))return '▶';if(t.includes('quiz'))return '✓';return '↗'}
 function adminResources(){
-  const cats=['Interactive Lesson','Slides','PDF / Notes','Worksheet','Video','Quiz Link','Quiz Report','Other'];let h=section('Resources','Organized by teaching format','<div class="row"><button class="btn small" onclick="openLinkResource()">+ Link</button><button class="btn small primary" onclick="openUpload()">+ Upload</button></div>');
-  cats.forEach(cat=>{const first=cat.split(' ')[0].toLowerCase();const rs=(data.resources||[]).filter(r=>{const t=String(r.resource_type||'Other').toLowerCase();if(cat==='Quiz Link')return t==='quiz link';if(cat==='Quiz Report')return t==='quiz report';if(cat==='Other')return !cats.slice(0,-1).some(z=>{const zz=z.toLowerCase();return zz.startsWith('quiz ')?t===zz:t.includes(z.split(' ')[0].toLowerCase())});return t.includes(first)});if(rs.length){h+=section(cat,rs.length+' resource'+(rs.length===1?'':'s'));h+=resourceCards(rs,true)}});
-  if(!(data.resources||[]).length)h+='<div class="card muted">No resources uploaded yet.</div>';$('#content').innerHTML=h;
+  const cats=['Interactive Lesson','Slides','PDF / Notes','Worksheet','Video','Quiz Link','Quiz Report','Other'];
+  let h=section('Resources','Lessons, notes, worksheets and files organised by format','<div class="row"><button class="btn small" onclick="openLinkResource()">+ Link</button><button class="btn small primary" onclick="openUpload()">+ Upload</button></div>');
+  const all=data.resources||[];
+  cats.forEach(cat=>{
+    const first=cat.split(' ')[0].toLowerCase();
+    const rs=all.filter(r=>{const t=String(r.resource_type||'Other').toLowerCase();if(cat==='Quiz Link')return t==='quiz link';if(cat==='Quiz Report')return t==='quiz report';if(cat==='Other')return !cats.slice(0,-1).some(z=>{const zz=z.toLowerCase();return zz.startsWith('quiz ')?t===zz:t.includes(z.split(' ')[0].toLowerCase())});return t.includes(first)});
+    if(rs.length){
+      h+='<section class="resource-category-v4"><div class="resource-category-head"><div><h3>'+esc(cat)+'</h3><p>'+esc(cat==='Interactive Lesson'?'Interactive teaching experiences':cat==='PDF / Notes'?'Reference notes and study material':cat==='Worksheet'?'Practice and homework files':cat==='Quiz Link'||cat==='Quiz Report'?'Quiz-related resources':'Teaching resources')+'</p></div><span class="resource-count-v4">'+rs.length+' '+(rs.length===1?'item':'items')+'</span></div><div class="resource-category-body">'+resourceCards(rs,true)+'</div></section>';
+    }
+  });
+  if(!all.length)h+=emptyState('No resources','Upload or link your first teaching resource.');
+  $('#content').innerHTML=h;
 }
 async function openResource(id){
   const w=window.open('about:blank','_blank');
@@ -1497,10 +1590,10 @@ function openQuizReportCenter(id){
 
 function adminQuizzes(){
   const qs=(data.quizzes||[]).slice().sort((a,b)=>String(b.scheduled_for||b.created_at).localeCompare(String(a.scheduled_for||a.created_at)));
-  let h=section('Quizzes','Keep it simple: add the quiz, open it, and keep the report beside it.','<button class="btn small primary" onclick="openUnifiedQuizAdd()">+ Add quiz</button>');
-  h+='<div class="list">'+(qs.length?qs.map(q=>{
-    const link=quizLinkFor(q.id),type=link?'Link':(q.quiz_mode==='Uploaded file'||q.storage_path?'File':'Browser quiz');
-    return '<div class="card quiz-simple-card"><div><h4>'+esc(q.title)+'</h4><p>'+esc(studentName(q.student_id))+' · '+esc(q.subject||'')+(q.topic?' · '+esc(q.topic):'')+(q.scheduled_for?' · '+esc(dateFmt(q.scheduled_for)):'')+'</p><span class="quiz-type-pill">'+esc(type)+'</span></div><div class="quiz-actions-v2"><button class="btn small primary" onclick="openQuizAsset((data.quizzes||[]).find(x=>x.id===\''+q.id+'\'))">Open quiz</button><button class="btn small" onclick="openQuizReportCenter(\''+q.id+'\')">Report</button></div></div>';
+  let h=section('Quizzes','Add, open and review quizzes without extra clutter.','<button class="btn small primary" onclick="openUnifiedQuizAdd()">+ Add quiz</button>');
+  h+='<div class="quiz-grid-v4">'+(qs.length?qs.map(q=>{
+    const link=quizLinkFor(q.id),type=link?'Link':(q.quiz_mode==='Uploaded file'||q.storage_path?'File':'Browser quiz'),attempts=(data.quizAttempts||[]).filter(a=>a.quiz_id===q.id),latest=attempts.slice().sort((a,b)=>String(b.completed_at).localeCompare(String(a.completed_at)))[0];
+    return '<div class="quiz-card-v4"><div class="quiz-card-band"></div><div class="quiz-card-inner"><div class="quiz-card-head-v4"><div class="quiz-icon-v4">✓</div><div><h4>'+esc(q.title)+'</h4><div class="meta">'+esc(studentName(q.student_id))+(q.scheduled_for?' · '+esc(dateFmt(q.scheduled_for)):'')+'</div></div><span class="quiz-type-v4">'+esc(type)+'</span></div><div class="quiz-topic-v4"><b>'+esc(q.subject||'Subject not set')+'</b>'+(q.topic?' · '+esc(q.topic):'')+(latest?' · Latest submission '+new Date(latest.completed_at).toLocaleDateString('en-ZA',{day:'numeric',month:'short'}):'')+'</div><div class="quiz-actions-v4"><button class="btn small primary" onclick="openQuizAsset((data.quizzes||[]).find(x=>x.id===\''+q.id+'\'))">Open quiz</button><button class="btn small" onclick="openQuizReportCenter(\''+q.id+'\')">Report</button></div></div></div>';
   }).join(''):emptyState('No quizzes','Add a link or upload a quiz file.'))+'</div>';
   $('#content').innerHTML=h;
 }
