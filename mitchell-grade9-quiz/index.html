@@ -5,7 +5,7 @@
 
 .student-form-card{margin:18px 0 12px;border:1px solid #d8d5ff;background:linear-gradient(135deg,#faf9ff,#f4f7ff);border-radius:18px;padding:18px}.student-form-title{font-size:14px;font-weight:900;letter-spacing:.06em;color:#4c1d95;text-transform:uppercase;margin-bottom:12px}.student-form-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.field-label{display:block;font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}.field-value{min-height:44px;border:1px solid #cbd5e1;border-radius:11px;background:#fff;padding:10px 12px;font-weight:800;color:#0f172a;width:100%}.field-static{display:flex;align-items:center}.connection-pill{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:900;background:#fef3c7;color:#92400e}.connection-pill.ready{background:#dcfce7;color:#166534}.connection-pill.offline{background:#fee2e2;color:#991b1b}.connection-dot{width:8px;height:8px;border-radius:50%;background:currentColor}.final-submit{margin:24px 34px 28px;border:1px solid #d8d5ff;border-radius:18px;padding:20px;background:linear-gradient(180deg,#fff,#faf9ff)}.final-submit h3{margin:0 0 7px;font-size:18px}.final-submit p{margin:5px 0;color:#475569;line-height:1.5}.submit-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.submit-meta>div{border:1px solid #e2e8f0;border-radius:12px;padding:11px;background:#fff}.submit-meta small{display:block;color:#64748b;font-weight:700;margin-bottom:3px}.submit-meta b{font-size:14px}.btn.submit-final{font-size:15px;padding:14px 20px;min-width:240px}.receipt{margin-top:12px;font-size:13px;color:#475569}.section-head h3 span{font-weight:600;color:#64748b;font-size:13px;margin-left:8px}.question-label{font-size:11px;font-weight:900;letter-spacing:.05em;color:#6d28d9;text-transform:uppercase;margin-bottom:4px}@media(max-width:900px){.student-form-grid{grid-template-columns:1fr 1fr}.submit-meta{grid-template-columns:1fr 1fr 1fr}}@media(max-width:700px){.student-form-grid,.submit-meta{grid-template-columns:1fr 1fr}.final-submit{margin:18px 15px 24px}.btn.submit-final{width:100%;min-width:0}}
 @media(max-width:700px){.wrap{padding:0}.paper{border:0}.cover,.content,.buttons{padding-left:15px;padding-right:15px}.cover h1{font-size:23px}.meta{grid-template-columns:1fr}.stem{grid-template-columns:42px 1fr 46px}.options,.answer-line,.diagram-box{margin-left:42px}.toolbar{font-size:12px}.data-table{font-size:13px}.data-table th,.data-table td{padding:8px}.summary{grid-template-columns:1fr 1fr}}
-</style><style>@media(min-width:701px){.wrap{max-width:920px}}</style><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#5b21b6"><script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script></head><body>
+</style><style>@media(min-width:701px){.wrap{max-width:920px}}</style><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#5b21b6"><script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script></head><body>
 <div class="wrap"><div class="paper"><header class="cover"><div class="brand">Victoria Tuition Academy</div><h1>GRADE 9 NATURAL SCIENCES</h1><h2>Exam-Style Mastery Assessment</h2><div class="student-form-card"><div class="student-form-title">Assessment details</div><div class="student-form-grid"><label><span class="field-label">Student name</span><input id="student" class="field-value" value="Mitchell" autocomplete="name" required></label><label><span class="field-label">Assessment date</span><input id="date" class="field-value" type="date" required></label><div><span class="field-label">Grade & subject</span><div class="field-value field-static">Grade 9 • Natural Sciences</div></div><div><span class="field-label">Tutor</span><div class="field-value field-static">Victoria Tuition Academy</div></div></div><div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px"><div><span class="field-label" style="margin-bottom:4px">Submission connection</span><span id="connectionPill" class="connection-pill"><span class="connection-dot"></span><span id="connectionText">Checking…</span></span></div><div style="font-size:13px;color:#475569"><b>130 marks</b> • <b>150 minutes</b> • 70 questions</div></div></div><div class="instructions"><h3>INSTRUCTIONS</h3><ol><li>Answer all questions.</li><li>Section A consists of 30 one-mark multiple-choice questions.</li><li>Show all working for calculations. Method marks may depend on the working shown.</li><li>Read diagrams, graphs and tables carefully.</li><li>When finished, press <b>SUBMIT QUIZ TO TUTOR</b>. Your answers will be sent directly to your tutor. Your result and memo will not appear on this student copy.</li></ol></div><div class="summary"><div><b>SECTION A</b><br>30 marks</div><div><b>SECTION B</b><br>100 marks</div></div><p style="text-align:right;font-weight:700">TOTAL: 130 MARKS &nbsp; | &nbsp; TIME: 150 MINUTES</p></header><div class="toolbar"><span id="progText">0/70 answered</span><div class="progress"><div id="prog"></div></div><span class="timer" id="timer">150:00</span></div><form id="quiz" class="content" onsubmit="return false"></form><div class="final-submit"><h3>Final submission</h3><p>When you are completely finished, submit your quiz to your tutor. Your answers will be locked after the submission is received.</p><div class="submit-meta"><div><small>Answered</small><b id="submitAnswered">0 / 70</b></div><div><small>Total marks</small><b>130</b></div><div><small>Result</small><b>Hidden until marked</b></div></div><div class="buttons" style="padding:0;margin-top:14px"><button id="submitBtn" type="button" class="btn purple submit-final" onclick="submitToTutor()">SUBMIT QUIZ TO TUTOR</button><button type="button" class="btn alt" onclick="save(true)">SAVE PROGRESS</button></div><div id="submitStatus" class="notice" style="margin:14px 0 0"><b>Your marks stay private.</b><br>After submission, Victoria receives a clean email with an Excel workbook attached, while your full answers and working are also saved securely in the tutor inbox. No memo, corrections or score will appear on this student page.</div></div></div></div>
 <script>
 const qs=[{"id": "A1", "s": "A", "m": 1, "t": "mcq", "q": "Which ONE is a contact force?", "o": ["Gravitational force", "Magnetic force", "Frictional force", "Electrostatic force"]}, {"id": "A2", "s": "A", "m": 1, "t": "mcq", "q": "Which statement best describes a non-contact force?", "o": ["It acts only when objects touch", "It can act between objects that are separated", "It only acts on moving objects", "It has no direction"]}, {"id": "A3", "s": "A", "m": 1, "t": "mcq", "q": "A force of 12 N east and a force of 7 N west act on the same object. The resultant is…", "o": ["19 N east", "5 N east", "5 N west", "84 N east"]}, {"id": "A4", "s": "A", "m": 1, "t": "mcq", "q": "A vector quantity has…", "o": ["magnitude only", "direction only", "magnitude and direction", "mass and volume"]}, {"id": "A5", "s": "A", "m": 1, "t": "mcq", "q": "The SI unit of force is the…", "o": ["joule", "newton", "volt", "ampere"]}, {"id": "A6", "s": "A", "m": 1, "t": "mcq", "q": "When two equal forces act in opposite directions, the resultant force is…", "o": ["zero", "double one force", "always to the right", "always upward"]}, {"id": "A7", "s": "A", "m": 1, "t": "mcq", "q": "An electric cell changes mainly…", "o": ["chemical energy into electrical energy", "electrical energy into chemical energy only", "light energy into mechanical energy", "heat energy into gravitational energy"]}, {"id": "A8", "s": "A", "m": 1, "t": "mcq", "q": "A battery is…", "o": ["one resistor", "two or more cells connected together", "one switch and one cell", "any closed circuit"]}, {"id": "A9", "s": "A", "m": 1, "t": "mcq", "q": "Which pair can be used as different electrodes in a simple fruit cell?", "o": ["Copper and zinc", "Plastic and glass", "Rubber and wood", "Paper and cloth"]}, {"id": "A10", "s": "A", "m": 1, "t": "mcq", "q": "Which change generally increases the resistance of a metal wire?", "o": ["Making it shorter", "Making it thicker", "Increasing its length", "Increasing its cross-sectional area"]}, {"id": "A11", "s": "A", "m": 1, "t": "mcq", "q": "Which change generally lowers the resistance of a wire of the same material and length?", "o": ["Making it thinner", "Making it thicker", "Heating it strongly", "Increasing its length"]}, {"id": "A12", "s": "A", "m": 1, "t": "mcq", "q": "For a typical metal conductor, increasing temperature generally…", "o": ["increases resistance", "makes resistance exactly zero", "does not affect resistance", "turns resistance into voltage"]}, {"id": "A13", "s": "A", "m": 1, "t": "mcq", "q": "Which property of a conductor can affect its resistance?", "o": ["Colour only", "Material type", "Shape of the battery label", "Position on the desk"]}, {"id": "A14", "s": "A", "m": 1, "t": "mcq", "q": "A resistor is used mainly to…", "o": ["control the flow of current or transfer electrical energy usefully", "create matter", "measure mass", "remove all voltage"]}, {"id": "A15", "s": "A", "m": 1, "t": "mcq", "q": "A series circuit has…", "o": ["one current path", "three current paths by definition", "no closed path", "only parallel branches"]}, {"id": "A16", "s": "A", "m": 1, "t": "mcq", "q": "A parallel circuit has…", "o": ["only one path", "more than one branch/path", "no source of energy", "no current in any branch"]}, {"id": "A17", "s": "A", "m": 1, "t": "mcq", "q": "In a series circuit, the current at different points is…", "o": ["the same", "always zero after a resistor", "largest at the battery only", "random"]}, {"id": "A18", "s": "A", "m": 1, "t": "mcq", "q": "At a junction in a parallel circuit, current…", "o": ["disappears", "divides between branches", "turns into voltage", "must be identical in all branches even when resistances differ"]}, {"id": "A19", "s": "A", "m": 1, "t": "mcq", "q": "An ammeter must be connected…", "o": ["in series with the component/path being measured", "in parallel across every component", "directly across a cell only", "outside the circuit"]}, {"id": "A20", "s": "A", "m": 1, "t": "mcq", "q": "A voltmeter must be connected…", "o": ["in series", "in parallel across the component", "as a replacement for the battery", "only before a switch"]}, {"id": "A21", "s": "A", "m": 1, "t": "mcq", "q": "The potential difference across parallel branches connected to the same source is…", "o": ["the same across each branch", "always zero", "different only because the wire bends", "equal to the current"]}, {"id": "A22", "s": "A", "m": 1, "t": "mcq", "q": "For components connected in series, the source potential difference is equal to…", "o": ["the sum of the potential differences across the components", "the current in the first component", "zero", "only the largest component voltage"]}, {"id": "A23", "s": "A", "m": 1, "t": "mcq", "q": "Why are household lights connected in parallel?", "o": ["Each can operate independently", "All must go off if one fails", "Each gets no potential difference", "It makes every appliance a resistor in series"]}, {"id": "A24", "s": "A", "m": 1, "t": "mcq", "q": "If one lamp is removed from one branch of a parallel circuit, another complete branch will generally…", "o": ["continue operating", "also become open automatically", "lose all potential difference", "become a battery"]}, {"id": "A25", "s": "A", "m": 1, "t": "mcq", "q": "Three 1.5 V cells connected in series in the same orientation provide approximately…", "o": ["0.5 V", "1.5 V", "3.0 V", "4.5 V"]}, {"id": "A26", "s": "A", "m": 1, "t": "mcq", "q": "A learner investigates how wire length affects resistance. The independent variable is…", "o": ["wire length", "resistance", "ammeter reading only", "type of graph paper"]}, {"id": "A27", "s": "A", "m": 1, "t": "mcq", "q": "In the same investigation, the dependent variable is…", "o": ["wire length", "resistance or current response measured", "wire material kept constant", "room number"]}, {"id": "A28", "s": "A", "m": 1, "t": "mcq", "q": "Which should be controlled when testing the effect of wire length on resistance?", "o": ["The length itself", "The material and thickness of the wire", "The dependent variable only", "The final conclusion"]}, {"id": "A29", "s": "A", "m": 1, "t": "mcq", "q": "A graph shows current decreasing as wire length increases. The best explanation is…", "o": ["Longer wire has greater resistance", "Longer wire has zero resistance", "Shorter wire always has no current", "Length does not affect resistance"]}, {"id": "A30", "s": "A", "m": 1, "t": "mcq", "q": "Which is the best conclusion from repeated results showing that thicker wires carry more current under the same conditions?", "o": ["Thicker wires have lower resistance", "Thicker wires have greater resistance", "Thickness has no effect", "Current causes wire length to increase"]}, {"id": "B1", "s": "B", "m": 2, "t": "text", "q": "Define a force and give ONE possible effect a force can have on an object."}, {"id": "B2", "s": "B", "m": 4, "t": "numeric2", "q": "A box is pulled with 26 N to the right while friction acts with 9 N to the left. Calculate the resultant force and state its direction."}, {"id": "B3", "s": "B", "m": 4, "t": "text", "q": "Study FIGURE 3. Name forces P and Q. Explain why these two vertical forces are balanced if the block has no vertical acceleration.", "diagram": "<div class=\"diagram-box\"><div class=\"diagram-title\">FIGURE 3: FORCES ACTING ON A BLOCK<\/div><svg viewBox=\"0 0 760 350\" role=\"img\" aria-label=\"Block on a horizontal surface with four force arrows labelled P, Q, R and S\"><defs><marker id=\"arrow\" viewBox=\"0 0 10 10\" refX=\"8\" refY=\"5\" markerWidth=\"5\" markerHeight=\"5\" orient=\"auto\"><path d=\"M0 0 L10 5 L0 10 z\" fill=\"#111\"/><\/marker><\/defs><g stroke=\"#111\" stroke-width=\"4\" fill=\"none\"><line x1=\"100\" y1=\"250\" x2=\"660\" y2=\"250\"/><rect x=\"315\" y=\"165\" width=\"130\" height=\"85\"/><\/g><g stroke=\"#111\" stroke-width=\"4\" marker-end=\"url(#arrow)\"><line x1=\"380\" y1=\"165\" x2=\"380\" y2=\"85\"/><line x1=\"380\" y1=\"250\" x2=\"380\" y2=\"320\"/><line x1=\"315\" y1=\"207\" x2=\"220\" y2=\"207\"/><line x1=\"445\" y1=\"207\" x2=\"565\" y2=\"207\"/><\/g><g fill=\"#111\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"22\" font-weight=\"700\"><text x=\"395\" y=\"95\">P<\/text><text x=\"395\" y=\"322\">Q<\/text><text x=\"205\" y=\"192\">R<\/text><text x=\"575\" y=\"192\">S<\/text><\/g><\/svg><\/div>"}, {"id": "B4", "s": "B", "m": 2, "t": "text", "q": "Explain why an arrow is used to represent a force in a vector diagram. Refer to BOTH arrow length and arrowhead."}, {"id": "B5", "s": "B", "m": 4, "t": "text", "q": "Give TWO examples of CONTACT forces and TWO examples of NON-CONTACT (field) forces."}, {"id": "B6", "s": "B", "m": 4, "t": "numeric2", "q": "During a tug-of-war, Team A pulls with 63 N to the right and Team B pulls with 48 N to the left. Calculate the resultant force and state its direction."}, {"id": "B7", "s": "B", "m": 3, "t": "numeric", "q": "A school bag has a mass of 6 kg. Calculate its weight on Earth using g = 9.8 N/kg. Give your final answer in newtons."}, {"id": "B8", "s": "B", "m": 3, "t": "text", "q": "An astronaut takes the same object from Earth to the Moon. Explain what happens to the object’s MASS and its WEIGHT."}, {"id": "B9", "s": "B", "m": 2, "t": "text", "q": "Distinguish between TENSION and COMPRESSION forces. State what each force does to an object."}, {"id": "B10", "s": "B", "m": 3, "t": "text", "q": "In an investigation, learners add masses to a block and measure the force needed to just start moving it across the same surface. Identify the independent variable, the dependent variable, and state the expected relationship between normal force and friction."}, {"id": "C1", "s": "C", "m": 2, "t": "text", "q": "Explain how an electric cell acts as an energy system."}, {"id": "C2", "s": "C", "m": 2, "t": "text", "q": "State the difference between a cell and a battery."}, {"id": "C3", "s": "C", "m": 3, "t": "text", "q": "A learner compares wires made of the same metal at the same temperature. Wire P is long and thin; wire Q is short and thick. Predict which wire has the greater resistance and explain using BOTH length and thickness."}, {"id": "C4", "s": "C", "m": 4, "t": "text", "q": "Give TWO useful applications of resistance in electrical devices and explain the energy transfer in each."}, {"id": "D1", "s": "D", "m": 1, "t": "diagrammcq", "q": "Study FIGURE 1. If the ammeter reads 0.60 A, what current flows through lamp L₂?", "o": ["0.20 A", "0.30 A", "0.60 A", "1.20 A"], "diagram": "<div class=\"diagram-box\"><div class=\"diagram-title\">FIGURE 1: SERIES CIRCUIT<\/div><svg viewBox=\"0 0 760 430\" role=\"img\" aria-label=\"Series circuit with one cell, an ammeter, two lamps L1 and L2 and resistor R1\"><g stroke=\"#111\" stroke-width=\"4\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M150 80 H235\"/><circle cx=\"270\" cy=\"80\" r=\"35\"/><path d=\"M305 80 H610 V320 H580\"/><rect x=\"480\" y=\"300\" width=\"100\" height=\"40\"/><path d=\"M480 320 H435\"/><circle cx=\"400\" cy=\"320\" r=\"35\"/><line x1=\"375\" y1=\"295\" x2=\"425\" y2=\"345\"/><line x1=\"425\" y1=\"295\" x2=\"375\" y2=\"345\"/><path d=\"M365 320 H315\"/><circle cx=\"280\" cy=\"320\" r=\"35\"/><line x1=\"255\" y1=\"295\" x2=\"305\" y2=\"345\"/><line x1=\"305\" y1=\"295\" x2=\"255\" y2=\"345\"/><path d=\"M245 320 H150 V205\"/><line x1=\"120\" y1=\"180\" x2=\"180\" y2=\"180\"/><line x1=\"135\" y1=\"205\" x2=\"165\" y2=\"205\"/><path d=\"M150 80 V180\"/><\/g><g fill=\"#111\" font-family=\"Arial, Helvetica, sans-serif\" font-weight=\"700\"><text x=\"270\" y=\"88\" text-anchor=\"middle\" font-size=\"23\">A<\/text><text x=\"280\" y=\"385\" text-anchor=\"middle\" font-size=\"20\">L₁<\/text><text x=\"400\" y=\"385\" text-anchor=\"middle\" font-size=\"20\">L₂<\/text><text x=\"530\" y=\"287\" text-anchor=\"middle\" font-size=\"20\">R₁<\/text><text x=\"194\" y=\"184\" font-size=\"20\">+<\/text><text x=\"194\" y=\"212\" font-size=\"22\">−<\/text><\/g><\/svg><\/div>"}, {"id": "D2", "s": "D", "m": 3, "t": "numeric", "q": "A 6 V battery supplies two components connected in series. The potential difference across the first component is 2.5 V. Calculate the potential difference across the second component, in volts."}, {"id": "D3", "s": "D", "m": 1, "t": "diagrammcq", "q": "Study FIGURE 2. Which statement correctly describes the voltmeter connection?", "o": ["It is in series with L₂", "It is connected across the two terminals of L₂", "It is in the main current path", "It is connected across the ammeter"], "diagram": "<div class=\"diagram-box\"><div class=\"diagram-title\">FIGURE 2: PARALLEL CIRCUIT<\/div><svg viewBox=\"0 0 800 440\" role=\"img\" aria-label=\"Parallel circuit with a cell, ammeter A, lamps L1 and L2 and voltmeter V connected across L2\"><g stroke=\"#111\" stroke-width=\"4\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M150 80 H235\"/><circle cx=\"270\" cy=\"80\" r=\"35\"/><path d=\"M305 80 H700 V320 H150 V205\"/><line x1=\"120\" y1=\"180\" x2=\"180\" y2=\"180\"/><line x1=\"135\" y1=\"205\" x2=\"165\" y2=\"205\"/><path d=\"M150 80 V180\"/><path d=\"M390 80 V165\"/><circle cx=\"390\" cy=\"200\" r=\"35\"/><line x1=\"365\" y1=\"175\" x2=\"415\" y2=\"225\"/><line x1=\"415\" y1=\"175\" x2=\"365\" y2=\"225\"/><path d=\"M390 235 V320\"/><path d=\"M520 80 V165\"/><circle cx=\"520\" cy=\"200\" r=\"35\"/><line x1=\"495\" y1=\"175\" x2=\"545\" y2=\"225\"/><line x1=\"545\" y1=\"175\" x2=\"495\" y2=\"225\"/><path d=\"M520 235 V320\"/><circle cx=\"620\" cy=\"200\" r=\"30\"/><path d=\"M520 165 H620 V170\"/><path d=\"M620 230 V235 H520\"/><circle cx=\"520\" cy=\"165\" r=\"5\" fill=\"#111\"/><circle cx=\"520\" cy=\"235\" r=\"5\" fill=\"#111\"/><\/g><g fill=\"#111\" font-family=\"Arial, Helvetica, sans-serif\" font-weight=\"700\"><text x=\"270\" y=\"88\" text-anchor=\"middle\" font-size=\"23\">A<\/text><text x=\"390\" y=\"380\" text-anchor=\"middle\" font-size=\"20\">L₁<\/text><text x=\"520\" y=\"380\" text-anchor=\"middle\" font-size=\"20\">L₂<\/text><text x=\"620\" y=\"208\" text-anchor=\"middle\" font-size=\"22\">V<\/text><text x=\"194\" y=\"184\" font-size=\"20\">+<\/text><text x=\"194\" y=\"212\" font-size=\"22\">−<\/text><\/g><\/svg><\/div>"}, {"id": "D4", "s": "D", "m": 3, "t": "numeric", "q": "The total current entering a junction is 1.4 A. One branch carries 0.55 A. Calculate the current in the other branch, in amperes."}, {"id": "D5", "s": "D", "m": 2, "t": "numeric", "q": "A 9 V source is connected across two parallel lamp branches. What potential difference is across EACH lamp, in volts?"}, {"id": "D6", "s": "D", "m": 3, "t": "text", "q": "Compare a series circuit with a parallel circuit. Give ONE difference in current behaviour, ONE difference in paths, and ONE practical advantage of a parallel circuit."}, {"id": "D7", "s": "D", "m": 5, "t": "text", "q": "Exam drawing task: Describe exactly how you would draw a circuit containing ONE cell, an OPEN switch, and TWO lamps connected in parallel. Include how the wires and branches must connect."}, {"id": "E1", "s": "E", "m": 1, "t": "text", "q": "A learner tests how the number of cells connected in series affects bulb brightness. State the independent variable."}, {"id": "E2", "s": "E", "m": 1, "t": "text", "q": "State the dependent variable in the same investigation."}, {"id": "E3", "s": "E", "m": 1, "t": "text", "q": "State ONE variable that should be controlled to make the investigation fair."}, {"id": "E4", "s": "E", "m": 2, "t": "text", "q": "Write a testable hypothesis for the investigation."}, {"id": "E5", "s": "E", "m": 2, "t": "text", "q": "The results show that the bulb gets brighter as more identical cells are connected in series. Write a conclusion that states the relationship."}, {"id": "B11", "s": "B", "m": 2, "t": "text", "q": "Explain how gravitational force changes when the mass of the objects increases and when the distance between the objects increases."}, {"id": "B12", "s": "B", "m": 3, "t": "text", "q": "Study FIGURE 4. State what happens between the facing poles in Pair A and in Pair B. Then name ONE magnetic material.", "diagram": "<div class=\"diagram-box\"><div class=\"diagram-title\">FIGURE 4: MAGNETIC POLES<\/div><svg viewBox=\"0 0 760 320\" role=\"img\" aria-label=\"Two pairs of bar magnets, Pair A with north poles facing and Pair B with north and south poles facing\"><g font-family=\"Arial, Helvetica, sans-serif\" fill=\"#111\"><text x=\"90\" y=\"58\" font-size=\"19\" font-weight=\"700\">Pair A<\/text><text x=\"90\" y=\"205\" font-size=\"19\" font-weight=\"700\">Pair B<\/text><\/g><g stroke=\"#111\" stroke-width=\"3\" fill=\"none\"><rect x=\"210\" y=\"75\" width=\"140\" height=\"62\" rx=\"4\"/><line x1=\"280\" y1=\"75\" x2=\"280\" y2=\"137\"/><rect x=\"410\" y=\"75\" width=\"140\" height=\"62\" rx=\"4\"/><line x1=\"480\" y1=\"75\" x2=\"480\" y2=\"137\"/><rect x=\"210\" y=\"220\" width=\"140\" height=\"62\" rx=\"4\"/><line x1=\"280\" y1=\"220\" x2=\"280\" y2=\"282\"/><rect x=\"410\" y=\"220\" width=\"140\" height=\"62\" rx=\"4\"/><line x1=\"480\" y1=\"220\" x2=\"480\" y2=\"282\"/><\/g><g font-family=\"Arial, Helvetica, sans-serif\" font-size=\"24\" font-weight=\"700\" fill=\"#111\" text-anchor=\"middle\"><text x=\"245\" y=\"114\">S<\/text><text x=\"315\" y=\"114\">N<\/text><text x=\"445\" y=\"114\">N<\/text><text x=\"515\" y=\"114\">S<\/text><text x=\"245\" y=\"259\">S<\/text><text x=\"315\" y=\"259\">N<\/text><text x=\"445\" y=\"259\">S<\/text><text x=\"515\" y=\"259\">N<\/text><\/g><\/svg><\/div>"}, {"id": "B13", "s": "B", "m": 2, "t": "text", "q": "Study FIGURE 5. Describe how object X could become negatively charged and state what happens when X is brought near positively charged object Y.", "diagram": "<div class=\"diagram-box\"><div class=\"diagram-title\">FIGURE 5: ELECTROSTATIC CHARGES<\/div><svg viewBox=\"0 0 760 300\" role=\"img\" aria-label=\"Object X with negative charge near Object Y with positive charge\"><g stroke=\"#111\" stroke-width=\"4\" fill=\"none\"><circle cx=\"270\" cy=\"150\" r=\"72\"/><circle cx=\"490\" cy=\"150\" r=\"72\"/><\/g><g font-family=\"Arial, Helvetica, sans-serif\" fill=\"#111\" text-anchor=\"middle\" font-weight=\"700\"><text x=\"270\" y=\"55\" font-size=\"22\">X<\/text><text x=\"490\" y=\"55\" font-size=\"22\">Y<\/text><text x=\"270\" y=\"160\" font-size=\"34\">−  −  −<\/text><text x=\"490\" y=\"160\" font-size=\"34\">+  +  +<\/text><\/g><\/svg><\/div>"}, {"id": "B14", "s": "B", "m": 2, "t": "text", "q": "Study FIGURE 6. Explain briefly how lightning forms from a build-up of electric charge and give ONE safety precaution during a thunderstorm.", "diagram": "<div class=\"diagram-box\"><div class=\"diagram-title\">FIGURE 6: CHARGE BUILD-UP BEFORE LIGHTNING<\/div><svg viewBox=\"0 0 760 370\" role=\"img\" aria-label=\"Cloud with negative charge near its base and positive charge induced on the ground\"><path d=\"M210 125 C210 80 260 60 300 82 C325 40 395 42 420 82 C470 58 525 90 520 135 C555 145 560 195 525 210 H235 C190 205 178 150 210 125 Z\" fill=\"none\" stroke=\"#111\" stroke-width=\"4\"/><line x1=\"80\" y1=\"300\" x2=\"680\" y2=\"300\" stroke=\"#111\" stroke-width=\"4\"/><g font-family=\"Arial, Helvetica, sans-serif\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#111\"><text x=\"365\" y=\"42\" font-size=\"19\">Cloud<\/text><text x=\"365\" y=\"180\" font-size=\"30\">−  −  −  −  −<\/text><text x=\"365\" y=\"330\" font-size=\"30\">+  +  +  +  +<\/text><text x=\"365\" y=\"360\" font-size=\"19\">Ground<\/text><\/g><polyline points=\"390,210 355,250 383,250 345,300\" fill=\"none\" stroke=\"#111\" stroke-width=\"6\" stroke-linejoin=\"miter\"/><\/svg><\/div>"}, {"id": "C5", "s": "C", "m": 4, "t": "text", "q": "Study FIGURE 7. Identify A, B and liquid P in this zinc-copper cell, and state the energy conversion that takes place.", "diagram": "<div class=\"diagram-box\"><div class=\"diagram-title\">FIGURE 7: SIMPLE ELECTROCHEMICAL CELL<\/div><svg viewBox=\"0 0 760 470\" role=\"img\" aria-label=\"Simple electrochemical cell with electrodes labelled A and B and liquid labelled P\"><defs><marker id=\"labelArrow\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 Z\" fill=\"#111\"/><\/marker><\/defs><g stroke=\"#111\" stroke-width=\"4\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M210 155 V330 Q210 355 235 355 H525 Q550 355 550 330 V155\"/><line x1=\"250\" y1=\"235\" x2=\"510\" y2=\"235\" stroke-width=\"2\"/><rect x=\"270\" y=\"120\" width=\"28\" height=\"190\"/><rect x=\"462\" y=\"120\" width=\"28\" height=\"190\"/><path d=\"M284 120 V65 H345\"/><path d=\"M476 120 V65 H415\"/><circle cx=\"380\" cy=\"65\" r=\"35\"/><line x1=\"355\" y1=\"40\" x2=\"405\" y2=\"90\"/><line x1=\"405\" y1=\"40\" x2=\"355\" y2=\"90\"/><\/g><g stroke=\"#111\" stroke-width=\"2.5\" fill=\"none\" marker-end=\"url(#labelArrow)\"><path d=\"M100 90 H215 L252 155\"/><path d=\"M660 90 H545 L508 155\"/><path d=\"M380 438 V286\"/><\/g><g font-family=\"Arial, Helvetica, sans-serif\" fill=\"#111\" font-weight=\"700\"><text x=\"82\" y=\"96\" text-anchor=\"end\" font-size=\"24\">A<\/text><text x=\"678\" y=\"96\" text-anchor=\"start\" font-size=\"24\">B<\/text><text x=\"380\" y=\"466\" text-anchor=\"middle\" font-size=\"24\">P<\/text><\/g><\/svg><\/div>"}, {"id": "C6", "s": "C", "m": 2, "t": "text", "q": "Study FIGURE 8. Describe the relationship between wire length and current, and state what this tells you about the resistance of longer wires.", "diagram": "<div class=\"diagram-box\"><div class=\"diagram-title\">FIGURE 8: EFFECT OF WIRE LENGTH ON CURRENT<\/div><svg viewBox=\"0 0 760 430\" role=\"img\" aria-label=\"Graph of current in amperes against wire length in centimetres\"><g stroke=\"#111\" stroke-width=\"3\" fill=\"none\"><line x1=\"120\" y1=\"340\" x2=\"650\" y2=\"340\"/><line x1=\"120\" y1=\"340\" x2=\"120\" y2=\"65\"/><line x1=\"180\" y1=\"340\" x2=\"180\" y2=\"332\"/><line x1=\"285\" y1=\"340\" x2=\"285\" y2=\"332\"/><line x1=\"390\" y1=\"340\" x2=\"390\" y2=\"332\"/><line x1=\"495\" y1=\"340\" x2=\"495\" y2=\"332\"/><line x1=\"600\" y1=\"340\" x2=\"600\" y2=\"332\"/><line x1=\"112\" y1=\"115\" x2=\"120\" y2=\"115\"/><line x1=\"112\" y1=\"175\" x2=\"120\" y2=\"175\"/><line x1=\"112\" y1=\"230\" x2=\"120\" y2=\"230\"/><line x1=\"112\" y1=\"290\" x2=\"120\" y2=\"290\"/><polyline points=\"180,115 285,175 390,225 495,265 600,295\" stroke-width=\"4\"/><\/g><g fill=\"#111\"><circle cx=\"180\" cy=\"115\" r=\"5\"/><circle cx=\"285\" cy=\"175\" r=\"5\"/><circle cx=\"390\" cy=\"225\" r=\"5\"/><circle cx=\"495\" cy=\"265\" r=\"5\"/><circle cx=\"600\" cy=\"295\" r=\"5\"/><\/g><g font-family=\"Arial, Helvetica, sans-serif\" fill=\"#111\" font-size=\"17\"><text x=\"385\" y=\"400\" text-anchor=\"middle\" font-weight=\"700\">Wire length (cm)<\/text><text x=\"38\" y=\"205\" transform=\"rotate(-90 38 205)\" text-anchor=\"middle\" font-weight=\"700\">Current (A)<\/text><text x=\"170\" y=\"365\">10<\/text><text x=\"275\" y=\"365\">20<\/text><text x=\"380\" y=\"365\">30<\/text><text x=\"485\" y=\"365\">40<\/text><text x=\"590\" y=\"365\">50<\/text><text x=\"90\" y=\"120\">0.8<\/text><text x=\"90\" y=\"180\">0.6<\/text><text x=\"90\" y=\"235\">0.4<\/text><text x=\"90\" y=\"295\">0.2<\/text><text x=\"100\" y=\"360\">0<\/text><\/g><\/svg><\/div>"}, {"id": "C7", "s": "C", "m": 2, "t": "text", "q": "Study TABLE 1. Which material has the lowest resistance, and what evidence from the table supports your answer?", "diagram": "<div class=\"diagram-box\"><div class=\"diagram-title\">TABLE 1: CURRENT THROUGH DIFFERENT CONDUCTOR WIRES<\/div><table class=\"data-table\"><thead><tr><th>Conductor material<\/th><th>Current (A)<\/th><\/tr><\/thead><tbody><tr><td>Copper<\/td><td>0.80<\/td><\/tr><tr><td>Aluminium<\/td><td>0.65<\/td><\/tr><tr><td>Steel<\/td><td>0.30<\/td><\/tr><tr><td>Nichrome<\/td><td>0.20<\/td><\/tr><\/tbody><\/table><\/div>"}, {"id": "D8", "s": "D", "m": 2, "t": "text", "q": "What happens to the total current in a series circuit if another identical resistor is added in series? Explain why."}, {"id": "D9", "s": "D", "m": 2, "t": "numeric", "q": "Study FIGURE 9. Three identical 1.5 V cells are connected in parallel. What total voltage is supplied by the combination, in volts?", "diagram": "<div class=\"diagram-box\"><div class=\"diagram-title\">FIGURE 9: THREE IDENTICAL CELLS IN PARALLEL<\/div><svg viewBox=\"0 0 760 390\" role=\"img\" aria-label=\"Three identical 1.5 volt cells connected in parallel with the same polarity\"><g stroke=\"#111\" stroke-width=\"4\" fill=\"none\" stroke-linecap=\"round\"><line x1=\"120\" y1=\"70\" x2=\"120\" y2=\"315\"/><line x1=\"620\" y1=\"70\" x2=\"620\" y2=\"315\"/><path d=\"M120 110 H290\"/><line x1=\"290\" y1=\"75\" x2=\"290\" y2=\"145\"/><line x1=\"328\" y1=\"90\" x2=\"328\" y2=\"130\"/><path d=\"M328 110 H620\"/><path d=\"M120 195 H290\"/><line x1=\"290\" y1=\"160\" x2=\"290\" y2=\"230\"/><line x1=\"328\" y1=\"175\" x2=\"328\" y2=\"215\"/><path d=\"M328 195 H620\"/><path d=\"M120 280 H290\"/><line x1=\"290\" y1=\"245\" x2=\"290\" y2=\"315\"/><line x1=\"328\" y1=\"260\" x2=\"328\" y2=\"300\"/><path d=\"M328 280 H620\"/><\/g><g font-family=\"Arial, Helvetica, sans-serif\" fill=\"#111\" font-weight=\"700\"><text x=\"276\" y=\"58\" text-anchor=\"middle\" font-size=\"19\">+<\/text><text x=\"344\" y=\"58\" text-anchor=\"middle\" font-size=\"21\">−<\/text><rect x=\"392\" y=\"95\" width=\"58\" height=\"22\" fill=\"white\"/><text x=\"421\" y=\"111\" text-anchor=\"middle\" font-size=\"18\">1.5 V<\/text><text x=\"276\" y=\"143\" text-anchor=\"middle\" font-size=\"19\">+<\/text><text x=\"344\" y=\"143\" text-anchor=\"middle\" font-size=\"21\">−<\/text><rect x=\"392\" y=\"180\" width=\"58\" height=\"22\" fill=\"white\"/><text x=\"421\" y=\"196\" text-anchor=\"middle\" font-size=\"18\">1.5 V<\/text><text x=\"276\" y=\"228\" text-anchor=\"middle\" font-size=\"19\">+<\/text><text x=\"344\" y=\"228\" text-anchor=\"middle\" font-size=\"21\">−<\/text><rect x=\"392\" y=\"265\" width=\"58\" height=\"22\" fill=\"white\"/><text x=\"421\" y=\"281\" text-anchor=\"middle\" font-size=\"18\">1.5 V<\/text><\/g><\/svg><\/div>"}, {"id": "D10", "s": "D", "m": 3, "t": "numeric", "q": "Study FIGURE 10. Calculate the total current Iₜ supplied to the two branches, in amperes.", "diagram": "<div class=\"diagram-box\"><div class=\"diagram-title\">FIGURE 10: CURRENT AT A PARALLEL JUNCTION<\/div><svg viewBox=\"0 0 760 340\" role=\"img\" aria-label=\"Total current IT splits into branch currents I1 equals 0.30 amperes and I2 equals 0.45 amperes\"><g stroke=\"#111\" stroke-width=\"4\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M90 170 H235 V90 H525 V170 H670\"/><path d=\"M235 170 V250 H525 V170\"/><circle cx=\"235\" cy=\"170\" r=\"6\" fill=\"#111\"/><circle cx=\"525\" cy=\"170\" r=\"6\" fill=\"#111\"/><\/g><g font-family=\"Arial, Helvetica, sans-serif\" fill=\"#111\" font-size=\"20\" font-weight=\"700\"><text x=\"105\" y=\"145\">Iₜ = ?<\/text><text x=\"355\" y=\"72\">I₁ = 0.30 A<\/text><text x=\"355\" y=\"282\">I₂ = 0.45 A<\/text><\/g><\/svg><\/div>"}, {"id": "D11", "s": "D", "m": 2, "t": "text", "q": "When an extra lamp branch is added in parallel to a circuit, what happens to the total current drawn from the battery? Give ONE reason for your answer."}, {"id": "D12", "s": "D", "m": 2, "t": "text", "q": "Study FIGURE 11. Resistor X has a higher resistance than resistor Y. Across which resistor will the larger potential difference be measured? Explain briefly.", "diagram": "<div class=\"diagram-box\"><div class=\"diagram-title\">FIGURE 11: TWO RESISTORS IN SERIES<\/div><svg viewBox=\"0 0 760 350\" role=\"img\" aria-label=\"Two resistors X and Y connected in series to one cell\"><g stroke=\"#111\" stroke-width=\"4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M145 80 H250\"/><rect x=\"250\" y=\"60\" width=\"115\" height=\"40\"/><path d=\"M365 80 H425\"/><rect x=\"425\" y=\"60\" width=\"115\" height=\"40\"/><path d=\"M540 80 H620 V270 H145 V205\"/><line x1=\"115\" y1=\"180\" x2=\"175\" y2=\"180\"/><line x1=\"130\" y1=\"205\" x2=\"160\" y2=\"205\"/><path d=\"M145 80 V180\"/><\/g><g font-family=\"Arial, Helvetica, sans-serif\" fill=\"#111\" font-weight=\"700\"><text x=\"307\" y=\"88\" text-anchor=\"middle\" font-size=\"20\">X<\/text><text x=\"482\" y=\"88\" text-anchor=\"middle\" font-size=\"20\">Y<\/text><text x=\"190\" y=\"184\" font-size=\"20\">+<\/text><text x=\"190\" y=\"212\" font-size=\"22\">−<\/text><\/g><\/svg><\/div>"}, {"id": "E6", "s": "E", "m": 2, "t": "text", "q": "Refer again to FIGURE 8. State the relationship shown by the graph and what it tells you about resistance.", "diagram": "<div class=\"diagram-box\"><div class=\"diagram-title\">FIGURE 8: EFFECT OF WIRE LENGTH ON CURRENT<\/div><svg viewBox=\"0 0 760 430\" role=\"img\" aria-label=\"Graph of current in amperes against wire length in centimetres\"><g stroke=\"#111\" stroke-width=\"3\" fill=\"none\"><line x1=\"120\" y1=\"340\" x2=\"650\" y2=\"340\"/><line x1=\"120\" y1=\"340\" x2=\"120\" y2=\"65\"/><line x1=\"180\" y1=\"340\" x2=\"180\" y2=\"332\"/><line x1=\"285\" y1=\"340\" x2=\"285\" y2=\"332\"/><line x1=\"390\" y1=\"340\" x2=\"390\" y2=\"332\"/><line x1=\"495\" y1=\"340\" x2=\"495\" y2=\"332\"/><line x1=\"600\" y1=\"340\" x2=\"600\" y2=\"332\"/><line x1=\"112\" y1=\"115\" x2=\"120\" y2=\"115\"/><line x1=\"112\" y1=\"175\" x2=\"120\" y2=\"175\"/><line x1=\"112\" y1=\"230\" x2=\"120\" y2=\"230\"/><line x1=\"112\" y1=\"290\" x2=\"120\" y2=\"290\"/><polyline points=\"180,115 285,175 390,225 495,265 600,295\" stroke-width=\"4\"/><\/g><g fill=\"#111\"><circle cx=\"180\" cy=\"115\" r=\"5\"/><circle cx=\"285\" cy=\"175\" r=\"5\"/><circle cx=\"390\" cy=\"225\" r=\"5\"/><circle cx=\"495\" cy=\"265\" r=\"5\"/><circle cx=\"600\" cy=\"295\" r=\"5\"/><\/g><g font-family=\"Arial, Helvetica, sans-serif\" fill=\"#111\" font-size=\"17\"><text x=\"385\" y=\"400\" text-anchor=\"middle\" font-weight=\"700\">Wire length (cm)<\/text><text x=\"38\" y=\"205\" transform=\"rotate(-90 38 205)\" text-anchor=\"middle\" font-weight=\"700\">Current (A)<\/text><text x=\"170\" y=\"365\">10<\/text><text x=\"275\" y=\"365\">20<\/text><text x=\"380\" y=\"365\">30<\/text><text x=\"485\" y=\"365\">40<\/text><text x=\"590\" y=\"365\">50<\/text><text x=\"90\" y=\"120\">0.8<\/text><text x=\"90\" y=\"180\">0.6<\/text><text x=\"90\" y=\"235\">0.4<\/text><text x=\"90\" y=\"295\">0.2<\/text><text x=\"100\" y=\"360\">0<\/text><\/g><\/svg><\/div>"}, {"id": "E7", "s": "E", "m": 3, "t": "text", "q": "Refer again to TABLE 1. Identify the best conductor and the poorest conductor, and state ONE variable that had to stay the same for a fair test.", "diagram": "<div class=\"diagram-box\"><div class=\"diagram-title\">TABLE 1: CURRENT THROUGH DIFFERENT CONDUCTOR WIRES<\/div><table class=\"data-table\"><thead><tr><th>Conductor material<\/th><th>Current (A)<\/th><\/tr><\/thead><tbody><tr><td>Copper<\/td><td>0.80<\/td><\/tr><tr><td>Aluminium<\/td><td>0.65<\/td><\/tr><tr><td>Steel<\/td><td>0.30<\/td><\/tr><tr><td>Nichrome<\/td><td>0.20<\/td><\/tr><\/tbody><\/table><\/div>"}];
@@ -68,75 +68,234 @@ function studentAnswerForEmail(q,data){
   return a.answer||'[UNANSWERED]';
 }
 
-function buildExcelAttachment(data){
- if(typeof XLSX==='undefined') throw new Error('Excel generator did not load.');
- const map={};
- const put=(ids,t,s)=>ids.split(' ').forEach(id=>map[id]=[t,s]);
- put('A1 A2 B5','Forces','Contact and non-contact forces');
- put('A3 A6 B2 B3 B6','Forces','Resultant and balanced forces');
- put('A4 A5 B4','Forces','Vectors and force diagrams');
- put('B7 B8 B11','Forces','Gravity, mass and weight');
- put('B9 B10','Forces','Friction, normal, tension and compression');
- put('B12','Forces','Magnetic forces'); put('B13 B14','Forces','Electrostatics and lightning');
- put('A7 A8 A9 C1 C2 C5','Electric Cells & Resistance','Cells as energy systems');
- put('A25 D9','Electric Cells & Resistance','Cells in series and parallel');
- put('A14 C4','Electric Cells & Resistance','Uses of resistors');
- put('A10 A11 A12 A13 C3 C6 C7','Electric Cells & Resistance','Factors affecting resistance');
- put('A15 A17 D1 D8','Series & Parallel Circuits','Current in series circuits');
- put('A16 A18 D4 D10 D11','Series & Parallel Circuits','Current in parallel circuits');
- put('A22 D2 D12','Series & Parallel Circuits','Potential difference in series');
- put('A21 D5','Series & Parallel Circuits','Potential difference in parallel');
- put('A19 A20 D3','Series & Parallel Circuits','Ammeters and voltmeters');
- put('A23 A24 D6 D7','Series & Parallel Circuits','Series vs parallel circuits and applications');
- put('A26 A27 A28 E1 E2 E3','Scientific Investigations','Variables and fair testing');
- put('E4 E5','Scientific Investigations','Hypotheses and conclusions');
- put('A29 A30 E6 E7','Scientific Investigations','Interpreting graphs, tables and evidence');
+async function buildExcelAttachment(data){
+  if(typeof ExcelJS==='undefined') throw new Error('Excel workbook generator did not load. Check the internet connection and try again.');
 
- const rows=[['Topic','CAPS subtopic','Question','Question text','Max mark','Student answer','Teacher mark','Status','Tutor note']];
- const subs=[]; const seen=new Set();
- qs.forEach(q=>{
-   const m=map[q.id]||['Other','Teacher review']; const key=m.join('|');
-   if(!seen.has(key)){seen.add(key);subs.push(m);}
-   const a=data.answers[q.id]||{}; let ans='[UNANSWERED]';
-   if(a.answer!==''){
-     if(q.t==='mcq'||q.t==='diagrammcq'){const i=Number(a.answer);ans=Number.isFinite(i)?String.fromCharCode(65+i)+' — '+(q.o?.[i]||''):String(a.answer);}
-     else ans=String(a.answer)+(a.direction?' '+a.direction:'')+(a.working?' | Working: '+a.working:'');
-   }
-   rows.push([m[0],m[1],q.id,q.q,q.m,ans,'','','']);
- });
- const wb=XLSX.utils.book_new();
- const snap=[['VICTORIA TUITION ACADEMY — CAPS LEARNING DIAGNOSTIC'],['Mitchell — Grade 9 Natural Sciences'],[],
-  ['Student',data.student],['Assessment date',data.date],['Submission ID',data.submissionId],['Answered',data.answeredCount+'/'+data.totalQuestions],['Time used',data.timeUsedMinutes+' min'],[],
-  ['IMPORTANT','Unanswered questions are NOT ASSESSED — they are not counted as wrong. Enter marks on Question Review; this summary updates automatically.'],[],
-  ['Topic','CAPS subtopic','Assessed marks','Marks earned','Score','Learning status','What to do next']];
- subs.forEach((m,i)=>{
-   const r=13+i;
-   snap.push([m[0],m[1],
-     {f:`SUMIFS('Question Review'!$E$2:$E$71,'Question Review'!$B$2:$B$71,B${r},'Question Review'!$F$2:$F$71,"<>[UNANSWERED]",'Question Review'!$G$2:$G$71,"<>")`},
-     {f:`SUMIFS('Question Review'!$G$2:$G$71,'Question Review'!$B$2:$B$71,B${r})`},
-     {f:`IF(C${r}=0,"",D${r}/C${r})`},
-     {f:`IF(C${r}=0,"Not assessed yet",IF(E${r}>=0.8,"Secure",IF(E${r}>=0.6,"Developing","Re-teach")))`},
-     {f:`IF(F${r}="Secure","Maintain with mixed exam practice.",IF(F${r}="Developing","Target errors, then retest.",IF(F${r}="Re-teach","Re-teach this subtopic, then retest.","Mark attempted questions first.")))`}
-   ]);
- });
- const ws1=XLSX.utils.aoa_to_sheet(snap);
- ws1['!cols']=[{wch:25},{wch:38},{wch:14},{wch:14},{wch:10},{wch:18},{wch:46}];
- const ws2=XLSX.utils.aoa_to_sheet(rows);
- ws2['!cols']=[{wch:24},{wch:38},{wch:11},{wch:60},{wch:10},{wch:42},{wch:13},{wch:18},{wch:34}];
- ws2['!autofilter']={ref:'A1:I71'};
- for(let r=2;r<=71;r++) ws2['H'+r]={t:'n',f:`IF(F${r}="[UNANSWERED]","Not assessed",IF(G${r}="","Mark needed",IF(G${r}=E${r},"Correct",IF(G${r}=0,"Needs review","Developing"))))`};
- const caps=[['Topic','CAPS subtopic'],...subs];
- const ws3=XLSX.utils.aoa_to_sheet(caps); ws3['!cols']=[{wch:26},{wch:44}];
- XLSX.utils.book_append_sheet(wb,ws1,'Learning Snapshot');
- XLSX.utils.book_append_sheet(wb,ws2,'Question Review');
- XLSX.utils.book_append_sheet(wb,ws3,'CAPS Map');
- const bytes=XLSX.write(wb,{bookType:'xlsx',type:'array'});
- const filename=(data.student||'Mitchell').replace(/[^a-z0-9_-]+/gi,'_')+'_CAPS_Learning_Diagnostic_'+data.date+'_'+data.submissionId+'.xlsx';
- return new File([bytes],filename,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  const mapping={
+    A1:['Forces','Contact and non-contact forces'],A2:['Forces','Contact and non-contact forces'],
+    A3:['Forces','Resultant and balanced forces'],A4:['Forces','Vectors and force diagrams'],
+    A5:['Forces','Force units and representation'],A6:['Forces','Resultant and balanced forces'],
+    B1:['Forces','Force definition and effects'],B2:['Forces','Resultant and balanced forces'],
+    B3:['Forces','Resultant and balanced forces'],B4:['Forces','Vectors and force diagrams'],
+    B5:['Forces','Contact and non-contact forces'],B6:['Forces','Resultant and balanced forces'],
+    B7:['Forces','Gravity, mass and weight'],B8:['Forces','Gravity, mass and weight'],
+    B9:['Forces','Tension and compression'],B10:['Forces','Friction and normal force'],
+    B11:['Forces','Gravity, mass and weight'],B12:['Forces','Magnetic forces'],
+    B13:['Forces','Electrostatics'],B14:['Forces','Electrostatics and lightning'],
+
+    A7:['Electric cells as energy systems','Energy conversion in cells'],
+    A8:['Electric cells as energy systems','Cell vs battery'],
+    A9:['Electric cells as energy systems','Electrodes and simple cells'],
+    C1:['Electric cells as energy systems','Energy conversion in cells'],
+    C2:['Electric cells as energy systems','Cell vs battery'],
+    C5:['Electric cells as energy systems','Electrodes and simple cells'],
+    A25:['Series and parallel circuits','Cells connected in series'],
+    D9:['Series and parallel circuits','Cells connected in parallel'],
+
+    A10:['Resistance','Factors affecting resistance'],
+    A11:['Resistance','Factors affecting resistance'],
+    A12:['Resistance','Factors affecting resistance'],
+    A13:['Resistance','Factors affecting resistance'],
+    C3:['Resistance','Factors affecting resistance'],
+    C6:['Resistance','Factors affecting resistance'],
+    C7:['Resistance','Conductors and resistance'],
+    A14:['Resistance','Uses of resistors'],
+    C4:['Resistance','Uses of resistors'],
+
+    A15:['Series and parallel circuits','Series circuit pathways'],
+    A17:['Series and parallel circuits','Current in series circuits'],
+    D1:['Series and parallel circuits','Current in series circuits'],
+    D8:['Series and parallel circuits','Effect of adding resistors in series'],
+    A16:['Series and parallel circuits','Parallel circuit pathways'],
+    A18:['Series and parallel circuits','Current in parallel circuits'],
+    D4:['Series and parallel circuits','Current in parallel circuits'],
+    D10:['Series and parallel circuits','Current in parallel circuits'],
+    D11:['Series and parallel circuits','Effect of adding branches in parallel'],
+    A22:['Series and parallel circuits','Potential difference in series'],
+    D2:['Series and parallel circuits','Potential difference in series'],
+    D12:['Series and parallel circuits','Resistance and potential difference in series'],
+    A21:['Series and parallel circuits','Potential difference in parallel'],
+    D5:['Series and parallel circuits','Potential difference in parallel'],
+    A19:['Series and parallel circuits','Ammeter connection'],
+    A20:['Series and parallel circuits','Voltmeter connection'],
+    D3:['Series and parallel circuits','Voltmeter connection'],
+    A23:['Series and parallel circuits','Applications of parallel circuits'],
+    A24:['Series and parallel circuits','Applications of parallel circuits'],
+    D6:['Series and parallel circuits','Compare series and parallel circuits'],
+    D7:['Series and parallel circuits','Drawing parallel circuit diagrams'],
+
+    A26:['Scientific investigations','Independent variables'],
+    A27:['Scientific investigations','Dependent variables'],
+    A28:['Scientific investigations','Controlled variables and fair tests'],
+    E1:['Scientific investigations','Independent variables'],
+    E2:['Scientific investigations','Dependent variables'],
+    E3:['Scientific investigations','Controlled variables and fair tests'],
+    E4:['Scientific investigations','Hypotheses'],
+    E5:['Scientific investigations','Conclusions'],
+    A29:['Scientific investigations','Graphs and relationships'],
+    A30:['Scientific investigations','Evidence-based conclusions'],
+    E6:['Scientific investigations','Graphs and relationships'],
+    E7:['Scientific investigations','Tables, evidence and fair testing']
+  };
+
+  const subtopics=[];
+  for(const q of qs){
+    const m=mapping[q.id]||['Other','Tutor review'];
+    const key=m[0]+'||'+m[1];
+    if(!subtopics.some(x=>x.key===key)) subtopics.push({key,topic:m[0],subtopic:m[1]});
+  }
+
+  const answerText=(q,a)=>{
+    if(q.t==='mcq'||q.t==='diagrammcq'){
+      if(a.answer==='')return '[UNANSWERED]';
+      const idx=Number(a.answer);
+      return Number.isFinite(idx)?`${String.fromCharCode(65+idx)} — ${q.o?.[idx]||''}`:String(a.answer||'');
+    }
+    if(q.t==='numeric2'){
+      let v=a.answer||'[UNANSWERED]';
+      if(a.direction)v+=' '+a.direction;
+      return v;
+    }
+    return a.answer||'[UNANSWERED]';
+  };
+
+  const workbook=new ExcelJS.Workbook();
+  workbook.creator='Victoria Tuition Academy';
+  workbook.subject='Mitchell Grade 9 Natural Sciences CAPS diagnostic report';
+  workbook.created=new Date();
+
+  const purple='4C1D95', dark='111827', white='FFFFFF', line='E5E7EB',
+        grey='F3F4F6', greyText='6B7280';
+
+  const snapshot=workbook.addWorksheet('Learning Snapshot',{views:[{state:'frozen',ySplit:8}]});
+  snapshot.columns=[
+    {key:'a',width:25},{key:'b',width:34},{key:'c',width:12},{key:'d',width:12},
+    {key:'e',width:12},{key:'f',width:13},{key:'g',width:13},{key:'h',width:17},{key:'i',width:40}
+  ];
+  snapshot.mergeCells('A1:I2');
+  snapshot.getCell('A1').value='MITCHELL — CAPS LEARNING SNAPSHOT\nGrade 9 Natural Sciences';
+  snapshot.getCell('A1').font={bold:true,size:18,color:{argb:white}};
+  snapshot.getCell('A1').fill={type:'pattern',pattern:'solid',fgColor:{argb:purple}};
+  snapshot.getCell('A1').alignment={vertical:'middle',wrapText:true};
+
+  snapshot.addRow([]);
+  [
+    ['Student',data.student,'Assessment date',data.date,'Submission ID',data.submissionId],
+    ['Answered',`${data.answeredCount} / ${data.totalQuestions}`,'Time used',`${data.timeUsedMinutes} min`,'Status','UNMARKED — tutor review required']
+  ].forEach(r=>{
+    const row=snapshot.addRow(r);
+    [1,3,5].forEach(c=>{
+      row.getCell(c).font={bold:true,color:{argb:dark}};
+      row.getCell(c).fill={type:'pattern',pattern:'solid',fgColor:{argb:grey}};
+    });
+  });
+  snapshot.addRow([]);
+  const note=snapshot.addRow(['How to use','Enter marks in the Question Review sheet. This CAPS snapshot updates automatically to show Secure, Developing, Re-teach, Marking pending or Not assessed yet.']);
+  snapshot.mergeCells(`B${note.number}:I${note.number}`);
+  note.getCell(1).font={bold:true};
+  note.getCell(2).alignment={wrapText:true};
+
+  snapshot.addRow([]);
+  const hdr=snapshot.addRow(['CAPS Topic','CAPS Subtopic','Questions','Answered','Marked','Max marks assessed','Marks awarded','Score','Learning status / next step']);
+  hdr.eachCell(cell=>{
+    cell.font={bold:true,color:{argb:white}};
+    cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:dark}};
+    cell.alignment={horizontal:'center',vertical:'middle',wrapText:true};
+  });
+
+  subtopics.forEach(st=>{
+    const row=snapshot.addRow([st.topic,st.subtopic]);
+    const n=row.number;
+    row.getCell(3).value={formula:`COUNTIF('Question Review'!$B$2:$B$71,B${n})`};
+    row.getCell(4).value={formula:`COUNTIFS('Question Review'!$B$2:$B$71,B${n},'Question Review'!$G$2:$G$71,"<>[UNANSWERED]")`};
+    row.getCell(5).value={formula:`COUNTIFS('Question Review'!$B$2:$B$71,B${n},'Question Review'!$G$2:$G$71,"<>[UNANSWERED]",'Question Review'!$H$2:$H$71,"<>")`};
+    row.getCell(6).value={formula:`SUMIFS('Question Review'!$F$2:$F$71,'Question Review'!$B$2:$B$71,B${n},'Question Review'!$G$2:$G$71,"<>[UNANSWERED]")`};
+    row.getCell(7).value={formula:`SUMIF('Question Review'!$B$2:$B$71,B${n},'Question Review'!$H$2:$H$71)`};
+    row.getCell(8).value={formula:`IF(D${n}=0,"",IF(E${n}<D${n},"",IF(F${n}=0,"",G${n}/F${n})))`};
+    row.getCell(8).numFmt='0%';
+    row.getCell(9).value={formula:`IF(D${n}=0,"Not assessed yet",IF(E${n}<D${n},"Marking pending",IF(H${n}>=0.8,"Secure — maintain with mixed exam practice",IF(H${n}>=0.6,"Developing — targeted practice","Re-teach — teach concept again, then retest"))))`};
+    row.eachCell(cell=>{
+      cell.border={bottom:{style:'thin',color:{argb:line}}};
+      cell.alignment={vertical:'top',wrapText:true};
+    });
+    row.getCell(9).font={bold:true};
+  });
+
+  snapshot.addRow([]);
+  snapshot.addRow(['Meaning','Secure = 80–100% | Developing = 60–79% | Re-teach = below 60% | Not assessed yet = learner did not answer that subtopic.']);
+
+  const review=workbook.addWorksheet('Question Review',{views:[{state:'frozen',ySplit:1,xSplit:2}]});
+  review.columns=[
+    {header:'CAPS Topic',key:'topic',width:24},
+    {header:'CAPS Subtopic',key:'subtopic',width:35},
+    {header:'Question',key:'qid',width:11},
+    {header:'Question text',key:'question',width:60},
+    {header:'Student answer',key:'answer',width:38},
+    {header:'Max mark',key:'max',width:10},
+    {header:'Attempt',key:'attempt',width:14},
+    {header:'Teacher mark',key:'mark',width:13},
+    {header:'Result',key:'result',width:14},
+    {header:'Tutor note',key:'note',width:34}
+  ];
+  review.getRow(1).eachCell(cell=>{
+    cell.font={bold:true,color:{argb:white}};
+    cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:dark}};
+    cell.alignment={horizontal:'center',vertical:'middle',wrapText:true};
+  });
+
+  qs.forEach(q=>{
+    const m=mapping[q.id]||['Other','Tutor review'];
+    const a=data.answers[q.id]||{};
+    const ans=answerText(q,a);
+    const row=review.addRow({
+      topic:m[0],subtopic:m[1],qid:q.id,question:q.q,answer:ans,max:q.m,
+      attempt:ans==='[UNANSWERED]'?'[UNANSWERED]':'Answered',mark:'',result:'',note:''
+    });
+    const n=row.number;
+    row.getCell(9).value={formula:`IF(G${n}="[UNANSWERED]","Not assessed",IF(H${n}="","Mark me",IF(H${n}=F${n},"Correct",IF(H${n}=0,"Incorrect","Partial"))))`};
+    row.getCell(8).dataValidation={type:'decimal',operator:'between',allowBlank:true,formulae:[0,5],showErrorMessage:true,errorTitle:'Invalid mark',error:'Enter a mark from 0 to 5 and do not exceed the Max mark for this question.'};
+    row.eachCell(cell=>{
+      cell.alignment={vertical:'top',wrapText:true};
+      cell.border={bottom:{style:'hair',color:{argb:line}}};
+    });
+    if(ans==='[UNANSWERED]'){
+      row.getCell(7).fill={type:'pattern',pattern:'solid',fgColor:{argb:grey}};
+      row.getCell(7).font={color:{argb:greyText}};
+    }
+  });
+  review.autoFilter={from:'A1',to:'J71'};
+
+  const ref=workbook.addWorksheet('CAPS Reference');
+  ref.columns=[{width:35},{width:70},{width:85}];
+  ref.addRow(['CAPS Topic','What this workbook tracks','Official source']);
+  ref.getRow(1).eachCell(c=>{
+    c.font={bold:true,color:{argb:white}};
+    c.fill={type:'pattern',pattern:'solid',fgColor:{argb:dark}};
+  });
+  [
+    ['Forces','Types of forces; contact forces; field forces including gravitational, magnetic and electrostatic forces.','https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20SP%20%20NATURAL%20SCIENCES%20GR%207-9%20%20WEB.pdf'],
+    ['Electric cells as energy systems','Cells as sources of electricity; cell vs battery; electrodes and chemical-to-electrical energy.','https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20SP%20%20NATURAL%20SCIENCES%20GR%207-9%20%20WEB.pdf'],
+    ['Resistance','Uses of resistors; material, thickness, length and temperature as factors affecting resistance.','https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20SP%20%20NATURAL%20SCIENCES%20GR%207-9%20%20WEB.pdf'],
+    ['Series and parallel circuits','Current and potential difference rules; meter connections; cells/resistors in series and parallel; household parallel circuits; circuit diagrams.','https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20SP%20%20NATURAL%20SCIENCES%20GR%207-9%20%20WEB.pdf'],
+    ['Scientific investigations','Variables, fair tests, hypotheses, conclusions, tables and graphs used within CAPS practical investigations.','https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20SP%20%20NATURAL%20SCIENCES%20GR%207-9%20%20WEB.pdf']
+  ].forEach(x=>{
+    const row=ref.addRow(x);
+    row.eachCell(c=>c.alignment={vertical:'top',wrapText:true});
+  });
+
+  [snapshot,review,ref].forEach(ws=>{
+    ws.properties.defaultRowHeight=19;
+    ws.pageSetup={orientation:'landscape',fitToPage:true,fitToWidth:1,fitToHeight:0};
+  });
+
+  const buffer=await workbook.xlsx.writeBuffer();
+  const safeStudent=(data.student||'Mitchell').replace(/[^a-z0-9_-]+/gi,'_');
+  const filename=`${safeStudent}_CAPS_Diagnostic_${data.date}_${data.submissionId}.xlsx`;
+  return new File([buffer],filename,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 }
 
 async function sendExcelSubmissionEmail(data){
-  const file=buildExcelAttachment(data);
+  const file=await buildExcelAttachment(data);
 
   return await new Promise((resolve,reject)=>{
     const frameName='vtaFormSubmitFrame_'+Date.now();
@@ -256,7 +415,7 @@ async function submitToTutor(){
    try{localStorage.setItem(exam.id+'-submitted',JSON.stringify({submissionId:data.submissionId,attemptId:reply.attemptId,submittedAt:data.submittedAt,emailSent}))}catch(e){}
    box.className='notice success';
    const deliveryLine=emailSent
-      ? `<b>Saved to the tutor inbox and the Excel workbook upload completed.</b>${emailedFile?`<br><span class="mini">Excel attachment: ${esc(emailedFile)}</span>`:''}`
+      ? `<b>Saved to the tutor inbox and the Excel workbook upload completed.</b>${emailedFile?`<br><span class="mini">CAPS diagnostic attachment: ${esc(emailedFile)}</span>`:''}`
       : `<b>Saved safely to the tutor inbox.</b> Email copy could not be confirmed${emailMessage?`: ${esc(emailMessage)}`:''}.`;
    box.innerHTML=`<b>Quiz submitted successfully.</b><br>${deliveryLine}<div class="receipt">Submission receipt: <b>${esc(data.submissionId)}</b></div><br>Your score will only be available after your tutor marks the assessment.`;
    button.textContent='SUBMITTED';
