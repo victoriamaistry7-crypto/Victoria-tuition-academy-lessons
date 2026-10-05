@@ -92,216 +92,288 @@ async function buildExcelAttachment(data){
   const mapping={
     A1:['Forces','Contact and non-contact forces'],A2:['Forces','Contact and non-contact forces'],
     A3:['Forces','Resultant and balanced forces'],A4:['Forces','Vectors and force diagrams'],
-    A5:['Forces','Force units and representation'],A6:['Forces','Resultant and balanced forces'],
+    A5:['Forces','Vectors and force diagrams'],A6:['Forces','Resultant and balanced forces'],
     B1:['Forces','Force definition and effects'],B2:['Forces','Resultant and balanced forces'],
     B3:['Forces','Resultant and balanced forces'],B4:['Forces','Vectors and force diagrams'],
     B5:['Forces','Contact and non-contact forces'],B6:['Forces','Resultant and balanced forces'],
     B7:['Forces','Gravity, mass and weight'],B8:['Forces','Gravity, mass and weight'],
-    B9:['Forces','Tension and compression'],B10:['Forces','Friction and normal force'],
+    B9:['Forces','Friction, normal, tension and compression'],B10:['Forces','Friction, normal, tension and compression'],
     B11:['Forces','Gravity, mass and weight'],B12:['Forces','Magnetic forces'],
-    B13:['Forces','Electrostatics'],B14:['Forces','Electrostatics and lightning'],
+    B13:['Forces','Electrostatics and lightning'],B14:['Forces','Electrostatics and lightning'],
 
-    A7:['Electric cells as energy systems','Energy conversion in cells'],
-    A8:['Electric cells as energy systems','Cell vs battery'],
-    A9:['Electric cells as energy systems','Electrodes and simple cells'],
-    C1:['Electric cells as energy systems','Energy conversion in cells'],
-    C2:['Electric cells as energy systems','Cell vs battery'],
-    C5:['Electric cells as energy systems','Electrodes and simple cells'],
-    A25:['Series and parallel circuits','Cells connected in series'],
-    D9:['Series and parallel circuits','Cells connected in parallel'],
+    A7:['Electric Cells','Energy conversion in cells'],C1:['Electric Cells','Energy conversion in cells'],
+    A8:['Electric Cells','Cell vs battery'],C2:['Electric Cells','Cell vs battery'],
+    A9:['Electric Cells','Electrodes, electrolyte and simple cells'],C5:['Electric Cells','Electrodes, electrolyte and simple cells'],
+    A25:['Electric Cells','Cells connected in series'],D9:['Electric Cells','Cells connected in parallel'],
 
-    A10:['Resistance','Factors affecting resistance'],
-    A11:['Resistance','Factors affecting resistance'],
-    A12:['Resistance','Factors affecting resistance'],
-    A13:['Resistance','Factors affecting resistance'],
-    C3:['Resistance','Factors affecting resistance'],
-    C6:['Resistance','Factors affecting resistance'],
-    C7:['Resistance','Conductors and resistance'],
-    A14:['Resistance','Uses of resistors'],
-    C4:['Resistance','Uses of resistors'],
+    A10:['Resistance','Factors affecting resistance'],A11:['Resistance','Factors affecting resistance'],
+    A12:['Resistance','Factors affecting resistance'],A13:['Resistance','Factors affecting resistance'],
+    C3:['Resistance','Factors affecting resistance'],C6:['Resistance','Factors affecting resistance'],
+    C7:['Resistance','Factors affecting resistance'],A14:['Resistance','Uses of resistors and energy transfer'],
+    C4:['Resistance','Uses of resistors and energy transfer'],
 
-    A15:['Series and parallel circuits','Series circuit pathways'],
-    A17:['Series and parallel circuits','Current in series circuits'],
-    D1:['Series and parallel circuits','Current in series circuits'],
-    D8:['Series and parallel circuits','Effect of adding resistors in series'],
-    A16:['Series and parallel circuits','Parallel circuit pathways'],
-    A18:['Series and parallel circuits','Current in parallel circuits'],
-    D4:['Series and parallel circuits','Current in parallel circuits'],
-    D10:['Series and parallel circuits','Current in parallel circuits'],
-    D11:['Series and parallel circuits','Effect of adding branches in parallel'],
-    A22:['Series and parallel circuits','Potential difference in series'],
-    D2:['Series and parallel circuits','Potential difference in series'],
-    D12:['Series and parallel circuits','Resistance and potential difference in series'],
-    A21:['Series and parallel circuits','Potential difference in parallel'],
-    D5:['Series and parallel circuits','Potential difference in parallel'],
-    A19:['Series and parallel circuits','Ammeter connection'],
-    A20:['Series and parallel circuits','Voltmeter connection'],
-    D3:['Series and parallel circuits','Voltmeter connection'],
-    A23:['Series and parallel circuits','Applications of parallel circuits'],
-    A24:['Series and parallel circuits','Applications of parallel circuits'],
-    D6:['Series and parallel circuits','Compare series and parallel circuits'],
-    D7:['Series and parallel circuits','Drawing parallel circuit diagrams'],
+    A15:['Series & Parallel Circuits','Series circuit pathways'],
+    A17:['Series & Parallel Circuits','Current in series circuits'],D1:['Series & Parallel Circuits','Current in series circuits'],
+    D8:['Series & Parallel Circuits','Current in series circuits'],
+    A16:['Series & Parallel Circuits','Parallel circuit pathways'],
+    A18:['Series & Parallel Circuits','Current in parallel circuits'],D4:['Series & Parallel Circuits','Current in parallel circuits'],
+    D10:['Series & Parallel Circuits','Current in parallel circuits'],D11:['Series & Parallel Circuits','Current in parallel circuits'],
+    A22:['Series & Parallel Circuits','Potential difference in series'],D2:['Series & Parallel Circuits','Potential difference in series'],
+    D12:['Series & Parallel Circuits','Potential difference in series'],
+    A21:['Series & Parallel Circuits','Potential difference in parallel'],D5:['Series & Parallel Circuits','Potential difference in parallel'],
+    A19:['Series & Parallel Circuits','Ammeter connection'],
+    A20:['Series & Parallel Circuits','Voltmeter connection'],D3:['Series & Parallel Circuits','Voltmeter connection'],
+    A23:['Series & Parallel Circuits','Series vs parallel applications'],A24:['Series & Parallel Circuits','Series vs parallel applications'],
+    D6:['Series & Parallel Circuits','Series vs parallel applications'],D7:['Series & Parallel Circuits','Drawing circuit diagrams'],
 
-    A26:['Scientific investigations','Independent variables'],
-    A27:['Scientific investigations','Dependent variables'],
-    A28:['Scientific investigations','Controlled variables and fair tests'],
-    E1:['Scientific investigations','Independent variables'],
-    E2:['Scientific investigations','Dependent variables'],
-    E3:['Scientific investigations','Controlled variables and fair tests'],
-    E4:['Scientific investigations','Hypotheses'],
-    E5:['Scientific investigations','Conclusions'],
-    A29:['Scientific investigations','Graphs and relationships'],
-    A30:['Scientific investigations','Evidence-based conclusions'],
-    E6:['Scientific investigations','Graphs and relationships'],
-    E7:['Scientific investigations','Tables, evidence and fair testing']
+    A26:['Scientific Investigations','Independent variables'],E1:['Scientific Investigations','Independent variables'],
+    A27:['Scientific Investigations','Dependent variables'],E2:['Scientific Investigations','Dependent variables'],
+    A28:['Scientific Investigations','Controlled variables and fair tests'],E3:['Scientific Investigations','Controlled variables and fair tests'],
+    E4:['Scientific Investigations','Hypotheses'],E5:['Scientific Investigations','Conclusions'],
+    A29:['Scientific Investigations','Graphs and relationships'],E6:['Scientific Investigations','Graphs and relationships'],
+    A30:['Scientific Investigations','Tables, evidence and fair testing'],E7:['Scientific Investigations','Tables, evidence and fair testing']
   };
 
-  const subtopics=[];
-  for(const q of qs){
-    const m=mapping[q.id]||['Other','Tutor review'];
-    const key=m[0]+'||'+m[1];
-    if(!subtopics.some(x=>x.key===key)) subtopics.push({key,topic:m[0],subtopic:m[1]});
-  }
-
+  const topicOrder=['Forces','Electric Cells','Resistance','Series & Parallel Circuits','Scientific Investigations'];
   const answerText=(q,a)=>{
     if(q.t==='mcq'||q.t==='diagrammcq'){
-      if(a.answer==='')return '[UNANSWERED]';
+      if(a.answer==='') return '—';
       const idx=Number(a.answer);
       return Number.isFinite(idx)?`${String.fromCharCode(65+idx)} — ${q.o?.[idx]||''}`:String(a.answer||'');
     }
     if(q.t==='numeric2'){
-      let v=a.answer||'[UNANSWERED]';
-      if(a.direction)v+=' '+a.direction;
-      return v;
+      if(!a.answer) return '—';
+      return `${a.answer}${a.direction?' '+a.direction:''}`;
     }
-    return a.answer||'[UNANSWERED]';
+    return a.answer||'—';
   };
 
   const workbook=new ExcelJS.Workbook();
   workbook.creator='Victoria Tuition Academy';
-  workbook.subject='Mitchell Grade 9 Natural Sciences CAPS diagnostic report';
+  workbook.subject='Mitchell Grade 9 Natural Sciences CAPS diagnostic';
   workbook.created=new Date();
 
   const purple='4C1D95', dark='111827', white='FFFFFF', line='E5E7EB',
-        grey='F3F4F6', greyText='6B7280';
+        lavender='EDE9FE', grey='F3F4F6', greyText='6B7280',
+        green='DCFCE7', greenText='166534', amber='FEF3C7', amberText='92400E',
+        red='FEE2E2', redText='991B1B';
 
-  const snapshot=workbook.addWorksheet('Learning Snapshot',{views:[{state:'frozen',ySplit:8}]});
-  snapshot.columns=[
-    {key:'a',width:25},{key:'b',width:34},{key:'c',width:12},{key:'d',width:12},
-    {key:'e',width:12},{key:'f',width:13},{key:'g',width:13},{key:'h',width:17},{key:'i',width:40}
-  ];
-  snapshot.mergeCells('A1:I2');
-  snapshot.getCell('A1').value='MITCHELL — CAPS LEARNING SNAPSHOT\nGrade 9 Natural Sciences';
-  snapshot.getCell('A1').font={bold:true,size:18,color:{argb:white}};
-  snapshot.getCell('A1').fill={type:'pattern',pattern:'solid',fgColor:{argb:purple}};
-  snapshot.getCell('A1').alignment={vertical:'middle',wrapText:true};
-
-  snapshot.addRow([]);
-  [
-    ['Student',data.student,'Assessment date',data.date,'Submission ID',data.submissionId],
-    ['Answered',`${data.answeredCount} / ${data.totalQuestions}`,'Time used',`${data.timeUsedMinutes} min`,'Status','UNMARKED — tutor review required']
-  ].forEach(r=>{
-    const row=snapshot.addRow(r);
-    [1,3,5].forEach(c=>{
-      row.getCell(c).font={bold:true,color:{argb:dark}};
-      row.getCell(c).fill={type:'pattern',pattern:'solid',fgColor:{argb:grey}};
-    });
-  });
-  snapshot.addRow([]);
-  const note=snapshot.addRow(['How to use','Enter marks in the Question Review sheet. This CAPS snapshot updates automatically to show Secure, Developing, Re-teach, Marking pending or Not assessed yet.']);
-  snapshot.mergeCells(`B${note.number}:I${note.number}`);
-  note.getCell(1).font={bold:true};
-  note.getCell(2).alignment={wrapText:true};
-
-  snapshot.addRow([]);
-  const hdr=snapshot.addRow(['CAPS Topic','CAPS Subtopic','Questions','Answered','Marked','Max marks assessed','Marks awarded','Score','Learning status / next step']);
-  hdr.eachCell(cell=>{
-    cell.font={bold:true,color:{argb:white}};
-    cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:dark}};
-    cell.alignment={horizontal:'center',vertical:'middle',wrapText:true};
-  });
-
-  subtopics.forEach(st=>{
-    const row=snapshot.addRow([st.topic,st.subtopic]);
-    const n=row.number;
-    row.getCell(3).value={formula:`COUNTIF('Question Review'!$B$2:$B$71,B${n})`};
-    row.getCell(4).value={formula:`COUNTIFS('Question Review'!$B$2:$B$71,B${n},'Question Review'!$G$2:$G$71,"<>[UNANSWERED]")`};
-    row.getCell(5).value={formula:`COUNTIFS('Question Review'!$B$2:$B$71,B${n},'Question Review'!$G$2:$G$71,"<>[UNANSWERED]",'Question Review'!$H$2:$H$71,"<>")`};
-    row.getCell(6).value={formula:`SUMIFS('Question Review'!$F$2:$F$71,'Question Review'!$B$2:$B$71,B${n},'Question Review'!$G$2:$G$71,"<>[UNANSWERED]")`};
-    row.getCell(7).value={formula:`SUMIF('Question Review'!$B$2:$B$71,B${n},'Question Review'!$H$2:$H$71)`};
-    row.getCell(8).value={formula:`IF(D${n}=0,"",IF(E${n}<D${n},"",IF(F${n}=0,"",G${n}/F${n})))`};
-    row.getCell(8).numFmt='0%';
-    row.getCell(9).value={formula:`IF(D${n}=0,"Not assessed yet",IF(E${n}<D${n},"Marking pending",IF(H${n}>=0.8,"Secure — maintain with mixed exam practice",IF(H${n}>=0.6,"Developing — targeted practice","Re-teach — teach concept again, then retest"))))`};
-    row.eachCell(cell=>{
-      cell.border={bottom:{style:'thin',color:{argb:line}}};
-      cell.alignment={vertical:'top',wrapText:true};
-    });
-    row.getCell(9).font={bold:true};
-  });
-
-  snapshot.addRow([]);
-  snapshot.addRow(['Meaning','Secure = 80–100% | Developing = 60–79% | Re-teach = below 60% | Not assessed yet = learner did not answer that subtopic.']);
-
-  const review=workbook.addWorksheet('Question Review',{views:[{state:'frozen',ySplit:1,xSplit:2}]});
+  // ---------------- Question Review ----------------
+  const review=workbook.addWorksheet('Question Review',{views:[{state:'frozen',ySplit:4}]});
   review.columns=[
-    {header:'CAPS Topic',key:'topic',width:24},
-    {header:'CAPS Subtopic',key:'subtopic',width:35},
-    {header:'Question',key:'qid',width:11},
-    {header:'Question text',key:'question',width:60},
-    {header:'Student answer',key:'answer',width:38},
-    {header:'Max mark',key:'max',width:10},
-    {header:'Attempt',key:'attempt',width:14},
-    {header:'Teacher mark',key:'mark',width:13},
-    {header:'Result',key:'result',width:14},
-    {header:'Tutor note',key:'note',width:34}
+    {key:'topic',width:25},{key:'subtopic',width:37},{key:'question',width:62},
+    {key:'answer',width:34},{key:'max',width:10},{key:'mark',width:12},
+    {key:'result',width:13},{key:'note',width:34}
   ];
-  review.getRow(1).eachCell(cell=>{
-    cell.font={bold:true,color:{argb:white}};
-    cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:dark}};
-    cell.alignment={horizontal:'center',vertical:'middle',wrapText:true};
-  });
+  review.mergeCells('A1:H2');
+  review.getCell('A1').value='MITCHELL — QUESTION REVIEW\nGrade 9 Natural Sciences';
+  review.getCell('A1').font={bold:true,size:17,color:{argb:white}};
+  review.getCell('A1').fill={type:'pattern',pattern:'solid',fgColor:{argb:purple}};
+  review.getCell('A1').alignment={vertical:'middle',wrapText:true};
 
-  qs.forEach(q=>{
-    const m=mapping[q.id]||['Other','Tutor review'];
-    const a=data.answers[q.id]||{};
-    const ans=answerText(q,a);
-    const row=review.addRow({
-      topic:m[0],subtopic:m[1],qid:q.id,question:q.q,answer:ans,max:q.m,
-      attempt:ans==='[UNANSWERED]'?'[UNANSWERED]':'Answered',mark:'',result:'',note:''
-    });
-    const n=row.number;
-    row.getCell(9).value={formula:`IF(G${n}="[UNANSWERED]","Not assessed",IF(H${n}="","Mark me",IF(H${n}=F${n},"Correct",IF(H${n}=0,"Incorrect","Partial"))))`};
-    row.getCell(8).dataValidation={type:'decimal',operator:'between',allowBlank:true,formulae:[0,5],showErrorMessage:true,errorTitle:'Invalid mark',error:'Enter a mark from 0 to 5 and do not exceed the Max mark for this question.'};
-    row.eachCell(cell=>{
-      cell.alignment={vertical:'top',wrapText:true};
-      cell.border={bottom:{style:'hair',color:{argb:line}}};
-    });
-    if(ans==='[UNANSWERED]'){
-      row.getCell(7).fill={type:'pattern',pattern:'solid',fgColor:{argb:grey}};
-      row.getCell(7).font={color:{argb:greyText}};
-    }
-  });
-  review.autoFilter={from:'A1',to:'J71'};
-
-  const ref=workbook.addWorksheet('CAPS Reference');
-  ref.columns=[{width:35},{width:70},{width:85}];
-  ref.addRow(['CAPS Topic','What this workbook tracks','Official source']);
-  ref.getRow(1).eachCell(c=>{
+  review.getRow(4).values=['Topic','Subtopic','Question','Student Answer','Max Mark','Teacher Mark','Result','Tutor Note'];
+  review.getRow(4).eachCell(c=>{
     c.font={bold:true,color:{argb:white}};
     c.fill={type:'pattern',pattern:'solid',fgColor:{argb:dark}};
-  });
-  [
-    ['Forces','Types of forces; contact forces; field forces including gravitational, magnetic and electrostatic forces.','https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20SP%20%20NATURAL%20SCIENCES%20GR%207-9%20%20WEB.pdf'],
-    ['Electric cells as energy systems','Cells as sources of electricity; cell vs battery; electrodes and chemical-to-electrical energy.','https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20SP%20%20NATURAL%20SCIENCES%20GR%207-9%20%20WEB.pdf'],
-    ['Resistance','Uses of resistors; material, thickness, length and temperature as factors affecting resistance.','https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20SP%20%20NATURAL%20SCIENCES%20GR%207-9%20%20WEB.pdf'],
-    ['Series and parallel circuits','Current and potential difference rules; meter connections; cells/resistors in series and parallel; household parallel circuits; circuit diagrams.','https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20SP%20%20NATURAL%20SCIENCES%20GR%207-9%20%20WEB.pdf'],
-    ['Scientific investigations','Variables, fair tests, hypotheses, conclusions, tables and graphs used within CAPS practical investigations.','https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20SP%20%20NATURAL%20SCIENCES%20GR%207-9%20%20WEB.pdf']
-  ].forEach(x=>{
-    const row=ref.addRow(x);
-    row.eachCell(c=>c.alignment={vertical:'top',wrapText:true});
+    c.alignment={horizontal:'center',vertical:'middle',wrapText:true};
   });
 
-  [snapshot,review,ref].forEach(ws=>{
+  const topicRanges=[];
+  let reviewRow=5;
+
+  for(const topic of topicOrder){
+    const seen=[];
+    for(const q of qs){
+      const m=mapping[q.id]||['Other','Tutor review'];
+      if(m[0]===topic&&!seen.includes(m[1])) seen.push(m[1]);
+    }
+    const topicStart=reviewRow;
+    for(const subtopic of seen){
+      const list=qs.filter(q=>{
+        const m=mapping[q.id]||['Other','Tutor review'];
+        return m[0]===topic&&m[1]===subtopic;
+      });
+      for(const q of list){
+        const a=data.answers[q.id]||{};
+        const ans=answerText(q,a);
+        review.getRow(reviewRow).values=[topic,subtopic,`${q.id} — ${q.q}`,ans,q.m,'','', ''];
+        review.getCell(`G${reviewRow}`).value={
+          formula:`IF(D${reviewRow}="—","N/A",IF(F${reviewRow}="","Pending",IF(F${reviewRow}=E${reviewRow},"Correct","Incorrect")))`
+        };
+        review.getCell(`F${reviewRow}`).dataValidation={
+          type:'decimal',operator:'between',allowBlank:true,formulae:[0,5],
+          showErrorMessage:true,errorTitle:'Invalid mark',
+          error:'Enter a mark from 0 to 5 and do not exceed the Max Mark for this question.'
+        };
+        review.getRow(reviewRow).eachCell(c=>{
+          c.alignment={vertical:'top',wrapText:true};
+          c.border={bottom:{style:'thin',color:{argb:line}}};
+        });
+        if(ans==='—'){
+          review.getCell(`D${reviewRow}`).font={color:{argb:greyText}};
+          review.getCell(`G${reviewRow}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:grey}};
+          review.getCell(`G${reviewRow}`).font={color:{argb:greyText}};
+        }
+        reviewRow++;
+      }
+    }
+    const topicEnd=reviewRow-1;
+    if(topicEnd>=topicStart) topicRanges.push([topic,topicStart,topicEnd]);
+  }
+
+  for(const [topic,start,end] of topicRanges){
+    if(end>start) review.mergeCells(`A${start}:A${end}`);
+    review.getCell(`A${start}`).value=topic;
+    review.getCell(`A${start}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:lavender}};
+    review.getCell(`A${start}`).font={bold:true,color:{argb:purple}};
+    review.getCell(`A${start}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
+  }
+  review.autoFilter={from:'A4',to:`H${reviewRow-1}`};
+
+  // ---------------- Learning Snapshot ----------------
+  const snap=workbook.addWorksheet('Learning Snapshot',{views:[{state:'frozen',ySplit:4}]});
+  snap.columns=[
+    {width:27},{width:40},{width:11},{width:11},{width:11},{width:11},{width:11},{width:39}
+  ];
+  snap.mergeCells('A1:H2');
+  snap.getCell('A1').value='MITCHELL — CAPS LEARNING SNAPSHOT\nGrade 9 Natural Sciences';
+  snap.getCell('A1').font={bold:true,size:17,color:{argb:white}};
+  snap.getCell('A1').fill={type:'pattern',pattern:'solid',fgColor:{argb:purple}};
+  snap.getCell('A1').alignment={vertical:'middle',wrapText:true};
+  snap.getRow(4).values=['Topic','Subtopic','Questions','Answered','Correct','Incorrect','Score','Learning Status'];
+  snap.getRow(4).eachCell(c=>{
+    c.font={bold:true,color:{argb:white}};
+    c.fill={type:'pattern',pattern:'solid',fgColor:{argb:dark}};
+    c.alignment={horizontal:'center',vertical:'middle',wrapText:true};
+  });
+
+  let snapRow=5;
+  const snapRanges=[];
+  for(const topic of topicOrder){
+    const seen=[];
+    for(const q of qs){
+      const m=mapping[q.id]||['Other','Tutor review'];
+      if(m[0]===topic&&!seen.includes(m[1])) seen.push(m[1]);
+    }
+    const topicStart=snapRow;
+    for(const subtopic of seen){
+      const n=snapRow;
+      snap.getRow(n).values=[topic,subtopic,'','','','','',''];
+      snap.getCell(`C${n}`).value={formula:`COUNTIF('Question Review'!$B$5:$B$74,B${n})`};
+      snap.getCell(`D${n}`).value={formula:`COUNTIFS('Question Review'!$B$5:$B$74,B${n},'Question Review'!$D$5:$D$74,"<>—")`};
+      snap.getCell(`E${n}`).value={formula:`COUNTIFS('Question Review'!$B$5:$B$74,B${n},'Question Review'!$G$5:$G$74,"Correct")`};
+      snap.getCell(`F${n}`).value={formula:`COUNTIFS('Question Review'!$B$5:$B$74,B${n},'Question Review'!$G$5:$G$74,"Incorrect")`};
+      snap.getCell(`G${n}`).value={formula:`IF(D${n}=0,"—",IF(E${n}+F${n}<D${n},"—",IF(SUMIFS('Question Review'!$E$5:$E$74,'Question Review'!$B$5:$B$74,B${n},'Question Review'!$D$5:$D$74,"<>—")=0,"—",SUMIF('Question Review'!$B$5:$B$74,B${n},'Question Review'!$F$5:$F$74)/SUMIFS('Question Review'!$E$5:$E$74,'Question Review'!$B$5:$B$74,B${n},'Question Review'!$D$5:$D$74,"<>—"))))`};
+      snap.getCell(`G${n}`).numFmt='0%';
+      snap.getCell(`H${n}`).value={formula:`IF(D${n}=0,"N/A",IF(E${n}+F${n}<D${n},"Pending",IF(G${n}>=0.8,"Secure — no re-teaching needed",IF(G${n}>=0.6,"Developing — revise and practise","Re-teach — teach this subtopic again"))))`};
+      snap.getRow(n).eachCell(c=>{
+        c.alignment={vertical:'middle',wrapText:true};
+        c.border={bottom:{style:'thin',color:{argb:line}}};
+      });
+      snapRow++;
+    }
+    const topicEnd=snapRow-1;
+    if(topicEnd>=topicStart) snapRanges.push([topic,topicStart,topicEnd]);
+  }
+
+  for(const [topic,start,end] of snapRanges){
+    if(end>start) snap.mergeCells(`A${start}:A${end}`);
+    snap.getCell(`A${start}`).value=topic;
+    snap.getCell(`A${start}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:lavender}};
+    snap.getCell(`A${start}`).font={bold:true,color:{argb:purple}};
+    snap.getCell(`A${start}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
+  }
+
+  // ---------------- CAPS Reference ----------------
+  const ref=workbook.addWorksheet('CAPS Reference',{views:[{state:'frozen',ySplit:4}]});
+  ref.columns=[{width:28},{width:39},{width:84}];
+  ref.mergeCells('A1:C2');
+  ref.getCell('A1').value='GRADE 9 CAPS TEACHING REFERENCE\nNatural Sciences — Topics and subtopics to teach';
+  ref.getCell('A1').font={bold:true,size:17,color:{argb:white}};
+  ref.getCell('A1').fill={type:'pattern',pattern:'solid',fgColor:{argb:purple}};
+  ref.getCell('A1').alignment={vertical:'middle',wrapText:true};
+  ref.getRow(4).values=['CAPS Topic','Subtopic','What to teach / what the learner should know'];
+  ref.getRow(4).eachCell(c=>{
+    c.font={bold:true,color:{argb:white}};
+    c.fill={type:'pattern',pattern:'solid',fgColor:{argb:dark}};
+    c.alignment={horizontal:'center',vertical:'middle',wrapText:true};
+  });
+
+  const capsRows=[
+    ['Forces','Types of forces','Distinguish contact and non-contact forces. Contact forces: friction, normal/support force, tension, compression and applied forces. Non-contact/field forces: gravitational, magnetic and electrostatic.'],
+    ['Forces','Vectors and force diagrams','Force has magnitude and direction. Use arrows correctly: arrow length shows magnitude and arrowhead shows direction. Label forces clearly on objects.'],
+    ['Forces','Resultant and balanced forces','Combine forces acting in the same or opposite directions. Identify balanced forces when resultant force is zero and unbalanced forces when resultant force is non-zero.'],
+    ['Forces','Gravity, mass and weight','Distinguish mass and weight. Use W = mg. Explain that mass stays constant while weight changes with gravitational field strength. Describe how gravitational force changes with mass and distance.'],
+    ['Forces','Friction, normal, tension and compression','Explain friction as opposing motion, normal force as support from a surface, tension as a pulling/stretching force and compression as a pushing/squashing force.'],
+    ['Forces','Magnetic forces','Know north and south poles, like poles repel and unlike poles attract. Identify magnetic materials and recognise magnetism as a non-contact force.'],
+    ['Forces','Electrostatics and lightning','Explain electron transfer, positive/negative charge, attraction and repulsion, electrostatic discharge and basic lightning safety.'],
+
+    ['Electric Cells','Cells as energy systems','Explain that chemical reactions transfer chemical energy to electrical energy and that a cell is a source of electrical energy in a circuit.'],
+    ['Electric Cells','Cell vs battery','Distinguish one cell from a battery made from two or more cells.'],
+    ['Electric Cells','Simple electrochemical cells','Identify different electrodes, an electrolyte, polarity and a simple zinc-copper or fruit-cell arrangement.'],
+    ['Electric Cells','Cells in series','Explain that identical cells in series increase total potential difference when connected in the same orientation.'],
+    ['Electric Cells','Cells in parallel','Explain that identical cells in parallel provide the potential difference of one cell with alternative current paths.'],
+
+    ['Resistance','Meaning of resistance','Understand resistance as opposition to electric current in a conductor.'],
+    ['Resistance','Factors affecting resistance','Material: different materials have different resistance. Length: longer wire has greater resistance. Thickness: thicker wire has lower resistance. Temperature: for metals, higher temperature generally increases resistance.'],
+    ['Resistance','Conductors and comparative resistance','Use current measurements under controlled conditions to compare which wires or materials have higher or lower resistance.'],
+    ['Resistance','Uses of resistors','Explain why resistors limit/control current and how electrical energy may be transferred to heat or light in devices.'],
+
+    ['Series & Parallel Circuits','Series circuit pathways','Recognise a series circuit as one continuous path with components connected one after another.'],
+    ['Series & Parallel Circuits','Current in series circuits','Current is the same at all points in a simple series circuit. Use ammeter readings to determine current elsewhere in the same series path.'],
+    ['Series & Parallel Circuits','Parallel circuit pathways','Recognise branches and junctions. Understand that parallel circuits provide more than one path for current.'],
+    ['Series & Parallel Circuits','Current in parallel circuits','Current splits at a junction and recombines. Total current entering a junction equals the sum of branch currents.'],
+    ['Series & Parallel Circuits','Potential difference in series','The source potential difference is shared across series components; the individual potential differences add to the source potential difference.'],
+    ['Series & Parallel Circuits','Potential difference in parallel','Each complete branch connected across the same source has the same potential difference as the source.'],
+    ['Series & Parallel Circuits','Ammeter connection','Connect an ammeter in series with the path/component whose current is measured.'],
+    ['Series & Parallel Circuits','Voltmeter connection','Connect a voltmeter in parallel across the component whose potential difference is measured.'],
+    ['Series & Parallel Circuits','Adding resistance in series','Adding another resistor in series increases total resistance and usually reduces current from the same source.'],
+    ['Series & Parallel Circuits','Adding branches in parallel','Adding another complete parallel branch provides another path and increases total current drawn from the source.'],
+    ['Series & Parallel Circuits','Applications of parallel circuits','Explain why household lights/appliances are connected in parallel so branches can operate independently.'],
+    ['Series & Parallel Circuits','Circuit diagrams','Draw complete circuits with standard symbols, correct connections, clear junctions and no accidental short circuits.'],
+
+    ['Scientific Investigations','Independent variable','Identify the factor deliberately changed by the learner.'],
+    ['Scientific Investigations','Dependent variable','Identify the factor measured or observed in response to the change.'],
+    ['Scientific Investigations','Controlled variables / fair test','State important conditions that must remain the same so only the independent variable affects the result.'],
+    ['Scientific Investigations','Hypothesis','Write a testable prediction linking the independent variable to the dependent variable.'],
+    ['Scientific Investigations','Tables and graphs','Record data with headings and units. Plot the correct variables on axes, use suitable scales and identify trends or relationships.'],
+    ['Scientific Investigations','Conclusion','Write a conclusion supported by the results and state the relationship shown by the evidence.'],
+    ['Scientific Investigations','Interpreting evidence','Use tables, graphs and repeated results to compare conditions/materials and justify an answer using evidence.']
+  ];
+
+  let refRow=5;
+  let refTopicStart=5;
+  let previousTopic=capsRows[0][0];
+
+  for(let i=0;i<capsRows.length;i++){
+    const row=capsRows[i];
+    const topic=row[0];
+    if(topic!==previousTopic){
+      const end=refRow-1;
+      if(end>refTopicStart) ref.mergeCells(`A${refTopicStart}:A${end}`);
+      ref.getCell(`A${refTopicStart}`).value=previousTopic;
+      ref.getCell(`A${refTopicStart}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:lavender}};
+      ref.getCell(`A${refTopicStart}`).font={bold:true,color:{argb:purple}};
+      ref.getCell(`A${refTopicStart}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
+      refTopicStart=refRow;
+      previousTopic=topic;
+    }
+    ref.getRow(refRow).values=row;
+    ref.getRow(refRow).eachCell(c=>{
+      c.alignment={vertical:'top',wrapText:true};
+      c.border={bottom:{style:'thin',color:{argb:line}}};
+    });
+    refRow++;
+  }
+
+  const lastEnd=refRow-1;
+  if(lastEnd>refTopicStart) ref.mergeCells(`A${refTopicStart}:A${lastEnd}`);
+  ref.getCell(`A${refTopicStart}`).value=previousTopic;
+  ref.getCell(`A${refTopicStart}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:lavender}};
+  ref.getCell(`A${refTopicStart}`).font={bold:true,color:{argb:purple}};
+  ref.getCell(`A${refTopicStart}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
+
+  [review,snap,ref].forEach(ws=>{
     ws.properties.defaultRowHeight=19;
     ws.pageSetup={orientation:'landscape',fitToPage:true,fitToWidth:1,fitToHeight:0};
   });
