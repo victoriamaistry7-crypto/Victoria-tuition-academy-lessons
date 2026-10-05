@@ -90,41 +90,32 @@ async function buildExcelAttachment(data){
   if(typeof ExcelJS==='undefined') throw new Error('Excel workbook generator did not load. Check the internet connection and try again.');
 
   const mapping={
-    A1:['Forces','Contact and non-contact forces'],A2:['Forces','Contact and non-contact forces'],
-    A3:['Forces','Resultant and balanced forces'],A4:['Forces','Vectors and force diagrams'],
-    A5:['Forces','Vectors and force diagrams'],A6:['Forces','Resultant and balanced forces'],
-    B1:['Forces','Force definition and effects'],B2:['Forces','Resultant and balanced forces'],
-    B3:['Forces','Resultant and balanced forces'],B4:['Forces','Vectors and force diagrams'],
-    B5:['Forces','Contact and non-contact forces'],B6:['Forces','Resultant and balanced forces'],
-    B7:['Forces','Gravity, mass and weight'],B8:['Forces','Gravity, mass and weight'],
+    A1:['Forces','Contact and non-contact forces'],A2:['Forces','Contact and non-contact forces'],B5:['Forces','Contact and non-contact forces'],
+    A3:['Forces','Resultant and balanced forces'],A6:['Forces','Resultant and balanced forces'],B2:['Forces','Resultant and balanced forces'],B3:['Forces','Resultant and balanced forces'],B6:['Forces','Resultant and balanced forces'],
+    A4:['Forces','Vectors and force diagrams'],A5:['Forces','Vectors and force diagrams'],B4:['Forces','Vectors and force diagrams'],
+    B7:['Forces','Gravity, mass and weight'],B8:['Forces','Gravity, mass and weight'],B11:['Forces','Gravity, mass and weight'],
     B9:['Forces','Friction, normal, tension and compression'],B10:['Forces','Friction, normal, tension and compression'],
-    B11:['Forces','Gravity, mass and weight'],B12:['Forces','Magnetic forces'],
-    B13:['Forces','Electrostatics and lightning'],B14:['Forces','Electrostatics and lightning'],
+    B12:['Forces','Magnetic forces'],B13:['Forces','Electrostatics and lightning'],B14:['Forces','Electrostatics and lightning'],
 
     A7:['Electric Cells','Energy conversion in cells'],C1:['Electric Cells','Energy conversion in cells'],
     A8:['Electric Cells','Cell vs battery'],C2:['Electric Cells','Cell vs battery'],
     A9:['Electric Cells','Electrodes, electrolyte and simple cells'],C5:['Electric Cells','Electrodes, electrolyte and simple cells'],
     A25:['Electric Cells','Cells connected in series'],D9:['Electric Cells','Cells connected in parallel'],
 
-    A10:['Resistance','Factors affecting resistance'],A11:['Resistance','Factors affecting resistance'],
-    A12:['Resistance','Factors affecting resistance'],A13:['Resistance','Factors affecting resistance'],
-    C3:['Resistance','Factors affecting resistance'],C6:['Resistance','Factors affecting resistance'],
-    C7:['Resistance','Factors affecting resistance'],A14:['Resistance','Uses of resistors and energy transfer'],
-    C4:['Resistance','Uses of resistors and energy transfer'],
+    A10:['Resistance','Factors affecting resistance'],A11:['Resistance','Factors affecting resistance'],A12:['Resistance','Factors affecting resistance'],A13:['Resistance','Factors affecting resistance'],
+    C3:['Resistance','Factors affecting resistance'],C6:['Resistance','Factors affecting resistance'],C7:['Resistance','Factors affecting resistance'],
+    A14:['Resistance','Uses of resistors and energy transfer'],C4:['Resistance','Uses of resistors and energy transfer'],
 
     A15:['Series & Parallel Circuits','Series circuit pathways'],
-    A17:['Series & Parallel Circuits','Current in series circuits'],D1:['Series & Parallel Circuits','Current in series circuits'],
-    D8:['Series & Parallel Circuits','Current in series circuits'],
+    A17:['Series & Parallel Circuits','Current in series circuits'],D1:['Series & Parallel Circuits','Current in series circuits'],D8:['Series & Parallel Circuits','Current in series circuits'],
     A16:['Series & Parallel Circuits','Parallel circuit pathways'],
-    A18:['Series & Parallel Circuits','Current in parallel circuits'],D4:['Series & Parallel Circuits','Current in parallel circuits'],
-    D10:['Series & Parallel Circuits','Current in parallel circuits'],D11:['Series & Parallel Circuits','Current in parallel circuits'],
-    A22:['Series & Parallel Circuits','Potential difference in series'],D2:['Series & Parallel Circuits','Potential difference in series'],
-    D12:['Series & Parallel Circuits','Potential difference in series'],
+    A18:['Series & Parallel Circuits','Current in parallel circuits'],D4:['Series & Parallel Circuits','Current in parallel circuits'],D10:['Series & Parallel Circuits','Current in parallel circuits'],D11:['Series & Parallel Circuits','Current in parallel circuits'],
+    A22:['Series & Parallel Circuits','Potential difference in series'],D2:['Series & Parallel Circuits','Potential difference in series'],D12:['Series & Parallel Circuits','Potential difference in series'],
     A21:['Series & Parallel Circuits','Potential difference in parallel'],D5:['Series & Parallel Circuits','Potential difference in parallel'],
     A19:['Series & Parallel Circuits','Ammeter connection'],
     A20:['Series & Parallel Circuits','Voltmeter connection'],D3:['Series & Parallel Circuits','Voltmeter connection'],
-    A23:['Series & Parallel Circuits','Series vs parallel applications'],A24:['Series & Parallel Circuits','Series vs parallel applications'],
-    D6:['Series & Parallel Circuits','Series vs parallel applications'],D7:['Series & Parallel Circuits','Drawing circuit diagrams'],
+    A23:['Series & Parallel Circuits','Series vs parallel applications'],A24:['Series & Parallel Circuits','Series vs parallel applications'],D6:['Series & Parallel Circuits','Series vs parallel applications'],
+    D7:['Series & Parallel Circuits','Drawing circuit diagrams'],
 
     A26:['Scientific Investigations','Independent variables'],E1:['Scientific Investigations','Independent variables'],
     A27:['Scientific Investigations','Dependent variables'],E2:['Scientific Investigations','Dependent variables'],
@@ -135,252 +126,269 @@ async function buildExcelAttachment(data){
   };
 
   const topicOrder=['Forces','Electric Cells','Resistance','Series & Parallel Circuits','Scientific Investigations'];
+  const NAVY='172033', PURPLE='4C1D95', WHITE='FFFFFF', LINE='D6DAE3', LIGHT='F8FAFC',
+        PURPLE_LIGHT='F3EEFF', GREEN='EAF7EF', RED='FDEEEE', AMBER='FFF6DD', GREY='F1F3F6';
+
+  const workbook=new ExcelJS.Workbook();
+  workbook.creator='Victoria Tuition Academy';
+  workbook.subject='Grade 9 Natural Sciences CAPS diagnostic';
+  workbook.created=new Date();
+
   const answerText=(q,a)=>{
     if(q.t==='mcq'||q.t==='diagrammcq'){
-      if(a.answer==='') return '—';
+      if(a.answer==='')return '—';
       const idx=Number(a.answer);
-      return Number.isFinite(idx)?`${String.fromCharCode(65+idx)} — ${q.o?.[idx]||''}`:String(a.answer||'');
+      return Number.isFinite(idx)?String(q.o?.[idx]||a.answer):String(a.answer||'—');
     }
     if(q.t==='numeric2'){
-      if(!a.answer) return '—';
-      return `${a.answer}${a.direction?' '+a.direction:''}`;
+      if(!a.answer)return '—';
+      return [a.answer,a.direction||''].filter(Boolean).join(' ');
     }
     return a.answer||'—';
   };
 
-  const workbook=new ExcelJS.Workbook();
-  workbook.creator='Victoria Tuition Academy';
-  workbook.subject='Mitchell Grade 9 Natural Sciences CAPS diagnostic';
-  workbook.created=new Date();
+  const styleHeader=(row)=>{
+    row.eachCell(cell=>{
+      cell.font={bold:true,color:{argb:WHITE},size:10};
+      cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:PURPLE}};
+      cell.alignment={horizontal:'center',vertical:'middle',wrapText:true};
+      cell.border={top:{style:'thin',color:{argb:NAVY}},bottom:{style:'thin',color:{argb:NAVY}},left:{style:'thin',color:{argb:NAVY}},right:{style:'thin',color:{argb:NAVY}}};
+    });
+    row.height=28;
+  };
 
-  const purple='4C1D95', dark='111827', white='FFFFFF', line='E5E7EB',
-        lavender='EDE9FE', grey='F3F4F6', greyText='6B7280',
-        green='DCFCE7', greenText='166534', amber='FEF3C7', amberText='92400E',
-        red='FEE2E2', redText='991B1B';
+  const thinBorder={top:{style:'thin',color:{argb:LINE}},bottom:{style:'thin',color:{argb:LINE}},left:{style:'thin',color:{argb:LINE}},right:{style:'thin',color:{argb:LINE}}};
+  const darkBorder={top:{style:'thin',color:{argb:NAVY}},bottom:{style:'thin',color:{argb:NAVY}},left:{style:'thin',color:{argb:NAVY}},right:{style:'thin',color:{argb:NAVY}}};
 
-  // ---------------- Question Review ----------------
-  const review=workbook.addWorksheet('Question Review',{views:[{state:'frozen',ySplit:4}]});
+  // QUESTION REVIEW
+  const review=workbook.addWorksheet('Question Review',{views:[{state:'frozen',ySplit:5}]});
   review.columns=[
-    {key:'topic',width:25},{key:'subtopic',width:37},{key:'question',width:62},
-    {key:'answer',width:34},{key:'max',width:10},{key:'mark',width:12},
-    {key:'result',width:13},{key:'note',width:34}
+    {width:25},{width:36},{width:62},{width:34},{width:10},{width:10},{width:14}
   ];
-  review.mergeCells('A1:H2');
-  review.getCell('A1').value='MITCHELL — QUESTION REVIEW\nGrade 9 Natural Sciences';
-  review.getCell('A1').font={bold:true,size:17,color:{argb:white}};
-  review.getCell('A1').fill={type:'pattern',pattern:'solid',fgColor:{argb:purple}};
+  review.mergeCells('A1:G2');
+  review.getCell('A1').value='QUESTION REVIEW\nWhat was answered correctly, incorrectly or not attempted';
+  review.getCell('A1').font={bold:true,size:17,color:{argb:WHITE}};
+  review.getCell('A1').fill={type:'pattern',pattern:'solid',fgColor:{argb:NAVY}};
   review.getCell('A1').alignment={vertical:'middle',wrapText:true};
+  review.mergeCells('A3:G3');
+  review.getCell('A3').value='Grade 9 Natural Sciences';
+  review.getCell('A3').font={color:{argb:'64748B'},size:10};
+  review.getCell('A3').fill={type:'pattern',pattern:'solid',fgColor:{argb:'EEF1F5'}};
+  review.addRow([]);
+  const rh=review.addRow(['Topic','Subtopic','Question','Student Answer','Max Mark','Mark','Result']);
+  styleHeader(rh);
 
-  review.getRow(4).values=['Topic','Subtopic','Question','Student Answer','Max Mark','Teacher Mark','Result','Tutor Note'];
-  review.getRow(4).eachCell(c=>{
-    c.font={bold:true,color:{argb:white}};
-    c.fill={type:'pattern',pattern:'solid',fgColor:{argb:dark}};
-    c.alignment={horizontal:'center',vertical:'middle',wrapText:true};
-  });
-
-  const topicRanges=[];
-  let reviewRow=5;
-
+  const subtopicGroups=[];
+  const topicGroups=[];
   for(const topic of topicOrder){
-    const seen=[];
+    const subs=[];
+    const seen=new Set();
     for(const q of qs){
-      const m=mapping[q.id]||['Other','Tutor review'];
-      if(m[0]===topic&&!seen.includes(m[1])) seen.push(m[1]);
+      const m=mapping[q.id]||['Other','Teacher review'];
+      if(m[0]===topic&&!seen.has(m[1])){seen.add(m[1]);subs.push(m[1]);}
     }
-    const topicStart=reviewRow;
-    for(const subtopic of seen){
-      const list=qs.filter(q=>{
-        const m=mapping[q.id]||['Other','Tutor review'];
-        return m[0]===topic&&m[1]===subtopic;
+    const topicStart=review.rowCount+1;
+    for(const sub of subs){
+      const subStart=review.rowCount+1;
+      const qlist=qs.filter(q=>{
+        const m=mapping[q.id]||['Other','Teacher review'];
+        return m[0]===topic&&m[1]===sub;
       });
-      for(const q of list){
+      for(const q of qlist){
         const a=data.answers[q.id]||{};
-        const ans=answerText(q,a);
-        review.getRow(reviewRow).values=[topic,subtopic,`${q.id} — ${q.q}`,ans,q.m,'','', ''];
-        review.getCell(`G${reviewRow}`).value={
-          formula:`IF(D${reviewRow}="—","N/A",IF(F${reviewRow}="","Pending",IF(F${reviewRow}=E${reviewRow},"Correct","Incorrect")))`
-        };
-        review.getCell(`F${reviewRow}`).dataValidation={
-          type:'decimal',operator:'between',allowBlank:true,formulae:[0,5],
-          showErrorMessage:true,errorTitle:'Invalid mark',
-          error:'Enter a mark from 0 to 5 and do not exceed the Max Mark for this question.'
-        };
-        review.getRow(reviewRow).eachCell(c=>{
-          c.alignment={vertical:'top',wrapText:true};
-          c.border={bottom:{style:'thin',color:{argb:line}}};
+        const answer=answerText(q,a);
+        const row=review.addRow([topic,sub,q.q,answer,q.m,'','']);
+        const n=row.number;
+        row.getCell(7).value={formula:`IF(D${n}="—","N/A",IF(F${n}="","Pending",IF(F${n}=E${n},"Correct",IF(F${n}=0,"Incorrect","Partial"))))`};
+        row.getCell(6).dataValidation={type:'decimal',operator:'between',allowBlank:true,formulae:[0,5],showErrorMessage:true,error:'Enter a valid mark.'};
+        row.eachCell(cell=>{
+          cell.alignment={vertical:'top',wrapText:true};
+          cell.border=thinBorder;
+          cell.font={color:{argb:'202938'},size:10};
         });
-        if(ans==='—'){
-          review.getCell(`D${reviewRow}`).font={color:{argb:greyText}};
-          review.getCell(`G${reviewRow}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:grey}};
-          review.getCell(`G${reviewRow}`).font={color:{argb:greyText}};
-        }
-        reviewRow++;
+        row.getCell(6).fill={type:'pattern',pattern:'solid',fgColor:{argb:'FCFCFD'}};
       }
+      const subEnd=review.rowCount;
+      if(subEnd>subStart) review.mergeCells(`B${subStart}:B${subEnd}`);
+      review.getCell(`B${subStart}`).value=sub;
+      review.getCell(`B${subStart}`).font={bold:true,color:{argb:'202938'}};
+      review.getCell(`B${subStart}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:'FAFAFC'}};
+      review.getCell(`B${subStart}`).alignment={vertical:'middle',wrapText:true};
+      subtopicGroups.push([subStart,subEnd]);
     }
-    const topicEnd=reviewRow-1;
-    if(topicEnd>=topicStart) topicRanges.push([topic,topicStart,topicEnd]);
+    const topicEnd=review.rowCount;
+    if(topicEnd>=topicStart){
+      if(topicEnd>topicStart)review.mergeCells(`A${topicStart}:A${topicEnd}`);
+      review.getCell(`A${topicStart}`).value=topic;
+      review.getCell(`A${topicStart}`).font={bold:true,color:{argb:PURPLE},size:11};
+      review.getCell(`A${topicStart}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:PURPLE_LIGHT}};
+      review.getCell(`A${topicStart}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
+      topicGroups.push([topicStart,topicEnd]);
+    }
+  }
+  for(const [start,end] of topicGroups){
+    for(let c=1;c<=7;c++){
+      review.getCell(start,c).border={...review.getCell(start,c).border,top:{style:'thin',color:{argb:NAVY}}};
+      review.getCell(end,c).border={...review.getCell(end,c).border,bottom:{style:'thin',color:{argb:NAVY}}};
+    }
+    review.getCell(start,1).border=darkBorder;
   }
 
-  for(const [topic,start,end] of topicRanges){
-    if(end>start) review.mergeCells(`A${start}:A${end}`);
-    review.getCell(`A${start}`).value=topic;
-    review.getCell(`A${start}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:lavender}};
-    review.getCell(`A${start}`).font={bold:true,color:{argb:purple}};
-    review.getCell(`A${start}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
-  }
-  review.autoFilter={from:'A4',to:`H${reviewRow-1}`};
+  // LEARNING SUMMARY
+  const summary=workbook.addWorksheet('Learning Summary',{views:[{state:'frozen',ySplit:5}]});
+  summary.columns=[{width:25},{width:39},{width:11},{width:11},{width:11},{width:11},{width:11},{width:18}];
+  summary.mergeCells('A1:H2');
+  summary.getCell('A1').value='MITCHELL — LEARNING DIAGNOSTIC\nGrade 9 Natural Sciences';
+  summary.getCell('A1').font={bold:true,size:18,color:{argb:WHITE}};
+  summary.getCell('A1').fill={type:'pattern',pattern:'solid',fgColor:{argb:NAVY}};
+  summary.getCell('A1').alignment={vertical:'middle',wrapText:true};
+  summary.mergeCells('A3:H3');
+  summary.getCell('A3').value=`Assessment date: ${data.date}`;
+  summary.getCell('A3').font={color:{argb:'64748B'},size:10};
+  summary.getCell('A3').fill={type:'pattern',pattern:'solid',fgColor:{argb:'EEF1F5'}};
+  summary.addRow([]);
+  const sh=summary.addRow(['Topic','Subtopic','Questions','Answered','Correct','Incorrect','Score','Learning Status']);
+  styleHeader(sh);
 
-  // ---------------- Learning Snapshot ----------------
-  const snap=workbook.addWorksheet('Learning Snapshot',{views:[{state:'frozen',ySplit:4}]});
-  snap.columns=[
-    {width:27},{width:40},{width:11},{width:11},{width:11},{width:11},{width:11},{width:39}
-  ];
-  snap.mergeCells('A1:H2');
-  snap.getCell('A1').value='MITCHELL — CAPS LEARNING SNAPSHOT\nGrade 9 Natural Sciences';
-  snap.getCell('A1').font={bold:true,size:17,color:{argb:white}};
-  snap.getCell('A1').fill={type:'pattern',pattern:'solid',fgColor:{argb:purple}};
-  snap.getCell('A1').alignment={vertical:'middle',wrapText:true};
-  snap.getRow(4).values=['Topic','Subtopic','Questions','Answered','Correct','Incorrect','Score','Learning Status'];
-  snap.getRow(4).eachCell(c=>{
-    c.font={bold:true,color:{argb:white}};
-    c.fill={type:'pattern',pattern:'solid',fgColor:{argb:dark}};
-    c.alignment={horizontal:'center',vertical:'middle',wrapText:true};
-  });
-
-  let snapRow=5;
-  const snapRanges=[];
+  const summaryTopicGroups=[];
   for(const topic of topicOrder){
-    const seen=[];
+    const subs=[];
+    const seen=new Set();
     for(const q of qs){
-      const m=mapping[q.id]||['Other','Tutor review'];
-      if(m[0]===topic&&!seen.includes(m[1])) seen.push(m[1]);
+      const m=mapping[q.id]||['Other','Teacher review'];
+      if(m[0]===topic&&!seen.has(m[1])){seen.add(m[1]);subs.push(m[1]);}
     }
-    const topicStart=snapRow;
-    for(const subtopic of seen){
-      const n=snapRow;
-      snap.getRow(n).values=[topic,subtopic,'','','','','',''];
-      snap.getCell(`C${n}`).value={formula:`COUNTIF('Question Review'!$B$5:$B$74,B${n})`};
-      snap.getCell(`D${n}`).value={formula:`COUNTIFS('Question Review'!$B$5:$B$74,B${n},'Question Review'!$D$5:$D$74,"<>—")`};
-      snap.getCell(`E${n}`).value={formula:`COUNTIFS('Question Review'!$B$5:$B$74,B${n},'Question Review'!$G$5:$G$74,"Correct")`};
-      snap.getCell(`F${n}`).value={formula:`COUNTIFS('Question Review'!$B$5:$B$74,B${n},'Question Review'!$G$5:$G$74,"Incorrect")`};
-      snap.getCell(`G${n}`).value={formula:`IF(D${n}=0,"—",IF(E${n}+F${n}<D${n},"—",IF(SUMIFS('Question Review'!$E$5:$E$74,'Question Review'!$B$5:$B$74,B${n},'Question Review'!$D$5:$D$74,"<>—")=0,"—",SUMIF('Question Review'!$B$5:$B$74,B${n},'Question Review'!$F$5:$F$74)/SUMIFS('Question Review'!$E$5:$E$74,'Question Review'!$B$5:$B$74,B${n},'Question Review'!$D$5:$D$74,"<>—"))))`};
-      snap.getCell(`G${n}`).numFmt='0%';
-      snap.getCell(`H${n}`).value={formula:`IF(D${n}=0,"N/A",IF(E${n}+F${n}<D${n},"Pending",IF(G${n}>=0.8,"Secure — no re-teaching needed",IF(G${n}>=0.6,"Developing — revise and practise","Re-teach — teach this subtopic again"))))`};
-      snap.getRow(n).eachCell(c=>{
-        c.alignment={vertical:'middle',wrapText:true};
-        c.border={bottom:{style:'thin',color:{argb:line}}};
+    const topicStart=summary.rowCount+1;
+    for(const sub of subs){
+      const row=summary.addRow([topic,sub]);
+      const n=row.number;
+      row.getCell(3).value={formula:`COUNTIF('Question Review'!$B$6:$B$75,B${n})`};
+      row.getCell(4).value={formula:`COUNTIFS('Question Review'!$B$6:$B$75,B${n},'Question Review'!$D$6:$D$75,"<>—")`};
+      row.getCell(5).value={formula:`COUNTIFS('Question Review'!$B$6:$B$75,B${n},'Question Review'!$G$6:$G$75,"Correct")`};
+      row.getCell(6).value={formula:`COUNTIFS('Question Review'!$B$6:$B$75,B${n},'Question Review'!$G$6:$G$75,"Incorrect")+COUNTIFS('Question Review'!$B$6:$B$75,B${n},'Question Review'!$G$6:$G$75,"Partial")`};
+      row.getCell(7).value={formula:`IF(D${n}=0,"—",IF(COUNTIFS('Question Review'!$B$6:$B$75,B${n},'Question Review'!$G$6:$G$75,"Pending")>0,"—",SUMIFS('Question Review'!$F$6:$F$75,'Question Review'!$B$6:$B$75,B${n})/SUMIFS('Question Review'!$E$6:$E$75,'Question Review'!$B$6:$B$75,B${n},'Question Review'!$D$6:$D$75,"<>—")))`};
+      row.getCell(7).numFmt='0%';
+      row.getCell(8).value={formula:`IF(D${n}=0,"N/A",IF(G${n}="—","Pending",IF(G${n}>=0.8,"Secure",IF(G${n}>=0.6,"Developing","Re-teach"))))`};
+      row.eachCell(cell=>{
+        cell.alignment={vertical:'middle',wrapText:true};
+        cell.border=thinBorder;
+        cell.font={color:{argb:'202938'},size:10};
       });
-      snapRow++;
     }
-    const topicEnd=snapRow-1;
-    if(topicEnd>=topicStart) snapRanges.push([topic,topicStart,topicEnd]);
+    const topicEnd=summary.rowCount;
+    if(topicEnd>=topicStart){
+      if(topicEnd>topicStart)summary.mergeCells(`A${topicStart}:A${topicEnd}`);
+      summary.getCell(`A${topicStart}`).value=topic;
+      summary.getCell(`A${topicStart}`).font={bold:true,color:{argb:PURPLE},size:11};
+      summary.getCell(`A${topicStart}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:PURPLE_LIGHT}};
+      summary.getCell(`A${topicStart}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
+      summaryTopicGroups.push([topicStart,topicEnd]);
+    }
+  }
+  for(const [start,end] of summaryTopicGroups){
+    for(let c=1;c<=8;c++){
+      summary.getCell(start,c).border={...summary.getCell(start,c).border,top:{style:'thin',color:{argb:NAVY}}};
+      summary.getCell(end,c).border={...summary.getCell(end,c).border,bottom:{style:'thin',color:{argb:NAVY}}};
+    }
+    summary.getCell(start,1).border=darkBorder;
   }
 
-  for(const [topic,start,end] of snapRanges){
-    if(end>start) snap.mergeCells(`A${start}:A${end}`);
-    snap.getCell(`A${start}`).value=topic;
-    snap.getCell(`A${start}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:lavender}};
-    snap.getCell(`A${start}`).font={bold:true,color:{argb:purple}};
-    snap.getCell(`A${start}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
-  }
-
-  // ---------------- CAPS Reference ----------------
-  const ref=workbook.addWorksheet('CAPS Reference',{views:[{state:'frozen',ySplit:4}]});
-  ref.columns=[{width:28},{width:39},{width:84}];
+  // CAPS REFERENCE
+  const ref=workbook.addWorksheet('CAPS Reference',{views:[{state:'frozen',ySplit:5}]});
+  ref.columns=[{width:27},{width:38},{width:82}];
   ref.mergeCells('A1:C2');
-  ref.getCell('A1').value='GRADE 9 CAPS TEACHING REFERENCE\nNatural Sciences — Topics and subtopics to teach';
-  ref.getCell('A1').font={bold:true,size:17,color:{argb:white}};
-  ref.getCell('A1').fill={type:'pattern',pattern:'solid',fgColor:{argb:purple}};
+  ref.getCell('A1').value='GRADE 9 CAPS TEACHING REFERENCE\nNatural Sciences';
+  ref.getCell('A1').font={bold:true,size:17,color:{argb:WHITE}};
+  ref.getCell('A1').fill={type:'pattern',pattern:'solid',fgColor:{argb:NAVY}};
   ref.getCell('A1').alignment={vertical:'middle',wrapText:true};
-  ref.getRow(4).values=['CAPS Topic','Subtopic','What to teach / what the learner should know'];
-  ref.getRow(4).eachCell(c=>{
-    c.font={bold:true,color:{argb:white}};
-    c.fill={type:'pattern',pattern:'solid',fgColor:{argb:dark}};
-    c.alignment={horizontal:'center',vertical:'middle',wrapText:true};
-  });
+  ref.mergeCells('A3:C3');
+  ref.getCell('A3').value='Detailed teaching checklist for the topics assessed';
+  ref.getCell('A3').font={color:{argb:'64748B'},size:10};
+  ref.getCell('A3').fill={type:'pattern',pattern:'solid',fgColor:{argb:'EEF1F5'}};
+  ref.addRow([]);
+  const rf=ref.addRow(['Topic','Subtopic','What to teach']);
+  styleHeader(rf);
 
   const capsRows=[
-    ['Forces','Types of forces','Distinguish contact and non-contact forces. Contact forces: friction, normal/support force, tension, compression and applied forces. Non-contact/field forces: gravitational, magnetic and electrostatic.'],
-    ['Forces','Vectors and force diagrams','Force has magnitude and direction. Use arrows correctly: arrow length shows magnitude and arrowhead shows direction. Label forces clearly on objects.'],
-    ['Forces','Resultant and balanced forces','Combine forces acting in the same or opposite directions. Identify balanced forces when resultant force is zero and unbalanced forces when resultant force is non-zero.'],
-    ['Forces','Gravity, mass and weight','Distinguish mass and weight. Use W = mg. Explain that mass stays constant while weight changes with gravitational field strength. Describe how gravitational force changes with mass and distance.'],
-    ['Forces','Friction, normal, tension and compression','Explain friction as opposing motion, normal force as support from a surface, tension as a pulling/stretching force and compression as a pushing/squashing force.'],
-    ['Forces','Magnetic forces','Know north and south poles, like poles repel and unlike poles attract. Identify magnetic materials and recognise magnetism as a non-contact force.'],
-    ['Forces','Electrostatics and lightning','Explain electron transfer, positive/negative charge, attraction and repulsion, electrostatic discharge and basic lightning safety.'],
+    ['Forces','Types of forces','Contact forces: friction, normal/support, tension, compression and applied forces.\nNon-contact forces: gravitational, magnetic and electrostatic.\nClassify examples correctly.'],
+    ['Forces','Vectors and force diagrams','Force has magnitude and direction.\nArrow length represents magnitude; arrowhead shows direction.\nDraw and interpret labelled force arrows.'],
+    ['Forces','Resultant and balanced forces','Add forces in the same direction.\nSubtract opposing forces and state the resultant direction.\nBalanced forces give a resultant of 0 N; unbalanced forces give a non-zero resultant.'],
+    ['Forces','Gravity, mass and weight','Differentiate mass (kg) from weight (N).\nUse W = mg.\nExplain why mass stays constant but weight depends on gravitational field strength.\nRelate gravitational force to mass and distance.'],
+    ['Forces','Friction, normal, tension and compression','Friction opposes relative motion.\nNormal force supports an object on a surface.\nTension pulls/stretches.\nCompression pushes/squashes.'],
+    ['Forces','Magnetic forces','North and south poles.\nLike poles repel; unlike poles attract.\nRecognise magnetic materials.\nMagnetic force is non-contact.'],
+    ['Forces','Electrostatics and lightning','Electron transfer and charge imbalance.\nPositive and negative charge.\nLike charges repel; unlike charges attract.\nElectrostatic discharge and lightning safety.'],
 
-    ['Electric Cells','Cells as energy systems','Explain that chemical reactions transfer chemical energy to electrical energy and that a cell is a source of electrical energy in a circuit.'],
-    ['Electric Cells','Cell vs battery','Distinguish one cell from a battery made from two or more cells.'],
-    ['Electric Cells','Simple electrochemical cells','Identify different electrodes, an electrolyte, polarity and a simple zinc-copper or fruit-cell arrangement.'],
-    ['Electric Cells','Cells in series','Explain that identical cells in series increase total potential difference when connected in the same orientation.'],
-    ['Electric Cells','Cells in parallel','Explain that identical cells in parallel provide the potential difference of one cell with alternative current paths.'],
+    ['Electric Cells','Cells as energy systems','Chemical reactions transfer chemical energy to electrical energy.\nA cell supplies electrical energy to a circuit.'],
+    ['Electric Cells','Cell vs battery','A cell is one electrochemical unit.\nA battery contains two or more cells connected together.'],
+    ['Electric Cells','Simple electrochemical cells','Two different electrodes.\nElectrolyte.\nPositive and negative terminals.\nZinc/copper or fruit-cell examples.'],
+    ['Electric Cells','Cells in series','Cells connected end-to-end in the same orientation.\nTotal potential difference increases as cell voltages add.'],
+    ['Electric Cells','Cells in parallel','Positive terminals joined together and negative terminals joined together.\nPotential difference remains approximately that of one identical cell.'],
 
-    ['Resistance','Meaning of resistance','Understand resistance as opposition to electric current in a conductor.'],
-    ['Resistance','Factors affecting resistance','Material: different materials have different resistance. Length: longer wire has greater resistance. Thickness: thicker wire has lower resistance. Temperature: for metals, higher temperature generally increases resistance.'],
-    ['Resistance','Conductors and comparative resistance','Use current measurements under controlled conditions to compare which wires or materials have higher or lower resistance.'],
-    ['Resistance','Uses of resistors','Explain why resistors limit/control current and how electrical energy may be transferred to heat or light in devices.'],
+    ['Resistance','Meaning of resistance','Resistance is opposition to electric current in a conductor.'],
+    ['Resistance','Factors affecting resistance','Material: different materials have different resistance.\nLength: longer conductor → greater resistance.\nThickness: thicker conductor → lower resistance.\nTemperature: for metal conductors, higher temperature generally increases resistance.'],
+    ['Resistance','Comparing conductors','Use current readings under controlled conditions to compare resistance.\nHigher current under the same conditions generally indicates lower resistance.'],
+    ['Resistance','Uses of resistors','Limit or control current.\nTransfer electrical energy to heat and/or light in devices.'],
 
-    ['Series & Parallel Circuits','Series circuit pathways','Recognise a series circuit as one continuous path with components connected one after another.'],
-    ['Series & Parallel Circuits','Current in series circuits','Current is the same at all points in a simple series circuit. Use ammeter readings to determine current elsewhere in the same series path.'],
-    ['Series & Parallel Circuits','Parallel circuit pathways','Recognise branches and junctions. Understand that parallel circuits provide more than one path for current.'],
-    ['Series & Parallel Circuits','Current in parallel circuits','Current splits at a junction and recombines. Total current entering a junction equals the sum of branch currents.'],
-    ['Series & Parallel Circuits','Potential difference in series','The source potential difference is shared across series components; the individual potential differences add to the source potential difference.'],
-    ['Series & Parallel Circuits','Potential difference in parallel','Each complete branch connected across the same source has the same potential difference as the source.'],
-    ['Series & Parallel Circuits','Ammeter connection','Connect an ammeter in series with the path/component whose current is measured.'],
-    ['Series & Parallel Circuits','Voltmeter connection','Connect a voltmeter in parallel across the component whose potential difference is measured.'],
-    ['Series & Parallel Circuits','Adding resistance in series','Adding another resistor in series increases total resistance and usually reduces current from the same source.'],
-    ['Series & Parallel Circuits','Adding branches in parallel','Adding another complete parallel branch provides another path and increases total current drawn from the source.'],
-    ['Series & Parallel Circuits','Applications of parallel circuits','Explain why household lights/appliances are connected in parallel so branches can operate independently.'],
-    ['Series & Parallel Circuits','Circuit diagrams','Draw complete circuits with standard symbols, correct connections, clear junctions and no accidental short circuits.'],
+    ['Series & Parallel Circuits','Series circuit pathways','One continuous path for current.\nComponents connected one after another.'],
+    ['Series & Parallel Circuits','Current in series circuits','Current is the same at all points in a simple series circuit.\nUse an ammeter reading to infer current elsewhere in the same path.'],
+    ['Series & Parallel Circuits','Parallel circuit pathways','Two or more branches/pathways.\nIdentify junctions where current splits or recombines.'],
+    ['Series & Parallel Circuits','Current in parallel circuits','Current divides at a junction.\nTotal current entering a junction equals the sum of branch currents.'],
+    ['Series & Parallel Circuits','Potential difference in series','Source potential difference is shared across series components.\nIndividual potential differences add to the source potential difference.'],
+    ['Series & Parallel Circuits','Potential difference in parallel','Each complete parallel branch connected across the same source has the same potential difference as the source.'],
+    ['Series & Parallel Circuits','Ammeter connection','Connect an ammeter in series with the component or path whose current is being measured.'],
+    ['Series & Parallel Circuits','Voltmeter connection','Connect a voltmeter in parallel across the component whose potential difference is being measured.'],
+    ['Series & Parallel Circuits','Adding resistance in series','Adding a resistor in series increases total resistance and usually decreases current for the same source.'],
+    ['Series & Parallel Circuits','Adding branches in parallel','Adding a complete parallel branch provides another path and increases total current drawn from the source.'],
+    ['Series & Parallel Circuits','Applications of parallel circuits','Household lights and appliances are connected in parallel so branches operate independently.'],
+    ['Series & Parallel Circuits','Circuit diagrams','Use standard circuit symbols.\nShow complete wires and clear junctions.\nDraw cells, lamps, switches, ammeters and voltmeters in correct positions.'],
 
-    ['Scientific Investigations','Independent variable','Identify the factor deliberately changed by the learner.'],
-    ['Scientific Investigations','Dependent variable','Identify the factor measured or observed in response to the change.'],
-    ['Scientific Investigations','Controlled variables / fair test','State important conditions that must remain the same so only the independent variable affects the result.'],
-    ['Scientific Investigations','Hypothesis','Write a testable prediction linking the independent variable to the dependent variable.'],
-    ['Scientific Investigations','Tables and graphs','Record data with headings and units. Plot the correct variables on axes, use suitable scales and identify trends or relationships.'],
-    ['Scientific Investigations','Conclusion','Write a conclusion supported by the results and state the relationship shown by the evidence.'],
-    ['Scientific Investigations','Interpreting evidence','Use tables, graphs and repeated results to compare conditions/materials and justify an answer using evidence.']
+    ['Scientific Investigations','Independent variable','The factor deliberately changed.'],
+    ['Scientific Investigations','Dependent variable','The factor measured or observed.'],
+    ['Scientific Investigations','Controlled variables and fair tests','Conditions kept constant so only the independent variable affects the dependent variable.'],
+    ['Scientific Investigations','Hypotheses','A testable prediction linking the independent and dependent variables.'],
+    ['Scientific Investigations','Tables and graphs','Use clear headings and units.\nIndependent variable on the x-axis; dependent variable on the y-axis.\nUse suitable scales and plot accurately.'],
+    ['Scientific Investigations','Conclusions','State the relationship shown by the results and link the conclusion to evidence.'],
+    ['Scientific Investigations','Interpreting evidence','Use graphs, tables and repeated results to compare conditions and justify conclusions.']
   ];
 
-  let refRow=5;
-  let refTopicStart=5;
-  let previousTopic=capsRows[0][0];
-
-  for(let i=0;i<capsRows.length;i++){
-    const row=capsRows[i];
-    const topic=row[0];
-    if(topic!==previousTopic){
-      const end=refRow-1;
-      if(end>refTopicStart) ref.mergeCells(`A${refTopicStart}:A${end}`);
-      ref.getCell(`A${refTopicStart}`).value=previousTopic;
-      ref.getCell(`A${refTopicStart}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:lavender}};
-      ref.getCell(`A${refTopicStart}`).font={bold:true,color:{argb:purple}};
-      ref.getCell(`A${refTopicStart}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
-      refTopicStart=refRow;
-      previousTopic=topic;
-    }
-    ref.getRow(refRow).values=row;
-    ref.getRow(refRow).eachCell(c=>{
-      c.alignment={vertical:'top',wrapText:true};
-      c.border={bottom:{style:'thin',color:{argb:line}}};
+  const refTopicGroups=[];
+  let lastTopic=null, topicStart=null;
+  for(const rowVals of capsRows){
+    const row=ref.addRow(rowVals);
+    row.eachCell(cell=>{
+      cell.alignment={vertical:'top',wrapText:true};
+      cell.border=thinBorder;
+      cell.font={color:{argb:'202938'},size:10};
     });
-    refRow++;
+    if(lastTopic===null){lastTopic=rowVals[0];topicStart=row.number;}
+    if(rowVals[0]!==lastTopic){
+      refTopicGroups.push([lastTopic,topicStart,row.number-1]);
+      lastTopic=rowVals[0]; topicStart=row.number;
+    }
+  }
+  refTopicGroups.push([lastTopic,topicStart,ref.rowCount]);
+
+  for(const [topic,start,end] of refTopicGroups){
+    if(end>start)ref.mergeCells(`A${start}:A${end}`);
+    ref.getCell(`A${start}`).value=topic;
+    ref.getCell(`A${start}`).font={bold:true,color:{argb:PURPLE},size:11};
+    ref.getCell(`A${start}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:PURPLE_LIGHT}};
+    ref.getCell(`A${start}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
+    ref.getCell(`A${start}`).border=darkBorder;
+    for(let c=1;c<=3;c++){
+      ref.getCell(start,c).border={...ref.getCell(start,c).border,top:{style:'thin',color:{argb:NAVY}}};
+      ref.getCell(end,c).border={...ref.getCell(end,c).border,bottom:{style:'thin',color:{argb:NAVY}}};
+    }
   }
 
-  const lastEnd=refRow-1;
-  if(lastEnd>refTopicStart) ref.mergeCells(`A${refTopicStart}:A${lastEnd}`);
-  ref.getCell(`A${refTopicStart}`).value=previousTopic;
-  ref.getCell(`A${refTopicStart}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:lavender}};
-  ref.getCell(`A${refTopicStart}`).font={bold:true,color:{argb:purple}};
-  ref.getCell(`A${refTopicStart}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
-
-  [review,snap,ref].forEach(ws=>{
-    ws.properties.defaultRowHeight=19;
+  [summary,review,ref].forEach(ws=>{
+    ws.properties.defaultRowHeight=20;
     ws.pageSetup={orientation:'landscape',fitToPage:true,fitToWidth:1,fitToHeight:0};
   });
 
   const buffer=await workbook.xlsx.writeBuffer();
   const safeStudent=(data.student||'Mitchell').replace(/[^a-z0-9_-]+/gi,'_');
-  const filename=`${safeStudent}_CAPS_Diagnostic_${data.date}_${data.submissionId}.xlsx`;
+  const filename=`${safeStudent}_CAPS_Diagnostic_${data.date}.xlsx`;
   return new File([buffer],filename,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 }
 
