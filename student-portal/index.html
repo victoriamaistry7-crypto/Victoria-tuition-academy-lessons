@@ -351,6 +351,46 @@ input,select,textarea{transition:border-color .16s ease,box-shadow .16s ease}
  .note-edit{font-size:11px;min-height:28px}
 }
 </style>
+
+<style id="vta-admin-workflow-polish">
+.admin-dashboard-grid{display:grid;grid-template-columns:1.2fr .9fr .9fr;gap:12px}
+.admin-focus-card{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--panel);box-shadow:0 10px 30px rgba(15,23,42,.045)}
+.admin-focus-card.accent{background:linear-gradient(135deg,#0f172a,#1c2941);color:#fff;border-color:#0f172a}
+.admin-focus-card .eyebrow{font-size:8px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.admin-focus-card.accent .eyebrow{color:#f7a58e}.admin-focus-card .big{font-size:27px;font-weight:900;margin-top:7px;letter-spacing:-.04em}
+.admin-focus-card h4{margin:7px 0 4px;font-size:15px}.admin-focus-card p{margin:0;color:var(--muted);font-size:10px;line-height:1.5}.admin-focus-card.accent p{color:#bdc7d5}
+.dashboard-split{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.dashboard-panel{border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:15px}
+.dashboard-panel-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}.dashboard-panel-head h4{margin:0;font-size:13px}
+.booking-mini,.upcoming-mini{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px 0;border-top:1px solid var(--line)}
+.booking-mini:first-of-type,.upcoming-mini:first-of-type{border-top:0}.booking-mini b,.upcoming-mini b{font-size:11px}.booking-mini p,.upcoming-mini p{font-size:9px;color:var(--muted);margin:3px 0 0;line-height:1.45}
+.month-activity{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.month-activity .chip{font-size:9px}
+.students-grid .student-card.compact{position:relative;overflow:hidden}.students-grid .student-card.compact:after{content:"";position:absolute;right:-28px;top:-28px;width:92px;height:92px;border-radius:50%;background:rgba(229,77,46,.045);pointer-events:none}
+.student-card.compact .student-title h4{font-size:17px}.student-card.compact .student-sub{font-size:11px;line-height:1.4}
+.subtopic-card{cursor:pointer}.subtopic-card:hover{border-color:#b9c6d8;background:#fcfdff}.subtopic-card:after{content:"View details";font-size:9px;font-weight:900;color:#0f376f;position:absolute;right:12px;bottom:9px}
+.subtopic-note-box{padding-bottom:24px}.subtopic-status{padding-right:5px}
+.subtopic-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.subtopic-detail-summary{padding:13px;border:1px solid var(--line);border-radius:14px;background:var(--panel2)}
+.subtopic-detail-summary span{display:block;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.subtopic-detail-summary b{display:block;margin-top:5px;font-size:13px}
+.simple-schedule{display:grid;gap:10px}.schedule-date-group{border:1px solid var(--line);border-radius:17px;background:var(--panel);overflow:hidden}.schedule-date-head{padding:11px 14px;background:var(--panel2);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.schedule-date-head b{font-size:12px}.schedule-date-head span{font-size:9px;color:var(--muted)}
+.schedule-lesson{display:grid;grid-template-columns:70px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 14px;border-top:1px solid var(--line)}.schedule-lesson:first-child{border-top:0}.schedule-lesson .time{font-size:11px;font-weight:900;color:#0f376f}.schedule-lesson h4{margin:0 0 3px;font-size:12px}.schedule-lesson p{margin:0;font-size:9px;color:var(--muted)}
+.chat-layout{border-radius:20px}.chat-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.chat-head-actions{display:flex;gap:6px}.chat-person{transition:background .15s ease}.bubble{position:relative;padding-right:34px}.message-delete{position:absolute;right:6px;top:6px;width:24px;height:24px;border-radius:8px;background:transparent;color:var(--muted);font-size:15px;opacity:0}.bubble:hover .message-delete{opacity:1}.message-delete:hover{background:rgba(15,23,42,.06);color:#b91c1c}
+.composer{padding:12px 14px}.composer input{min-height:44px}.composer button{min-height:44px}
+[data-theme="dark"] .resource-card .icon{background:#283247!important;color:#ffd7ca!important;border:1px solid #39465f}
+[data-theme="dark"] .resource-thumb{background:linear-gradient(135deg,#1c2638,#241d24)!important;border-color:#354057}
+.quiz-live-badge{display:inline-flex;gap:6px;align-items:center;font-size:9px;font-weight:900;color:#147a34}.quiz-live-badge:before{content:"";width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.11)}
+.quiz-main-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}.quiz-main-actions .btn{min-width:104px}.attempt-row{border:1px solid var(--line);padding:11px 12px;margin-top:8px}
+.finance-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.finance-summary-card{padding:17px;border:1px solid var(--line);border-radius:17px;background:var(--panel)}.finance-summary-card span{font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.finance-summary-card b{display:block;font-size:25px;margin-top:6px;letter-spacing:-.04em}.finance-summary-card p{font-size:9px;color:var(--muted);margin:5px 0 0}
+.finance-ledger{display:grid;gap:7px}.finance-ledger-row{display:grid;grid-template-columns:100px 130px minmax(160px,.7fr) minmax(190px,1.2fr) 75px 90px;gap:9px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:13px;background:var(--panel);font-size:10px}.finance-ledger-row.head{background:var(--panel2);font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}.finance-ledger-row .money{text-align:right;font-weight:900}
+.finance-period{margin-top:18px}.finance-period h4{margin:0 0 4px;font-size:14px}.finance-period>p{margin:0 0 10px;font-size:10px;color:var(--muted)}
+@media(max-width:950px){.admin-dashboard-grid{grid-template-columns:1fr 1fr}.admin-focus-card.accent{grid-column:1/-1}.dashboard-split{grid-template-columns:1fr}.finance-ledger-row{grid-template-columns:85px 110px 1fr 75px 85px}.finance-ledger-row>div:nth-child(4){grid-column:2/-1}}
+@media(max-width:760px){
+ .admin-dashboard-grid,.finance-summary-grid{grid-template-columns:1fr 1fr}.admin-focus-card.accent{grid-column:1/-1}
+ .dashboard-split{grid-template-columns:1fr}.subtopic-detail-grid{grid-template-columns:1fr}
+ .schedule-lesson{grid-template-columns:55px minmax(0,1fr)}.schedule-lesson>:last-child{grid-column:2}
+ .chat-layout{height:calc(100dvh - 150px)}.chat-head{padding:12px}.chat-note{display:none}.message-delete{opacity:1}
+ .finance-ledger{overflow-x:auto}.finance-ledger-row{min-width:720px}
+}
+@media(max-width:430px){.admin-dashboard-grid,.finance-summary-grid{grid-template-columns:1fr}.admin-focus-card.accent{grid-column:auto}}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -506,31 +546,19 @@ function curriculumTracker(rows,editable){
   if(!rows.length)return emptyState('No curriculum loaded','Curriculum subtopics will appear here.');
   const subjects=[...new Set(rows.map(x=>x.subject))];
   return '<div class="curriculum-wrap">'+subjects.map(subject=>{
-    const sr=rows.filter(x=>x.subject===subject);
-    const done=sr.filter(x=>curriculumStatus(x.status)==='Completed').length;
+    const sr=rows.filter(x=>x.subject===subject),done=sr.filter(x=>curriculumStatus(x.status)==='Completed').length;
     let out='<div class="curriculum-subject"><div><h4>'+esc(subject)+'</h4><div class="curriculum-total">'+done+' of '+sr.length+' subtopics completed</div></div><span class="chip">'+Math.round(done/Math.max(sr.length,1)*100)+'%</span></div>';
     for(let term=1;term<=4;term++){
-      const tr=sr.filter(x=>Number(x.term_number)===term);
-      if(!tr.length)continue;
-      const td=tr.filter(x=>curriculumStatus(x.status)==='Completed').length;
-      const topics=[...new Set(tr.map(x=>x.topic))];
-      const termKey='term:'+subject+':'+term;
+      const tr=sr.filter(x=>Number(x.term_number)===term);if(!tr.length)continue;
+      const td=tr.filter(x=>curriculumStatus(x.status)==='Completed').length,topics=[...new Set(tr.map(x=>x.topic))],termKey='term:'+subject+':'+term;
       out+='<details class="term-block" data-curr-key="'+esc(termKey)+'" '+(term===1?'open':'')+'><summary><div class="term-title"><div class="term-num">'+term+'</div><div><b>Term '+term+'</b><div class="tiny muted">'+topics.length+' topic'+(topics.length===1?'':'s')+'</div></div></div><div class="term-progress"><b>'+td+' / '+tr.length+'</b><span>subtopics complete</span></div></summary><div class="term-body">';
       for(const topic of topics){
-        const ar=tr.filter(x=>x.topic===topic),ad=ar.filter(x=>curriculumStatus(x.status)==='Completed').length;
-        const topicKey='topic:'+subject+':'+term+':'+topic;
+        const ar=tr.filter(x=>x.topic===topic),ad=ar.filter(x=>curriculumStatus(x.status)==='Completed').length,topicKey='topic:'+subject+':'+term+':'+topic;
         out+='<details class="topic-block" data-curr-key="'+esc(topicKey)+'"><summary><div><b>'+esc(topic)+'</b><span>'+esc(ar[0].strand||'')+'</span></div><span>'+ad+' / '+ar.length+' complete</span></summary><div class="subtopic-list">';
-        out+=ar.map(x=>{
-          const cls=progressClass(x.status),label=progressDisplay(x.status),note=String(x.notes||'').trim();
-          const stat=editable?'<div class="subtopic-status"><span class="subtopic-status-label">Progress</span><select onchange="setCurriculumStatus(\''+x.id+'\',this.value)"><option value="Not started" '+(curriculumStatus(x.status)==='Not started'?'selected':'')+'>Not completed</option><option value="In progress" '+(curriculumStatus(x.status)==='In progress'?'selected':'')+'>In progress</option><option value="Completed" '+(curriculumStatus(x.status)==='Completed'?'selected':'')+'>Completed</option><option value="Revisit" '+(curriculumStatus(x.status)==='Revisit'?'selected':'')+'>Needs revisit</option></select></div>':'<div class="subtopic-status"><span class="subtopic-status-label">Progress</span><span class="progress-badge '+cls+'">'+esc(label)+'</span></div>';
-          const noteBox='<div class="subtopic-note-box"><div class="subtopic-note-title">Tutor note</div>'+(note?'<div class="subtopic-note-text">'+esc(note)+'</div>':'<div class="subtopic-note-empty">No note added yet</div>')+(editable?'<button class="note-edit" onclick="editCurriculumNote(\''+x.id+'\')">'+(note?'Edit note':'Add note')+'</button>':'')+'</div>';
-          return '<div class="subtopic-card" data-progress="'+cls+'"><div class="subtopic-name">'+esc(x.subtopic)+'</div>'+stat+noteBox+'</div>';
-        }).join('');
+        out+=ar.map(x=>{const cls=progressClass(x.status),label=progressDisplay(x.status),note=String(x.notes||'').trim(),taught=String(x.taught_content||'').trim(),issues=String(x.student_issues||'').trim();return '<div class="subtopic-card" data-progress="'+cls+'" onclick="openSubtopicDetail(\''+x.id+'\','+(editable?'true':'false')+')"><div class="subtopic-name">'+esc(x.subtopic)+'</div><div class="subtopic-status"><span class="subtopic-status-label">Progress</span><span class="progress-badge '+cls+'">'+esc(label)+'</span></div><div class="subtopic-note-box"><div class="subtopic-note-title">Summary</div><div class="subtopic-note-text">'+esc(taught||note||issues||'Tap to add/view teaching details')+'</div></div></div>'}).join('');
         out+='</div></details>';
-      }
-      out+='</div></details>';
-    }
-    return out;
+      } out+='</div></details>';
+    } return out;
   }).join('')+'</div>';
 }
 async function setCurriculumStatus(id,value){
@@ -562,10 +590,34 @@ function cycleEarnedHours(id){return (data.lessons||[]).filter(x=>x.student_id==
 function cyclePendingHours(id){return (data.lessons||[]).filter(x=>x.student_id===id&&['Confirmed','Scheduled','Planned'].includes(x.status)&&x.lesson_date>='2026-09-15'&&x.lesson_date<='2026-10-15'&&x.duration_minutes!=null).reduce((a,x)=>a+Number(x.duration_minutes)/60,0)}
 function settingValue(key){const s=(data.settings||[]).find(x=>x.setting_key===key);return s?s.setting_value:null}
 function servicePlan(label,id){return (data.serviceMonthPlans||[]).find(x=>x.plan_label===label&&x.student_id===id)||null}
+
+function monthBounds(offset=0){
+  const d=new Date(today()+'T12:00:00');d.setMonth(d.getMonth()+offset);
+  const start=new Date(d.getFullYear(),d.getMonth(),1),end=new Date(d.getFullYear(),d.getMonth()+1,0);
+  return {start:isoDate(start),end:isoDate(end),label:start.toLocaleDateString?new Date(isoDate(start)+'T12:00:00').toLocaleDateString('en-ZA',{month:'long',year:'numeric'}):isoDate(start)};
+}
+function lessonsInCalendarMonth(offset=0,studentId=null,statuses=['Completed']){
+  const b=monthBounds(offset);
+  return (data.lessons||[]).filter(l=>(!studentId||l.student_id===studentId)&&l.lesson_date>=b.start&&l.lesson_date<=b.end&&statuses.includes(l.status));
+}
+function completedHoursInCalendarMonth(offset=0,studentId=null){
+  return lessonsInCalendarMonth(offset,studentId,['Completed']).reduce((s,l)=>s+Number(l.duration_minutes||0)/60,0);
+}
+function lessonValue(l,rate=150){return (Number(l.duration_minutes||0)/60)*rate}
+function isCatchupLesson(l){return String(l.allocation_bucket||'').toLowerCase().includes('previous')}
+function regularMonthTarget(id){return Number(currentPlanForRaw(id)?.target_hours||0)}
+function currentPlanForRaw(id){return servicePlan('New month',id)}
+function remainingCatchup(id){
+  const p=previousPlanFor(id);if(!p)return 0;
+  const allCompletedAllocated=(data.lessons||[]).filter(x=>x.student_id===id&&x.allocation_bucket==='Previous month'&&x.status==='Completed').reduce((a,x)=>a+Number(x.duration_minutes||0)/60,0);
+  return Math.max(0,Number(p.target_hours||0)-allCompletedAllocated);
+}
+function monthActivityBadge(l){return isCatchupLesson(l)?'<span class="chip orange">Catch-up</span>':'<span class="chip">Regular</span>'}
+
 function bucketCompletedHours(id,bucket){return (data.lessons||[]).filter(x=>x.student_id===id&&x.allocation_bucket===bucket&&x.status==='Completed'&&x.duration_minutes!=null).reduce((a,x)=>a+Number(x.duration_minutes)/60,0)}
-function currentPlanFor(id){const p=servicePlan('New month',id);return p?{...p,completed_hours:bucketCompletedHours(id,'New month')}:null}
+function currentPlanFor(id){const p=currentPlanForRaw(id);return p?{...p,completed_hours:completedHoursInCalendarMonth(0,id)}:null}
 function previousPlanFor(id){return servicePlan('Previous month',id)}
-function planCatchup(id){const p=previousPlanFor(id);return p?Math.max(0,Number(p.target_hours||0)-bucketCompletedHours(id,'Previous month')):0}
+function planCatchup(id){return remainingCatchup(id)}
 function newMonthPlans(){return (data.serviceMonthPlans||[]).filter(x=>x.plan_label==='New month')}
 function previousMonthPlans(){return (data.serviceMonthPlans||[]).filter(x=>x.plan_label==='Previous month')}
 function isoDate(d){const x=new Date(d);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')}
@@ -625,18 +677,22 @@ function renderAdmin(){
   if(tab==='home')adminHome();else if(tab==='students')adminStudents();else if(tab==='schedule')adminSchedule();else if(tab==='messages')adminMessages();else if(tab==='resources')adminResources();else if(tab==='quizzes')adminQuizzes();else if(tab==='finance')adminFinance();
 }
 function adminHome(){
-  const students=(data.students||[]).slice().sort((a,b)=>planCatchup(b.id)-planCatchup(a.id)||a.display_name.localeCompare(b.display_name));
+  const pending=(data.bookings||[]).filter(x=>x.status==='Pending').sort((a,b)=>(a.requested_date+a.requested_time).localeCompare(b.requested_date+b.requested_time));
+  const upcoming=(data.lessons||[]).filter(x=>x.lesson_date>=today()&&!['Cancelled','Rescheduled','Completed'].includes(x.status)).sort((a,b)=>(a.lesson_date+(a.start_time||'')).localeCompare(b.lesson_date+(b.start_time||'')));
   const tasks=(data.tasks||[]).filter(x=>x.status!=='Done').slice().sort((a,b)=>(String(a.due_date||'9999')+String(a.sort_order||0)).localeCompare(String(b.due_date||'9999')+String(b.sort_order||0)));
-  const newLessons=(data.lessons||[]).filter(x=>x.allocation_bucket==='New month'&&!['Cancelled','Rescheduled'].includes(x.status)).sort((a,b)=>(a.lesson_date+(a.start_time||'')).localeCompare(b.lesson_date+(b.start_time||'')));
-  const catchStudents=students.filter(s=>planCatchup(s.id)>0);
-  const top=tasks.slice(0,4);
-  let h='<section class="hero"><div class="tiny strong" style="color:#fca58f">THIS MONTH</div><h2>'+greeting()+', '+esc(data.user.displayName)+'.</h2><p>Your current month is the main view. Previous-month catch-up stays visible without taking over the dashboard.</p></section>';
-  h+=section('This month','Regular allocation for the new month','<button class="btn small primary" onclick="openLesson()">+ Add lesson</button>');
-  h+='<div class="target-strip">'+students.map(targetCard).join('')+'</div>';
-  h+=section('Lessons this month','Only lessons tagged New month');
-  h+='<div class="month-focus"><div class="month-lessons">'+(newLessons.length?newLessons.map(l=>'<div class="month-lesson"><div><b>'+esc(dateFmt(l.lesson_date))+' • '+esc(studentName(l.student_id))+'</b><p>'+esc(timeFmt(l.start_time))+' • '+esc(l.topic||l.subject)+' • '+esc(l.duration_minutes||'?')+' min</p></div>'+status(l.status)+'</div>').join(''):emptyState('No new-month lessons yet','Add the first regular lesson for the new month.'))+'</div><div class="catchup-compact"><h4>Previous month catch-up</h4>'+(catchStudents.length?catchStudents.map(s=>'<div class="catchup-mini"><span>'+esc(s.display_name)+'</span><b>'+planCatchup(s.id).toFixed(0)+'h missing</b></div>').join(''):'<div class="tiny muted">Previous month is fully closed.</div>')+'</div></div>';
-  if(top.length){h+=section('Needs attention','Only the next few admin tasks');h+='<div class="task-list">'+top.map(taskRow).join('')+'</div>'}
-  h+='<details class="previous-month-details"><summary>Previous month details</summary><div style="padding:0 14px 14px">'+previousMonthPlans().map(p=>'<div class="catchup-mini"><span>'+esc(studentName(p.student_id))+' • '+esc(p.status)+'</span><b>'+bucketCompletedHours(p.student_id,'Previous month').toFixed(0)+' / '+Number(p.target_hours||0).toFixed(0)+'h completed</b></div>').join('')+'</div></details>';
+  const thisLessons=lessonsInCalendarMonth(0,null,['Completed']);
+  const thisHours=completedHoursInCalendarMonth(0);
+  const next=upcoming[0];
+  let h='<section class="hero"><div class="tiny strong" style="color:#fca58f">ADMIN WORKSPACE</div><h2>'+greeting()+', '+esc(data.user.displayName)+'.</h2><p>Bookings, upcoming lessons and the few things that need your attention today.</p></section>';
+  h+='<div class="admin-dashboard-grid" style="margin-top:14px"><div class="admin-focus-card accent"><div class="eyebrow">NEXT LESSON</div>'+(next?'<h4>'+esc(studentName(next.student_id))+' · '+esc(next.subject||'Lesson')+'</h4><p>'+esc(dateFmt(next.lesson_date))+' at '+esc(timeFmt(next.start_time))+' · '+esc(next.topic||'Topic not recorded')+'</p><div class="month-activity">'+status(next.status)+'</div>':'<div class="big">Clear</div><p>No future lesson is currently scheduled.</p>')+'</div><div class="admin-focus-card"><div class="eyebrow">BOOKING REQUESTS</div><div class="big">'+pending.length+'</div><p>waiting for your response</p></div><div class="admin-focus-card"><div class="eyebrow">'+esc(monthBounds(0).label.toUpperCase())+'</div><div class="big">'+thisHours.toFixed(1)+'h</div><p>'+thisLessons.length+' completed lesson'+(thisLessons.length===1?'':'s')+' this calendar month</p></div></div>';
+
+  h+=section('Booking requests','New student requests appear here immediately','<button class="btn small" onclick="go(\'schedule\')">Open schedule</button>');
+  h+='<div class="dashboard-panel">'+(pending.length?pending.slice(0,5).map(x=>'<div class="booking-mini"><div><b>'+esc(studentName(x.student_id))+' · '+esc(x.subject)+'</b><p>'+esc(dateFmt(x.requested_date))+' at '+esc(timeFmt(x.requested_time))+' · '+esc(x.duration_minutes)+' min'+(x.topic?' · '+esc(x.topic):'')+'</p></div><div class="row"><button class="btn small primary" onclick="bookingStatus(\''+x.id+'\',\'Confirmed\')">Confirm</button><button class="btn small danger" onclick="bookingStatus(\''+x.id+'\',\'Declined\')">Decline</button></div></div>').join(''):emptyState('No booking requests','New requests will show here.'))+'</div>';
+
+  h+='<div class="dashboard-split" style="margin-top:14px"><div class="dashboard-panel"><div class="dashboard-panel-head"><h4>Upcoming lessons</h4><button class="btn small primary" onclick="openLesson()">+ Lesson</button></div>'+(upcoming.length?upcoming.slice(0,6).map(l=>'<div class="upcoming-mini"><div><b>'+esc(studentName(l.student_id))+' · '+esc(l.subject||'Lesson')+'</b><p>'+esc(dateFmt(l.lesson_date))+' · '+esc(timeFmt(l.start_time))+' · '+esc(l.topic||'Topic not recorded')+'</p></div>'+status(l.status)+'</div>').join(''):emptyState('No upcoming lessons','Add a lesson when you are ready.'))+'</div><div class="dashboard-panel"><div class="dashboard-panel-head"><h4>To-do</h4><button class="btn small" onclick="openTaskCreate()">+ Task</button></div>'+(tasks.length?'<div class="task-list">'+tasks.slice(0,6).map(taskRow).join('')+'</div>':emptyState('Nothing urgent','Your open tasks will appear here.'))+'</div></div>';
+
+  h+=section('Lessons completed this month','Counted by lesson date — catch-up remains labelled separately');
+  h+='<div class="list">'+(thisLessons.length?thisLessons.slice().sort((a,b)=>b.lesson_date.localeCompare(a.lesson_date)).map(l=>'<div class="list-row"><div><h4>'+esc(dateFmt(l.lesson_date))+' · '+esc(studentName(l.student_id))+'</h4><p>'+esc(l.subject||'Lesson')+' · '+esc(l.topic||'Topic not recorded')+' · '+esc(l.duration_minutes||'?')+' min</p></div><div class="row">'+monthActivityBadge(l)+status(l.status)+'</div></div>').join(''):emptyState('No completed lessons yet','Completed lessons dated this month will appear here.'))+'</div>';
   $('#content').innerHTML=h;
 }
 function weekView(lessons){
@@ -651,67 +707,75 @@ function weekView(lessons){
 }
 function lessonRow(l){const n=studentName(l.student_id),action=role()==='ADMIN'?'<button class="btn small" onclick="openLessonWorkflow(\''+l.id+'\')">Plan</button>':'';return '<div class="list-row lesson"><div class="date"><b>'+new Date(l.lesson_date+'T12:00:00').getDate()+'</b><span class="tiny muted">'+new Date(l.lesson_date+'T12:00:00').toLocaleDateString('en-ZA',{month:'short'})+'</span></div><div><h4>'+esc(n)+' • '+esc(l.subject||'Lesson')+'</h4><p>'+esc(l.topic||'Topic not recorded')+' • '+esc(timeFmt(l.start_time))+' • '+esc(l.duration_minutes)+' min</p></div><div class="row">'+status(l.status)+action+'</div></div>'}
 function adminStudents(){
-  const students=(data.students||[]).slice().sort((a,b)=>planCatchup(b.id)-planCatchup(a.id)||a.display_name.localeCompare(b.display_name));
-  let h=section('Students','Current month allocation and previous catch-up at a glance','<button class="btn small primary" onclick="openStudentCreate()">+ Student</button>');
+  const students=(data.students||[]).slice().sort((a,b)=>a.display_name.localeCompare(b.display_name));
+  let h=section('Students','Progress, current month activity and curriculum in one place','<button class="btn small primary" onclick="openStudentCreate()">+ Student</button>');
   h+='<div class="students-grid">'+students.map(s=>{
-    const cr=(data.curriculumSubtopics||[]).filter(x=>x.student_id===s.id);
-    const done=cr.filter(x=>curriculumStatus(x.status)==='Completed').length;
-    const pct=cr.length?Math.round(done/cr.length*100):0;
-    const p=currentPlanFor(s.id),prev=previousPlanFor(s.id);
-    const target=Number(p?.target_hours||0),current=Number(p?.completed_hours||0),weekly=Number(p?.weekly_target_hours||0),catchup=planCatchup(s.id);
-    return '<div class="card student-card compact">'+
-      '<div class="student-top"><div class="student-title"><div class="period-label">NEW MONTH</div><h4>'+esc(s.display_name)+'</h4></div>'+status(s.active===false?'Inactive':'Active')+'</div>'+
-      '<div class="student-sub">'+esc(s.grade||'Grade not set')+' • '+esc(s.subjects||'Subjects not set')+'</div>'+
-      '<div class="month-allocation"><div class="allocation-head"><span>REGULAR ALLOCATION</span><b>'+current.toFixed(1)+' / '+target.toFixed(0)+'h</b></div><div class="allocation-foot"><span>'+weekly.toFixed(0)+'h per week</span><span>R'+(target*150).toFixed(0)+' monthly value</span></div><div class="progress" style="margin-top:9px"><i style="width:'+(target?Math.min(100,Math.round(current/target*100)):0)+'%"></i></div></div>'+
-      (catchup?'<div class="catchup-pill"><b>'+catchup.toFixed(0)+'h previous-month catch-up</b><span>'+esc(prev?.status||'Outstanding')+'</span></div>':'<div class="prev-clear">✓ Previous month complete</div>')+
-      '<div class="curriculum-mini"><div class="curr-row"><span>Curriculum progress</span><span>'+pct+'%</span></div><div class="progress"><i style="width:'+pct+'%"></i></div></div>'+
-      '<button class="btn small student-open" onclick="studentDetail(\''+s.id+'\')">Open student</button>'+
-    '</div>';
-  }).join('')+'</div>';
-  $('#content').innerHTML=h;
+    const cr=(data.curriculumSubtopics||[]).filter(x=>x.student_id===s.id),done=cr.filter(x=>curriculumStatus(x.status)==='Completed').length,pct=cr.length?Math.round(done/cr.length*100):0;
+    const p=currentPlanFor(s.id),target=Number(p?.target_hours||0),monthHours=completedHoursInCalendarMonth(0,s.id),catchup=remainingCatchup(s.id);
+    const monthLs=lessonsInCalendarMonth(0,s.id,['Completed']);
+    return '<div class="card student-card compact"><div class="student-top"><div class="student-title"><div class="period-label">'+esc(monthBounds(0).label.toUpperCase())+'</div><h4>'+esc(s.display_name)+'</h4></div>'+status(s.active===false?'Inactive':'Active')+'</div><div class="student-sub">'+esc(s.grade||'Grade not set')+' · '+esc(s.subjects||'Subjects not set')+'</div><div class="month-allocation"><div class="allocation-head"><span>LESSONS THIS MONTH</span><b>'+monthHours.toFixed(1)+' / '+target.toFixed(0)+'h</b></div><div class="allocation-foot"><span>'+monthLs.length+' lesson'+(monthLs.length===1?'':'s')+' completed</span><span>'+catchup.toFixed(0)+'h catch-up left</span></div><div class="progress" style="margin-top:9px"><i style="width:'+(target?Math.min(100,Math.round(monthHours/target*100)):0)+'%"></i></div></div><div class="curriculum-mini"><div class="curr-row"><span>Curriculum progress</span><span>'+pct+'%</span></div><div class="progress"><i style="width:'+pct+'%"></i></div></div><button class="btn small student-open" onclick="studentDetail(\''+s.id+'\')">Open student</button></div>'
+  }).join('')+'</div>';$('#content').innerHTML=h;
 }
+
+function openSubtopicDetail(id,editable){
+  const r=(data.curriculumSubtopics||[]).find(x=>x.id===id);if(!r)return;
+  const top='<div class="subtopic-detail-grid"><div class="subtopic-detail-summary"><span>Topic</span><b>'+esc(r.topic||'')+'</b></div><div class="subtopic-detail-summary"><span>Subtopic</span><b>'+esc(r.subtopic||'')+'</b></div></div>';
+  if(!editable){
+    const body=top+'<div class="subtopic-detail-grid" style="margin-top:12px"><div class="subtopic-detail-summary"><span>Progress</span><b>'+esc(progressDisplay(r.status))+'</b></div><div class="subtopic-detail-summary"><span>What was taught</span><b>'+esc(r.taught_content||'Not recorded yet')+'</b></div></div><div class="subtopic-detail-summary" style="margin-top:12px"><span>Areas to improve</span><b>'+esc(r.student_issues||'No issue recorded')+'</b></div><div class="subtopic-detail-summary" style="margin-top:12px"><span>Tutor note</span><b>'+esc(r.notes||'No note added')+'</b></div>';
+    modal(r.subtopic,body,'<button class="btn primary" onclick="closeModal()">Close</button>');return;
+  }
+  const body=top+'<div class="field" style="margin-top:13px"><label>Progress</label><select id="sdStatus"><option value="Not started" '+(curriculumStatus(r.status)==='Not started'?'selected':'')+'>Not completed</option><option value="In progress" '+(curriculumStatus(r.status)==='In progress'?'selected':'')+'>In progress</option><option value="Completed" '+(curriculumStatus(r.status)==='Completed'?'selected':'')+'>Completed</option><option value="Revisit" '+(curriculumStatus(r.status)==='Revisit'?'selected':'')+'>Needs revisit</option></select></div><div class="field" style="margin-top:12px"><label>What was taught / covered</label><textarea id="sdTaught" placeholder="Concepts, examples, calculations or skills covered in the lesson.">'+esc(r.taught_content||'')+'</textarea></div><div class="field" style="margin-top:12px"><label>Student difficulties / issues</label><textarea id="sdIssues" placeholder="What the student struggled with or needs to practise.">'+esc(r.student_issues||'')+'</textarea></div><div class="field" style="margin-top:12px"><label>Tutor note</label><textarea id="sdNotes" placeholder="Any extra observation, homework or next step.">'+esc(r.notes||'')+'</textarea></div>';
+  modal('Subtopic details · '+r.subtopic,body,'<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveSubtopicDetail(\''+id+'\')">Save details</button>');
+}
+async function saveSubtopicDetail(id){
+  const r=(data.curriculumSubtopics||[]).find(x=>x.id===id),open=curriculumOpenKeys();if(!r)return;
+  try{const payload={action:'curriculumSubtopicUpdate',id,status:$('#sdStatus').value,taughtContent:$('#sdTaught').value,studentIssues:$('#sdIssues').value,notes:$('#sdNotes').value};await api(payload);r.status=payload.status;r.taught_content=payload.taughtContent;r.student_issues=payload.studentIssues;r.notes=payload.notes;closeModal();toast('Subtopic details saved');render();restoreCurriculumOpenKeys(open)}catch(err){toast(err.message)}
+}
+
 function studentDetail(id){
-  const s=(data.students||[]).find(x=>x.id===id);if(!s)return;const tp=(data.topicProgress||[]).filter(x=>x.student_id===id);const ls=(data.lessons||[]).filter(x=>x.student_id===id).sort((a,b)=>b.lesson_date.localeCompare(a.lesson_date));const rs=(data.resources||[]).filter(x=>x.student_id===id);const plan=(data.plans||[]).filter(x=>x.student_id===id).sort((a,b)=>String(b.month_key).localeCompare(String(a.month_key)))[0];
-  let h='<div class="row between wrap"><div><button class="btn small" onclick="go(\'students\')">← Students</button><h2 style="margin:14px 0 3px">'+esc(s.display_name)+'</h2><div class="muted">'+esc(s.grade||'')+' • '+esc(s.curriculum||'')+' • '+esc(s.subjects||'')+'</div></div><div class="row wrap"><button class="btn small" onclick="editStudent(\''+id+'\')">Edit profile</button><button class="btn small" onclick="resetPassword(\''+id+'\')">Reset password</button><button class="btn small primary" onclick="openTopic(\''+id+'\')">+ Syllabus topic</button></div></div>';
-  const routine=routineFor(id),cur=currentPlanFor(id),prev=previousPlanFor(id),stats=lessonStats(id),catchup=planCatchup(id);
-  h+=section('Lesson plan & catch-up','Current allocation is kept separate from all-time history','<button class="btn small" onclick="editRoutine(\''+id+'\')">Edit routine</button>');
-  h+='<div class="routine-card"><div class="routine-stat"><span>New month target</span><b>'+Number(cur?.target_hours||0).toFixed(0)+'h</b></div><div class="routine-stat"><span>Weekly rhythm</span><b>'+Number(cur?.weekly_target_hours||0).toFixed(0)+'h/week</b></div><div class="routine-stat"><span>Previous catch-up</span><b>'+catchup.toFixed(0)+'h</b></div><div class="routine-stat"><span>All-time completed</span><b>'+stats.completed+' sessions</b></div></div>'+(prev?.notes?'<div class="card soft" style="margin-top:9px"><b class="tiny">Previous month</b><div class="tiny muted" style="margin-top:4px">'+esc(prev.notes)+'</div></div>':'');
-  h+=section('Monthly learning plan','What this student is working toward');
-  h+='<div class="card">'+(plan?'<b>'+esc(plan.month_key)+'</b><p>'+esc(plan.goal||'No goal recorded')+'</p><div class="topic-picks">'+(plan.focus_topics||[]).map(x=>'<span class="chip orange">'+esc(x)+'</span>').join('')+'</div>':'<span class="muted">No plan recorded.</span>')+'<div style="margin-top:12px"><button class="btn small" onclick="editPlan(\''+id+'\')">Edit plan</button></div></div>';
+  const s=(data.students||[]).find(x=>x.id===id);if(!s)return;
+  const ls=(data.lessons||[]).filter(x=>x.student_id===id).sort((a,b)=>b.lesson_date.localeCompare(a.lesson_date)),rs=(data.resources||[]).filter(x=>x.student_id===id);
+  const cur=currentPlanFor(id),stats=lessonStats(id),catchup=remainingCatchup(id),monthHours=completedHoursInCalendarMonth(0,id);
+  let h='<div class="row between wrap"><div><button class="btn small" onclick="go(\'students\')">← Students</button><h2 style="margin:14px 0 3px">'+esc(s.display_name)+'</h2><div class="muted">'+esc(s.grade||'')+' · '+esc(s.curriculum||'')+' · '+esc(s.subjects||'')+'</div></div><div class="row wrap"><button class="btn small" onclick="editStudent(\''+id+'\')">Edit profile</button><button class="btn small" onclick="resetPassword(\''+id+'\')">Reset password</button></div></div>';
+  h+=section('Student overview','Current month activity and overall progress','<button class="btn small" onclick="editRoutine(\''+id+'\')">Edit routine</button>');
+  h+='<div class="routine-card"><div class="routine-stat"><span>'+esc(monthBounds(0).label)+' lessons</span><b>'+monthHours.toFixed(1)+'h</b></div><div class="routine-stat"><span>Monthly target</span><b>'+Number(cur?.target_hours||0).toFixed(0)+'h</b></div><div class="routine-stat"><span>Catch-up remaining</span><b>'+catchup.toFixed(0)+'h</b></div><div class="routine-stat"><span>All-time completed</span><b>'+stats.completed+' sessions</b></div></div>';
   const curriculum=(data.curriculumSubtopics||[]).filter(x=>x.student_id===id);
-  h+=section('Curriculum tracker','Term → topic → subtopic. Update each subtopic independently.');
+  h+=section('Topics & subtopics','Open a topic, then tap a subtopic for exactly what was taught, progress, issues and notes.');
   h+=curriculumTracker(curriculum,true);
-  h+=section('Lesson history','Recorded teaching sessions');
-  h+='<div class="list">'+(ls.length?ls.map(lessonRow).join(''):'<div class="card muted">No lessons recorded.</div>')+'</div>';
-  h+=section('Resources','Interactive lessons, notes, slides, PDFs and worksheets');
-  h+=resourceCards(rs,true);
-  const lps=(data.lessonPlans||[]).filter(x=>x.student_id===id);
-  h+=section('Lesson plans','What you plan to teach this student','<button class="btn small primary" onclick="openLessonPlan(\''+id+'\')">+ Lesson plan</button>');
-  h+='<div class="list">'+(lps.length?lps.map(lessonPlanCard).join(''):'<div class="card muted">No lesson plans uploaded yet.</div>')+'</div>';
-  const subs=(data.submissions||[]).filter(x=>x.student_id===id);
-  h+=section('Work sent','Homework, assessments and files sent by this student');
-  h+='<div class="list">'+(subs.length?subs.map(submissionAdminRow).join(''):'<div class="card muted">No work submitted yet.</div>')+'</div>';
+  h+=section('Lesson history','Dates, subjects and topics actually taught');h+='<div class="list">'+(ls.length?ls.map(lessonRow).join(''):emptyState('No lessons recorded','Completed and scheduled lessons will appear here.'))+'</div>';
+  h+=section('Resources','Interactive lessons, notes, slides, PDFs and worksheets');h+=resourceCards(rs,true);
+  const lps=(data.lessonPlans||[]).filter(x=>x.student_id===id);h+=section('Lesson plans','Teaching plans for this student','<button class="btn small primary" onclick="openLessonPlan(\''+id+'\')">+ Lesson plan</button>');h+='<div class="list">'+(lps.length?lps.map(lessonPlanCard).join(''):emptyState('No lesson plans yet','Add one when needed.'))+'</div>';
+  const subs=(data.submissions||[]).filter(x=>x.student_id===id);h+=section('Work sent','Homework, assessments and files from the student');h+='<div class="list">'+(subs.length?subs.map(submissionAdminRow).join(''):emptyState('No work submitted yet','Submitted work will appear here.'))+'</div>';
   $('#content').innerHTML=h;
 }
 function adminSchedule(){
-  if(!scheduleAnchor)scheduleAnchor=today();
-  const b=data.bookings||[],pending=b.filter(x=>x.status==='Pending'),lessons=data.lessons||[],needs=lessons.filter(x=>x.status==='Needs confirmation');
-  let h=section('Schedule','Switch between Day, 3 Days, 7 Days, Month and Year','<button class="btn small primary" onclick="openLesson()">+ Add lesson</button>');
-  if(needs.length){h+=section('Confirm past lessons','These are not counted until you confirm them');h+='<div class="list">'+needs.map(l=>'<div class="list-row"><div><h4>'+esc(studentName(l.student_id))+' • '+esc(l.subject||'Lesson')+'</h4><p>'+esc(dateFmt(l.lesson_date))+' • '+esc(timeFmt(l.start_time))+' • '+esc(l.duration_minutes||'?')+' min</p></div><div class="confirm-actions"><button class="btn primary" onclick="setLessonStatus(\''+l.id+'\',\'Completed\')">Completed</button><button class="btn" onclick="setLessonStatus(\''+l.id+'\',\'Cancelled\')">Did not happen</button></div></div>').join('')+'</div>'}
-  if(pending.length){h+=section('Booking requests','Student requests waiting for you');h+='<div class="list">'+pending.map(x=>'<div class="list-row"><div><h4>'+esc(studentName(x.student_id))+' • '+esc(x.subject)+'</h4><p>'+dateFmt(x.requested_date)+' at '+timeFmt(x.requested_time)+' • '+esc(x.duration_minutes)+' min</p></div><div class="row"><button class="btn small primary" onclick="bookingStatus(\''+x.id+'\',\'Confirmed\')">Confirm</button><button class="btn small danger" onclick="bookingStatus(\''+x.id+'\',\'Declined\')">Decline</button></div></div>').join('')+'</div>'}
-  h+=section('Teaching calendar','Lesson records');
-  h+=calendarToolbar()+lessonCalendar();
-  const cal=(data.schedule||[]).filter(x=>x.source==='Google Calendar'&&x.event_date>=today()).sort((a,b)=>(a.event_date+a.start_time).localeCompare(b.event_date+b.start_time)).slice(0,10);
-  h+='<details class="previous-month-details"><summary>Google Calendar events</summary><div class="calendar-sync" style="padding:0 12px 12px">'+(cal.length?cal.map(e=>'<div class="calendar-event"><div class="calendar-time">'+esc(dateFmt(e.event_date).replace(' 2026',''))+'<br>'+esc(timeFmt(e.start_time))+'</div><div><b>'+esc(e.title)+'</b><p>'+esc(e.description||'')+'</p></div><div><span class="source-chip">GOOGLE</span>'+(e.google_event_url?'<br><a href="'+esc(e.google_event_url)+'" target="_blank" rel="noopener">Open event</a>':'')+'</div></div>').join(''):emptyState('No upcoming Google events','No future Google events in the synced window.'))+'</div></details>';
+  const pending=(data.bookings||[]).filter(x=>x.status==='Pending'),needs=(data.lessons||[]).filter(x=>x.status==='Needs confirmation');
+  const lessons=(data.lessons||[]).filter(x=>!['Cancelled','Rescheduled'].includes(x.status)).slice().sort((a,b)=>(a.lesson_date+(a.start_time||'')).localeCompare(b.lesson_date+(b.start_time||'')));
+  const upcoming=lessons.filter(x=>x.lesson_date>=today()),month=monthBounds(0),monthLessons=lessons.filter(x=>x.lesson_date>=month.start&&x.lesson_date<=month.end);
+  let h=section('Schedule','Your actual lesson schedule — no extra calendar feed','<button class="btn small primary" onclick="openLesson()">+ Add lesson</button>');
+  if(needs.length){h+=section('Past lessons to confirm','Confirm whether these happened');h+='<div class="list">'+needs.map(l=>'<div class="list-row"><div><h4>'+esc(studentName(l.student_id))+' · '+esc(l.subject||'Lesson')+'</h4><p>'+esc(dateFmt(l.lesson_date))+' · '+esc(timeFmt(l.start_time))+' · '+esc(l.topic||'')+'</p></div><div class="confirm-actions"><button class="btn primary" onclick="setLessonStatus(\''+l.id+'\',\'Completed\')">Completed</button><button class="btn" onclick="setLessonStatus(\''+l.id+'\',\'Cancelled\')">Did not happen</button></div></div>').join('')+'</div>'}
+  if(pending.length){h+=section('Booking requests','Waiting for your response');h+='<div class="list">'+pending.map(x=>'<div class="list-row"><div><h4>'+esc(studentName(x.student_id))+' · '+esc(x.subject)+'</h4><p>'+esc(dateFmt(x.requested_date))+' at '+esc(timeFmt(x.requested_time))+' · '+esc(x.duration_minutes)+' min</p></div><div class="row"><button class="btn small primary" onclick="bookingStatus(\''+x.id+'\',\'Confirmed\')">Confirm</button><button class="btn small danger" onclick="bookingStatus(\''+x.id+'\',\'Declined\')">Decline</button></div></div>').join('')+'</div>'}
+  h+=section('Upcoming lessons','Next scheduled sessions');h+='<div class="simple-schedule">'+(upcoming.length?upcoming.slice(0,12).map(l=>'<div class="schedule-date-group"><div class="schedule-lesson"><div class="time">'+esc(timeFmt(l.start_time))+'</div><div><h4>'+esc(dateFmt(l.lesson_date))+' · '+esc(studentName(l.student_id))+'</h4><p>'+esc(l.subject||'Lesson')+' · '+esc(l.topic||'Topic not recorded')+' · '+esc(l.duration_minutes||'?')+' min</p></div>'+status(l.status)+'</div></div>').join(''):emptyState('No upcoming lessons','Scheduled lessons will appear here.'))+'</div>';
+  h+=section(month.label,'All lesson records dated this month');
+  h+='<div class="simple-schedule">'+(monthLessons.length?monthLessons.map(l=>'<div class="schedule-date-group"><div class="schedule-lesson"><div class="time">'+esc(timeFmt(l.start_time))+'</div><div><h4>'+esc(dateFmt(l.lesson_date))+' · '+esc(studentName(l.student_id))+'</h4><p>'+esc(l.subject||'Lesson')+' · '+esc(l.topic||'Topic not recorded')+' · '+esc(l.duration_minutes||'?')+' min</p></div><div class="row">'+monthActivityBadge(l)+status(l.status)+'</div></div></div>').join(''):emptyState('No lessons this month','Any lesson dated this month will appear here.'))+'</div>';
   $('#content').innerHTML=h;
 }
 function adminMessages(){
   const students=data.students||[];if(!chatStudent&&students[0])chatStudent=students[0].id;
-  let h=section('Messages','Private portal messages — separate from WhatsApp');
-  h+='<div class="chat-layout"><div class="chat-people">'+students.map(s=>'<div class="chat-person '+(chatStudent===s.id?'active':'')+'" onclick="chatStudent=\''+s.id+'\';adminMessages()"><strong>'+esc(s.display_name)+'</strong><p>'+esc(s.grade||'Student')+'</p></div>').join('')+'</div><div class="chat-main"><div class="chat-head"><span>'+esc(studentName(chatStudent))+'</span><span class="chat-note">Portal inbox</span></div><div id="messages" class="messages">'+chatHtml(chatStudent)+'</div><form class="composer" onsubmit="sendMessage(event,\''+chatStudent+'\')"><input id="msg" placeholder="Type a portal message…" autocomplete="off"><button class="btn primary">Send</button></form></div></div>';
+  let h=section('Messages','Private messages with your students');
+  h+='<div class="chat-layout"><div class="chat-people">'+students.map(s=>'<div class="chat-person '+(chatStudent===s.id?'active':'')+'" onclick="chatStudent=\''+s.id+'\';adminMessages()"><strong>'+esc(s.display_name)+'</strong><p>'+esc(s.grade||'Student')+'</p></div>').join('')+'</div><div class="chat-main"><div class="chat-head"><span>'+esc(studentName(chatStudent))+'</span><div class="chat-head-actions"><button class="btn small danger" onclick="askClearChat(\''+chatStudent+'\')">Clear chat</button></div></div><div id="messages" class="messages">'+chatHtml(chatStudent)+'</div><form class="composer" onsubmit="sendMessage(event,\''+chatStudent+'\')"><input id="msg" placeholder="Type a message…" autocomplete="off"><button class="btn primary">Send</button></form></div></div>';
   $('#content').innerHTML=h;setTimeout(()=>{const m=$('#messages');if(m)m.scrollTop=m.scrollHeight},30);
 }
-function chatHtml(id){const msgs=(data.messages||[]).filter(x=>x.student_id===id).sort((a,b)=>String(a.created_at).localeCompare(String(b.created_at)));return msgs.length?msgs.map(m=>'<div class="bubble-wrap '+(m.sender_id===data.user.id?'me':'')+'"><div class="bubble">'+esc(m.body)+'<time>'+new Date(m.created_at).toLocaleString('en-ZA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+'</time></div></div>').join(''):'<div class="muted" style="text-align:center;margin-top:50px">No messages yet.</div>'}
+function chatHtml(id){
+  const msgs=(data.messages||[]).filter(x=>x.student_id===id).sort((a,b)=>String(a.created_at).localeCompare(String(b.created_at)));
+  return msgs.length?msgs.map(m=>'<div class="bubble-wrap '+(m.sender_id===data.user.id?'me':'')+'"><div class="bubble">'+esc(m.body)+'<button class="message-delete" title="Delete message" onclick="event.stopPropagation();askDeleteMessage(\''+m.id+'\')">×</button><time>'+new Date(m.created_at).toLocaleString('en-ZA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+'</time></div></div>').join(''):'<div class="muted" style="text-align:center;margin-top:50px">No messages yet.</div>'
+}
+
+function askDeleteMessage(id){modal('Delete message','<p style="margin:0">Remove this message from the portal conversation?</p>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn danger" onclick="deleteMessage(\''+id+'\')">Delete</button>')}
+async function deleteMessage(id){try{await api({action:'messageDelete',id});closeModal();toast('Message deleted');await sync()}catch(err){toast(err.message)}}
+function askClearChat(id){modal('Clear conversation','<p style="margin:0">Delete all portal messages in this conversation? This cannot be undone.</p>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn danger" onclick="clearChat(\''+id+'\')">Clear chat</button>')}
+async function clearChat(id){try{await api({action:'messageClear',studentId:id});closeModal();toast('Conversation cleared');await sync()}catch(err){toast(err.message)}}
+
 async function sendMessage(e,id){e.preventDefault();const inp=$('#msg');const v=inp.value.trim();if(!v)return;inp.value='';try{await api({action:'messageSend',studentId:id,message:v});await sync()}catch(err){toast(err.message)}}
 function resourceCards(rs,admin,featured=false){
   if(!rs.length)return '<div class="card muted">No resources here yet.</div>';
@@ -776,51 +840,38 @@ async function uploadQuizReport(id){
   }catch(err){toast(err.message)}
 }
 
+
+async function publishQuiz(id){try{await api({action:'quizPublish',id});toast('Quiz sent to student');await sync()}catch(err){toast(err.message)}}
+async function previewBrowserQuiz(id){try{const r=await api({action:'quizGet',id});const qs=r.questions||[];modal(r.quiz?.title||'Quiz preview','<div class="review-report">'+qs.map((q,i)=>(i+1)+'. '+q.prompt+(q.options?.length?'\n   '+q.options.join(' · '):'')).join('\n\n')+'</div>','<button class="btn primary" onclick="closeModal()">Close preview</button>')}catch(err){toast(err.message)}}
+
 function adminQuizzes(){
   const qs=(data.quizzes||[]).slice().sort((a,b)=>String(b.scheduled_for||b.created_at).localeCompare(String(a.scheduled_for||a.created_at)));
-  let h=section('Quizzes','Create, link and review quizzes. Reports stay attached to the correct quiz.','<div class="quiz-actions"><button class="btn small" onclick="openQuizUpload()">Upload quiz file</button><button class="btn small primary" onclick="openQuizCreate()">+ Build browser quiz</button></div>');
+  let h=section('Quizzes','Create or upload, preview it, send it to the student, then watch submissions arrive','<div class="quiz-actions"><button class="btn small" onclick="openQuizUpload()">Upload quiz file</button><button class="btn small primary" onclick="openQuizCreate()">+ Build browser quiz</button></div>');
   h+='<div class="list">'+(qs.length?qs.map(q=>{
-    const at=(data.quizAttempts||[]).filter(a=>a.quiz_id===q.id).sort((a,b)=>String(b.completed_at).localeCompare(String(a.completed_at)));
-    const when=q.scheduled_for?dateFmt(q.scheduled_for):'Not scheduled',link=quizLinkFor(q.id),report=quizReportFor(q.id);
-    let openBtn=link?'<button class="btn small" onclick="openResource(\''+link.id+'\')">Open quiz</button>':((q.quiz_mode==='Uploaded file'||q.storage_path)?'<button class="btn small" onclick="openQuizFile(\''+q.id+'\')">Open quiz</button>':'');
-    return '<div class="card quiz-card"><div class="row between"><div class="quiz-info"><h4>'+esc(q.title)+'</h4><p class="quiz-meta">'+esc(studentName(q.student_id))+' · '+esc(q.subject||'')+' · '+esc(q.topic||'')+'</p><div class="quiz-tags"><span class="chip">'+esc(q.quiz_mode||'Browser')+'</span><span class="chip orange">'+esc(when)+'</span><span class="chip">'+esc(q.total_marks||0)+' marks</span></div></div>'+status(q.status)+'</div>'+
-    '<div class="quiz-card-actions">'+openBtn+'<button class="btn small" onclick="openQuizLinkModal(\''+q.id+'\')">'+(link?'Update quiz link':'Attach quiz link')+'</button><button class="btn small primary" onclick="openQuizReportUpload(\''+q.id+'\')">'+(report?'Update report':'Upload report')+'</button>'+(report?'<button class="btn small" onclick="openResource(\''+report.id+'\')">View report</button>':'')+'</div>'+
-    '<div class="quiz-attempts">'+(at.length?at.map(a=>{const ans=a.answers||{},answered=ans.answeredCount??Object.values(ans.responses||{}).filter(x=>String(x?.answer||'').trim()).length,totalQ=ans.totalQuestions||'';return '<div class="attempt-row"><div><b>'+esc(studentName(a.student_id))+' · '+new Date(a.completed_at).toLocaleString('en-ZA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+'</b><p>'+answered+(totalQ?'/'+totalQ:'')+' answered · '+esc(a.mark_status||'UNMARKED')+'</p></div><div class="attempt-actions">'+(a.mark_status==='MARKED'?'<span class="chip green">'+esc(a.score)+' / '+esc(a.total)+'</span>':'<span class="chip orange">Needs review</span>')+'<button class="btn small primary" onclick="reviewQuizAttempt(\''+a.id+'\')">Review submission</button></div></div>'}).join(''):'<div class="tiny muted">No submissions yet.</div>')+'</div></div>'
-  }).join(''):emptyState('No quizzes yet','Build one in the portal or upload an existing file.'))+'</div>';
-  $('#content').innerHTML=h;
+    const at=(data.quizAttempts||[]).filter(a=>a.quiz_id===q.id).sort((a,b)=>String(b.completed_at).localeCompare(String(a.completed_at))),link=quizLinkFor(q.id),report=quizReportFor(q.id),when=q.scheduled_for?dateFmt(q.scheduled_for):'Not scheduled';
+    let preview=q.quiz_mode==='Uploaded file'||q.storage_path?'<button class="btn small" onclick="openQuizFile(\''+q.id+'\')">Preview</button>':link?'<button class="btn small" onclick="openResource(\''+link.id+'\')">Preview</button>':'<button class="btn small" onclick="previewBrowserQuiz(\''+q.id+'\')">Preview</button>';
+    return '<div class="card quiz-card"><div class="row between"><div><div class="quiz-live-badge">LIVE SUBMISSIONS</div><h4 style="margin-top:7px">'+esc(q.title)+'</h4><p class="quiz-meta">'+esc(studentName(q.student_id))+' · '+esc(q.subject||'')+' · '+esc(q.topic||'')+' · '+esc(when)+'</p></div>'+status(q.status)+'</div><div class="quiz-main-actions">'+preview+'<button class="btn small primary" onclick="publishQuiz(\''+q.id+'\')">Send to student</button><button class="btn small" onclick="openQuizLinkModal(\''+q.id+'\')">'+(link?'Update link':'Attach link')+'</button><button class="btn small" onclick="openQuizReportUpload(\''+q.id+'\')">'+(report?'Update report':'Upload report')+'</button>'+(report?'<button class="btn small" onclick="openResource(\''+report.id+'\')">View report</button>':'')+'</div><div class="quiz-attempts">'+(at.length?at.map(a=>{const ans=a.answers||{},answered=ans.answeredCount??Object.values(ans.responses||{}).filter(x=>String(x?.answer||'').trim()).length,totalQ=ans.totalQuestions||'';return '<div class="attempt-row"><div><b>'+new Date(a.completed_at).toLocaleString('en-ZA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+'</b><p>'+answered+(totalQ?'/'+totalQ:'')+' answered · '+esc(a.mark_status||'UNMARKED')+'</p></div><div class="attempt-actions">'+(a.mark_status==='MARKED'?'<span class="chip green">'+esc(a.score)+' / '+esc(a.total)+'</span>':'<span class="chip orange">Needs review</span>')+'<button class="btn small primary" onclick="reviewQuizAttempt(\''+a.id+'\')">Open report</button></div></div>'}).join(''):'<div class="tiny muted">No student submission yet. It will appear here after submission.</div>')+'</div></div>'
+  }).join(''):emptyState('No quizzes yet','Build one or upload a quiz file.'))+'</div>';$('#content').innerHTML=h;
 }
-function reviewQuizAttempt(id){const a=(data.quizAttempts||[]).find(x=>x.id===id);if(!a)return;const ans=a.answers||{},report=ans.completionReport||JSON.stringify(ans.responses||{},null,2);const total=Number(a.total||ans.totalMarks||0);const body='<div class="row wrap" style="margin-bottom:10px"><span class="chip">'+esc(studentName(a.student_id))+'</span><span class="chip">'+esc(ans.answeredCount??'')+' answered</span><span class="chip">'+esc(a.mark_status||'UNMARKED')+'</span></div><div class="review-report">'+esc(report)+'</div><div class="grid2" style="margin-top:12px">'+field('Score','qaScore',a.mark_status==='MARKED'?a.score:'','number')+field('Total marks','qaTotal',total,'number')+'</div><div class="field" style="margin-top:10px"><label>Tutor feedback</label><textarea id="qaFeedback" style="min-height:110px">'+esc(a.tutor_feedback||'')+'</textarea></div>';modal('Review quiz submission',body,'<button class="btn" onclick="closeModal()">Close</button><button class="btn primary" onclick="saveQuizReview(\''+id+'\')">Save marking</button>')}
+function reviewQuizAttempt(id){
+  const a=(data.quizAttempts||[]).find(x=>x.id===id);if(!a)return;const ans=a.answers||{},report=ans.completionReport||JSON.stringify(ans.responses||{},null,2),total=Number(a.total||ans.totalMarks||0),quiz=(data.quizzes||[]).find(q=>q.id===a.quiz_id),uploaded=quizReportFor(a.quiz_id);
+  const body='<div class="row wrap" style="margin-bottom:10px"><span class="chip">'+esc(studentName(a.student_id))+'</span><span class="chip">'+esc(ans.answeredCount??'')+' answered</span><span class="chip">'+esc(a.mark_status||'UNMARKED')+'</span></div><div class="review-report">'+esc(report)+'</div><div class="grid2" style="margin-top:12px">'+field('Score','qaScore',a.mark_status==='MARKED'?a.score:'','number')+field('Total marks','qaTotal',total,'number')+'</div><div class="field" style="margin-top:10px"><label>Tutor feedback</label><textarea id="qaFeedback" style="min-height:110px">'+esc(a.tutor_feedback||'')+'</textarea></div>'+(uploaded?'<div class="quiz-report-box"><b>Uploaded report attached</b><p>'+esc(uploaded.file_name||uploaded.title)+'</p></div>':'');
+  modal('Quiz submission · '+esc(quiz?.title||'Quiz'),body,'<button class="btn" onclick="openQuizReportUpload(\''+a.quiz_id+'\')">'+(uploaded?'Replace report':'Upload report')+'</button><button class="btn" onclick="closeModal()">Close</button><button class="btn primary" onclick="saveQuizReview(\''+id+'\')">Save marking</button>');
+}
 async function saveQuizReview(id){try{await api({action:'quizAttemptReview',attemptId:id,score:Number($('#qaScore').value||0),total:Number($('#qaTotal').value||0),feedback:$('#qaFeedback').value});closeModal();toast('Quiz marked');await sync()}catch(err){toast(err.message)}}
 function adminFinance(){
-  const rate=150,newPlans=newMonthPlans(),prevPlans=previousMonthPlans();
-  const outstanding=settingValue('finance_outstanding')||{},oldDue=Number(outstanding.amount_cents||0)/100;
-  const forecast=settingValue('cycle_forecast')||{};
-  const newTarget=newPlans.reduce((a,p)=>a+Number(p.target_hours||0),0);
-  const newEarned=newPlans.reduce((a,p)=>a+bucketCompletedHours(p.student_id,'New month'),0);
-  const catchup=prevPlans.reduce((a,p)=>a+planCatchup(p.student_id),0);
-  const earnedSoFar=Number(forecast.earned_hours_so_far||15),earnedValue=Number(forecast.earned_value_cents||225000)/100;
-  const estimateNew=Number(forecast.estimated_new_month_hours_before_cutoff||12),estimateNewValue=Number(forecast.estimated_new_month_value_cents||180000)/100;
-  const projectedTeaching=Number(forecast.projected_teaching_value_cents||495000)/100;
-  const projectedReceivable=Number(forecast.projected_total_receivable_cents||570000)/100;
-  const payments=data.payments||[];
-
-  let h='<div class="finance-shell"><div class="finance-hero"><div class="kicker">15 SEP → 15 OCT • PAYMENT-CYCLE FORECAST</div><h2>Finance</h2><p>Completed earnings, catch-up and estimated new-month work are shown separately so future lessons never look like money already earned.</p></div>';
-
-  h+='<div class="projection-hero"><div class="projection-main"><div class="eyebrow">Projected teaching earnings by 15 Oct</div><div class="big">R'+projectedTeaching.toFixed(0)+'</div><div class="sub">Estimate based on your normal 6h/week rhythm for roughly two weeks before the cutoff, plus completing the remaining previous-month catch-up.</div><div class="forecast-breakdown"><div class="forecast-item"><span>Earned already</span><b>'+earnedSoFar.toFixed(0)+'h • R'+earnedValue.toFixed(0)+'</b></div><div class="forecast-item"><span>Previous catch-up</span><b>'+catchup.toFixed(0)+'h • R'+(catchup*rate).toFixed(0)+'</b></div><div class="forecast-item"><span>Estimated new month</span><b>'+estimateNew.toFixed(0)+'h • R'+estimateNewValue.toFixed(0)+'</b></div></div></div><div class="projection-side"><span>Projected total receivable</span><b>R'+projectedReceivable.toFixed(0)+'</b><p>Teaching projection + the separate R'+oldDue.toFixed(0)+' already outstanding from the earlier invoice. This is not all guaranteed to arrive in one payment.</p></div></div>';
-
-  h+=section('This month','Regular monthly allocation — the fresh month stays separate from catch-up');
-  h+='<div class="monthly-table-card"><table class="finance-table"><thead><tr><th>Student</th><th>Weekly rhythm</th><th>Monthly target</th><th>Completed new month</th><th>Monthly value</th></tr></thead><tbody>'+newPlans.map(p=>'<tr><td><b>'+esc(studentName(p.student_id))+'</b></td><td>'+Number(p.weekly_target_hours||0).toFixed(0)+'h/week</td><td>'+Number(p.target_hours||0).toFixed(0)+'h</td><td>'+bucketCompletedHours(p.student_id,'New month').toFixed(1)+'h</td><td><b>R'+(Number(p.target_hours||0)*rate).toFixed(0)+'</b></td></tr>').join('')+'</tbody></table></div>';
-
-  h+=section('Previous month catch-up','Only the missing hours that still need to be taught');
-  const missing=prevPlans.filter(p=>planCatchup(p.student_id)>0);
-  h+='<div class="list">'+(missing.length?missing.map(p=>'<div class="list-row"><div><h4>'+esc(studentName(p.student_id))+'</h4><p>'+bucketCompletedHours(p.student_id,'Previous month').toFixed(0)+' of '+Number(p.target_hours||0).toFixed(0)+'h completed • '+esc(p.status||'Catch-up')+'</p></div><div style="text-align:right"><b>'+planCatchup(p.student_id).toFixed(0)+'h missing</b><div class="tiny muted">R'+(planCatchup(p.student_id)*rate).toFixed(0)+' teaching value</div></div></div>').join(''):emptyState('Previous month is closed','No catch-up hours remain.'))+'</div>';
-
-  h+='<details class="previous-month-details"><summary>Previous month full breakdown</summary><div style="padding:0 14px 14px">'+prevPlans.map(p=>'<div class="catchup-mini"><span>'+esc(studentName(p.student_id))+' • '+esc(p.status)+'</span><b>'+bucketCompletedHours(p.student_id,'Previous month').toFixed(0)+' / '+Number(p.target_hours||0).toFixed(0)+'h</b></div>').join('')+'</div></details>';
-
-  h+=section('Money already owed','Separate from teaching you still need to complete');
-  h+='<div class="finance-note"><div class="mark">!</div><div><b>Outstanding from Thrive</b><p>R1,500 was received against R2,250 submitted invoices. The unresolved difference remains separate from your new teaching.</p></div><div class="amount">R'+oldDue.toFixed(0)+' due</div></div>';
-
-  h+='<details class="previous-month-details"><summary>Payments actually received</summary><div class="list" style="padding:0 12px 12px">'+(payments.length?payments.map(p=>'<div class="list-row"><div><h4>'+esc(p.payer||'Payment')+'</h4><p>'+dateFmt(p.payment_date)+' • '+esc(p.note||'')+'</p></div><b>'+(p.amount_cents==null?'Amount not verified':money(p.amount_cents))+'</b></div>').join(''):emptyState('No verified payments recorded','Only add money after it reaches your account.'))+'</div></details>';
+  const rate=150,cur=monthBounds(0),prev=monthBounds(-1),currentLessons=lessonsInCalendarMonth(0,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date)),previousLessons=lessonsInCalendarMonth(-1,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date));
+  const earnedCurrent=currentLessons.reduce((s,l)=>s+lessonValue(l,rate),0),earnedPrevious=previousLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
+  const prevPlans=previousMonthPlans(),catchupRows=prevPlans.map(p=>({studentId:p.student_id,hours:remainingCatchup(p.student_id)})).filter(x=>x.hours>0),catchupHours=catchupRows.reduce((s,x)=>s+x.hours,0),catchupValue=catchupHours*rate;
+  const estimatedWithCatchup=earnedCurrent+catchupValue;
+  const oldDue=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
+  function ledger(ls){return '<div class="finance-ledger"><div class="finance-ledger-row head"><div>Date</div><div>Student</div><div>Subject</div><div>Topic / subtopic</div><div>Hours</div><div class="money">Value</div></div>'+ls.map(l=>'<div class="finance-ledger-row"><div>'+esc(dateFmt(l.lesson_date))+'</div><div><b>'+esc(studentName(l.student_id))+'</b></div><div>'+esc(l.subject||'—')+'</div><div>'+esc(l.topic||l.notes||'Topic not recorded')+(isCatchupLesson(l)?' <span class="chip orange">Catch-up</span>':'')+'</div><div>'+((Number(l.duration_minutes||0)/60).toFixed(1))+'h</div><div class="money">R'+lessonValue(l,rate).toFixed(0)+'</div></div>').join('')+'</div>'}
+  let h='<div class="finance-shell"><div class="finance-hero"><div class="kicker">DATE-BASED LESSON FINANCE</div><h2>Finance</h2><p>A lesson belongs to the month it was actually taught. Catch-up is shown as a label, not used to hide the lesson from that month.</p></div>';
+  h+='<div class="finance-summary-grid"><div class="finance-summary-card"><span>Earned so far · '+esc(cur.label)+'</span><b>R'+earnedCurrent.toFixed(0)+'</b><p>'+currentLessons.length+' completed lesson'+(currentLessons.length===1?'':'s')+' · '+completedHoursInCalendarMonth(0).toFixed(1)+'h</p></div><div class="finance-summary-card"><span>Catch-up still to teach</span><b>R'+catchupValue.toFixed(0)+'</b><p>'+catchupHours.toFixed(1)+'h remaining from the previous allocation</p></div><div class="finance-summary-card"><span>If all catch-up is covered</span><b>R'+estimatedWithCatchup.toFixed(0)+'</b><p>Current-month completed earnings + remaining catch-up value</p></div></div>';
+  h+='<div class="finance-period"><h4>'+esc(cur.label)+' lessons</h4><p>Every completed lesson dated from '+esc(dateFmt(cur.start))+' onward is shown here, including catch-up taught this month.</p>'+(currentLessons.length?ledger(currentLessons):emptyState('No completed lessons this month','Completed lessons will appear here.'))+'</div>';
+  h+='<div class="finance-period"><h4>'+esc(prev.label)+' lessons</h4><p>Only lessons actually taught during the previous calendar month.</p>'+(previousLessons.length?ledger(previousLessons):emptyState('No completed lessons recorded','No completed lesson dates were found for this month.'))+'<div class="finance-summary-card" style="margin-top:10px"><span>Previous-month lessons value</span><b>R'+earnedPrevious.toFixed(0)+'</b><p>'+previousLessons.length+' completed lesson'+(previousLessons.length===1?'':'s')+'</p></div></div>';
+  h+='<div class="finance-period"><h4>Catch-up remaining</h4><p>Outstanding teaching from the previous allocation, after catch-up already completed.</p><div class="list">'+(catchupRows.length?catchupRows.map(x=>'<div class="list-row"><div><h4>'+esc(studentName(x.studentId))+'</h4><p>'+x.hours.toFixed(1)+'h still to cover</p></div><b>R'+(x.hours*rate).toFixed(0)+'</b></div>').join(''):emptyState('No catch-up outstanding','Previous allocations are fully covered.'))+'</div></div>';
+  if(oldDue>0)h+='<div class="finance-note"><div class="mark">!</div><div><b>Separate outstanding invoice balance</b><p>This is money already invoiced and is not counted again as new teaching earnings.</p></div><div class="amount">R'+oldDue.toFixed(0)+'</div></div>';
   h+='</div>';$('#content').innerHTML=h;
 }
 function renderStudent(){
