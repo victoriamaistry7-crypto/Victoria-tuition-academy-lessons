@@ -176,33 +176,96 @@ function buildExcelAttachment(data){
   return new File([bytes],filename,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 }
 
+
 async function sendExcelSubmissionEmail(data){
   const file=buildExcelAttachment(data);
-  const fd=new FormData();
-  fd.append('_subject',`Mitchell Quiz + Excel — ${data.date} — ${data.submissionId}`);
-  fd.append('_template','table');
-  fd.append('_captcha','false');
-  fd.append('Student_name',data.student);
-  fd.append('Grade','Grade 9');
-  fd.append('Subject','Natural Sciences');
-  fd.append('Assessment_date',data.date);
-  fd.append('Submission_ID',data.submissionId);
-  fd.append('Questions_answered',`${data.answeredCount} / ${data.totalQuestions}`);
-  fd.append('Questions_unanswered',String(data.unansweredCount));
-  fd.append('Time_used',`Approximately ${data.timeUsedMinutes} minute(s)`);
-  fd.append('Status','UNMARKED — tutor review required');
-  fd.append('Excel_attachment','Full question-by-question submission and teacher marking sheet attached.');
-  fd.append('attachment',file,file.name);
 
-  const emailRes=await fetch('https://formsubmit.co/ajax/victoriamaistry18@gmail.com',{
-    method:'POST',
-    headers:{'Accept':'application/json'},
-    body:fd
+  return await new Promise((resolve,reject)=>{
+    const frameName='vtaFormSubmitFrame_'+Date.now();
+    const iframe=document.createElement('iframe');
+    iframe.name=frameName;
+    iframe.style.display='none';
+    iframe.setAttribute('aria-hidden','true');
+
+    const form=document.createElement('form');
+    form.method='POST';
+    form.action='https://formsubmit.co/victoriamaistry18@gmail.com';
+    form.enctype='multipart/form-data';
+    form.target=frameName;
+    form.style.display='none';
+
+    const add=(name,value)=>{
+      const input=document.createElement('input');
+      input.type='hidden';
+      input.name=name;
+      input.value=String(value??'');
+      form.appendChild(input);
+    };
+
+    add('_subject',`Mitchell Quiz + Excel — ${data.date} — ${data.submissionId}`);
+    add('_template','table');
+    add('_captcha','false');
+    add('Student_name',data.student);
+    add('Grade','Grade 9');
+    add('Subject','Natural Sciences');
+    add('Assessment_date',data.date);
+    add('Submission_ID',data.submissionId);
+    add('Questions_answered',`${data.answeredCount} / ${data.totalQuestions}`);
+    add('Questions_unanswered',data.unansweredCount);
+    add('Time_used',`Approximately ${data.timeUsedMinutes} minute(s)`);
+    add('Status','UNMARKED — tutor review required');
+    add('Workbook','Attached as an Excel (.xlsx) file');
+
+    const fileInput=document.createElement('input');
+    fileInput.type='file';
+    fileInput.name='attachment';
+    fileInput.accept='.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
+    let assigned=false;
+    try{
+      const dt=new DataTransfer();
+      dt.items.add(file);
+      fileInput.files=dt.files;
+      assigned=fileInput.files && fileInput.files.length===1;
+    }catch(err){
+      assigned=false;
+    }
+
+    if(!assigned){
+      reject(new Error('This browser could not attach the Excel workbook. Please update Chrome and try again.'));
+      return;
+    }
+
+    form.appendChild(fileInput);
+    document.body.appendChild(iframe);
+    document.body.appendChild(form);
+
+    let submitted=false;
+    let timer;
+    const cleanup=()=>{
+      clearTimeout(timer);
+      setTimeout(()=>{try{form.remove();iframe.remove();}catch(_e){}},1500);
+    };
+
+    iframe.addEventListener('load',()=>{
+      if(!submitted)return;
+      cleanup();
+      resolve({filename:file.name});
+    },{once:false});
+
+    timer=setTimeout(()=>{
+      cleanup();
+      reject(new Error('The Excel email upload timed out. Your quiz is still saved in the tutor inbox.'));
+    },20000);
+
+    submitted=true;
+    try{
+      form.submit();
+    }catch(err){
+      cleanup();
+      reject(new Error('Could not send the Excel attachment.'));
+    }
   });
-  let emailReply={};try{emailReply=await emailRes.json()}catch(_e){}
-  const success=emailRes.ok && (emailReply.success===true || emailReply.success==='true');
-  if(!success) throw new Error(emailReply.message||`Excel email failed (${emailRes.status})`);
-  return {reply:emailReply,filename:file.name};
 }
 
 async function submitToTutor(){
@@ -235,7 +298,7 @@ async function submitToTutor(){
    try{localStorage.setItem(exam.id+'-submitted',JSON.stringify({submissionId:data.submissionId,attemptId:reply.attemptId,submittedAt:data.submittedAt,emailSent}))}catch(e){}
    box.className='notice success';
    const deliveryLine=emailSent
-      ? `<b>Saved to the tutor inbox and emailed to your tutor with an Excel workbook attached.</b>${emailedFile?`<br><span class="mini">Excel: ${esc(emailedFile)}</span>`:''}`
+      ? `<b>Saved to the tutor inbox and the Excel workbook upload completed.</b>${emailedFile?`<br><span class="mini">Excel attachment: ${esc(emailedFile)}</span>`:''}`
       : `<b>Saved safely to the tutor inbox.</b> Email copy could not be confirmed${emailMessage?`: ${esc(emailMessage)}`:''}.`;
    box.innerHTML=`<b>Quiz submitted successfully.</b><br>${deliveryLine}<div class="receipt">Submission receipt: <b>${esc(data.submissionId)}</b></div><br>Your score will only be available after your tutor marks the assessment.`;
    button.textContent='SUBMITTED';
