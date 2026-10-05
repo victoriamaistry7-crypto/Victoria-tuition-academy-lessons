@@ -422,6 +422,202 @@ input,select,textarea{transition:border-color .16s ease,box-shadow .16s ease}
   .bubble{max-width:84%;font-size:10px}.composer{padding:9px!important}.composer input,.composer button{min-height:38px!important}
 }
 </style>
+
+<style id="vta-ultra-outline-pass">
+/* Premium outlines + clearer visual separation */
+.admin-focus-card,.dashboard-panel,.student-card-v2,.finance-v2-card,.student-finance-card{
+  border:1px solid #d7dde7!important;
+  box-shadow:0 10px 28px rgba(15,23,42,.055), inset 0 1px 0 rgba(255,255,255,.55);
+}
+.admin-focus-card.accent{
+  border-color:#34445f!important;
+  box-shadow:0 16px 38px rgba(15,23,42,.16), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.topic-block{
+  border:1px solid #d8e0eb!important;
+  box-shadow:0 4px 14px rgba(15,23,42,.025);
+}
+.topic-block[open]{
+  border:1.5px solid #6f89ad!important;
+  box-shadow:0 0 0 3px rgba(91,122,164,.09),0 14px 30px rgba(15,55,111,.10)!important;
+}
+.topic-block[open]>summary{
+  background:linear-gradient(135deg,#eef4fb,#f9fbfe)!important;
+}
+.subtopic-card{
+  border:1px solid #d9e1ec!important;
+  box-shadow:0 5px 16px rgba(15,23,42,.035)!important;
+}
+.subtopic-card:hover{
+  border-color:#93a9c7!important;
+  box-shadow:0 0 0 3px rgba(93,126,168,.08),0 10px 24px rgba(15,23,42,.06)!important;
+}
+.modal-card{
+  border:1px solid #d5dde8!important;
+  box-shadow:0 30px 90px rgba(15,23,42,.26),0 0 0 1px rgba(255,255,255,.5)!important;
+}
+.subtopic-detail-summary{
+  border:1px solid #d7e0ec!important;
+  background:linear-gradient(180deg,#fbfcfe,#f5f8fb)!important;
+  box-shadow:inset 0 1px 0 #fff;
+}
+
+/* Calendar: stronger grid, polished frame */
+.calendar-pro{
+  border:1.5px solid #cbd5e1!important;
+  box-shadow:0 14px 38px rgba(15,23,42,.08)!important;
+  background:#eef3f8!important;
+}
+.calendar-pro-toolbar{
+  border-bottom:1px solid #cfd8e4!important;
+  background:linear-gradient(180deg,#ffffff,#f8fafc)!important;
+}
+.calendar-pro-tabs{
+  border:1px solid #d8e0e9;
+  background:#eef2f6!important;
+}
+.calendar-pro-tabs button.active{
+  border:1px solid #cdd7e3;
+  box-shadow:0 4px 12px rgba(15,23,42,.08)!important;
+}
+.time-grid-head{
+  border-bottom:1px solid #c9d3df!important;
+  box-shadow:0 3px 10px rgba(15,23,42,.03);
+}
+.time-grid-head .dayhead{
+  border-left:1px solid #d4dde8!important;
+  border-bottom:1px solid #dbe3ec;
+}
+.time-cell{
+  border-left:1px solid #d5dee9!important;
+  border-top:1px solid #e0e6ee!important;
+}
+.time-cell.hour{
+  border-top:1px solid #bdc9d8!important;
+}
+.time-label{
+  background:#f1f5f9;
+  border-right:1px solid #d0dae6;
+}
+.calendar-month-v2{
+  border-top:1px solid #cfd8e4;
+}
+.cal-month-head{
+  background:#eef3f8;
+  border-right:1px solid #d7e0ea;
+}
+.cal-month-day{
+  border-right:1px solid #d4dde8!important;
+  border-bottom:1px solid #d4dde8!important;
+}
+.calendar-block{
+  border:1px solid #efc6ba;
+  box-shadow:0 7px 18px rgba(128,55,34,.12)!important;
+}
+.calendar-block.google{
+  border:1px solid #b7cdf1;
+  box-shadow:0 7px 18px rgba(54,99,166,.12)!important;
+}
+
+/* Messages: defined app-style frame */
+.chat-layout{
+  border:1.5px solid #ccd6e2!important;
+  box-shadow:0 16px 38px rgba(15,23,42,.08)!important;
+  background:#eaf0f6!important;
+  overflow:hidden;
+}
+.chat-people{
+  background:linear-gradient(180deg,#f9fbfd,#f0f4f8)!important;
+  border-right:1px solid #cfd9e5!important;
+}
+.chat-person{
+  margin:5px 7px;
+  border:1px solid transparent;
+  border-radius:12px;
+}
+.chat-person.active{
+  border-color:#d6b7ae!important;
+  box-shadow:0 5px 14px rgba(151,78,55,.07);
+}
+.chat-head{
+  border-bottom:1px solid #d1dbe6!important;
+  background:rgba(255,255,255,.9)!important;
+}
+.messages{
+  border-top:0;
+  border-bottom:1px solid #d2dbe5;
+  background-color:#f4f7fa!important;
+}
+.composer{
+  background:#fff!important;
+  border-top:1px solid #d7e0e9!important;
+}
+.composer input{
+  border:1px solid #cfd8e3!important;
+  box-shadow:inset 0 1px 2px rgba(15,23,42,.025);
+}
+
+/* Finance clickability */
+.finance-v2-card.clickable{
+  cursor:pointer;
+  transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
+  position:relative;
+}
+.finance-v2-card.clickable:hover{
+  transform:translateY(-2px);
+  border-color:#aebccc!important;
+  box-shadow:0 16px 34px rgba(15,23,42,.09)!important;
+}
+.finance-v2-card.clickable:after{
+  content:"View calculation";
+  display:block;
+  margin-top:9px;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.04em;
+  color:#667085;
+}
+.finance-v2-card.primary.clickable:after{color:#d3dce8}
+.finance-breakdown{
+  display:grid;
+  gap:8px;
+}
+.finance-break-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:16px;
+  padding:11px 12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--panel2);
+}
+.finance-break-row span{font-size:10px;color:var(--muted)}
+.finance-break-row b{font-size:12px}
+.finance-break-total{
+  background:#0f172a;color:#fff!important;border-color:#0f172a!important;
+}
+.finance-break-total span{color:#c7d1df!important}
+.finance-warning{
+  padding:10px 12px;border-radius:11px;background:#fff7ed;border:1px solid #f5d6b4;
+  font-size:9px;line-height:1.45;color:#8a4b1f;
+}
+
+[data-theme="dark"] .admin-focus-card,[data-theme="dark"] .dashboard-panel,[data-theme="dark"] .student-card-v2,[data-theme="dark"] .finance-v2-card,[data-theme="dark"] .student-finance-card{
+  border-color:#36404e!important;
+  box-shadow:0 12px 30px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.025);
+}
+[data-theme="dark"] .calendar-pro{background:#121923!important;border-color:#394556!important}
+[data-theme="dark"] .calendar-pro-toolbar,[data-theme="dark"] .chat-head,[data-theme="dark"] .composer{background:#171f29!important}
+[data-theme="dark"] .time-label{background:#19212c;border-color:#344052}
+[data-theme="dark"] .chat-layout{background:#111821!important;border-color:#394556!important}
+[data-theme="dark"] .chat-people{background:#161d26!important;border-color:#344052!important}
+[data-theme="dark"] .messages{background-color:#131a23!important;border-color:#344052!important}
+
+@media(max-width:760px){
+  .calendar-pro{border-radius:16px}
+  .chat-layout{border-radius:16px}
+}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -755,7 +951,7 @@ function adminHome(){
   const thisLessons=lessonsInCalendarMonth(0,null,['Completed']),thisHours=completedHoursInCalendarMonth(0);
   const focus=tasks.slice(0,3),later=tasks.slice(3);
   let h='<section class="hero"><div class="tiny strong" style="color:#fca58f">ADMIN WORKSPACE</div><h2>'+greeting()+', '+esc(data.user.displayName)+'.</h2><p>One calm view of your next lesson, bookings and the few things worth focusing on now.</p></section>';
-  h+='<div class="admin-dashboard-grid" style="margin-top:14px"><div class="admin-focus-card accent"><div class="eyebrow">NEXT LESSON · CALENDAR SYNC</div>'+(next?'<h4>'+esc(next.title)+'</h4><p>'+esc(dateFmt(next.event_date))+' at '+esc(timeFmt(next.start_time))+(next.description?' · '+esc(next.description):'')+'</p><div class="month-activity"><span class="chip">'+esc(next.source)+'</span></div>':'<div class="big">Clear</div><p>No lessons.</p>')+'</div><div class="admin-focus-card"><div class="eyebrow">BOOKING REQUESTS</div><div class="big">'+pending.length+'</div><p>waiting for your response</p></div><div class="admin-focus-card"><div class="eyebrow">'+esc(monthBounds(0).label.toUpperCase())+'</div><div class="big">'+thisHours.toFixed(1)+'h</div><p>'+thisLessons.length+' completed lesson'+(thisLessons.length===1?'':'s')+' this month</p></div></div>';
+  h+='<div class="admin-dashboard-grid" style="margin-top:14px"><div class="admin-focus-card accent"><div class="eyebrow">NEXT LESSON · CALENDAR SYNC</div>'+(next?'<h4>'+esc(next.title)+'</h4><p>'+esc(dateFmt(next.event_date))+' at '+esc(timeFmt(next.start_time))+(next.description?' · '+esc(next.description):'')+'</p><div class="month-activity"><span class="chip">'+esc(next.source)+'</span></div>':'<div class="big">No lessons</div><p>Nothing scheduled right now.</p>')+'</div><div class="admin-focus-card"><div class="eyebrow">BOOKING REQUESTS</div><div class="big">'+pending.length+'</div><p>waiting for your response</p></div><div class="admin-focus-card"><div class="eyebrow">'+esc(monthBounds(0).label.toUpperCase())+'</div><div class="big">'+thisHours.toFixed(1)+'h</div><p>'+thisLessons.length+' completed lesson'+(thisLessons.length===1?'':'s')+' this month</p></div></div>';
 
   h+='<div class="dashboard-split" style="margin-top:14px"><div class="dashboard-panel"><div class="dashboard-panel-head"><h4>Upcoming lessons</h4><button class="btn small" onclick="go(\'schedule\')">View calendar</button></div>'+(upcoming.length?upcoming.slice(0,5).map(e=>'<div class="upcoming-mini"><div><b>'+esc(e.title)+'</b><p>'+esc(dateFmt(e.event_date))+' · '+esc(timeFmt(e.start_time))+(e.description?' · '+esc(e.description):'')+'</p></div><span class="chip">'+esc(e.source)+'</span></div>').join(''):emptyState('No lessons','Nothing scheduled.'))+'</div><div class="dashboard-panel"><div class="dashboard-panel-head"><h4>Your focus</h4><button class="btn small" onclick="openTaskCreate()">+ Task</button></div><div class="focus-task-shell">'+(focus.length?focus.map((t,i)=>'<div class="focus-task-primary"><div class="step">'+(i+1)+'</div><div><b>'+esc(t.title)+'</b><p>'+esc(studentName(t.student_id))+(t.notes?' · '+esc(t.notes):'')+'</p></div><button class="task-check" title="Done" onclick="completeTask(\''+t.id+'\')">✓</button></div>').join(''):emptyState('You are clear','No open tasks right now.'))+(later.length?'<details class="focus-task-later"><summary>'+later.length+' later task'+(later.length===1?'':'s')+' · hidden to keep this calm</summary><div class="task-list">'+later.map(taskRow).join('')+'</div></details>':'')+'</div></div></div>';
 
@@ -973,20 +1169,90 @@ function reviewQuizAttempt(id){
   modal('Quiz submission · '+esc(quiz?.title||'Quiz'),body,'<button class="btn" onclick="openQuizReportUpload(\''+a.quiz_id+'\')">'+(uploaded?'Replace report':'Upload report')+'</button><button class="btn" onclick="closeModal()">Close</button><button class="btn primary" onclick="saveQuizReview(\''+id+'\')">Save marking</button>');
 }
 async function saveQuizReview(id){try{await api({action:'quizAttemptReview',attemptId:id,score:Number($('#qaScore').value||0),total:Number($('#qaTotal').value||0),feedback:$('#qaFeedback').value});closeModal();toast('Quiz marked');await sync()}catch(err){toast(err.message)}}
+
+function openFinanceCalculation(kind){
+  const rate=150,cur=monthBounds(0),prev=monthBounds(-1);
+  const currentLessons=lessonsInCalendarMonth(0,null,['Completed']),previousLessons=lessonsInCalendarMonth(-1,null,['Completed']);
+  const currentEarned=currentLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
+  const previousEarned=previousLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
+  const currentRemain=newMonthPlans().reduce((s,p)=>s+thisMonthRemaining(p.student_id),0);
+  const previousCatchup=previousMonthPlans().reduce((s,p)=>s+previousMonthCatchupRemaining(p.student_id),0);
+  const outstanding=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
+  const teachingTotal=currentEarned+previousEarned;
+  const potentialCurrent=currentEarned+(currentRemain*rate);
+  const potentialWithCatchup=potentialCurrent+(previousCatchup*rate);
+
+  let title='Finance calculation',rows=[],note='';
+  if(kind==='current'){
+    title=cur.label+' earned so far';
+    rows=[['Completed hours',completedHoursInCalendarMonth(0).toFixed(1)+'h'],['Rate','R'+rate+'/h'],['Teaching earned','R'+currentEarned.toFixed(0)]];
+  }else if(kind==='previous'){
+    title=prev.label+' earnings';
+    rows=[['Completed hours',completedHoursInCalendarMonth(-1).toFixed(1)+'h'],['Rate','R'+rate+'/h'],['Teaching earned','R'+previousEarned.toFixed(0)]];
+  }else if(kind==='remaining'){
+    title='Still to cover this month';
+    rows=[['Hours still to cover',currentRemain.toFixed(1)+'h'],['Rate','R'+rate+'/h'],['Remaining teaching value','R'+(currentRemain*rate).toFixed(0)]];
+  }else if(kind==='catchup'){
+    title='Previous-month catch-up';
+    rows=[['Catch-up still owed',previousCatchup.toFixed(1)+'h'],['Rate','R'+rate+'/h'],['Catch-up teaching value','R'+(previousCatchup*rate).toFixed(0)]];
+  }else{
+    title='Overall finance breakdown';
+    rows=[
+      [prev.label+' completed teaching','R'+previousEarned.toFixed(0)],
+      [cur.label+' completed teaching','R'+currentEarned.toFixed(0)],
+      ['Completed teaching total','R'+teachingTotal.toFixed(0)],
+      [cur.label+' still to cover','R'+(currentRemain*rate).toFixed(0)],
+      ['Previous catch-up still to cover','R'+(previousCatchup*rate).toFixed(0)],
+      ['Potential teaching value if everything is covered','R'+potentialWithCatchup.toFixed(0)],
+      ['Separate outstanding invoice balance','R'+outstanding.toFixed(0)]
+    ];
+    note='The outstanding invoice balance is shown separately and is not added to completed teaching earnings, because it may represent unpaid money from lessons already counted above.';
+  }
+  const body='<div class="finance-breakdown">'+rows.map((r,i)=>'<div class="finance-break-row '+((kind==='total'&&i===5)||((kind!=='total')&&i===rows.length-1)?'finance-break-total':'')+'"><span>'+esc(r[0])+'</span><b>'+esc(r[1])+'</b></div>').join('')+'</div>'+(note?'<div class="finance-warning" style="margin-top:10px">'+esc(note)+'</div>':'');
+  modal(title,body,'<button class="btn primary" onclick="closeModal()">Close</button>');
+}
+
 function adminFinance(){
-  const rate=150,cur=monthBounds(0),prev=monthBounds(-1),currentLessons=lessonsInCalendarMonth(0,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date)),previousLessons=lessonsInCalendarMonth(-1,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date));
-  const earned=currentLessons.reduce((s,l)=>s+lessonValue(l,rate),0),regularTargetHours=currentMonthRegularTarget(),regularTargetValue=regularTargetHours*rate,currentRemainingRows=newMonthPlans().map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:completedHoursInCalendarMonth(0,p.student_id),remain:thisMonthRemaining(p.student_id)})),currentRemain=currentRemainingRows.reduce((s,x)=>s+x.remain,0);
-  const catchupRows=previousMonthPlans().map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:previousMonthCompletedHoursByDate(p.student_id),remain:previousMonthCatchupRemaining(p.student_id)})).filter(x=>x.remain>0),catchupHours=catchupRows.reduce((s,x)=>s+x.remain,0),catchupValue=catchupHours*rate;
-  const potential=regularTargetValue+catchupValue,oldDue=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
-  function ledger(ls){return '<div class="finance-ledger"><div class="finance-ledger-row head"><div>Date</div><div>Student</div><div>Subject</div><div>Topic / subtopic</div><div>Hours</div><div class="money">Value</div></div>'+ls.map(l=>'<div class="finance-ledger-row"><div>'+esc(dateFmt(l.lesson_date))+'</div><div><b>'+esc(studentName(l.student_id))+'</b></div><div>'+esc(l.subject||'—')+'</div><div>'+esc(l.topic||l.notes||'Topic not recorded')+'</div><div>'+((Number(l.duration_minutes||0)/60).toFixed(1))+'h</div><div class="money">R'+lessonValue(l,rate).toFixed(0)+'</div></div>').join('')+'</div>'}
-  let h='<div class="finance-shell"><div class="finance-hero"><div class="kicker">CLEAN MONTHLY VIEW</div><h2>Finance</h2><p>October lessons are October lessons. Only work still owed from the previous month is called catch-up.</p></div>';
-  h+='<div class="finance-v2-grid"><div class="finance-v2-card primary"><span>Earned so far · '+esc(cur.label)+'</span><b>R'+earned.toFixed(0)+'</b><p>'+completedHoursInCalendarMonth(0).toFixed(1)+'h completed this month</p></div><div class="finance-v2-card"><span>Still to cover this month</span><b>'+currentRemain.toFixed(1)+'h</b><p>R'+(currentRemain*rate).toFixed(0)+' remaining regular teaching value</p></div><div class="finance-v2-card"><span>Previous-month catch-up</span><b>'+catchupHours.toFixed(1)+'h</b><p>R'+catchupValue.toFixed(0)+' still to recover from last month</p></div><div class="finance-v2-card"><span>If everything is covered</span><b>R'+potential.toFixed(0)+'</b><p>Full '+esc(cur.label)+' target + remaining previous-month catch-up</p></div></div>';
+  const rate=150,cur=monthBounds(0),prev=monthBounds(-1);
+  const currentLessons=lessonsInCalendarMonth(0,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date));
+  const previousLessons=lessonsInCalendarMonth(-1,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date));
+  const earned=currentLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
+  const previousEarned=previousLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
+  const currentRemainingRows=newMonthPlans().map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:completedHoursInCalendarMonth(0,p.student_id),remain:thisMonthRemaining(p.student_id)}));
+  const currentRemain=currentRemainingRows.reduce((s,x)=>s+x.remain,0);
+  const catchupRows=previousMonthPlans().map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:previousMonthCompletedHoursByDate(p.student_id),remain:previousMonthCatchupRemaining(p.student_id)})).filter(x=>x.remain>0);
+  const catchupHours=catchupRows.reduce((s,x)=>s+x.remain,0),catchupValue=catchupHours*rate;
+  const regularTargetHours=currentMonthRegularTarget(),regularTargetValue=regularTargetHours*rate;
+  const teachingTotal=earned+previousEarned;
+  const potential=regularTargetValue+catchupValue;
+  const oldDue=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
+
+  function ledger(ls){
+    return '<div class="finance-ledger"><div class="finance-ledger-row head"><div>Date</div><div>Student</div><div>Subject</div><div>Topic / subtopic</div><div>Hours</div><div class="money">Value</div></div>'+ls.map(l=>'<div class="finance-ledger-row"><div>'+esc(dateFmt(l.lesson_date))+'</div><div><b>'+esc(studentName(l.student_id))+'</b></div><div>'+esc(l.subject||'—')+'</div><div>'+esc(l.topic||l.notes||'Topic not recorded')+'</div><div>'+((Number(l.duration_minutes||0)/60).toFixed(1))+'h</div><div class="money">R'+lessonValue(l,rate).toFixed(0)+'</div></div>').join('')+'</div>'
+  }
+
+  let h='<div class="finance-shell"><div class="finance-hero"><div class="kicker">FINANCE AT A GLANCE</div><h2>Finance</h2><p>Every number can be opened to see exactly how it was calculated.</p></div>';
+
+  h+='<div class="finance-v2-grid">'+
+    '<div class="finance-v2-card primary clickable" onclick="openFinanceCalculation(\'current\')"><span>Earned so far · '+esc(cur.label)+'</span><b>R'+earned.toFixed(0)+'</b><p>'+completedHoursInCalendarMonth(0).toFixed(1)+'h completed this month</p></div>'+
+    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'remaining\')"><span>Still to cover this month</span><b>'+currentRemain.toFixed(1)+'h</b><p>R'+(currentRemain*rate).toFixed(0)+' remaining teaching value</p></div>'+
+    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'previous\')"><span>'+esc(prev.label)+' earnings</span><b>R'+previousEarned.toFixed(0)+'</b><p>'+completedHoursInCalendarMonth(-1).toFixed(1)+'h completed last month</p></div>'+
+    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'catchup\')"><span>Previous-month catch-up</span><b>'+catchupHours.toFixed(1)+'h</b><p>R'+catchupValue.toFixed(0)+' still to recover</p></div>'+
+  '</div>';
+
+  h+='<div class="finance-v2-card clickable" style="margin-top:12px" onclick="openFinanceCalculation(\'total\')"><span>Teaching total · completed '+esc(prev.label)+' + '+esc(cur.label)+'</span><b>R'+teachingTotal.toFixed(0)+'</b><p>Tap to see completed teaching, remaining work, catch-up and the separate R'+oldDue.toFixed(0)+' outstanding invoice balance.</p></div>';
+
   h+=section('Students this month','Completed and remaining regular lessons');
   h+='<div class="grid2">'+currentRemainingRows.map(x=>'<div class="student-finance-card"><div class="student-finance-head"><h4>'+esc(studentName(x.studentId))+'</h4><b>R'+(x.target*rate).toFixed(0)+'</b></div><div class="student-finance-meta"><span>'+x.done.toFixed(1)+'h completed</span><span>'+x.remain.toFixed(1)+'h still to cover</span><span>'+x.target.toFixed(0)+'h target</span></div><div class="progress" style="margin-top:9px"><i style="width:'+(x.target?Math.min(100,Math.round(x.done/x.target*100)):0)+'%"></i></div></div>').join('')+'</div>';
-  h+='<div class="finance-period"><h4>'+esc(cur.label)+' completed lessons</h4><p>Every completed lesson dated this month is counted here as this month — no catch-up label.</p>'+(currentLessons.length?ledger(currentLessons):emptyState('No completed lessons yet','Completed lessons will appear here.'))+'</div>';
-  h+='<div class="finance-period"><h4>Previous-month catch-up still outstanding</h4><p>This is based only on what was actually completed during '+esc(prev.label)+'. Lessons taught in '+esc(cur.label)+' do not reduce this old balance.</p><div class="list">'+(catchupRows.length?catchupRows.map(x=>'<div class="list-row"><div><h4>'+esc(studentName(x.studentId))+'</h4><p>'+x.done.toFixed(1)+' of '+x.target.toFixed(1)+'h completed last month · '+x.remain.toFixed(1)+'h still owed</p></div><b>R'+(x.remain*rate).toFixed(0)+'</b></div>').join(''):emptyState('No old catch-up outstanding','The previous month is fully covered.'))+'</div></div>';
-  h+='<details class="previous-month-details"><summary>'+esc(prev.label)+' lesson history</summary><div style="padding:0 12px 12px">'+(previousLessons.length?ledger(previousLessons):emptyState('No completed lessons recorded','No lesson history is available for this month.'))+'</div></details>';
-  if(oldDue>0)h+='<div class="finance-note"><div class="mark">!</div><div><b>Separate outstanding invoice balance</b><p>This stays separate so it is not counted twice as teaching income.</p></div><div class="amount">R'+oldDue.toFixed(0)+'</div></div>';
+
+  h+='<div class="finance-period"><h4>'+esc(cur.label)+' completed lessons</h4><p>Every completed lesson dated this month is counted here as this month.</p>'+(currentLessons.length?ledger(currentLessons):emptyState('No completed lessons','No completed lessons this month.'))+'</div>';
+
+  h+='<div class="finance-period"><h4>Previous-month catch-up still outstanding</h4><p>Only hours that were not completed during '+esc(prev.label)+' remain here.</p><div class="list">'+(catchupRows.length?catchupRows.map(x=>'<div class="list-row"><div><h4>'+esc(studentName(x.studentId))+'</h4><p>'+x.done.toFixed(1)+' of '+x.target.toFixed(1)+'h completed last month · '+x.remain.toFixed(1)+'h still owed</p></div><b>R'+(x.remain*rate).toFixed(0)+'</b></div>').join(''):emptyState('No old catch-up','The previous month is fully covered.'))+'</div></div>';
+
+  h+='<details class="previous-month-details"><summary>'+esc(prev.label)+' lesson history · R'+previousEarned.toFixed(0)+'</summary><div style="padding:0 12px 12px">'+(previousLessons.length?ledger(previousLessons):emptyState('No completed lessons','No completed lesson history for this month.'))+'</div></details>';
+
+  if(oldDue>0)h+='<div class="finance-note"><div class="mark">!</div><div><b>Separate outstanding invoice balance</b><p>Not added to the teaching total because it can overlap with lessons already counted above.</p></div><div class="amount">R'+oldDue.toFixed(0)+'</div></div>';
+
   h+='</div>';$('#content').innerHTML=h;
 }
 function renderStudent(){
