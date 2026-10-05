@@ -1413,10 +1413,12 @@ function openFinanceCalculation(kind){
   const currentLessons=lessonsInCalendarMonth(0,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date));
   const previousLessons=lessonsInCalendarMonth(-1,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date));
   const currentEarned=currentLessons.reduce((s,l)=>s+lessonValue(l,rate),0),previousEarned=previousLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
-  const currentRemain=newMonthPlans().reduce((s,p)=>s+thisMonthRemaining(p.student_id),0);
-  const catchupRows=previousMonthPlans().map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:previousMonthCompletedHoursByDate(p.student_id),remain:previousMonthCatchupRemaining(p.student_id)})).filter(x=>x.remain>0);
+  const currentRemain=newMonthPlans().filter(p=>Number(p.target_hours||0)>0).reduce((s,p)=>s+thisMonthRemaining(p.student_id),0);
+  const catchupRows=previousMonthPlans().map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:Math.max(previousMonthCompletedHoursByDate(p.student_id),Number(p.completed_hours||0)),remain:previousMonthCatchupRemaining(p.student_id)})).filter(x=>x.remain>0);
   const previousCatchup=catchupRows.reduce((s,x)=>s+x.remain,0),outstanding=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
-  const teachingTotal=previousEarned+currentEarned,currentTarget=currentMonthRegularTarget()*rate,potentialTeaching=previousEarned+currentTarget+(previousCatchup*rate);
+  const teachingTotal=previousEarned+currentEarned;
+  const currentTarget=currentMonthRegularTarget()*rate;
+  const forwardPotential=currentTarget+(previousCatchup*rate)+outstanding;
   const weeklyPlans=forecastWeeksToCutoff(),catchupPlan=suggestedCatchupPlan();
 
   function lessonRows(ls,total){
@@ -1433,25 +1435,25 @@ function openFinanceCalculation(kind){
   }else if(kind==='catchup'){
     title='Previous-month catch-up plan';
     body='<div class="finance-drill-head"><span>STILL TO EARN FROM '+esc(prev.label.toUpperCase())+'</span><b>'+previousCatchup.toFixed(1)+'h · R'+(previousCatchup*rate).toFixed(0)+'</b><p>Dates are not fixed yet, so this is a suggested pace rather than booked lessons.</p></div>'+
-      '<div class="finance-drill-list">'+catchupRows.map(x=>'<div class="finance-drill-row"><div>Unscheduled</div><div><strong>'+esc(studentName(x.studentId))+'</strong></div><div>'+x.done.toFixed(1)+' of '+x.target.toFixed(1)+'h completed last month</div><div>'+x.remain.toFixed(1)+'h</div><div class="money">R'+(x.remain*rate).toFixed(0)+'</div></div>').join('')+'</div>'+
+      '<div class="finance-drill-list">'+catchupRows.map(x=>'<div class="finance-drill-row"><div>Unscheduled</div><div><strong>'+esc(studentName(x.studentId))+'</strong></div><div>'+x.done.toFixed(1)+' of '+x.target.toFixed(1)+'h resolved for last month</div><div>'+x.remain.toFixed(1)+'h</div><div class="money">R'+(x.remain*rate).toFixed(0)+'</div></div>').join('')+'</div>'+
       '<div class="catchup-plan">'+catchupPlan.map((w,i)=>'<div class="catchup-plan-block"><div class="catchup-plan-head"><b>Suggested '+(i===0?'this week':'next period')+' · '+esc(dateFmt(w.start))+' – '+esc(dateFmt(w.end))+'</b><span>'+w.hours.toFixed(1)+'h · R'+(w.hours*rate).toFixed(0)+'</span></div><div class="catchup-plan-students">'+w.rows.map(r=>'<span>'+esc(studentName(r.studentId))+' · '+r.hours.toFixed(1)+'h</span>').join('')+'</div></div>').join('')+'</div>';
   }else if(kind==='remaining'){
     title='This month still to teach';
-    body='<div class="finance-drill-head"><span>REGULAR LESSONS STILL TO COVER</span><b>'+currentRemain.toFixed(1)+'h · R'+(currentRemain*rate).toFixed(0)+'</b><p>Your current-month targets minus lessons already completed.</p></div>'+
-      '<div class="finance-drill-list">'+newMonthPlans().map(p=>{const done=completedHoursInCalendarMonth(0,p.student_id),remain=thisMonthRemaining(p.student_id);return '<div class="finance-drill-row"><div>'+esc(cur.label)+'</div><div><strong>'+esc(studentName(p.student_id))+'</strong></div><div>'+done.toFixed(1)+'h completed of '+Number(p.target_hours||0).toFixed(1)+'h monthly target</div><div>'+remain.toFixed(1)+'h</div><div class="money">R'+(remain*rate).toFixed(0)+'</div></div>'}).join('')+'</div>'+
-      '<div class="catchup-plan">'+weeklyPlans.map((w,i)=>'<div class="catchup-plan-block"><div class="catchup-plan-head"><b>'+(i===0?'This week':'Next period')+' · '+esc(dateFmt(w.start))+' – '+esc(dateFmt(w.end))+'</b><span>'+w.remain.toFixed(1)+'h left · R'+(w.remain*rate).toFixed(0)+'</span></div><div class="catchup-plan-students">'+w.rows.map(r=>'<span>'+esc(studentName(r.studentId))+' · '+r.remain.toFixed(1)+'h left</span>').join('')+'</div></div>').join('')+'</div>';
+    body='<div class="finance-drill-head"><span>REGULAR LESSONS STILL TO COVER</span><b>'+currentRemain.toFixed(1)+'h · R'+(currentRemain*rate).toFixed(0)+'</b><p>Your active current-month targets minus lessons already completed.</p></div>'+
+      '<div class="finance-drill-list">'+newMonthPlans().filter(p=>Number(p.target_hours||0)>0).map(p=>{const done=completedHoursInCalendarMonth(0,p.student_id),remain=thisMonthRemaining(p.student_id);return '<div class="finance-drill-row"><div>'+esc(cur.label)+'</div><div><strong>'+esc(studentName(p.student_id))+'</strong></div><div>'+done.toFixed(1)+'h completed of '+Number(p.target_hours||0).toFixed(1)+'h monthly target</div><div>'+remain.toFixed(1)+'h</div><div class="money">R'+(remain*rate).toFixed(0)+'</div></div>'}).join('')+'</div>'+
+      '<div class="catchup-plan">'+weeklyPlans.map((w,i)=>'<div class="catchup-plan-block"><div class="catchup-plan-head"><b>'+(i===0?'This week':'Next period')+' · '+esc(dateFmt(w.start))+' – '+esc(dateFmt(w.end))+'</b><span>'+w.remain.toFixed(1)+'h left · R'+(w.remain*rate).toFixed(0)+'</span></div><div class="catchup-plan-students">'+w.rows.filter(r=>r.target>0).map(r=>'<span>'+esc(studentName(r.studentId))+' · '+r.remain.toFixed(1)+'h left</span>').join('')+'</div></div>').join('')+'</div>';
   }else{
-    title='Teaching total & potential';
-    body='<div class="finance-drill-head"><span>RECORDED TEACHING TOTAL</span><b>R'+teachingTotal.toFixed(0)+'</b><p>'+esc(prev.label)+' completed teaching + '+esc(cur.label)+' completed teaching.</p></div>'+
+    title='Recorded total & expected receivable';
+    body='<div class="finance-drill-head"><span>RECORDED COMPLETED TEACHING</span><b>R'+teachingTotal.toFixed(0)+'</b><p>'+esc(prev.label)+' historical teaching + '+esc(cur.label)+' completed teaching.</p></div>'+
       '<div class="finance-breakdown">'+
-        '<div class="finance-break-row"><span>'+esc(prev.label)+' completed</span><b>R'+previousEarned.toFixed(0)+'</b></div>'+
+        '<div class="finance-break-row"><span>'+esc(prev.label)+' completed teaching</span><b>R'+previousEarned.toFixed(0)+'</b></div>'+
         '<div class="finance-break-row"><span>'+esc(cur.label)+' completed so far</span><b>R'+currentEarned.toFixed(0)+'</b></div>'+
-        '<div class="finance-break-row finance-break-total"><span>Recorded teaching total</span><b>R'+teachingTotal.toFixed(0)+'</b></div>'+
-        '<div class="finance-break-row"><span>Full '+esc(cur.label)+' regular target</span><b>R'+currentTarget.toFixed(0)+'</b></div>'+
-        '<div class="finance-break-row"><span>Previous catch-up if completed</span><b>R'+(previousCatchup*rate).toFixed(0)+'</b></div>'+
-        '<div class="finance-break-row finance-break-total"><span>Potential teaching value if all planned work is completed</span><b>R'+potentialTeaching.toFixed(0)+'</b></div>'+
-        '<div class="finance-break-row"><span>Separate outstanding invoice balance</span><b>R'+outstanding.toFixed(0)+'</b></div>'+
-      '</div><div class="finance-potential-box"><b>How to read this:</b> the R'+teachingTotal.toFixed(0)+' is already recorded as teaching completed. The R'+potentialTeaching.toFixed(0)+' is the teaching value you could reach if the full current-month target and old catch-up are completed. The R'+outstanding.toFixed(0)+' invoice balance stays separate so it is not double-counted.</div>';
+        '<div class="finance-break-row finance-break-total"><span>Recorded completed teaching total</span><b>R'+teachingTotal.toFixed(0)+'</b></div>'+
+        '<div class="finance-break-row"><span>Full active '+esc(cur.label)+' target</span><b>R'+currentTarget.toFixed(0)+'</b></div>'+
+        '<div class="finance-break-row"><span>Previous catch-up still to earn</span><b>R'+(previousCatchup*rate).toFixed(0)+'</b></div>'+
+        '<div class="finance-break-row"><span>Outstanding unpaid balance</span><b>R'+outstanding.toFixed(0)+'</b></div>'+
+        '<div class="finance-break-row finance-break-total"><span>Forward-looking amount if active '+esc(cur.label)+' target + catch-up are completed, plus outstanding payment</span><b>R'+forwardPotential.toFixed(0)+'</b></div>'+
+      '</div><div class="finance-potential-box"><b>Important:</b> R'+previousEarned.toFixed(0)+' from '+esc(prev.label)+' is historical teaching value and is not added again to the forward-looking receivable. This prevents double-counting money that has already been paid or invoiced.</div>';
   }
   modal(title,body,'<button class="btn primary" onclick="closeModal()">Close</button>');
 }
@@ -1483,7 +1485,7 @@ function adminFinance(){
   const currentRemain=currentRemainingRows.reduce((s,x)=>s+x.remain,0);
   const catchupRows=previousMonthPlans().map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:Math.max(previousMonthCompletedHoursByDate(p.student_id),Number(p.completed_hours||0)),remain:previousMonthCatchupRemaining(p.student_id)})).filter(x=>x.remain>0);
   const catchupHours=catchupRows.reduce((s,x)=>s+x.remain,0),catchupValue=catchupHours*rate;
-  const teachingTotal=earned+previousEarned,currentTarget=currentMonthRegularTarget()*rate,potentialTeaching=previousEarned+currentTarget+catchupValue;
+  const teachingTotal=earned+previousEarned,currentTarget=currentMonthRegularTarget()*rate,potentialTeaching=currentTarget+catchupValue+oldDue;
   const oldDue=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
 
   function ledger(ls){
