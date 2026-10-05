@@ -231,6 +231,60 @@ input,select,textarea{transition:border-color .16s ease,box-shadow .16s ease}
   .topbar{box-shadow:0 1px 10px rgba(15,23,42,.025)}
 }
 </style>
+
+<style id="vta-learning-quiz-fix">
+/* Mobile learning readability + unmistakable open states */
+.curriculum-subject{margin:20px 2px 10px}
+.curriculum-subject h4{font-size:18px;letter-spacing:-.02em}
+.curriculum-total{font-size:12px;line-height:1.4;margin-top:3px}
+.term-block{border:1px solid var(--line);border-radius:18px;background:var(--panel);overflow:hidden;transition:border-color .16s ease,box-shadow .16s ease,background .16s ease}
+.term-block+ .term-block{margin-top:12px}
+.term-block>summary{padding:16px 17px}
+.term-title{gap:13px}.term-num{width:42px;height:42px;border-radius:13px;font-size:17px}
+.term-title b{font-size:17px;letter-spacing:-.025em}.term-title .tiny{font-size:12px!important;margin-top:2px}
+.term-progress b{font-size:14px}.term-progress span{font-size:11px;line-height:1.25;margin-top:3px}
+.term-block[open]{border-color:#d8dde6;box-shadow:0 14px 32px rgba(15,23,42,.07)}
+.term-block[open]>summary{background:linear-gradient(180deg,#fffaf8,var(--panel));border-bottom:1px solid var(--line)}
+.term-block[open] .term-num{background:#ffe9e2}
+.term-body{padding:12px;gap:11px}
+.topic-block{border-radius:15px;background:#f8fafc;transition:border-color .15s ease,box-shadow .15s ease,background .15s ease}
+.topic-block>summary{padding:15px 15px;min-height:76px}
+.topic-block>summary>div{min-width:0;display:flex;flex-direction:column;gap:5px;padding-right:10px}
+.topic-block>summary>div>b{display:block;font-size:15px;line-height:1.3;letter-spacing:-.015em}
+.topic-block>summary>div>span{display:block;font-size:11px;line-height:1.35;color:var(--muted)}
+.topic-block>summary>span{font-size:11px;line-height:1.35;color:var(--muted);text-align:right;white-space:nowrap}
+.topic-block[open]{background:var(--panel);border-color:#cfd6e2;box-shadow:0 9px 24px rgba(15,23,42,.07)}
+.topic-block[open]>summary{background:#f4f6f9;border-bottom:1px solid var(--line)}
+.topic-block[open]>summary>div>b{color:#0f376f}
+.topic-block>summary:active{background:#eef2f7}
+.subtopic-table th,.subtopic-table td{font-size:12px;line-height:1.45}
+.subtopic-table th{font-size:9px}.subtopic-name{font-size:13px!important;font-weight:780}
+.subtopic-table select{font-size:12px}
+.note-text,.note-edit{font-size:11px}
+.lesson-stat span{font-size:10px}.lesson-stat b{font-size:19px}
+.quiz-card{padding:17px}.quiz-card h4{font-size:15px;margin:0}
+.quiz-meta{font-size:11px!important;line-height:1.5;margin:7px 0 0}
+.quiz-card-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.quiz-card-actions .btn{min-height:38px}
+.quiz-report-box{margin-top:12px;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
+.quiz-report-box b{font-size:11px}.quiz-report-box p{font-size:10px;margin:4px 0 0;color:var(--muted)}
+.quiz-attempts{margin-top:14px}.attempt-row{border-radius:13px}
+@media(max-width:760px){
+ .curriculum-subject h4{font-size:19px}.curriculum-total{font-size:13px}
+ .term-block>summary{padding:16px 14px}.term-title b{font-size:18px}.term-title .tiny{font-size:13px!important}
+ .term-progress{min-width:82px}.term-progress b{font-size:15px}.term-progress span{font-size:11px}
+ .term-body{padding:11px;gap:12px}
+ .topic-block>summary{padding:16px 14px;align-items:flex-start;min-height:88px}
+ .topic-block>summary>div>b{font-size:16px;line-height:1.32}
+ .topic-block>summary>div>span{font-size:12px;line-height:1.4}
+ .topic-block>summary>span{font-size:12px;line-height:1.35;padding-top:2px}
+ .subtopic-table tr{padding:12px 11px}.subtopic-table td{font-size:12px;padding:5px 0}.subtopic-name{font-size:14px!important}
+ .quiz-card-actions{display:grid;grid-template-columns:1fr 1fr}.quiz-card-actions .btn{width:100%}
+}
+@media(max-width:430px){
+ .term-progress span{max-width:82px}.topic-block>summary{gap:8px}.topic-block>summary>span{white-space:normal;max-width:82px}
+}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -575,15 +629,65 @@ function resourceVisual(r){
 }
 function resourceIcon(t){t=String(t||'').toLowerCase();if(t.includes('interactive'))return '✦';if(t.includes('pdf')||t.includes('note'))return '▤';if(t.includes('slide'))return '▣';if(t.includes('video'))return '▶';if(t.includes('quiz'))return '✓';return '↗'}
 function adminResources(){
-  const cats=['Interactive Lesson','Slides','PDF / Notes','Worksheet','Video','Other'];let h=section('Resources','Organized by teaching format','<div class="row"><button class="btn small" onclick="openLinkResource()">+ Link</button><button class="btn small primary" onclick="openUpload()">+ Upload</button></div>');
-  cats.forEach(c=>{const rs=(data.resources||[]).filter(r=>String(r.resource_type||'Other').toLowerCase().includes(c.split(' ')[0].toLowerCase())||(c==='Other'&&!cats.slice(0,-1).some(z=>String(r.resource_type||'').toLowerCase().includes(z.split(' ')[0].toLowerCase()))));if(rs.length){h+=section(c,rs.length+' resource'+(rs.length===1?'':'s'));h+=resourceCards(rs,true)}});
+  const cats=['Interactive Lesson','Slides','PDF / Notes','Worksheet','Video','Quiz Link','Quiz Report','Other'];let h=section('Resources','Organized by teaching format','<div class="row"><button class="btn small" onclick="openLinkResource()">+ Link</button><button class="btn small primary" onclick="openUpload()">+ Upload</button></div>');
+  cats.forEach(cat=>{const first=cat.split(' ')[0].toLowerCase();const rs=(data.resources||[]).filter(r=>{const t=String(r.resource_type||'Other').toLowerCase();if(cat==='Quiz Link')return t==='quiz link';if(cat==='Quiz Report')return t==='quiz report';if(cat==='Other')return !cats.slice(0,-1).some(z=>{const zz=z.toLowerCase();return zz.startsWith('quiz ')?t===zz:t.includes(z.split(' ')[0].toLowerCase())});return t.includes(first)});if(rs.length){h+=section(cat,rs.length+' resource'+(rs.length===1?'':'s'));h+=resourceCards(rs,true)}});
   if(!(data.resources||[]).length)h+='<div class="card muted">No resources uploaded yet.</div>';$('#content').innerHTML=h;
 }
 async function openResource(id){try{const r=await api({action:'resourceDownload',id});window.open(r.signedUrl,'_blank','noopener')}catch(err){toast(err.message)}}
+
+function quizTaggedResource(quizId,type){
+  const marker='[quiz:'+quizId+']';
+  return (data.resources||[]).filter(r=>String(r.resource_type||'')===type&&String(r.description||'').includes(marker)).slice().sort((a,b)=>String(b.created_at||'').localeCompare(String(a.created_at||'')))[0]||null;
+}
+function quizReportFor(quizId){return quizTaggedResource(quizId,'Quiz Report')}
+function quizLinkFor(quizId){return quizTaggedResource(quizId,'Quiz Link')}
+function openQuizLinkModal(id){
+  const q=(data.quizzes||[]).find(x=>x.id===id);if(!q)return;
+  const old=quizLinkFor(id);
+  modal(old?'Update quiz link':'Attach quiz link',
+    '<div class="field"><label>Quiz link</label><input id="qlUrl" type="url" placeholder="https://..." value="'+esc(old?.external_url||'')+'"></div>'+
+    '<div class="field" style="margin-top:12px"><label>Password / access note (optional)</label><input id="qlAccess" value="'+esc(old?.access_note||'')+'" placeholder="Only if the quiz needs one"></div>'+
+    '<div class="tiny muted" style="margin-top:10px">Students will see one clear <b>Open quiz</b> button. The link stays attached to this quiz card.</div>',
+    '<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveQuizLink(\''+id+'\')">'+(old?'Update link':'Save link')+'</button>');
+}
+async function saveQuizLink(id){
+  const q=(data.quizzes||[]).find(x=>x.id===id);if(!q)return;
+  const url=$('#qlUrl').value.trim();if(!/^https?:\/\//i.test(url)){toast('Enter a full https:// link');return}
+  try{
+    await api({action:'resourceCreateLink',studentId:q.student_id,title:q.title+' — Quiz Link',resourceType:'Quiz Link',externalUrl:url,accessNote:$('#qlAccess').value,completionStatus:'Available',description:'[quiz:'+q.id+'] Linked quiz for '+q.title});
+    closeModal();toast('Quiz link attached');await sync();
+  }catch(err){toast(err.message)}
+}
+function openQuizReportUpload(id){
+  const q=(data.quizzes||[]).find(x=>x.id===id);if(!q)return;
+  const old=quizReportFor(id);
+  modal(old?'Upload updated quiz report':'Upload quiz report',
+    '<div class="quiz-report-box"><b>'+esc(q.title)+'</b><p>'+esc(studentName(q.student_id))+' · Upload the marked report for this quiz.</p></div>'+
+    '<div class="field" style="margin-top:14px"><label>Report file</label><input id="qrFile" type="file" accept=".xlsx,.xls,.csv,.pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv,application/pdf"></div>'+
+    '<div class="tiny muted" style="margin-top:8px">Excel, CSV or PDF · maximum 8 MB. The newest upload becomes the report shown to the student.</div>',
+    '<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="uploadQuizReport(\''+id+'\')">'+(old?'Upload updated report':'Upload report')+'</button>');
+}
+async function uploadQuizReport(id){
+  const q=(data.quizzes||[]).find(x=>x.id===id),f=$('#qrFile').files[0];if(!q)return;if(!f){toast('Choose the report file');return}
+  if(f.size>8*1024*1024){toast('Report must be 8 MB or smaller');return}
+  try{
+    const b64=await file64(f);
+    await api({action:'resourceUpload',studentId:q.student_id,title:q.title+' — Report',resourceType:'Quiz Report',fileName:f.name,mimeType:f.type||'application/octet-stream',base64:b64,description:'[quiz:'+q.id+'] Tutor report for '+q.title,accessNote:'Quiz report',completionStatus:'Available',featured:false});
+    closeModal();toast('Quiz report uploaded');await sync();
+  }catch(err){toast(err.message)}
+}
+
 function adminQuizzes(){
   const qs=(data.quizzes||[]).slice().sort((a,b)=>String(b.scheduled_for||b.created_at).localeCompare(String(a.scheduled_for||a.created_at)));
-  let h=section('Quizzes','Create, schedule and review student submissions — only items that need action stay prominent','<div class="quiz-actions"><button class="btn small" onclick="openQuizUpload()">Upload quiz file</button><button class="btn small primary" onclick="openQuizCreate()">+ Build browser quiz</button></div>');
-  h+='<div class="list">'+(qs.length?qs.map(q=>{const at=(data.quizAttempts||[]).filter(a=>a.quiz_id===q.id).sort((a,b)=>String(b.completed_at).localeCompare(String(a.completed_at))),when=q.scheduled_for?dateFmt(q.scheduled_for):'Not scheduled';return '<div class="card"><div class="row between"><div class="quiz-info"><h4>'+esc(q.title)+'</h4><p>'+esc(studentName(q.student_id))+' • '+esc(q.subject||'')+' • '+esc(q.topic||'')+'</p><div class="quiz-tags"><span class="chip">'+esc(q.quiz_mode||'Browser')+'</span><span class="chip orange">'+esc(when)+'</span><span class="chip">'+esc(q.total_marks||0)+' marks</span></div></div>'+status(q.status)+'</div><div class="quiz-attempts">'+(at.length?at.map(a=>{const ans=a.answers||{},answered=ans.answeredCount??Object.values(ans.responses||{}).filter(x=>String(x?.answer||'').trim()).length,totalQ=ans.totalQuestions||'';return '<div class="attempt-row"><div><b>'+esc(studentName(a.student_id))+' • '+new Date(a.completed_at).toLocaleString('en-ZA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+'</b><p>'+answered+(totalQ?'/'+totalQ:'')+' answered • '+esc(a.mark_status||'UNMARKED')+'</p></div><div class="attempt-actions">'+(a.mark_status==='MARKED'?'<span class="chip green">'+esc(a.score)+' / '+esc(a.total)+'</span>':'<span class="chip orange">Needs review</span>')+'<button class="btn small primary" onclick="reviewQuizAttempt(\''+a.id+'\')">Review submission</button></div></div>'}).join(''):'<div class="tiny muted">No submissions yet.</div>')+'</div></div>'}).join(''):emptyState('No quizzes yet','Build one in the portal or upload an existing file.'))+'</div>';
+  let h=section('Quizzes','Create, link and review quizzes. Reports stay attached to the correct quiz.','<div class="quiz-actions"><button class="btn small" onclick="openQuizUpload()">Upload quiz file</button><button class="btn small primary" onclick="openQuizCreate()">+ Build browser quiz</button></div>');
+  h+='<div class="list">'+(qs.length?qs.map(q=>{
+    const at=(data.quizAttempts||[]).filter(a=>a.quiz_id===q.id).sort((a,b)=>String(b.completed_at).localeCompare(String(a.completed_at)));
+    const when=q.scheduled_for?dateFmt(q.scheduled_for):'Not scheduled',link=quizLinkFor(q.id),report=quizReportFor(q.id);
+    let openBtn=link?'<button class="btn small" onclick="openResource(\''+link.id+'\')">Open quiz</button>':((q.quiz_mode==='Uploaded file'||q.storage_path)?'<button class="btn small" onclick="openQuizFile(\''+q.id+'\')">Open quiz</button>':'');
+    return '<div class="card quiz-card"><div class="row between"><div class="quiz-info"><h4>'+esc(q.title)+'</h4><p class="quiz-meta">'+esc(studentName(q.student_id))+' · '+esc(q.subject||'')+' · '+esc(q.topic||'')+'</p><div class="quiz-tags"><span class="chip">'+esc(q.quiz_mode||'Browser')+'</span><span class="chip orange">'+esc(when)+'</span><span class="chip">'+esc(q.total_marks||0)+' marks</span></div></div>'+status(q.status)+'</div>'+
+    '<div class="quiz-card-actions">'+openBtn+'<button class="btn small" onclick="openQuizLinkModal(\''+q.id+'\')">'+(link?'Update quiz link':'Attach quiz link')+'</button><button class="btn small primary" onclick="openQuizReportUpload(\''+q.id+'\')">'+(report?'Update report':'Upload report')+'</button>'+(report?'<button class="btn small" onclick="openResource(\''+report.id+'\')">View report</button>':'')+'</div>'+
+    '<div class="quiz-attempts">'+(at.length?at.map(a=>{const ans=a.answers||{},answered=ans.answeredCount??Object.values(ans.responses||{}).filter(x=>String(x?.answer||'').trim()).length,totalQ=ans.totalQuestions||'';return '<div class="attempt-row"><div><b>'+esc(studentName(a.student_id))+' · '+new Date(a.completed_at).toLocaleString('en-ZA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+'</b><p>'+answered+(totalQ?'/'+totalQ:'')+' answered · '+esc(a.mark_status||'UNMARKED')+'</p></div><div class="attempt-actions">'+(a.mark_status==='MARKED'?'<span class="chip green">'+esc(a.score)+' / '+esc(a.total)+'</span>':'<span class="chip orange">Needs review</span>')+'<button class="btn small primary" onclick="reviewQuizAttempt(\''+a.id+'\')">Review submission</button></div></div>'}).join(''):'<div class="tiny muted">No submissions yet.</div>')+'</div></div>'
+  }).join(''):emptyState('No quizzes yet','Build one in the portal or upload an existing file.'))+'</div>';
   $('#content').innerHTML=h;
 }
 function reviewQuizAttempt(id){const a=(data.quizAttempts||[]).find(x=>x.id===id);if(!a)return;const ans=a.answers||{},report=ans.completionReport||JSON.stringify(ans.responses||{},null,2);const total=Number(a.total||ans.totalMarks||0);const body='<div class="row wrap" style="margin-bottom:10px"><span class="chip">'+esc(studentName(a.student_id))+'</span><span class="chip">'+esc(ans.answeredCount??'')+' answered</span><span class="chip">'+esc(a.mark_status||'UNMARKED')+'</span></div><div class="review-report">'+esc(report)+'</div><div class="grid2" style="margin-top:12px">'+field('Score','qaScore',a.mark_status==='MARKED'?a.score:'','number')+field('Total marks','qaTotal',total,'number')+'</div><div class="field" style="margin-top:10px"><label>Tutor feedback</label><textarea id="qaFeedback" style="min-height:110px">'+esc(a.tutor_feedback||'')+'</textarea></div>';modal('Review quiz submission',body,'<button class="btn" onclick="closeModal()">Close</button><button class="btn primary" onclick="saveQuizReview(\''+id+'\')">Save marking</button>')}
@@ -674,8 +778,23 @@ async function saveLessonPlan(studentId){try{await api({action:'lessonPlanCreate
 
 function studentQuizzes(){
   const qs=data.quizzes||[],at=data.quizAttempts||[];
-  let h=section('Quizzes','Scheduled practice and assessments');
-  h+='<div class="grid3">'+(qs.length?qs.map(q=>{const a=at.find(x=>x.quiz_id===q.id),future=q.scheduled_for&&q.scheduled_for>today(),marked=a&&a.mark_status==='MARKED',label=future?'Upcoming':(a?'Submitted':'Ready');let action='';if(a&&!marked)action='<div class="chip orange">Submitted • awaiting tutor review</div>';else if(marked)action='<div><div class="chip green">'+esc(a.score)+' / '+esc(a.total)+'</div>'+(a.tutor_feedback?'<p class="tiny muted" style="margin-top:8px">'+esc(a.tutor_feedback)+'</p>':'')+'</div>';else if(future)action='<button class="btn small" disabled>Available '+esc(dateFmt(q.scheduled_for))+'</button>';else if(q.quiz_mode==='Uploaded file'||q.storage_path)action='<button class="btn small primary" onclick="openQuizFile(\''+q.id+'\')">Open quiz</button>';else action='<button class="btn small primary" onclick="takeQuiz(\''+q.id+'\')">Start quiz</button>';return '<div class="card"><div class="row between"><b>'+esc(q.title)+'</b>'+status(label)+'</div><p class="tiny muted">'+esc(q.subject||'')+' • '+esc(q.topic||'')+(q.scheduled_for?' • '+esc(dateFmt(q.scheduled_for)):'')+'</p><div style="margin-top:12px">'+action+'</div></div>'}).join(''):emptyState('No quiz scheduled','Your next quiz will appear here.'))+'</div>';
+  let h=section('Quizzes','Open the quiz, submit it, then return here for your tutor report');
+  h+='<div class="grid3">'+(qs.length?qs.map(q=>{
+    const a=at.find(x=>x.quiz_id===q.id),future=q.scheduled_for&&q.scheduled_for>today(),marked=a&&a.mark_status==='MARKED',label=future?'Upcoming':(a?'Submitted':'Ready'),link=quizLinkFor(q.id),report=quizReportFor(q.id);
+    let quizAction='';
+    if(future)quizAction='<button class="btn small" disabled>Available '+esc(dateFmt(q.scheduled_for))+'</button>';
+    else if(link)quizAction='<button class="btn small primary" onclick="openResource(\''+link.id+'\')">Open quiz</button>';
+    else if(q.quiz_mode==='Uploaded file'||q.storage_path)quizAction='<button class="btn small primary" onclick="openQuizFile(\''+q.id+'\')">Open quiz</button>';
+    else if(!a)quizAction='<button class="btn small primary" onclick="takeQuiz(\''+q.id+'\')">Open quiz</button>';
+    else quizAction='<button class="btn small" onclick="takeQuiz(\''+q.id+'\')">Review quiz</button>';
+
+    let result='';
+    if(a&&!marked)result='<div class="quiz-report-box"><b>Submitted</b><p>Your tutor is reviewing this quiz. Your report will appear here when it is ready.</p></div>';
+    else if(marked)result='<div class="quiz-report-box"><b>Result: '+esc(a.score)+' / '+esc(a.total)+'</b>'+(a.tutor_feedback?'<p>'+esc(a.tutor_feedback)+'</p>':'')+'</div>';
+    if(report)result+='<div class="quiz-card-actions"><button class="btn small" onclick="openResource(\''+report.id+'\')">View report</button></div>';
+
+    return '<div class="card quiz-card"><div class="row between"><h4>'+esc(q.title)+'</h4>'+status(label)+'</div><p class="quiz-meta">'+esc(q.subject||'')+' · '+esc(q.topic||'')+(q.scheduled_for?' · '+esc(dateFmt(q.scheduled_for)):'')+'</p><div class="quiz-card-actions">'+quizAction+'</div>'+result+'</div>'
+  }).join(''):emptyState('No quiz scheduled','Your next quiz will appear here.'))+'</div>';
   $('#content').innerHTML=h;
 }
 async function takeQuiz(id){try{const r=await api({action:'quizGet',id});let body='<p class="muted">'+esc(r.quiz.instructions||'Answer each question carefully.')+'</p><form id="quizForm" class="stack">'+r.questions.map((q,i)=>'<div class="card soft"><b>'+(i+1)+'. '+esc(q.prompt)+'</b><div class="tiny muted" style="margin:5px 0 10px">'+esc(q.marks)+' mark'+(Number(q.marks)===1?'':'s')+'</div>'+questionInput(q)+'</div>').join('')+'</form>';modal(r.quiz.title,body,'<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="submitQuiz(\''+id+'\')">Submit quiz</button>')}catch(err){toast(err.message)}}
