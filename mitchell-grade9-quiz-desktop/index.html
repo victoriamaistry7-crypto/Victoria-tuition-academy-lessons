@@ -126,8 +126,19 @@ async function buildExcelAttachment(data){
   };
 
   const topicOrder=['Forces','Electric Cells','Resistance','Series & Parallel Circuits','Scientific Investigations'];
-  const NAVY='172033', PURPLE='4C1D95', WHITE='FFFFFF', LINE='D6DAE3', LIGHT='F8FAFC',
-        PURPLE_LIGHT='F3EEFF', GREEN='EAF7EF', RED='FDEEEE', AMBER='FFF6DD', GREY='F1F3F6';
+
+  const C={
+    navy:'0F172A',navy2:'1B2942',orange:'E54D2E',orangeSoft:'FFF5F2',
+    bg:'F6F8FB',white:'FFFFFF',text:'172033',muted:'6B7280',
+    line:'E4E8EF',lineDark:'CCD3DE',green:'EEF9F2',greenText:'18733D',
+    red:'FFF1F2',redText:'B42318',amber:'FFF8E8',amberText:'8A6100',
+    grey:'F1F3F6',greyText:'667085',subtle:'FBFCFE'
+  };
+
+  const border=(color=C.line,style='thin')=>({
+    top:{style,color:{argb:color}},bottom:{style,color:{argb:color}},
+    left:{style,color:{argb:color}},right:{style,color:{argb:color}}
+  });
 
   const workbook=new ExcelJS.Workbook();
   workbook.creator='Victoria Tuition Academy';
@@ -136,50 +147,64 @@ async function buildExcelAttachment(data){
 
   const answerText=(q,a)=>{
     if(q.t==='mcq'||q.t==='diagrammcq'){
-      if(a.answer==='')return '—';
+      if(a.answer===''||a.answer==null)return '';
       const idx=Number(a.answer);
-      return Number.isFinite(idx)?String(q.o?.[idx]||a.answer):String(a.answer||'—');
+      return Number.isFinite(idx)?String(q.o?.[idx]||a.answer):String(a.answer||'');
     }
     if(q.t==='numeric2'){
-      if(!a.answer)return '—';
+      if(!a.answer)return '';
       return [a.answer,a.direction||''].filter(Boolean).join(' ');
     }
-    return a.answer||'—';
+    return a.answer||'';
+  };
+
+  const setTopBrand=(ws,endCol,title,subtitle)=>{
+    ws.mergeCells(`A1:${endCol}2`);
+    const t=ws.getCell('A1');
+    t.value=title;
+    t.font={bold:true,size:19,color:{argb:C.white}};
+    t.fill={type:'pattern',pattern:'solid',fgColor:{argb:C.navy}};
+    t.alignment={horizontal:'left',vertical:'middle',wrapText:true};
+    ws.getRow(1).height=32; ws.getRow(2).height=32;
+
+    for(let c=1;c<=ws.getColumn(endCol).number;c++){
+      ws.getCell(3,c).fill={type:'pattern',pattern:'solid',fgColor:{argb:C.orange}};
+    }
+    ws.getRow(3).height=5;
+
+    ws.mergeCells(`A4:${endCol}4`);
+    const st=ws.getCell('A4');
+    st.value=subtitle;
+    st.font={size:10,color:{argb:C.muted}};
+    st.fill={type:'pattern',pattern:'solid',fgColor:{argb:C.bg}};
+    st.alignment={vertical:'middle'};
+    ws.getRow(4).height=24;
   };
 
   const styleHeader=(row)=>{
     row.eachCell(cell=>{
-      cell.font={bold:true,color:{argb:WHITE},size:10};
-      cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:PURPLE}};
+      cell.font={bold:true,color:{argb:C.white},size:10};
+      cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:C.navy2}};
       cell.alignment={horizontal:'center',vertical:'middle',wrapText:true};
-      cell.border={top:{style:'thin',color:{argb:NAVY}},bottom:{style:'thin',color:{argb:NAVY}},left:{style:'thin',color:{argb:NAVY}},right:{style:'thin',color:{argb:NAVY}}};
+      cell.border=border(C.navy2);
     });
-    row.height=28;
+    row.height=36;
   };
 
-  const thinBorder={top:{style:'thin',color:{argb:LINE}},bottom:{style:'thin',color:{argb:LINE}},left:{style:'thin',color:{argb:LINE}},right:{style:'thin',color:{argb:LINE}}};
-  const darkBorder={top:{style:'thin',color:{argb:NAVY}},bottom:{style:'thin',color:{argb:NAVY}},left:{style:'thin',color:{argb:NAVY}},right:{style:'thin',color:{argb:NAVY}}};
-
-  // QUESTION REVIEW
-  const review=workbook.addWorksheet('Question Review',{views:[{state:'frozen',ySplit:5}]});
+  // ---------------- QUESTION REVIEW ----------------
+  const review=workbook.addWorksheet('Question Review',{views:[{state:'frozen',ySplit:6}]});
   review.columns=[
-    {width:25},{width:36},{width:62},{width:34},{width:10},{width:10},{width:14}
+    {width:26},{width:39},{width:72},{width:39},{width:11},{width:11},{width:15},
+    {width:2,hidden:true},{width:2,hidden:true}
   ];
-  review.mergeCells('A1:G2');
-  review.getCell('A1').value='QUESTION REVIEW\nWhat was answered correctly, incorrectly or not attempted';
-  review.getCell('A1').font={bold:true,size:17,color:{argb:WHITE}};
-  review.getCell('A1').fill={type:'pattern',pattern:'solid',fgColor:{argb:NAVY}};
-  review.getCell('A1').alignment={vertical:'middle',wrapText:true};
-  review.mergeCells('A3:G3');
-  review.getCell('A3').value='Grade 9 Natural Sciences';
-  review.getCell('A3').font={color:{argb:'64748B'},size:10};
-  review.getCell('A3').fill={type:'pattern',pattern:'solid',fgColor:{argb:'EEF1F5'}};
+  setTopBrand(review,'G','QUESTION REVIEW','Correct, incorrect and incomplete questions grouped by CAPS topic and subtopic');
   review.addRow([]);
-  const rh=review.addRow(['Topic','Subtopic','Question','Student Answer','Max Mark','Mark','Result']);
+  const rh=review.addRow(['Topic','Subtopic','Question','Student Answer','Max Mark','Mark','Result','','']);
   styleHeader(rh);
 
-  const subtopicGroups=[];
   const topicGroups=[];
+  const subGroups=[];
+
   for(const topic of topicOrder){
     const subs=[];
     const seen=new Set();
@@ -187,70 +212,129 @@ async function buildExcelAttachment(data){
       const m=mapping[q.id]||['Other','Teacher review'];
       if(m[0]===topic&&!seen.has(m[1])){seen.add(m[1]);subs.push(m[1]);}
     }
+
     const topicStart=review.rowCount+1;
+    let firstTopicRow=true;
+
     for(const sub of subs){
-      const subStart=review.rowCount+1;
       const qlist=qs.filter(q=>{
         const m=mapping[q.id]||['Other','Teacher review'];
         return m[0]===topic&&m[1]===sub;
       });
+      const subStart=review.rowCount+1;
+      let firstSubRow=true;
+
       for(const q of qlist){
         const a=data.answers[q.id]||{};
-        const answer=answerText(q,a);
-        const row=review.addRow([topic,sub,q.q,answer,q.m,'','']);
+        const ans=answerText(q,a);
+        const row=review.addRow([
+          firstTopicRow?topic:'',
+          firstSubRow?sub:'',
+          q.q,ans,q.m,'','',topic,sub
+        ]);
+        firstTopicRow=false;
+        firstSubRow=false;
+
         const n=row.number;
-        row.getCell(7).value={formula:`IF(D${n}="—","N/A",IF(F${n}="","Pending",IF(F${n}=E${n},"Correct",IF(F${n}=0,"Incorrect","Partial"))))`};
-        row.getCell(6).dataValidation={type:'decimal',operator:'between',allowBlank:true,formulae:[0,5],showErrorMessage:true,error:'Enter a valid mark.'};
-        row.eachCell(cell=>{
+        row.getCell(7).value={formula:`IF(D${n}="","Incomplete",IF(F${n}="","Pending",IF(F${n}=E${n},"Correct",IF(F${n}=0,"Incorrect","Partial"))))`};
+        row.getCell(6).dataValidation={type:'decimal',operator:'between',allowBlank:true,formulae:[0,5],showErrorMessage:true,errorTitle:'Invalid mark',error:'Enter a mark from 0 to 5.'};
+
+        for(let c=1;c<=7;c++){
+          const cell=row.getCell(c);
           cell.alignment={vertical:'top',wrapText:true};
-          cell.border=thinBorder;
-          cell.font={color:{argb:'202938'},size:10};
-        });
-        row.getCell(6).fill={type:'pattern',pattern:'solid',fgColor:{argb:'FCFCFD'}};
+          cell.border=border(C.line);
+          cell.font={color:{argb:C.text},size:10};
+          if((row.number-7)%2===1 && c>=3 && c<=6){
+            cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:C.subtle}};
+          }
+        }
+        row.getCell(1).fill={type:'pattern',pattern:'solid',fgColor:{argb:C.orangeSoft}};
+        row.getCell(1).font={bold:true,color:{argb:'B63B22'},size:10};
+        row.getCell(1).alignment={horizontal:'center',vertical:'middle',wrapText:true};
+
+        row.getCell(2).fill={type:'pattern',pattern:'solid',fgColor:{argb:'FAFBFC'}};
+        row.getCell(2).font={bold:true,color:{argb:C.text},size:10};
+        row.getCell(2).alignment={vertical:'middle',wrapText:true};
+
+        const qText=String(q.q||'');
+        const aText=String(ans||'');
+        const lines=Math.max(1,Math.ceil(qText.length/78),Math.ceil(aText.length/44));
+        row.height=Math.min(116,Math.max(38,20+lines*17));
       }
+
       const subEnd=review.rowCount;
-      if(subEnd>subStart) review.mergeCells(`B${subStart}:B${subEnd}`);
-      review.getCell(`B${subStart}`).value=sub;
-      review.getCell(`B${subStart}`).font={bold:true,color:{argb:'202938'}};
-      review.getCell(`B${subStart}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:'FAFAFC'}};
-      review.getCell(`B${subStart}`).alignment={vertical:'middle',wrapText:true};
-      subtopicGroups.push([subStart,subEnd]);
+      subGroups.push([subStart,subEnd]);
     }
+
     const topicEnd=review.rowCount;
-    if(topicEnd>=topicStart){
-      if(topicEnd>topicStart)review.mergeCells(`A${topicStart}:A${topicEnd}`);
-      review.getCell(`A${topicStart}`).value=topic;
-      review.getCell(`A${topicStart}`).font={bold:true,color:{argb:PURPLE},size:11};
-      review.getCell(`A${topicStart}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:PURPLE_LIGHT}};
-      review.getCell(`A${topicStart}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
-      topicGroups.push([topicStart,topicEnd]);
-    }
-  }
-  for(const [start,end] of topicGroups){
-    for(let c=1;c<=7;c++){
-      review.getCell(start,c).border={...review.getCell(start,c).border,top:{style:'thin',color:{argb:NAVY}}};
-      review.getCell(end,c).border={...review.getCell(end,c).border,bottom:{style:'thin',color:{argb:NAVY}}};
-    }
-    review.getCell(start,1).border=darkBorder;
+    topicGroups.push([topicStart,topicEnd]);
   }
 
-  // LEARNING SUMMARY
-  const summary=workbook.addWorksheet('Learning Summary',{views:[{state:'frozen',ySplit:5}]});
-  summary.columns=[{width:25},{width:39},{width:11},{width:11},{width:11},{width:11},{width:11},{width:18}];
-  summary.mergeCells('A1:H2');
-  summary.getCell('A1').value='MITCHELL — LEARNING DIAGNOSTIC\nGrade 9 Natural Sciences';
-  summary.getCell('A1').font={bold:true,size:18,color:{argb:WHITE}};
-  summary.getCell('A1').fill={type:'pattern',pattern:'solid',fgColor:{argb:NAVY}};
-  summary.getCell('A1').alignment={vertical:'middle',wrapText:true};
-  summary.mergeCells('A3:H3');
-  summary.getCell('A3').value=`Assessment date: ${data.date}`;
-  summary.getCell('A3').font={color:{argb:'64748B'},size:10};
-  summary.getCell('A3').fill={type:'pattern',pattern:'solid',fgColor:{argb:'EEF1F5'}};
-  summary.addRow([]);
+  for(const [start,end] of subGroups){
+    for(let c=2;c<=7;c++){
+      review.getCell(start,c).border={...review.getCell(start,c).border,top:{style:'thin',color:{argb:C.lineDark}}};
+    }
+  }
+
+  for(const [start,end] of topicGroups){
+    for(let c=1;c<=7;c++){
+      review.getCell(start,c).border={...review.getCell(start,c).border,top:{style:'medium',color:{argb:C.navy}}};
+      review.getCell(end,c).border={...review.getCell(end,c).border,bottom:{style:'medium',color:{argb:C.navy}}};
+    }
+  }
+
+  // Result status styling.
+  for(let r=7;r<=review.rowCount;r++){
+    const cell=review.getCell(r,7);
+    cell.alignment={vertical:'middle'};
+    // Formula result color will be applied by Excel conditional formatting.
+  }
+  review.addConditionalFormatting({
+    ref:`G7:G${review.rowCount}`,
+    rules:[
+      {type:'expression',formulae:['G7="Correct"'],style:{fill:{type:'pattern',pattern:'solid',fgColor:{argb:C.green}},font:{bold:true,color:{argb:C.greenText}}}},
+      {type:'expression',formulae:['G7="Incorrect"'],style:{fill:{type:'pattern',pattern:'solid',fgColor:{argb:C.red}},font:{bold:true,color:{argb:C.redText}}}},
+      {type:'expression',formulae:['OR(G7="Incomplete",G7="Pending")'],style:{fill:{type:'pattern',pattern:'solid',fgColor:{argb:C.grey}},font:{bold:true,color:{argb:C.greyText}}}}
+    ]
+  });
+
+  // ---------------- LEARNING SUMMARY ----------------
+  const summary=workbook.addWorksheet('Learning Summary',{views:[{state:'frozen',ySplit:10}]});
+  summary.columns=[
+    {width:26},{width:42},{width:12},{width:12},{width:12},{width:12},{width:12},{width:19}
+  ];
+  setTopBrand(summary,'H','MITCHELL — LEARNING DIAGNOSTIC','Grade 9 Natural Sciences • CAPS-aligned assessment snapshot');
+
+  // KPI cards.
+  const cardDefs=[
+    ['A6:B8','ANSWERED',`COUNTIF('Question Review'!$D$7:$D$${review.rowCount},"<>")`,'questions completed',C.orange],
+    ['C6:D8','CORRECT',`COUNTIF('Question Review'!$G$7:$G$${review.rowCount},"Correct")`,'marked correct','22A06B'],
+    ['E6:F8','INCORRECT',`COUNTIF('Question Review'!$G$7:$G$${review.rowCount},"Incorrect")`,'need revision','D64545'],
+    ['G6:H8','INCOMPLETE',`COUNTIF('Learning Summary'!$H$11:$H$45,"Incomplete")`,'subtopics incomplete','7A8493']
+  ];
+
+  for(const [rng,label,formula,note,accent] of cardDefs){
+    summary.mergeCells(rng);
+    const cell=summary.getCell(rng.split(':')[0]);
+    cell.value={formula:`="${label}"&CHAR(10)&TEXT(${formula},"0")&CHAR(10)&"${note}"`};
+    cell.font={bold:true,color:{argb:C.text},size:11};
+    cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:C.white}};
+    cell.alignment={horizontal:'center',vertical:'middle',wrapText:true};
+    cell.border=border(C.lineDark);
+    summary.getRow(6).height=25;summary.getRow(7).height=25;summary.getRow(8).height=25;
+    const startCol=summary.getCell(rng.split(':')[0]).col;
+    const endCol=summary.getCell(rng.split(':')[1]).col;
+    for(let cc=startCol;cc<=endCol;cc++){
+      summary.getCell(6,cc).border={...summary.getCell(6,cc).border,top:{style:'medium',color:{argb:accent}}};
+    }
+  }
+  summary.getRow(9).height=12;
+
   const sh=summary.addRow(['Topic','Subtopic','Questions','Answered','Correct','Incorrect','Score','Learning Status']);
   styleHeader(sh);
 
   const summaryTopicGroups=[];
+
   for(const topic of topicOrder){
     const subs=[];
     const seen=new Set();
@@ -258,53 +342,64 @@ async function buildExcelAttachment(data){
       const m=mapping[q.id]||['Other','Teacher review'];
       if(m[0]===topic&&!seen.has(m[1])){seen.add(m[1]);subs.push(m[1]);}
     }
+
     const topicStart=summary.rowCount+1;
+
     for(const sub of subs){
       const row=summary.addRow([topic,sub]);
       const n=row.number;
-      row.getCell(3).value={formula:`COUNTIF('Question Review'!$B$6:$B$75,B${n})`};
-      row.getCell(4).value={formula:`COUNTIFS('Question Review'!$B$6:$B$75,B${n},'Question Review'!$D$6:$D$75,"<>—")`};
-      row.getCell(5).value={formula:`COUNTIFS('Question Review'!$B$6:$B$75,B${n},'Question Review'!$G$6:$G$75,"Correct")`};
-      row.getCell(6).value={formula:`COUNTIFS('Question Review'!$B$6:$B$75,B${n},'Question Review'!$G$6:$G$75,"Incorrect")+COUNTIFS('Question Review'!$B$6:$B$75,B${n},'Question Review'!$G$6:$G$75,"Partial")`};
-      row.getCell(7).value={formula:`IF(D${n}=0,"—",IF(COUNTIFS('Question Review'!$B$6:$B$75,B${n},'Question Review'!$G$6:$G$75,"Pending")>0,"—",SUMIFS('Question Review'!$F$6:$F$75,'Question Review'!$B$6:$B$75,B${n})/SUMIFS('Question Review'!$E$6:$E$75,'Question Review'!$B$6:$B$75,B${n},'Question Review'!$D$6:$D$75,"<>—")))`};
+      const rr=review.rowCount;
+      row.getCell(3).value={formula:`COUNTIF('Question Review'!$I$7:$I$${rr},B${n})`};
+      row.getCell(4).value={formula:`COUNTIFS('Question Review'!$I$7:$I$${rr},B${n},'Question Review'!$D$7:$D$${rr},"<>")`};
+      row.getCell(5).value={formula:`COUNTIFS('Question Review'!$I$7:$I$${rr},B${n},'Question Review'!$G$7:$G$${rr},"Correct")`};
+      row.getCell(6).value={formula:`COUNTIFS('Question Review'!$I$7:$I$${rr},B${n},'Question Review'!$G$7:$G$${rr},"Incorrect")+COUNTIFS('Question Review'!$I$7:$I$${rr},B${n},'Question Review'!$G$7:$G$${rr},"Partial")`};
+      row.getCell(7).value={formula:`IF(D${n}=0,"",IF(COUNTIFS('Question Review'!$I$7:$I$${rr},B${n},'Question Review'!$G$7:$G$${rr},"Pending")>0,"",SUMIFS('Question Review'!$F$7:$F$${rr},'Question Review'!$I$7:$I$${rr},B${n})/SUMIFS('Question Review'!$E$7:$E$${rr},'Question Review'!$I$7:$I$${rr},B${n},'Question Review'!$D$7:$D$${rr},"<>")))`};
       row.getCell(7).numFmt='0%';
-      row.getCell(8).value={formula:`IF(D${n}=0,"N/A",IF(G${n}="—","Pending",IF(G${n}>=0.8,"Secure",IF(G${n}>=0.6,"Developing","Re-teach"))))`};
-      row.eachCell(cell=>{
+      row.getCell(8).value={formula:`IF(D${n}<C${n},"Incomplete",IF(G${n}="","Pending",IF(G${n}>=0.8,"Secure",IF(G${n}>=0.6,"Developing","Re-teach"))))`};
+
+      for(let c=1;c<=8;c++){
+        const cell=row.getCell(c);
         cell.alignment={vertical:'middle',wrapText:true};
-        cell.border=thinBorder;
-        cell.font={color:{argb:'202938'},size:10};
-      });
+        cell.border=border(C.line);
+        cell.font={color:{argb:C.text},size:10};
+        if((row.number-11)%2===1 && c>=2 && c<=7){
+          cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:C.subtle}};
+        }
+      }
+      row.height=34;
     }
+
     const topicEnd=summary.rowCount;
-    if(topicEnd>=topicStart){
-      if(topicEnd>topicStart)summary.mergeCells(`A${topicStart}:A${topicEnd}`);
-      summary.getCell(`A${topicStart}`).value=topic;
-      summary.getCell(`A${topicStart}`).font={bold:true,color:{argb:PURPLE},size:11};
-      summary.getCell(`A${topicStart}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:PURPLE_LIGHT}};
-      summary.getCell(`A${topicStart}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
-      summaryTopicGroups.push([topicStart,topicEnd]);
-    }
-  }
-  for(const [start,end] of summaryTopicGroups){
-    for(let c=1;c<=8;c++){
-      summary.getCell(start,c).border={...summary.getCell(start,c).border,top:{style:'thin',color:{argb:NAVY}}};
-      summary.getCell(end,c).border={...summary.getCell(end,c).border,bottom:{style:'thin',color:{argb:NAVY}}};
-    }
-    summary.getCell(start,1).border=darkBorder;
+    if(topicEnd>topicStart)summary.mergeCells(`A${topicStart}:A${topicEnd}`);
+    summary.getCell(`A${topicStart}`).value=topic;
+    summary.getCell(`A${topicStart}`).font={bold:true,color:{argb:'B63B22'},size:11};
+    summary.getCell(`A${topicStart}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:C.orangeSoft}};
+    summary.getCell(`A${topicStart}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
+    summary.getCell(`A${topicStart}`).border=border('F4C9BD');
+    summaryTopicGroups.push([topicStart,topicEnd]);
   }
 
-  // CAPS REFERENCE
-  const ref=workbook.addWorksheet('CAPS Reference',{views:[{state:'frozen',ySplit:5}]});
-  ref.columns=[{width:27},{width:38},{width:82}];
-  ref.mergeCells('A1:C2');
-  ref.getCell('A1').value='GRADE 9 CAPS TEACHING REFERENCE\nNatural Sciences';
-  ref.getCell('A1').font={bold:true,size:17,color:{argb:WHITE}};
-  ref.getCell('A1').fill={type:'pattern',pattern:'solid',fgColor:{argb:NAVY}};
-  ref.getCell('A1').alignment={vertical:'middle',wrapText:true};
-  ref.mergeCells('A3:C3');
-  ref.getCell('A3').value='Detailed teaching checklist for the topics assessed';
-  ref.getCell('A3').font={color:{argb:'64748B'},size:10};
-  ref.getCell('A3').fill={type:'pattern',pattern:'solid',fgColor:{argb:'EEF1F5'}};
+  for(const [start,end] of summaryTopicGroups){
+    for(let c=1;c<=8;c++){
+      summary.getCell(start,c).border={...summary.getCell(start,c).border,top:{style:'medium',color:{argb:C.navy}}};
+      summary.getCell(end,c).border={...summary.getCell(end,c).border,bottom:{style:'medium',color:{argb:C.navy}}};
+    }
+  }
+
+  summary.addConditionalFormatting({
+    ref:`H11:H${summary.rowCount}`,
+    rules:[
+      {type:'expression',formulae:['H11="Secure"'],style:{fill:{type:'pattern',pattern:'solid',fgColor:{argb:C.green}},font:{bold:true,color:{argb:C.greenText}}}},
+      {type:'expression',formulae:['H11="Developing"'],style:{fill:{type:'pattern',pattern:'solid',fgColor:{argb:C.amber}},font:{bold:true,color:{argb:C.amberText}}}},
+      {type:'expression',formulae:['H11="Re-teach"'],style:{fill:{type:'pattern',pattern:'solid',fgColor:{argb:C.red}},font:{bold:true,color:{argb:C.redText}}}},
+      {type:'expression',formulae:['OR(H11="Incomplete",H11="Pending")'],style:{fill:{type:'pattern',pattern:'solid',fgColor:{argb:C.grey}},font:{bold:true,color:{argb:C.greyText}}}}
+    ]
+  });
+
+  // ---------------- CAPS REFERENCE ----------------
+  const ref=workbook.addWorksheet('CAPS Reference',{views:[{state:'frozen',ySplit:6}]});
+  ref.columns=[{width:28},{width:40},{width:86}];
+  setTopBrand(ref,'C','GRADE 9 CAPS TEACHING REFERENCE','Detailed checklist of what to teach for the Natural Sciences content assessed');
   ref.addRow([]);
   const rf=ref.addRow(['Topic','Subtopic','What to teach']);
   styleHeader(rf);
@@ -351,58 +446,41 @@ async function buildExcelAttachment(data){
     ['Scientific Investigations','Interpreting evidence','Use graphs, tables and repeated results to compare conditions and justify conclusions.']
   ];
 
-  const refTopicGroups=[];
-  let lastTopic=null, topicStart=null;
-  for(const rowVals of capsRows){
-    const row=ref.addRow(rowVals);
-    row.eachCell(cell=>{
-      cell.alignment={vertical:'top',wrapText:true};
-      cell.border=thinBorder;
-      cell.font={color:{argb:'202938'},size:10};
-    });
-    if(lastTopic===null){lastTopic=rowVals[0];topicStart=row.number;}
-    if(rowVals[0]!==lastTopic){
-      refTopicGroups.push([lastTopic,topicStart,row.number-1]);
-      lastTopic=rowVals[0]; topicStart=row.number;
-    }
-  }
-  refTopicGroups.push([lastTopic,topicStart,ref.rowCount]);
+  let lastTopic='',topicStart=0;
+  const refGroups=[];
 
-  for(const [topic,start,end] of refTopicGroups){
-    if(end>start)ref.mergeCells(`A${start}:A${end}`);
-    ref.getCell(`A${start}`).value=topic;
-    ref.getCell(`A${start}`).font={bold:true,color:{argb:PURPLE},size:11};
-    ref.getCell(`A${start}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:PURPLE_LIGHT}};
-    ref.getCell(`A${start}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
-    ref.getCell(`A${start}`).border=darkBorder;
+  for(const vals of capsRows){
+    const isNew=vals[0]!==lastTopic;
+    const row=ref.addRow([isNew?vals[0]:'',vals[1],vals[2]]);
+    if(isNew){
+      if(topicStart)refGroups.push([topicStart,row.number-1]);
+      topicStart=row.number;
+      lastTopic=vals[0];
+    }
+
     for(let c=1;c<=3;c++){
-      ref.getCell(start,c).border={...ref.getCell(start,c).border,top:{style:'thin',color:{argb:NAVY}}};
-      ref.getCell(end,c).border={...ref.getCell(end,c).border,bottom:{style:'thin',color:{argb:NAVY}}};
+      const cell=row.getCell(c);
+      cell.alignment={vertical:'top',wrapText:true};
+      cell.border=border(C.line);
+      cell.font={color:{argb:C.text},size:10};
+      if((row.number-7)%2===1 && c>=2)cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:C.subtle}};
     }
+    row.getCell(1).fill={type:'pattern',pattern:'solid',fgColor:{argb:C.orangeSoft}};
+    row.getCell(1).font={bold:true,color:{argb:'B63B22'},size:10};
+    row.getCell(1).alignment={horizontal:'center',vertical:'middle',wrapText:true};
+
+    const teach=String(vals[2]||'');
+    const sub=String(vals[1]||'');
+    const lines=Math.max((teach.match(/\n/g)||[]).length+1,Math.ceil(teach.length/94),Math.ceil(sub.length/40),1);
+    row.height=Math.min(158,Math.max(46,20+18*lines));
   }
+  if(topicStart)refGroups.push([topicStart,ref.rowCount]);
 
-  // Improve spacing so wrapped content is fully visible on desktop and mobile.
-  summary.columns=[{width:26},{width:42},{width:12},{width:12},{width:12},{width:12},{width:12},{width:21}];
-  summary.getRow(1).height=32; summary.getRow(2).height=32; summary.getRow(3).height=24; summary.getRow(5).height=34;
-  for(let r=6;r<=summary.rowCount;r++) summary.getRow(r).height=28;
-
-  review.columns=[{width:26},{width:38},{width:72},{width:38},{width:11},{width:11},{width:15}];
-  review.getRow(1).height=32; review.getRow(2).height=32; review.getRow(3).height=24; review.getRow(5).height=34;
-  for(let r=6;r<=review.rowCount;r++){
-    const qText=String(review.getCell(r,3).value||'');
-    const aText=String(review.getCell(r,4).value||'');
-    const lines=Math.max(1,Math.ceil(qText.length/78),Math.ceil(aText.length/42));
-    review.getRow(r).height=Math.min(104,Math.max(30,18+lines*15));
-  }
-
-  ref.columns=[{width:28},{width:40},{width:86}];
-  ref.getRow(1).height=32; ref.getRow(2).height=32; ref.getRow(3).height=24; ref.getRow(5).height=34;
-  for(let r=6;r<=ref.rowCount;r++){
-    const subText=String(ref.getCell(r,2).value||'');
-    const teachText=String(ref.getCell(r,3).value||'');
-    const explicitLines=(teachText.match(/\n/g)||[]).length+1;
-    const lines=Math.max(explicitLines,Math.ceil(teachText.length/95),Math.ceil(subText.length/40),1);
-    ref.getRow(r).height=Math.min(140,Math.max(38,16+lines*16));
+  for(const [start,end] of refGroups){
+    for(let c=1;c<=3;c++){
+      ref.getCell(start,c).border={...ref.getCell(start,c).border,top:{style:'medium',color:{argb:C.navy}}};
+      ref.getCell(end,c).border={...ref.getCell(end,c).border,bottom:{style:'medium',color:{argb:C.navy}}};
+    }
   }
 
   [summary,review,ref].forEach(ws=>{
