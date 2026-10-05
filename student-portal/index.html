@@ -1026,6 +1026,262 @@ input,select,textarea{transition:border-color .16s ease,box-shadow .16s ease}
 @media(max-width:900px){.quiz-grid-v4{grid-template-columns:1fr}.schedule-summary-v4{grid-template-columns:1fr 1fr}.schedule-summary-card.primary{grid-column:1/-1}}
 @media(max-width:520px){.schedule-summary-v4{grid-template-columns:1fr}.schedule-summary-card.primary{grid-column:auto}.quiz-card-head-v4{grid-template-columns:38px minmax(0,1fr)}.quiz-type-v4{grid-column:2;justify-self:start}.resource-category-body{padding:8px}}
 </style>
+
+<style id="vta-finance-quiz-v8">
+/* Finance total: absolute high contrast */
+.finance-v2-card.finance-total-premium{
+  background:#0b1220!important;
+  background-image:linear-gradient(135deg,#080e18 0%,#121f33 55%,#263d5d 100%)!important;
+  border:1px solid #526b8d!important;
+  color:#ffffff!important;
+  box-shadow:0 20px 48px rgba(8,14,24,.28)!important;
+}
+.finance-v2-card.finance-total-premium *,
+.finance-v2-card.finance-total-premium span,
+.finance-v2-card.finance-total-premium small,
+.finance-v2-card.finance-total-premium p,
+.finance-v2-card.finance-total-premium b,
+.finance-v2-card.finance-total-premium strong{
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+  opacity:1!important;
+}
+.finance-v2-card.finance-total-premium>div:first-child>span{
+  color:#f5b09b!important;
+  -webkit-text-fill-color:#f5b09b!important;
+  font-weight:900!important;
+}
+.finance-v2-card.finance-total-premium>div:first-child>b{
+  font-size:34px!important;
+  line-height:1!important;
+  font-weight:950!important;
+  letter-spacing:-.045em!important;
+  margin-top:9px!important;
+}
+.finance-v2-card.finance-total-premium>div:first-child>p{
+  color:#d9e2ee!important;
+  -webkit-text-fill-color:#d9e2ee!important;
+  font-size:10px!important;
+  margin-top:8px!important;
+}
+.finance-v2-card.finance-total-premium .total-side{
+  padding:13px 15px!important;
+  border-radius:14px!important;
+  background:rgba(255,255,255,.10)!important;
+  border:1px solid rgba(255,255,255,.14)!important;
+}
+.finance-v2-card.finance-total-premium .total-side small{
+  color:#d5dfeb!important;
+  -webkit-text-fill-color:#d5dfeb!important;
+  font-weight:800!important;
+}
+.finance-v2-card.finance-total-premium .total-side strong{
+  font-size:31px!important;
+  line-height:1!important;
+  margin:7px 0!important;
+  font-weight:950!important;
+}
+
+/* Quiz page aligned with VTA cards */
+.quiz-overview-v5{
+  display:grid;
+  grid-template-columns:1.3fr .7fr .7fr;
+  gap:11px;
+  margin-bottom:15px;
+}
+.quiz-overview-card{
+  border:1px solid #d6dfeb;
+  border-radius:17px;
+  padding:14px 15px;
+  background:linear-gradient(145deg,#fff,#f5f8fb);
+  box-shadow:0 8px 24px rgba(15,23,42,.04);
+}
+.quiz-overview-card.primary{
+  background:linear-gradient(135deg,#111827,#263b58);
+  color:#fff;
+  border-color:#384d6b;
+}
+.quiz-overview-card .eyebrow{
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.quiz-overview-card.primary .eyebrow{color:#f2aa94}
+.quiz-overview-card .big{
+  font-size:24px;
+  font-weight:950;
+  letter-spacing:-.04em;
+  margin-top:5px;
+}
+.quiz-overview-card p{
+  margin:4px 0 0;
+  font-size:9px;
+  line-height:1.4;
+  color:var(--muted);
+}
+.quiz-overview-card.primary p{color:#c5cfdd}
+
+.quiz-list-v5{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+}
+.quiz-card-v5{
+  border:1px solid #d5dfeb;
+  border-radius:21px;
+  overflow:hidden;
+  background:var(--panel);
+  box-shadow:0 10px 30px rgba(15,23,42,.05);
+  transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
+}
+.quiz-card-v5:hover{
+  transform:translateY(-3px);
+  border-color:#9fb2c9;
+  box-shadow:0 17px 38px rgba(15,23,42,.09);
+}
+.quiz-cover-v5{
+  min-height:105px;
+  padding:16px;
+  background:linear-gradient(135deg,#111827,#2a405f);
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+}
+.quiz-cover-v5:after{
+  content:"";
+  position:absolute;
+  width:105px;height:105px;border-radius:50%;
+  right:-34px;top:-42px;
+  background:rgba(234,105,72,.16);
+}
+.quiz-card-v5:nth-child(4n+2) .quiz-cover-v5{
+  background:linear-gradient(135deg,#213852,#365f86);
+}
+.quiz-card-v5:nth-child(4n+3) .quiz-cover-v5{
+  background:linear-gradient(135deg,#302640,#5a4774);
+}
+.quiz-card-v5:nth-child(4n+4) .quiz-cover-v5{
+  background:linear-gradient(135deg,#173933,#315d55);
+}
+.quiz-cover-top{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+  position:relative;
+  z-index:1;
+}
+.quiz-cover-title{
+  display:flex;
+  gap:11px;
+  align-items:center;
+  min-width:0;
+}
+.quiz-mark-v5{
+  width:42px;height:42px;
+  border-radius:13px;
+  display:grid;place-items:center;
+  flex:0 0 auto;
+  background:rgba(255,255,255,.11);
+  border:1px solid rgba(255,255,255,.16);
+  font-size:17px;font-weight:950;
+}
+.quiz-cover-v5 h4{
+  margin:0;
+  color:#fff;
+  font-size:15px;
+  line-height:1.25;
+}
+.quiz-cover-v5 .student{
+  margin-top:4px;
+  color:#cbd6e4;
+  font-size:9px;
+}
+.quiz-kind-v5{
+  padding:5px 7px;
+  border-radius:999px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.14);
+  color:#fff;
+  font-size:8px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.quiz-date-v5{
+  position:relative;z-index:1;
+  margin-top:14px;
+  font-size:8px;
+  color:#f2aa94;
+  font-weight:900;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+.quiz-body-v5{padding:14px 15px 15px}
+.quiz-subject-v5{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--line);
+}
+.quiz-subject-v5 b{font-size:11px}
+.quiz-subject-v5 span{font-size:8px;color:var(--muted)}
+.quiz-topic-v5{
+  margin-top:10px;
+  font-size:9px;
+  line-height:1.45;
+  color:var(--muted);
+  min-height:28px;
+}
+.quiz-submission-v5{
+  margin-top:9px;
+  padding:8px 9px;
+  border-radius:10px;
+  background:var(--panel2);
+  border:1px solid var(--line);
+  font-size:8px;
+  color:var(--muted);
+}
+.quiz-actions-v5{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:7px;
+  margin-top:12px;
+}
+.quiz-actions-v5 .btn{width:100%}
+
+[data-theme="dark"] .quiz-overview-card{
+  background:#171f29;
+  border-color:#354151;
+}
+[data-theme="dark"] .quiz-overview-card.primary{
+  background:linear-gradient(135deg,#0e1520,#223550);
+  border-color:#3b526f;
+}
+[data-theme="dark"] .quiz-card-v5{
+  background:#151c25;
+  border-color:#354151;
+}
+[data-theme="dark"] .quiz-submission-v5{
+  background:#19212b;
+  border-color:#344052;
+}
+
+@media(max-width:900px){
+  .quiz-overview-v5{grid-template-columns:1fr 1fr}
+  .quiz-overview-card.primary{grid-column:1/-1}
+  .quiz-list-v5{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .quiz-overview-v5{grid-template-columns:1fr}
+  .quiz-overview-card.primary{grid-column:auto}
+  .finance-v2-card.finance-total-premium{grid-template-columns:1fr!important}
+  .finance-v2-card.finance-total-premium .total-side{text-align:left!important}
+}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -1590,10 +1846,14 @@ function openQuizReportCenter(id){
 
 function adminQuizzes(){
   const qs=(data.quizzes||[]).slice().sort((a,b)=>String(b.scheduled_for||b.created_at).localeCompare(String(a.scheduled_for||a.created_at)));
-  let h=section('Quizzes','Add, open and review quizzes without extra clutter.','<button class="btn small primary" onclick="openUnifiedQuizAdd()">+ Add quiz</button>');
-  h+='<div class="quiz-grid-v4">'+(qs.length?qs.map(q=>{
-    const link=quizLinkFor(q.id),type=link?'Link':(q.quiz_mode==='Uploaded file'||q.storage_path?'File':'Browser quiz'),attempts=(data.quizAttempts||[]).filter(a=>a.quiz_id===q.id),latest=attempts.slice().sort((a,b)=>String(b.completed_at).localeCompare(String(a.completed_at)))[0];
-    return '<div class="quiz-card-v4"><div class="quiz-card-band"></div><div class="quiz-card-inner"><div class="quiz-card-head-v4"><div class="quiz-icon-v4">✓</div><div><h4>'+esc(q.title)+'</h4><div class="meta">'+esc(studentName(q.student_id))+(q.scheduled_for?' · '+esc(dateFmt(q.scheduled_for)):'')+'</div></div><span class="quiz-type-v4">'+esc(type)+'</span></div><div class="quiz-topic-v4"><b>'+esc(q.subject||'Subject not set')+'</b>'+(q.topic?' · '+esc(q.topic):'')+(latest?' · Latest submission '+new Date(latest.completed_at).toLocaleDateString('en-ZA',{day:'numeric',month:'short'}):'')+'</div><div class="quiz-actions-v4"><button class="btn small primary" onclick="openQuizAsset((data.quizzes||[]).find(x=>x.id===\''+q.id+'\'))">Open quiz</button><button class="btn small" onclick="openQuizReportCenter(\''+q.id+'\')">Report</button></div></div></div>';
+  const attempts=data.quizAttempts||[],withSubmissions=new Set(attempts.map(a=>a.quiz_id)).size;
+  const linkCount=qs.filter(q=>!!quizLinkFor(q.id)).length;
+  let h=section('Quizzes','A clean view of what is ready, what students have opened, and the reports beside them.','<button class="btn small primary" onclick="openUnifiedQuizAdd()">+ Add quiz</button>');
+  h+='<div class="quiz-overview-v5"><div class="quiz-overview-card primary"><div class="eyebrow">QUIZ LIBRARY</div><div class="big">'+qs.length+' quiz'+(qs.length===1?'':'zes')+'</div><p>Everything you have added for your students.</p></div><div class="quiz-overview-card"><div class="eyebrow">WITH SUBMISSIONS</div><div class="big">'+withSubmissions+'</div><p>Quizzes with student responses.</p></div><div class="quiz-overview-card"><div class="eyebrow">LINKED QUIZZES</div><div class="big">'+linkCount+'</div><p>Hosted quizzes that open directly.</p></div></div>';
+  h+='<div class="quiz-list-v5">'+(qs.length?qs.map(q=>{
+    const link=quizLinkFor(q.id),type=link?'Link':(q.quiz_mode==='Uploaded file'||q.storage_path?'File':'Browser quiz');
+    const at=attempts.filter(a=>a.quiz_id===q.id).slice().sort((a,b)=>String(b.completed_at).localeCompare(String(a.completed_at))),latest=at[0];
+    return '<div class="quiz-card-v5"><div class="quiz-cover-v5"><div class="quiz-cover-top"><div class="quiz-cover-title"><div class="quiz-mark-v5">✓</div><div><h4>'+esc(q.title)+'</h4><div class="student">'+esc(studentName(q.student_id))+'</div></div></div><span class="quiz-kind-v5">'+esc(type)+'</span></div><div class="quiz-date-v5">'+(q.scheduled_for?esc(dateFmt(q.scheduled_for)):'No date set')+'</div></div><div class="quiz-body-v5"><div class="quiz-subject-v5"><b>'+esc(q.subject||'Subject not set')+'</b><span>'+at.length+' submission'+(at.length===1?'':'s')+'</span></div><div class="quiz-topic-v5">'+esc(q.topic||'No topic added yet.')+'</div>'+(latest?'<div class="quiz-submission-v5">Latest submission · '+new Date(latest.completed_at).toLocaleString('en-ZA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+(latest.mark_status==='MARKED'?' · '+esc(latest.score)+'/'+esc(latest.total):' · Awaiting/review available')+'</div>':'<div class="quiz-submission-v5">No student submission yet.</div>')+'<div class="quiz-actions-v5"><button class="btn small primary" onclick="openQuizAsset((data.quizzes||[]).find(x=>x.id===\''+q.id+'\'))">Open quiz</button><button class="btn small" onclick="openQuizReportCenter(\''+q.id+'\')">Report</button></div></div></div>';
   }).join(''):emptyState('No quizzes','Add a link or upload a quiz file.'))+'</div>';
   $('#content').innerHTML=h;
 }
