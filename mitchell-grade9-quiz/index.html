@@ -130,7 +130,7 @@ async function buildExcelAttachment(data){
   const C={
     navy:'0F172A',navy2:'1B2942',orange:'E54D2E',orangeSoft:'FFF5F2',
     bg:'F6F8FB',white:'FFFFFF',text:'172033',muted:'6B7280',
-    line:'E4E8EF',lineDark:'CCD3DE',green:'EEF9F2',greenText:'18733D',
+    line:'000000',lineDark:'000000',green:'EEF9F2',greenText:'18733D',
     red:'FFF1F2',redText:'B42318',amber:'FFF8E8',amberText:'8A6100',
     grey:'F1F3F6',greyText:'667085',subtle:'FBFCFE'
   };
@@ -186,7 +186,7 @@ async function buildExcelAttachment(data){
       cell.font={bold:true,color:{argb:C.white},size:10};
       cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:C.navy2}};
       cell.alignment={horizontal:'center',vertical:'middle',wrapText:true};
-      cell.border=border(C.navy2);
+      cell.border=border('000000','medium');
     });
     row.height=36;
   };
@@ -237,7 +237,7 @@ async function buildExcelAttachment(data){
 
         const n=row.number;
         row.getCell(7).value={formula:`IF(D${n}="","Incomplete",IF(F${n}="","Pending",IF(F${n}=E${n},"Correct",IF(F${n}=0,"Incorrect","Partial"))))`};
-        row.getCell(6).dataValidation={type:'decimal',operator:'between',allowBlank:true,formulae:[0,5],showErrorMessage:true,errorTitle:'Invalid mark',error:'Enter a mark from 0 to 5.'};
+        row.getCell(6).dataValidation={type:'whole',operator:'between',allowBlank:true,formulae:[0,q.m],showErrorMessage:true,errorTitle:'Invalid mark',error:`Enter a whole-number mark from 0 to ${q.m}.`};
 
         for(let c=1;c<=7;c++){
           const cell=row.getCell(c);
@@ -270,6 +270,20 @@ async function buildExcelAttachment(data){
     topicGroups.push([topicStart,topicEnd]);
   }
 
+  // Merge repeated Topic/Subtopic blocks so border lines never cut through them.
+  for(const [start,end] of subGroups){
+    if(end>start)review.mergeCells(`B${start}:B${end}`);
+    const cell=review.getCell(start,2);
+    cell.alignment={horizontal:'center',vertical:'middle',wrapText:true};
+    cell.border=border('000000','thin');
+  }
+  for(const [start,end] of topicGroups){
+    if(end>start)review.mergeCells(`A${start}:A${end}`);
+    const cell=review.getCell(start,1);
+    cell.alignment={horizontal:'center',vertical:'middle',wrapText:true};
+    cell.border=border('000000','medium');
+  }
+
   for(const [start,end] of subGroups){
     for(let c=2;c<=7;c++){
       review.getCell(start,c).border={...review.getCell(start,c).border,top:{style:'thin',color:{argb:C.lineDark}}};
@@ -278,8 +292,8 @@ async function buildExcelAttachment(data){
 
   for(const [start,end] of topicGroups){
     for(let c=1;c<=7;c++){
-      review.getCell(start,c).border={...review.getCell(start,c).border,top:{style:'medium',color:{argb:C.navy}}};
-      review.getCell(end,c).border={...review.getCell(end,c).border,bottom:{style:'medium',color:{argb:C.navy}}};
+      review.getCell(start,c).border={...review.getCell(start,c).border,top:{style:'medium',color:{argb:'000000'}}};
+      review.getCell(end,c).border={...review.getCell(end,c).border,bottom:{style:'medium',color:{argb:'000000'}}};
     }
   }
 
@@ -375,14 +389,14 @@ async function buildExcelAttachment(data){
     summary.getCell(`A${topicStart}`).font={bold:true,color:{argb:'B63B22'},size:11};
     summary.getCell(`A${topicStart}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:C.orangeSoft}};
     summary.getCell(`A${topicStart}`).alignment={horizontal:'center',vertical:'middle',wrapText:true};
-    summary.getCell(`A${topicStart}`).border=border('F4C9BD');
+    summary.getCell(`A${topicStart}`).border=border('000000','medium');
     summaryTopicGroups.push([topicStart,topicEnd]);
   }
 
   for(const [start,end] of summaryTopicGroups){
     for(let c=1;c<=8;c++){
-      summary.getCell(start,c).border={...summary.getCell(start,c).border,top:{style:'medium',color:{argb:C.navy}}};
-      summary.getCell(end,c).border={...summary.getCell(end,c).border,bottom:{style:'medium',color:{argb:C.navy}}};
+      summary.getCell(start,c).border={...summary.getCell(start,c).border,top:{style:'medium',color:{argb:'000000'}}};
+      summary.getCell(end,c).border={...summary.getCell(end,c).border,bottom:{style:'medium',color:{argb:'000000'}}};
     }
   }
 
@@ -397,11 +411,11 @@ async function buildExcelAttachment(data){
   });
 
   // ---------------- CAPS REFERENCE ----------------
-  const ref=workbook.addWorksheet('CAPS Reference',{views:[{state:'frozen',ySplit:6}]});
-  ref.columns=[{width:28},{width:40},{width:86}];
-  setTopBrand(ref,'C','GRADE 9 CAPS TEACHING REFERENCE','Detailed checklist of what to teach for the Natural Sciences content assessed');
+  const ref=workbook.addWorksheet('CAPS Reference',{views:[{state:'frozen',ySplit:6,xSplit:2}]});
+  ref.columns=[{width:28},{width:42},{width:82},{width:18},{width:34},{width:38}];
+  setTopBrand(ref,'F','GRADE 9 CAPS TEACHING REFERENCE','Teaching checklist • track coverage, resources and notes');
   ref.addRow([]);
-  const rf=ref.addRow(['Topic','Subtopic','What to teach']);
+  const rf=ref.addRow(['Topic','Subtopic','What to teach','Covered','Resource / File link','My Notes']);
   styleHeader(rf);
 
   const capsRows=[
@@ -451,37 +465,66 @@ async function buildExcelAttachment(data){
 
   for(const vals of capsRows){
     const isNew=vals[0]!==lastTopic;
-    const row=ref.addRow([isNew?vals[0]:'',vals[1],vals[2]]);
+    const row=ref.addRow([isNew?vals[0]:'',vals[1],vals[2],'','','']);
     if(isNew){
       if(topicStart)refGroups.push([topicStart,row.number-1]);
       topicStart=row.number;
       lastTopic=vals[0];
     }
 
-    for(let c=1;c<=3;c++){
+    for(let c=1;c<=6;c++){
       const cell=row.getCell(c);
       cell.alignment={vertical:'top',wrapText:true};
-      cell.border=border(C.line);
+      cell.border=border('000000','thin');
       cell.font={color:{argb:C.text},size:10};
-      if((row.number-7)%2===1 && c>=2)cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:C.subtle}};
+      if((row.number-7)%2===1 && c>=2 && c<=6){
+        cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:C.subtle}};
+      }
     }
+
     row.getCell(1).fill={type:'pattern',pattern:'solid',fgColor:{argb:C.orangeSoft}};
-    row.getCell(1).font={bold:true,color:{argb:'B63B22'},size:10};
+    row.getCell(1).font={bold:true,color:{argb:'B63B22'},size:11};
     row.getCell(1).alignment={horizontal:'center',vertical:'middle',wrapText:true};
+
+    row.getCell(2).fill={type:'pattern',pattern:'solid',fgColor:{argb:'FAFBFC'}};
+    row.getCell(2).font={bold:true,color:{argb:C.text},size:10};
+    row.getCell(2).alignment={horizontal:'center',vertical:'middle',wrapText:true};
+
+    row.getCell(4).dataValidation={
+      type:'list',
+      allowBlank:true,
+      formulae:['"☐ Not covered,☑ Covered"'],
+      showErrorMessage:true,
+      errorTitle:'Choose coverage',
+      error:'Choose either Not covered or Covered.'
+    };
+    row.getCell(4).alignment={horizontal:'center',vertical:'middle',wrapText:true};
+    for(let c=4;c<=6;c++){
+      row.getCell(c).fill={type:'pattern',pattern:'solid',fgColor:{argb:'FBFCFE'}};
+      row.getCell(c).border=border('000000','thin');
+    }
 
     const teach=String(vals[2]||'');
     const sub=String(vals[1]||'');
-    const lines=Math.max((teach.match(/\n/g)||[]).length+1,Math.ceil(teach.length/94),Math.ceil(sub.length/40),1);
-    row.height=Math.min(158,Math.max(46,20+18*lines));
+    const lines=Math.max((teach.match(/\n/g)||[]).length+1,Math.ceil(teach.length/88),Math.ceil(sub.length/38),1);
+    row.height=Math.min(165,Math.max(48,22+18*lines));
   }
   if(topicStart)refGroups.push([topicStart,ref.rowCount]);
 
   for(const [start,end] of refGroups){
-    for(let c=1;c<=3;c++){
-      ref.getCell(start,c).border={...ref.getCell(start,c).border,top:{style:'medium',color:{argb:C.navy}}};
-      ref.getCell(end,c).border={...ref.getCell(end,c).border,bottom:{style:'medium',color:{argb:C.navy}}};
-    }
+    if(end>start)ref.mergeCells(`A${start}:A${end}`);
+    const topicCell=ref.getCell(start,1);
+    topicCell.alignment={horizontal:'center',vertical:'middle',wrapText:true};
+    topicCell.border=border('000000','medium');
   }
+
+  ref.addConditionalFormatting({
+    ref:`D7:D${ref.rowCount}`,
+    rules:[
+      {type:'expression',formulae:['LEFT(D7,1)="☑"'],style:{fill:{type:'pattern',pattern:'solid',fgColor:{argb:C.green}},font:{bold:true,color:{argb:C.greenText}}}},
+      {type:'expression',formulae:['LEFT(D7,1)="☐"'],style:{fill:{type:'pattern',pattern:'solid',fgColor:{argb:C.grey}},font:{bold:true,color:{argb:C.greyText}}}}
+    ]
+  });
 
   [summary,review,ref].forEach(ws=>{
     ws.properties.defaultRowHeight=20;
@@ -490,7 +533,7 @@ async function buildExcelAttachment(data){
 
   const buffer=await workbook.xlsx.writeBuffer();
   const safeStudent=(data.student||'Mitchell').replace(/[^a-z0-9_-]+/gi,'_');
-  const filename=`${safeStudent}_CAPS_Diagnostic_${data.date}.xlsx`;
+  const filename=`${safeStudent}_CAPS_Diagnostic_${data.date}_${data.submissionId}.xlsx`;
   return new File([buffer],filename,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 }
 
