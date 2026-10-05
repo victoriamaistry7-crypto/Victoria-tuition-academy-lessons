@@ -618,6 +618,91 @@ input,select,textarea{transition:border-color .16s ease,box-shadow .16s ease}
   .chat-layout{border-radius:16px}
 }
 </style>
+
+<style id="vta-polish-v3">
+/* Checklist */
+.task-check-v2{display:inline-flex;align-items:center;cursor:pointer;flex:0 0 auto}
+.task-check-v2 input{appearance:none;width:19px;height:19px;border:1.8px solid #98a6b8;border-radius:6px;background:var(--panel);display:grid;place-items:center;margin:0;transition:.16s ease}
+.task-check-v2 input:hover{border-color:#52657e;box-shadow:0 0 0 3px rgba(82,101,126,.09)}
+.task-check-v2 input:checked{background:#172033;border-color:#172033}
+.task-check-v2 input:checked:after{content:"✓";font-size:12px;color:#fff;font-weight:900}
+.focus-task-primary.completed-task{opacity:.72;background:#f5f7f9!important}
+.focus-task-primary.completed-task b{text-decoration:line-through;color:var(--muted)}
+.completed-task-shell{margin-top:9px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel)}
+.completed-task-shell summary{padding:10px 12px;font-size:9px;font-weight:850;color:var(--muted);cursor:pointer}
+
+/* Dark mode fixes */
+[data-theme="dark"] .focus-task-primary{
+  background:#1b222c!important;border-color:#394554!important;box-shadow:0 7px 20px rgba(0,0,0,.16)!important
+}
+[data-theme="dark"] .focus-task-primary .step{background:#293545!important;color:#dce5f0!important}
+[data-theme="dark"] .focus-task-primary b{color:#f2f4f7}
+[data-theme="dark"] .focus-task-primary p{color:#9da8b7}
+[data-theme="dark"] .focus-task-primary.completed-task{background:#181e27!important}
+[data-theme="dark"] .focus-task-later,[data-theme="dark"] .completed-task-shell{background:#151b23!important;border-color:#344050!important}
+[data-theme="dark"] .task-item{background:#1a212b!important;border-color:#344050!important}
+[data-theme="dark"] .task-check-v2 input{background:#111720;border-color:#718096}
+[data-theme="dark"] .task-state{background:#39281f;color:#efad7f}
+[data-theme="dark"] .dashboard-panel{background:#151b23!important;border-color:#354151!important}
+[data-theme="dark"] .dashboard-panel-head h4{color:#f4f6f8}
+
+/* Interactive premium outlines */
+.card,.dashboard-panel,.student-card-v2,.topic-block,.subtopic-card,.calendar-pro,.chat-layout,.finance-month-accordion,.finance-forecast-card{
+  transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease
+}
+.card:hover,.dashboard-panel:hover,.student-card-v2:hover{
+  border-color:#a9b7c9!important;box-shadow:0 15px 34px rgba(15,23,42,.08)!important
+}
+.topic-block:hover,.subtopic-card:hover{
+  border-color:#7691b5!important;box-shadow:0 0 0 3px rgba(91,122,164,.08),0 10px 24px rgba(15,23,42,.06)!important
+}
+
+/* Extra colour without clutter */
+.student-card-cover{background:linear-gradient(135deg,#111827 0%,#263852 68%,#384966 100%)!important}
+.calendar-pro{background:linear-gradient(180deg,#eef4f9,#f8fafc)!important}
+.chat-layout{background:linear-gradient(145deg,#eaf1f7,#f7f9fc)!important}
+.chat-people{background:linear-gradient(180deg,#f8fbfd,#edf3f8)!important}
+.messages{background-color:#f4f8fb!important}
+[data-theme="dark"] .student-card-cover{background:linear-gradient(135deg,#0d121a,#1d2939,#26364c)!important}
+[data-theme="dark"] .calendar-pro{background:linear-gradient(180deg,#141b24,#111720)!important}
+[data-theme="dark"] .chat-layout{background:linear-gradient(145deg,#111820,#171e28)!important}
+[data-theme="dark"] .chat-people{background:#151c25!important}
+[data-theme="dark"] .messages{background-color:#111820!important}
+
+/* Finance redesigned */
+.finance-main-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.finance-month-accordion{border:1px solid #d5deea;border-radius:18px;background:var(--panel);overflow:hidden;box-shadow:0 9px 25px rgba(15,23,42,.04)}
+.finance-month-accordion summary{list-style:none;cursor:pointer;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.finance-month-accordion summary::-webkit-details-marker{display:none}
+.finance-month-accordion[open]{border-color:#9fb1c7;box-shadow:0 13px 30px rgba(15,23,42,.07)}
+.finance-month-title span{display:block;font-size:8px;font-weight:900;letter-spacing:.09em;color:var(--muted);text-transform:uppercase}
+.finance-month-title b{display:block;margin-top:5px;font-size:17px}
+.finance-month-total{text-align:right}.finance-month-total b{display:block;font-size:22px;letter-spacing:-.035em}.finance-month-total span{font-size:8px;color:var(--muted)}
+.finance-month-body{padding:0 14px 14px;border-top:1px solid var(--line)}
+.finance-history-row{display:grid;grid-template-columns:85px 110px minmax(0,1fr) 65px 75px;gap:8px;align-items:center;padding:10px 5px;border-bottom:1px solid var(--line);font-size:9px}
+.finance-history-row:last-child{border-bottom:0}.finance-history-row strong{font-size:10px}.finance-history-row .value{text-align:right;font-weight:900}
+.finance-forecast-card{border:1px solid #d5deea;border-radius:18px;background:var(--panel);padding:16px;box-shadow:0 9px 25px rgba(15,23,42,.04)}
+.finance-forecast-card.accent{background:linear-gradient(135deg,#122033,#253b58);border-color:#334a69;color:#fff}
+.finance-forecast-card .eyebrow{font-size:8px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.finance-forecast-card.accent .eyebrow{color:#f3aa94}.finance-forecast-card .amount{font-size:26px;font-weight:900;letter-spacing:-.04em;margin-top:6px}.finance-forecast-card p{font-size:9px;color:var(--muted);line-height:1.45}.finance-forecast-card.accent p{color:#bdc9d8}
+.week-plan{display:grid;gap:9px;margin-top:12px}.week-plan-block{border:1px solid var(--line);border-radius:13px;padding:11px;background:var(--panel2)}.week-plan-head{display:flex;justify-content:space-between;gap:10px}.week-plan-head b{font-size:11px}.week-plan-head span{font-size:9px;color:var(--muted)}
+.week-plan-students{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:9px}.week-plan-student{padding:7px;border-radius:9px;background:var(--panel);border:1px solid var(--line);font-size:8px}.week-plan-student b{display:block;font-size:10px;margin-bottom:2px}
+.catchup-student-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.catchup-student-row:last-child{border-bottom:0}.catchup-student-row b{font-size:11px}.catchup-student-row p{font-size:9px;color:var(--muted);margin:3px 0 0}
+.receivable-card{margin-top:14px;padding:19px;border-radius:20px;background:linear-gradient(135deg,#0f172a,#273853);color:#fff;box-shadow:0 18px 42px rgba(15,23,42,.18);border:1px solid #334862}.receivable-card .eyebrow{font-size:8px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#f5a78f}.receivable-card .big{font-size:32px;font-weight:900;letter-spacing:-.045em;margin:7px 0}.receivable-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.receivable-breakdown div{padding:9px;border-radius:11px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08)}.receivable-breakdown span{display:block;font-size:7px;color:#aebac9}.receivable-breakdown b{display:block;font-size:11px;margin-top:3px}
+.finance-note-clean{font-size:8px;color:var(--muted);line-height:1.5;margin-top:10px}
+[data-theme="dark"] .finance-month-accordion,[data-theme="dark"] .finance-forecast-card{background:#151c25;border-color:#354151}
+[data-theme="dark"] .finance-month-body{border-color:#344050}
+[data-theme="dark"] .week-plan-block{background:#1a222c}
+[data-theme="dark"] .week-plan-student{background:#111821}
+
+@media(max-width:760px){
+ .finance-main-grid{grid-template-columns:1fr}
+ .finance-history-row{grid-template-columns:72px 90px minmax(120px,1fr) 55px 65px;min-width:600px}
+ .finance-month-body{overflow:auto}
+ .week-plan-students{grid-template-columns:1fr 1fr}
+ .receivable-breakdown{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -756,7 +841,8 @@ function lessonStats(id){
 function dueClass(t){if(!t.due_date)return '';if(t.due_date<today())return 'task-overdue';if(t.due_date===today())return 'task-today';return ''}
 function dueText(t){if(!t.due_date)return 'No date';if(t.due_date<today())return 'Overdue';if(t.due_date===today())return 'Today';const d=new Date(t.due_date+'T12:00:00');return d.toLocaleDateString('en-ZA',{weekday:'short',day:'numeric',month:'short'})}
 function taskRow(t){
-  return '<div class="task-item"><label class="task-check-v2" title="Mark complete"><input type="checkbox" onchange="if(this.checked)completeTask(\''+t.id+'\')"></label><div class="task-copy"><b>'+esc(t.title)+'</b><span>'+esc(studentName(t.student_id))+(t.notes?' · '+esc(t.notes):'')+'</span></div><div class="task-meta"><span class="task-state">Still need to do</span><span class="tiny '+dueClass(t)+'">'+esc(dueText(t))+'</span></div></div>'
+  const done=t.status==='Done';
+  return '<div class="task-item '+(done?'completed-task':'')+'"><label class="task-check-v2" title="'+(done?'Undo completion':'Mark complete')+'"><input type="checkbox" '+(done?'checked':'')+' onchange="toggleTask(\''+t.id+'\',this.checked)"></label><div class="task-copy"><b>'+esc(t.title)+'</b><span>'+esc(studentName(t.student_id))+(t.notes?' · '+esc(t.notes):'')+'</span></div><div class="task-meta"><span class="task-state '+(done?'done':'')+'">'+(done?'Complete':'Still need to do')+'</span><span class="tiny '+dueClass(t)+'">'+esc(dueText(t))+'</span></div></div>'
 }
 function targetCard(s){
   const p=currentPlanFor(s.id),prev=previousPlanFor(s.id);
@@ -947,13 +1033,13 @@ function renderAdmin(){
 function adminHome(){
   const pending=(data.bookings||[]).filter(x=>x.status==='Pending').sort((a,b)=>(a.requested_date+a.requested_time).localeCompare(b.requested_date+b.requested_time));
   const allEvents=mergedLessonEvents(),next=nextMergedLesson(),upcoming=allEvents.filter(e=>e.event_date>=today()).slice(0,8);
-  const tasks=(data.tasks||[]).filter(x=>x.status!=='Done').slice().sort((a,b)=>(String(a.due_date||'9999')+String(a.sort_order||0)).localeCompare(String(b.due_date||'9999')+String(b.sort_order||0)));
+  const allTasks=(data.tasks||[]).slice().sort((a,b)=>(String(a.due_date||'9999')+String(a.sort_order||0)).localeCompare(String(b.due_date||'9999')+String(b.sort_order||0)));const tasks=allTasks.filter(x=>x.status!=='Done'),completed=allTasks.filter(x=>x.status==='Done').slice(-4);
   const thisLessons=lessonsInCalendarMonth(0,null,['Completed']),thisHours=completedHoursInCalendarMonth(0);
   const focus=tasks.slice(0,3),later=tasks.slice(3);
   let h='<section class="hero"><div class="tiny strong" style="color:#fca58f">ADMIN WORKSPACE</div><h2>'+greeting()+', '+esc(data.user.displayName)+'.</h2><p>One calm view of your next lesson, bookings and the few things worth focusing on now.</p></section>';
   h+='<div class="admin-dashboard-grid" style="margin-top:14px"><div class="admin-focus-card accent"><div class="eyebrow">NEXT LESSON · CALENDAR SYNC</div>'+(next?'<h4>'+esc(next.title)+'</h4><p>'+esc(dateFmt(next.event_date))+' at '+esc(timeFmt(next.start_time))+(next.description?' · '+esc(next.description):'')+'</p><div class="month-activity"><span class="chip">'+esc(next.source)+'</span></div>':'<div class="big">No lessons</div><p>Nothing scheduled right now.</p>')+'</div><div class="admin-focus-card"><div class="eyebrow">BOOKING REQUESTS</div><div class="big">'+pending.length+'</div><p>waiting for your response</p></div><div class="admin-focus-card"><div class="eyebrow">'+esc(monthBounds(0).label.toUpperCase())+'</div><div class="big">'+thisHours.toFixed(1)+'h</div><p>'+thisLessons.length+' completed lesson'+(thisLessons.length===1?'':'s')+' this month</p></div></div>';
 
-  h+='<div class="dashboard-split" style="margin-top:14px"><div class="dashboard-panel"><div class="dashboard-panel-head"><h4>Upcoming lessons</h4><button class="btn small" onclick="go(\'schedule\')">View calendar</button></div>'+(upcoming.length?upcoming.slice(0,5).map(e=>'<div class="upcoming-mini"><div><b>'+esc(e.title)+'</b><p>'+esc(dateFmt(e.event_date))+' · '+esc(timeFmt(e.start_time))+(e.description?' · '+esc(e.description):'')+'</p></div><span class="chip">'+esc(e.source)+'</span></div>').join(''):emptyState('No lessons','Nothing scheduled.'))+'</div><div class="dashboard-panel"><div class="dashboard-panel-head"><h4>Your focus</h4><button class="btn small" onclick="openTaskCreate()">+ Task</button></div><div class="focus-task-shell">'+(focus.length?focus.map((t,i)=>'<div class="focus-task-primary"><div class="step">'+(i+1)+'</div><div><b>'+esc(t.title)+'</b><p>'+esc(studentName(t.student_id))+(t.notes?' · '+esc(t.notes):'')+'</p></div><button class="task-check" title="Done" onclick="completeTask(\''+t.id+'\')">✓</button></div>').join(''):emptyState('You are clear','No open tasks right now.'))+(later.length?'<details class="focus-task-later"><summary>'+later.length+' later task'+(later.length===1?'':'s')+' · hidden to keep this calm</summary><div class="task-list">'+later.map(taskRow).join('')+'</div></details>':'')+'</div></div></div>';
+  h+='<div class="dashboard-split" style="margin-top:14px"><div class="dashboard-panel"><div class="dashboard-panel-head"><h4>Upcoming lessons</h4><button class="btn small" onclick="go(\'schedule\')">View calendar</button></div>'+(upcoming.length?upcoming.slice(0,5).map(e=>'<div class="upcoming-mini"><div><b>'+esc(e.title)+'</b><p>'+esc(dateFmt(e.event_date))+' · '+esc(timeFmt(e.start_time))+(e.description?' · '+esc(e.description):'')+'</p></div><span class="chip">'+esc(e.source)+'</span></div>').join(''):emptyState('No lessons','Nothing scheduled.'))+'</div><div class="dashboard-panel"><div class="dashboard-panel-head"><h4>Your focus</h4><button class="btn small" onclick="openTaskCreate()">+ Task</button></div><div class="focus-task-shell">'+(focus.length?focus.map((t,i)=>'<div class="focus-task-primary"><div class="step">'+(i+1)+'</div><div><b>'+esc(t.title)+'</b><p>'+esc(studentName(t.student_id))+(t.notes?' · '+esc(t.notes):'')+'</p></div><label class="task-check-v2" title="Mark complete"><input type="checkbox" onchange="toggleTask(\''+t.id+'\',this.checked)"></label></div>').join(''):emptyState('You are clear','No open tasks right now.'))+(later.length?'<details class="focus-task-later"><summary>'+later.length+' later task'+(later.length===1?'':'s')+' · hidden to keep this calm</summary><div class="task-list">'+later.map(taskRow).join('')+'</div></details>':'')+(completed.length?'<details class="completed-task-shell"><summary>Completed recently · tap to undo if needed</summary><div class="task-list" style="padding:0 10px 10px">'+completed.map(taskRow).join('')+'</div></details>':'')+'</div></div></div>';
 
   h+=section('Booking requests','New requests stay separate from your focus list');
   h+='<div class="dashboard-panel">'+(pending.length?pending.slice(0,5).map(x=>'<div class="booking-mini"><div><b>'+esc(studentName(x.student_id))+' · '+esc(x.subject)+'</b><p>'+esc(dateFmt(x.requested_date))+' at '+esc(timeFmt(x.requested_time))+' · '+esc(x.duration_minutes)+' min'+(x.topic?' · '+esc(x.topic):'')+'</p></div><div class="row"><button class="btn small primary" onclick="bookingStatus(\''+x.id+'\',\'Confirmed\')">Confirm</button><button class="btn small danger" onclick="bookingStatus(\''+x.id+'\',\'Declined\')">Decline</button></div></div>').join(''):emptyState('No booking requests','New requests will appear here.'))+'</div>';
@@ -1212,46 +1298,54 @@ function openFinanceCalculation(kind){
   modal(title,body,'<button class="btn primary" onclick="closeModal()">Close</button>');
 }
 
+
+function mondayOf(dateStr){const d=new Date(dateStr+'T12:00:00'),k=(d.getDay()+6)%7;d.setDate(d.getDate()-k);return isoDate(d)}
+function cutoffDateForCurrentMonth(){const d=new Date(today()+'T12:00:00');return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-15'}
+function forecastWeeksToCutoff(){
+  const cut=cutoffDateForCurrentMonth(),start=today(),weeks=[];let cur=mondayOf(start);
+  while(cur<=cut){
+    const end=addDays(cur,6),periodStart=cur<start?start:cur,periodEnd=end>cut?cut:end;
+    const rows=newMonthPlans().map(p=>{
+      const sid=p.student_id,target=Number(p.weekly_target_hours||0);
+      const done=(data.lessons||[]).filter(l=>l.student_id===sid&&l.status==='Completed'&&l.lesson_date>=periodStart&&l.lesson_date<=periodEnd).reduce((s,l)=>s+Number(l.duration_minutes||0)/60,0);
+      return {studentId:sid,target,done,remain:Math.max(0,target-done)};
+    });
+    weeks.push({start:periodStart,end:periodEnd,rows,target:rows.reduce((s,x)=>s+x.target,0),done:rows.reduce((s,x)=>s+x.done,0),remain:rows.reduce((s,x)=>s+x.remain,0)});
+    cur=addDays(cur,7);
+  }
+  return weeks;
+}
+
 function adminFinance(){
-  const rate=150,cur=monthBounds(0),prev=monthBounds(-1);
+  const rate=150,cur=monthBounds(0),prev=monthBounds(-1),cutoff=cutoffDateForCurrentMonth();
   const currentLessons=lessonsInCalendarMonth(0,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date));
   const previousLessons=lessonsInCalendarMonth(-1,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date));
-  const earned=currentLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
-  const previousEarned=previousLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
-  const currentRemainingRows=newMonthPlans().map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:completedHoursInCalendarMonth(0,p.student_id),remain:thisMonthRemaining(p.student_id)}));
-  const currentRemain=currentRemainingRows.reduce((s,x)=>s+x.remain,0);
+  const currentEarned=currentLessons.reduce((s,l)=>s+lessonValue(l,rate),0),previousEarned=previousLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
+  const weeks=forecastWeeksToCutoff(),plannedRemaining=weeks.reduce((s,w)=>s+w.remain,0),plannedRemainingValue=plannedRemaining*rate;
   const catchupRows=previousMonthPlans().map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:previousMonthCompletedHoursByDate(p.student_id),remain:previousMonthCatchupRemaining(p.student_id)})).filter(x=>x.remain>0);
   const catchupHours=catchupRows.reduce((s,x)=>s+x.remain,0),catchupValue=catchupHours*rate;
-  const regularTargetHours=currentMonthRegularTarget(),regularTargetValue=regularTargetHours*rate;
-  const teachingTotal=earned+previousEarned;
-  const potential=regularTargetValue+catchupValue;
   const oldDue=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
+  const projectedTeachingByCutoff=currentEarned+plannedRemainingValue+catchupValue;
+  const expectedReceivable=projectedTeachingByCutoff+oldDue;
 
-  function ledger(ls){
-    return '<div class="finance-ledger"><div class="finance-ledger-row head"><div>Date</div><div>Student</div><div>Subject</div><div>Topic / subtopic</div><div>Hours</div><div class="money">Value</div></div>'+ls.map(l=>'<div class="finance-ledger-row"><div>'+esc(dateFmt(l.lesson_date))+'</div><div><b>'+esc(studentName(l.student_id))+'</b></div><div>'+esc(l.subject||'—')+'</div><div>'+esc(l.topic||l.notes||'Topic not recorded')+'</div><div>'+((Number(l.duration_minutes||0)/60).toFixed(1))+'h</div><div class="money">R'+lessonValue(l,rate).toFixed(0)+'</div></div>').join('')+'</div>'
+  function monthRows(ls){
+    return ls.map(l=>'<div class="finance-history-row"><div>'+esc(dateFmt(l.lesson_date))+'</div><div><strong>'+esc(studentName(l.student_id))+'</strong></div><div>'+esc(l.subject||'Lesson')+' · '+esc(l.topic||'Topic not recorded')+'</div><div>'+((Number(l.duration_minutes||0)/60).toFixed(1))+'h</div><div class="value">R'+lessonValue(l,rate).toFixed(0)+'</div></div>').join('')
   }
 
-  let h='<div class="finance-shell"><div class="finance-hero"><div class="kicker">FINANCE AT A GLANCE</div><h2>Finance</h2><p>Every number can be opened to see exactly how it was calculated.</p></div>';
+  let h='<div class="finance-shell"><div class="finance-hero"><div class="kicker">PAYMENT VIEW · TO 15 '+new Date(cutoff+'T12:00:00').toLocaleDateString('en-ZA',{month:'short'}).toUpperCase()+'</div><h2>Finance</h2><p>Open a month to see every lesson date and student. Future teaching is planned separately so completed money never gets mixed with work you still need to teach.</p></div>';
 
-  h+='<div class="finance-v2-grid">'+
-    '<div class="finance-v2-card primary clickable" onclick="openFinanceCalculation(\'current\')"><span>Earned so far · '+esc(cur.label)+'</span><b>R'+earned.toFixed(0)+'</b><p>'+completedHoursInCalendarMonth(0).toFixed(1)+'h completed this month</p></div>'+
-    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'remaining\')"><span>Still to cover this month</span><b>'+currentRemain.toFixed(1)+'h</b><p>R'+(currentRemain*rate).toFixed(0)+' remaining teaching value</p></div>'+
-    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'previous\')"><span>'+esc(prev.label)+' earnings</span><b>R'+previousEarned.toFixed(0)+'</b><p>'+completedHoursInCalendarMonth(-1).toFixed(1)+'h completed last month</p></div>'+
-    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'catchup\')"><span>Previous-month catch-up</span><b>'+catchupHours.toFixed(1)+'h</b><p>R'+catchupValue.toFixed(0)+' still to recover</p></div>'+
+  h+='<div class="finance-main-grid">'+
+    '<details class="finance-month-accordion"><summary><div class="finance-month-title"><span>Previous month</span><b>'+esc(prev.label)+'</b></div><div class="finance-month-total"><b>R'+previousEarned.toFixed(0)+'</b><span>'+completedHoursInCalendarMonth(-1).toFixed(1)+'h completed</span></div></summary><div class="finance-month-body">'+(previousLessons.length?monthRows(previousLessons):'<div class="tiny muted" style="padding:12px 0">No completed lessons.</div>')+'<div class="finance-history-row"><div></div><div></div><div><strong>'+esc(prev.label)+' total</strong></div><div><strong>'+completedHoursInCalendarMonth(-1).toFixed(1)+'h</strong></div><div class="value">R'+previousEarned.toFixed(0)+'</div></div></div></details>'+
+    '<details class="finance-month-accordion"><summary><div class="finance-month-title"><span>This month so far</span><b>'+esc(cur.label)+'</b></div><div class="finance-month-total"><b>R'+currentEarned.toFixed(0)+'</b><span>'+completedHoursInCalendarMonth(0).toFixed(1)+'h completed</span></div></summary><div class="finance-month-body">'+(currentLessons.length?monthRows(currentLessons):'<div class="tiny muted" style="padding:12px 0">No completed lessons.</div>')+'<div class="finance-history-row"><div></div><div></div><div><strong>'+esc(cur.label)+' total so far</strong></div><div><strong>'+completedHoursInCalendarMonth(0).toFixed(1)+'h</strong></div><div class="value">R'+currentEarned.toFixed(0)+'</div></div></div></details>'+
   '</div>';
 
-  h+='<div class="finance-v2-card clickable" style="margin-top:12px" onclick="openFinanceCalculation(\'total\')"><span>Teaching total · completed '+esc(prev.label)+' + '+esc(cur.label)+'</span><b>R'+teachingTotal.toFixed(0)+'</b><p>Tap to see completed teaching, remaining work, catch-up and the separate R'+oldDue.toFixed(0)+' outstanding invoice balance.</p></div>';
+  h+=section('Still to teach before the 15th','Regular weekly targets, minus lessons you have already completed in each period');
+  h+='<div class="finance-forecast-card"><div class="eyebrow">REGULAR LESSONS STILL TO TEACH</div><div class="amount">'+plannedRemaining.toFixed(1)+'h · R'+plannedRemainingValue.toFixed(0)+'</div><p>This is a planning estimate based on your normal weekly student targets through '+esc(dateFmt(cutoff))+'.</p><div class="week-plan">'+weeks.map((w,i)=>'<div class="week-plan-block"><div class="week-plan-head"><b>'+(i===0?'This week':'Cutoff week')+' · '+esc(dateFmt(w.start))+' – '+esc(dateFmt(w.end))+'</b><span>'+w.done.toFixed(1)+'h done · '+w.remain.toFixed(1)+'h left</span></div><div class="week-plan-students">'+w.rows.map(r=>'<div class="week-plan-student"><b>'+esc(studentName(r.studentId))+'</b>'+r.done.toFixed(1)+'h done / '+r.target.toFixed(1)+'h target<br><span class="muted">'+r.remain.toFixed(1)+'h left</span></div>').join('')+'</div></div>').join('')+'</div></div>';
 
-  h+=section('Students this month','Completed and remaining regular lessons');
-  h+='<div class="grid2">'+currentRemainingRows.map(x=>'<div class="student-finance-card"><div class="student-finance-head"><h4>'+esc(studentName(x.studentId))+'</h4><b>R'+(x.target*rate).toFixed(0)+'</b></div><div class="student-finance-meta"><span>'+x.done.toFixed(1)+'h completed</span><span>'+x.remain.toFixed(1)+'h still to cover</span><span>'+x.target.toFixed(0)+'h target</span></div><div class="progress" style="margin-top:9px"><i style="width:'+(x.target?Math.min(100,Math.round(x.done/x.target*100)):0)+'%"></i></div></div>').join('')+'</div>';
+  h+=section('Previous-month catch-up','These hours still belong to the previous month. Schedule the dates when you are ready.');
+  h+='<div class="finance-forecast-card">'+(catchupRows.length?catchupRows.map(x=>'<div class="catchup-student-row"><div><b>'+esc(studentName(x.studentId))+'</b><p>'+x.done.toFixed(1)+' of '+x.target.toFixed(1)+'h was completed during '+esc(prev.label)+'.</p></div><div style="text-align:right"><b>'+x.remain.toFixed(1)+'h left</b><p>R'+(x.remain*rate).toFixed(0)+'</p></div></div>').join(''):'<div class="tiny muted">No previous-month catch-up remains.</div>')+'</div>';
 
-  h+='<div class="finance-period"><h4>'+esc(cur.label)+' completed lessons</h4><p>Every completed lesson dated this month is counted here as this month.</p>'+(currentLessons.length?ledger(currentLessons):emptyState('No completed lessons','No completed lessons this month.'))+'</div>';
-
-  h+='<div class="finance-period"><h4>Previous-month catch-up still outstanding</h4><p>Only hours that were not completed during '+esc(prev.label)+' remain here.</p><div class="list">'+(catchupRows.length?catchupRows.map(x=>'<div class="list-row"><div><h4>'+esc(studentName(x.studentId))+'</h4><p>'+x.done.toFixed(1)+' of '+x.target.toFixed(1)+'h completed last month · '+x.remain.toFixed(1)+'h still owed</p></div><b>R'+(x.remain*rate).toFixed(0)+'</b></div>').join(''):emptyState('No old catch-up','The previous month is fully covered.'))+'</div></div>';
-
-  h+='<details class="previous-month-details"><summary>'+esc(prev.label)+' lesson history · R'+previousEarned.toFixed(0)+'</summary><div style="padding:0 12px 12px">'+(previousLessons.length?ledger(previousLessons):emptyState('No completed lessons','No completed lesson history for this month.'))+'</div></details>';
-
-  if(oldDue>0)h+='<div class="finance-note"><div class="mark">!</div><div><b>Separate outstanding invoice balance</b><p>Not added to the teaching total because it can overlap with lessons already counted above.</p></div><div class="amount">R'+oldDue.toFixed(0)+'</div></div>';
+  h+='<div class="receivable-card"><div class="eyebrow">EXPECTED RECEIVABLE IF PLANNED WORK IS COMPLETED</div><div class="big">R'+expectedReceivable.toFixed(0)+'</div><p>This keeps historical '+esc(prev.label)+' earnings visible above, but does not add all of them again because some may already have been paid or invoiced.</p><div class="receivable-breakdown"><div><span>'+esc(cur.label)+' earned so far</span><b>R'+currentEarned.toFixed(0)+'</b></div><div><span>Regular teaching still planned to 15th</span><b>R'+plannedRemainingValue.toFixed(0)+'</b></div><div><span>Previous-month catch-up if completed</span><b>R'+catchupValue.toFixed(0)+'</b></div><div><span>Separate outstanding payment</span><b>R'+oldDue.toFixed(0)+'</b></div><div><span>Projected teaching by 15th</span><b>R'+projectedTeachingByCutoff.toFixed(0)+'</b></div><div><span>Expected receivable</span><b>R'+expectedReceivable.toFixed(0)+'</b></div></div><div class="finance-note-clean">Historical '+esc(prev.label)+' teaching value: R'+previousEarned.toFixed(0)+'. It is shown for reference and lesson auditing, but is not blindly added again to the receivable because the R'+oldDue.toFixed(0)+' outstanding balance may already be part of that prior invoicing.</div></div>';
 
   h+='</div>';$('#content').innerHTML=h;
 }
@@ -1372,6 +1466,15 @@ async function openQuizFile(id){
 }
 function openTaskCreate(){modal('Add focus task','<div class="grid2"><div class="field"><label>Student (optional)</label><select id="taStudent"><option value="">General / admin</option>'+studentOptions()+'</select></div>'+selectField('Type','taType',['Lesson prep','Quiz','Assessment','Scheduling','Parent update','Resource','Admin'],'Admin')+field('Due date','taDate',today(),'date')+selectField('Priority','taPriority',['Today','Soon','Later'],'Soon')+'</div>'+field('Task','taTitle','')+'<div class="field"><label>Note</label><textarea id="taNotes"></textarea></div>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveTask()">Add task</button>')}
 async function saveTask(){try{await api({action:'taskCreate',studentId:$('#taStudent').value||null,title:$('#taTitle').value,taskType:$('#taType').value,dueDate:$('#taDate').value||null,priority:$('#taPriority').value,notes:$('#taNotes').value});closeModal();toast('Task added');await sync()}catch(err){toast(err.message)}}
+async function toggleTask(id,checked){
+  try{
+    await api({action:'taskUpdate',id,status:checked?'Done':'Open'});
+    const t=(data.tasks||[]).find(x=>x.id===id);if(t)t.status=checked?'Done':'Open';
+    toast(checked?'Marked complete':'Moved back to to-do');
+    render();
+  }catch(err){toast(err.message)}
+}
+
 async function completeTask(id){try{await api({action:'taskUpdate',id,status:'Done'});toast('Done');await sync()}catch(err){toast(err.message)}}
 function editRoutine(id){const r=routineFor(id)||{};modal('Student routine','<div class="grid2">'+field('Monthly lesson-hour target','rtTarget',r.target_lessons_per_month||4,'number')+selectField('Regular quiz day','rtQuiz',['Not fixed','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],r.quiz_day||'Not fixed')+'</div><div class="field"><label>Scheduling note</label><textarea id="rtSchedule">'+esc(r.scheduling_note||'')+'</textarea></div><div class="field"><label>Parent update rule</label><textarea id="rtParent">'+esc(r.parent_update_rule||'')+'</textarea></div>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveRoutine(\''+id+'\')">Save routine</button>')}
 async function saveRoutine(id){try{await api({action:'routineUpdate',studentId:id,targetLessons:Number($('#rtTarget').value||4),quizDay:$('#rtQuiz').value==='Not fixed'?null:$('#rtQuiz').value,schedulingNote:$('#rtSchedule').value,parentUpdateRule:$('#rtParent').value});closeModal();toast('Routine saved');await sync();studentDetail(id)}catch(err){toast(err.message)}}
