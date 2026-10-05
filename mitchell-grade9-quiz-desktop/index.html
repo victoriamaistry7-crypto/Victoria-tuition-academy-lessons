@@ -69,113 +69,71 @@ function studentAnswerForEmail(q,data){
 }
 
 function buildExcelAttachment(data){
-  if(typeof XLSX==='undefined') throw new Error('Excel generator did not load. Check the internet connection and try again.');
+ if(typeof XLSX==='undefined') throw new Error('Excel generator did not load.');
+ const map={};
+ const put=(ids,t,s)=>ids.split(' ').forEach(id=>map[id]=[t,s]);
+ put('A1 A2 B5','Forces','Contact and non-contact forces');
+ put('A3 A6 B2 B3 B6','Forces','Resultant and balanced forces');
+ put('A4 A5 B4','Forces','Vectors and force diagrams');
+ put('B7 B8 B11','Forces','Gravity, mass and weight');
+ put('B9 B10','Forces','Friction, normal, tension and compression');
+ put('B12','Forces','Magnetic forces'); put('B13 B14','Forces','Electrostatics and lightning');
+ put('A7 A8 A9 C1 C2 C5','Electric Cells & Resistance','Cells as energy systems');
+ put('A25 D9','Electric Cells & Resistance','Cells in series and parallel');
+ put('A14 C4','Electric Cells & Resistance','Uses of resistors');
+ put('A10 A11 A12 A13 C3 C6 C7','Electric Cells & Resistance','Factors affecting resistance');
+ put('A15 A17 D1 D8','Series & Parallel Circuits','Current in series circuits');
+ put('A16 A18 D4 D10 D11','Series & Parallel Circuits','Current in parallel circuits');
+ put('A22 D2 D12','Series & Parallel Circuits','Potential difference in series');
+ put('A21 D5','Series & Parallel Circuits','Potential difference in parallel');
+ put('A19 A20 D3','Series & Parallel Circuits','Ammeters and voltmeters');
+ put('A23 A24 D6 D7','Series & Parallel Circuits','Series vs parallel circuits and applications');
+ put('A26 A27 A28 E1 E2 E3','Scientific Investigations','Variables and fair testing');
+ put('E4 E5','Scientific Investigations','Hypotheses and conclusions');
+ put('A29 A30 E6 E7','Scientific Investigations','Interpreting graphs, tables and evidence');
 
-  const topicMap={
-    A:'Multiple Choice',
-    B:'Forces',
-    C:'Electric Cells & Resistance',
-    D:'Electric Circuits',
-    E:'Scientific Investigations'
-  };
-
-  const overviewRows=[
-    ['VICTORIA TUITION ACADEMY'],
-    ['Mitchell — Grade 9 Natural Sciences'],
-    [],
-    ['Student',data.student],
-    ['Grade','Grade 9'],
-    ['Subject','Natural Sciences'],
-    ['Curriculum','IEB / CAPS-aligned'],
-    ['Assessment date',data.date],
-    ['Submission ID',data.submissionId],
-    ['Submitted',new Date(data.submittedAt).toLocaleString()],
-    ['Answered',data.answeredCount],
-    ['Unanswered',data.unansweredCount],
-    ['Total questions',data.totalQuestions],
-    ['Time used (min)',data.timeUsedMinutes],
-    ['Status','UNMARKED — tutor review required'],
-    ['Total marks',data.totalMarks],
-    ['Teacher marks awarded',''],
-    ['Overall percentage',''],
-    [],
-    ['Teacher instructions','Enter marks in the Teacher Mark column on the Responses sheet. Add notes only where needed.']
-  ];
-
-  const responseRows=[['Topic','Section','Q No.','Internal ID','Max Mark','Question','Student Answer','Working / Direction','Teacher Mark','Tutor Notes']];
-  qs.forEach(q=>{
-    const a=data.answers[q.id]||{};
-    let ans='';
-    if(q.t==='mcq'||q.t==='diagrammcq'){
-      if(a.answer==='') ans='[UNANSWERED]';
-      else{
-        const idx=Number(a.answer);
-        ans=Number.isFinite(idx)?`${String.fromCharCode(65+idx)} — ${q.o?.[idx]||''}`:String(a.answer||'');
-      }
-    }else if(q.t==='numeric2'){
-      ans=a.answer||'[UNANSWERED]';
-      if(a.direction) ans+=` ${a.direction}`;
-    }else{
-      ans=a.answer||'[UNANSWERED]';
-    }
-    const work=[a.direction?('Direction: '+a.direction):'',a.working||''].filter(Boolean).join('\n');
-    responseRows.push([
-      topicMap[q.s]||q.s,
-      q.s==='A'?'A':'B',
-      visibleNumber(q),
-      q.id,
-      q.m,
-      q.q,
-      ans,
-      work,
-      '',
-      ''
-    ]);
-  });
-
-  const wb=XLSX.utils.book_new();
-  const overview=XLSX.utils.aoa_to_sheet(overviewRows);
-  overview['!cols']=[{wch:24},{wch:70}];
-  overview['!merges']=[
-    XLSX.utils.decode_range('A1:B1'),
-    XLSX.utils.decode_range('A2:B2')
-  ];
-  overview['B17']={t:'n',f:"SUM(Responses!I2:I71)",v:0};
-  overview['B18']={t:'n',f:"IF(B16=0,0,B17/B16)",v:0,z:'0%'};
-
-  const responses=XLSX.utils.aoa_to_sheet(responseRows);
-  responses['!cols']=[
-    {wch:28},{wch:9},{wch:8},{wch:12},{wch:10},
-    {wch:58},{wch:36},{wch:36},{wch:13},{wch:34}
-  ];
-  responses['!autofilter']={ref:'A1:J71'};
-
-  const notesRows=[
-    ['ABOUT THIS FILE'],
-    ['This workbook was generated automatically when the learner submitted the assessment.'],
-    ['The full attempt is also saved in the Victoria Tuition Academy database.'],
-    ['The student does not receive the memo, answer key or marks.'],
-    [],
-    ['MARKING WORKFLOW'],
-    ['1. Open the Responses sheet.'],
-    ['2. Read the Student Answer and Working / Direction columns.'],
-    ['3. Enter the mark earned in Teacher Mark.'],
-    ['4. Add a Tutor Note where feedback is needed.'],
-    ['5. Return to Overview to see the total and percentage.']
-  ];
-  const notes=XLSX.utils.aoa_to_sheet(notesRows);
-  notes['!cols']=[{wch:95}];
-
-  XLSX.utils.book_append_sheet(wb,overview,'Overview');
-  XLSX.utils.book_append_sheet(wb,responses,'Responses');
-  XLSX.utils.book_append_sheet(wb,notes,'How to Mark');
-
-  const bytes=XLSX.write(wb,{bookType:'xlsx',type:'array'});
-  const safeStudent=(data.student||'Mitchell').replace(/[^a-z0-9_-]+/gi,'_');
-  const filename=`${safeStudent}_Grade9_NS_${data.date}_${data.submissionId}.xlsx`;
-  return new File([bytes],filename,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+ const rows=[['Topic','CAPS subtopic','Question','Question text','Max mark','Student answer','Teacher mark','Status','Tutor note']];
+ const subs=[]; const seen=new Set();
+ qs.forEach(q=>{
+   const m=map[q.id]||['Other','Teacher review']; const key=m.join('|');
+   if(!seen.has(key)){seen.add(key);subs.push(m);}
+   const a=data.answers[q.id]||{}; let ans='[UNANSWERED]';
+   if(a.answer!==''){
+     if(q.t==='mcq'||q.t==='diagrammcq'){const i=Number(a.answer);ans=Number.isFinite(i)?String.fromCharCode(65+i)+' — '+(q.o?.[i]||''):String(a.answer);}
+     else ans=String(a.answer)+(a.direction?' '+a.direction:'')+(a.working?' | Working: '+a.working:'');
+   }
+   rows.push([m[0],m[1],q.id,q.q,q.m,ans,'','','']);
+ });
+ const wb=XLSX.utils.book_new();
+ const snap=[['VICTORIA TUITION ACADEMY — CAPS LEARNING DIAGNOSTIC'],['Mitchell — Grade 9 Natural Sciences'],[],
+  ['Student',data.student],['Assessment date',data.date],['Submission ID',data.submissionId],['Answered',data.answeredCount+'/'+data.totalQuestions],['Time used',data.timeUsedMinutes+' min'],[],
+  ['IMPORTANT','Unanswered questions are NOT ASSESSED — they are not counted as wrong. Enter marks on Question Review; this summary updates automatically.'],[],
+  ['Topic','CAPS subtopic','Assessed marks','Marks earned','Score','Learning status','What to do next']];
+ subs.forEach((m,i)=>{
+   const r=13+i;
+   snap.push([m[0],m[1],
+     {f:`SUMIFS('Question Review'!$E$2:$E$71,'Question Review'!$B$2:$B$71,B${r},'Question Review'!$F$2:$F$71,"<>[UNANSWERED]",'Question Review'!$G$2:$G$71,"<>")`},
+     {f:`SUMIFS('Question Review'!$G$2:$G$71,'Question Review'!$B$2:$B$71,B${r})`},
+     {f:`IF(C${r}=0,"",D${r}/C${r})`},
+     {f:`IF(C${r}=0,"Not assessed yet",IF(E${r}>=0.8,"Secure",IF(E${r}>=0.6,"Developing","Re-teach")))`},
+     {f:`IF(F${r}="Secure","Maintain with mixed exam practice.",IF(F${r}="Developing","Target errors, then retest.",IF(F${r}="Re-teach","Re-teach this subtopic, then retest.","Mark attempted questions first.")))`}
+   ]);
+ });
+ const ws1=XLSX.utils.aoa_to_sheet(snap);
+ ws1['!cols']=[{wch:25},{wch:38},{wch:14},{wch:14},{wch:10},{wch:18},{wch:46}];
+ const ws2=XLSX.utils.aoa_to_sheet(rows);
+ ws2['!cols']=[{wch:24},{wch:38},{wch:11},{wch:60},{wch:10},{wch:42},{wch:13},{wch:18},{wch:34}];
+ ws2['!autofilter']={ref:'A1:I71'};
+ for(let r=2;r<=71;r++) ws2['H'+r]={t:'n',f:`IF(F${r}="[UNANSWERED]","Not assessed",IF(G${r}="","Mark needed",IF(G${r}=E${r},"Correct",IF(G${r}=0,"Needs review","Developing"))))`};
+ const caps=[['Topic','CAPS subtopic'],...subs];
+ const ws3=XLSX.utils.aoa_to_sheet(caps); ws3['!cols']=[{wch:26},{wch:44}];
+ XLSX.utils.book_append_sheet(wb,ws1,'Learning Snapshot');
+ XLSX.utils.book_append_sheet(wb,ws2,'Question Review');
+ XLSX.utils.book_append_sheet(wb,ws3,'CAPS Map');
+ const bytes=XLSX.write(wb,{bookType:'xlsx',type:'array'});
+ const filename=(data.student||'Mitchell').replace(/[^a-z0-9_-]+/gi,'_')+'_CAPS_Learning_Diagnostic_'+data.date+'_'+data.submissionId+'.xlsx';
+ return new File([bytes],filename,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 }
-
 
 async function sendExcelSubmissionEmail(data){
   const file=buildExcelAttachment(data);
