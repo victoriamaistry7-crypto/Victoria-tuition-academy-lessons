@@ -381,6 +381,30 @@ async function buildExcelAttachment(data){
     }
   }
 
+  // Improve spacing so wrapped content is fully visible on desktop and mobile.
+  summary.columns=[{width:26},{width:42},{width:12},{width:12},{width:12},{width:12},{width:12},{width:21}];
+  summary.getRow(1).height=32; summary.getRow(2).height=32; summary.getRow(3).height=24; summary.getRow(5).height=34;
+  for(let r=6;r<=summary.rowCount;r++) summary.getRow(r).height=28;
+
+  review.columns=[{width:26},{width:38},{width:72},{width:38},{width:11},{width:11},{width:15}];
+  review.getRow(1).height=32; review.getRow(2).height=32; review.getRow(3).height=24; review.getRow(5).height=34;
+  for(let r=6;r<=review.rowCount;r++){
+    const qText=String(review.getCell(r,3).value||'');
+    const aText=String(review.getCell(r,4).value||'');
+    const lines=Math.max(1,Math.ceil(qText.length/78),Math.ceil(aText.length/42));
+    review.getRow(r).height=Math.min(104,Math.max(30,18+lines*15));
+  }
+
+  ref.columns=[{width:28},{width:40},{width:86}];
+  ref.getRow(1).height=32; ref.getRow(2).height=32; ref.getRow(3).height=24; ref.getRow(5).height=34;
+  for(let r=6;r<=ref.rowCount;r++){
+    const subText=String(ref.getCell(r,2).value||'');
+    const teachText=String(ref.getCell(r,3).value||'');
+    const explicitLines=(teachText.match(/\n/g)||[]).length+1;
+    const lines=Math.max(explicitLines,Math.ceil(teachText.length/95),Math.ceil(subText.length/40),1);
+    ref.getRow(r).height=Math.min(140,Math.max(38,16+lines*16));
+  }
+
   [summary,review,ref].forEach(ws=>{
     ws.properties.defaultRowHeight=20;
     ws.pageSetup={orientation:'landscape',fitToPage:true,fitToWidth:1,fitToHeight:0};
