@@ -2090,6 +2090,25 @@ input:focus,select:focus,textarea:focus{border-color:#7893b5!important;box-shado
 .resource-owner-pill:before{content:"•";color:#df5f42;font-size:12px;line-height:0}
 [data-theme="dark"] .resource-owner-pill{background:#1c2735;border-color:#39495d;color:#c5d0de}
 </style>
+
+<style id="vta-resource-library-v10">
+.resource-library-v10{display:grid;gap:18px}
+.resource-student-v10{border:1px solid var(--line);border-radius:25px;background:var(--panel);box-shadow:var(--shadow);overflow:hidden}
+.resource-student-head-v10{padding:19px 20px;background:linear-gradient(135deg,#0f172a,#223653);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.resource-student-head-v10 h3{margin:0;font-size:19px}.resource-student-head-v10 p{margin:4px 0 0;color:#c7d2e0;font-size:11px}
+.resource-student-count-v10{flex:0 0 auto;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.09);border-radius:999px;padding:7px 10px;font-size:10px;font-weight:900}
+.resource-student-body-v10{padding:16px;background:linear-gradient(180deg,var(--panel),var(--panel2))}
+.resource-type-block-v10{margin-top:15px}.resource-type-block-v10:first-child{margin-top:0}
+.resource-type-head-v10{display:flex;justify-content:space-between;align-items:center;margin:0 2px 9px}.resource-type-head-v10 b{font-size:12px;letter-spacing:.02em}.resource-type-head-v10 span{font-size:9px;color:var(--muted);font-weight:800}
+.resource-card{border:1px solid color-mix(in srgb,var(--line) 86%,#cbd5e1);box-shadow:0 10px 28px rgba(15,23,42,.05);background:var(--panel)}
+.resource-card:hover{transform:translateY(-1px);box-shadow:0 16px 34px rgba(15,23,42,.08);transition:.18s ease}
+.resource-card .note{background:#fff7ed;border:1px solid #f2d6b7;color:#7a451e;font-size:10px;line-height:1.45}
+[data-theme="dark"] .resource-card .note{background:#342619;border-color:#59402a;color:#f6d2a9}
+.resource-card .tiny.strong.muted{margin-top:6px;text-transform:uppercase;letter-spacing:.06em;font-size:8px}
+.resource-owner-pill{display:none!important}
+.resource-card .btn.primary{box-shadow:0 5px 12px rgba(229,77,46,.16)}
+@media(max-width:760px){.resource-student-head-v10{padding:16px}.resource-student-body-v10{padding:12px}.resource-library-v10{gap:14px}}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -2538,9 +2557,9 @@ function askClearChat(id){modal('Clear conversation','<p style="margin:0">Delete
 async function clearChat(id){try{await api({action:'messageClear',studentId:id});closeModal();toast('Conversation cleared');await sync()}catch(err){toast(err.message)}}
 
 async function sendMessage(e,id){e.preventDefault();const inp=$('#msg');const v=inp.value.trim();if(!v)return;inp.value='';try{await api({action:'messageSend',studentId:id,message:v});await sync()}catch(err){toast(err.message)}}
-function resourceCards(rs,admin,featured=false){
+function resourceCards(rs,admin,featured=false,showOwner=admin){
   if(!rs.length)return '<div class="card muted">No resources here yet.</div>';
-  return '<div class="resource-grid '+(featured?'featured-grid':'')+'">'+rs.map(r=>'<div class="card resource-card">'+resourceVisual(r)+'<div class="row between"><div class="icon">'+resourceIcon(r.resource_type)+'</div>'+status(r.completion_status||'Available')+'</div><h4>'+esc(r.title)+'</h4>'+(admin?'<div class="resource-owner-pill">Used for '+esc(studentName(r.student_id))+'</div>':'')+'<div class="tiny strong muted">'+esc(r.resource_type||'Resource')+'</div><p>'+esc(r.description||'')+'</p>'+(r.access_note?'<div class="note"><b>Access:</b> '+esc(r.access_note)+'</div>':'')+'<div class="row wrap"><button class="btn small primary" onclick="openResource(\''+r.id+'\')">Open</button>'+(admin?'<button class="btn small" onclick="editResource(\''+r.id+'\')">Edit</button>':'')+'</div></div>').join('')+'</div>';
+  return '<div class="resource-grid '+(featured?'featured-grid':'')+'">'+rs.map(r=>'<div class="card resource-card">'+resourceVisual(r)+'<div class="row between"><div class="icon">'+resourceIcon(r.resource_type)+'</div>'+status(r.completion_status||'Available')+'</div><h4>'+esc(r.title)+'</h4>'+(showOwner?'<div class="resource-owner-pill">Used for '+esc(studentName(r.student_id))+'</div>':'')+'<div class="tiny strong muted">'+esc(r.resource_type||'Resource')+'</div><p>'+esc(r.description||'')+'</p>'+(r.access_note?'<div class="note"><b>Access:</b> '+esc(r.access_note)+'</div>':'')+'<div class="row wrap"><button class="btn small primary" onclick="openResource(\''+r.id+'\')">Open</button>'+(admin?'<button class="btn small" onclick="editResource(\''+r.id+'\')">Edit</button>':'')+'</div></div>').join('')+'</div>';
 }
 function resourceVisual(r){
   const s=(String(r.subject||'')+' '+String(r.title||'')+' '+String(r.resource_type||'')).toLowerCase();
@@ -2553,29 +2572,31 @@ function resourceVisual(r){
 }
 function resourceIcon(t){t=String(t||'').toLowerCase();if(t.includes('interactive'))return '✦';if(t.includes('pdf')||t.includes('note'))return '▤';if(t.includes('slide'))return '▣';if(t.includes('video'))return '▶';if(t.includes('quiz'))return '✓';return '↗'}
 function adminResources(){
-  const cats=['Interactive Lesson','Assessment','Slides','PDF / Notes','Worksheet','Video','Quiz Link','Quiz Report','Other'];
-  let h=section('Resources','Lessons, assessments, notes, quizzes and files organised by format and student','<div class="row"><button class="btn small" onclick="openLinkResource()">+ Link</button><button class="btn small primary" onclick="openUpload()">+ Upload</button></div>');
-  const all=data.resources||[];
-  cats.forEach(cat=>{
-    const first=cat.split(' ')[0].toLowerCase();
-    const rs=all.filter(r=>{
-      const t=String(r.resource_type||'Other').toLowerCase();
-      if(cat==='Quiz Link')return t==='quiz link';
-      if(cat==='Quiz Report')return t==='quiz report';
-      if(cat==='Assessment')return t==='assessment';
-      if(cat==='Other')return !cats.slice(0,-1).some(z=>{const zz=z.toLowerCase();return zz.startsWith('quiz ')?t===zz:t===zz||t.includes(z.split(' ')[0].toLowerCase())});
-      return t.includes(first);
+  const all=(data.resources||[]).slice();
+  let h=section('Resources','A student-by-student library of the exact materials sent in your lesson chats.','<div class="row"><button class="btn small" onclick="openLinkResource()">+ Link</button><button class="btn small primary" onclick="openUpload()">+ Upload</button></div>');
+  const students=(data.students||[]).slice().sort((a,b)=>String(a.display_name||'').localeCompare(String(b.display_name||'')));
+  const byType=[
+    ['Interactive lessons',r=>String(r.resource_type||'').toLowerCase().includes('interactive')],
+    ['Assessments',r=>String(r.resource_type||'').toLowerCase()==='assessment'],
+    ['Quizzes',r=>String(r.resource_type||'').toLowerCase().includes('quiz')],
+    ['Notes & study material',r=>/pdf|note|slide|worksheet/i.test(String(r.resource_type||''))],
+    ['Other',r=>true]
+  ];
+  h+='<div class="resource-library-v10">';
+  students.forEach(s=>{
+    const sr=all.filter(r=>r.student_id===s.id);
+    if(!sr.length)return;
+    h+='<section class="resource-student-v10"><div class="resource-student-head-v10"><div><h3>'+esc(s.display_name)+'</h3><p>'+esc((s.grade||'Student')+(s.subjects?' · '+s.subjects:''))+'</p></div><span class="resource-student-count-v10">'+sr.length+' resource'+(sr.length===1?'':'s')+'</span></div><div class="resource-student-body-v10">';
+    const used=new Set();
+    byType.forEach(([label,test],idx)=>{
+      let rs=sr.filter(r=>!used.has(r.id)&&test(r));
+      if(label==='Other')rs=sr.filter(r=>!used.has(r.id));
+      rs.forEach(r=>used.add(r.id));
+      if(rs.length)h+='<div class="resource-type-block-v10"><div class="resource-type-head-v10"><b>'+esc(label)+'</b><span>'+rs.length+' item'+(rs.length===1?'':'s')+'</span></div>'+resourceCards(rs,true,false,false)+'</div>';
     });
-    if(rs.length){
-      const desc=cat==='Interactive Lesson'?'Interactive teaching experiences actually used with students':
-        cat==='Assessment'?'Baseline and formal assessment records':
-        cat==='PDF / Notes'?'Reference notes and study material':
-        cat==='Worksheet'?'Practice and homework files':
-        cat==='Quiz Link'||cat==='Quiz Report'?'Quiz-related resources':
-        'Teaching resources';
-      h+='<section class="resource-category-v4"><div class="resource-category-head"><div><h3>'+esc(cat)+'</h3><p>'+esc(desc)+'</p></div><span class="resource-count-v4">'+rs.length+' '+(rs.length===1?'item':'items')+'</span></div><div class="resource-category-body">'+resourceCards(rs,true)+'</div></section>';
-    }
+    h+='</div></section>';
   });
+  h+='</div>';
   if(!all.length)h+=emptyState('No resources','Upload or link your first teaching resource.');
   $('#content').innerHTML=h;
 }
