@@ -2109,6 +2109,38 @@ input:focus,select:focus,textarea:focus{border-color:#7893b5!important;box-shado
 .resource-card .btn.primary{box-shadow:0 5px 12px rgba(229,77,46,.16)}
 @media(max-width:760px){.resource-student-head-v10{padding:16px}.resource-student-body-v10{padding:12px}.resource-library-v10{gap:14px}}
 </style>
+
+<style id="vta-resource-folders-v11">
+.resource-folder-grid-v11{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.resource-folder-v11{border:1px solid #d7e0eb;border-radius:18px;background:var(--panel);overflow:hidden;box-shadow:0 8px 24px rgba(15,23,42,.04);transition:.16s ease}
+.resource-folder-v11:hover{border-color:#9fb1c7;box-shadow:0 13px 30px rgba(15,23,42,.075)}
+.resource-folder-v11[open]{grid-column:1/-1;border-color:#a5b5c8;box-shadow:0 15px 34px rgba(15,23,42,.08)}
+.resource-folder-v11 summary{list-style:none;cursor:pointer;padding:14px 15px;display:grid;grid-template-columns:46px minmax(0,1fr) auto;gap:11px;align-items:center;background:linear-gradient(145deg,#fff,#f6f9fc)}
+.resource-folder-v11 summary::-webkit-details-marker{display:none}
+.resource-folder-icon-v11{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:20px;font-weight:950;border:1px solid #ead3c8;background:#fff2ed;color:#b85034}
+.resource-folder-v11:nth-child(2) .resource-folder-icon-v11{background:#eef5ff;border-color:#d0e0f2;color:#3c678f}
+.resource-folder-v11:nth-child(3) .resource-folder-icon-v11{background:#f4eff9;border-color:#e2d5ed;color:#6f568c}
+.resource-folder-v11:nth-child(4) .resource-folder-icon-v11{background:#eef8f5;border-color:#cfe6df;color:#2f6d5f}
+.resource-folder-copy-v11{min-width:0}.resource-folder-copy-v11 b{display:block;font-size:12px}.resource-folder-copy-v11 p{margin:3px 0 0;font-size:9px;color:var(--muted);line-height:1.4}
+.resource-folder-count-v11{min-width:34px;height:28px;padding:0 8px;border-radius:999px;display:grid;place-items:center;background:#eef2f6;border:1px solid #d9e1eb;color:#526176;font-size:9px;font-weight:900}
+.resource-folder-v11[open] summary{border-bottom:1px solid var(--line);background:linear-gradient(145deg,#f8fafc,#eef3f8)}
+.resource-folder-v11[open] .resource-folder-count-v11:after{content:" · open";font-weight:700}
+.resource-folder-content-v11{padding:13px;background:var(--panel2)}
+.resource-folder-content-v11 .resource-grid{margin:0!important}
+.resource-student-body-v10{background:var(--panel)!important}
+[data-theme="dark"] .resource-folder-v11{background:#121923;border-color:#303c4d}
+[data-theme="dark"] .resource-folder-v11:hover,[data-theme="dark"] .resource-folder-v11[open]{border-color:#536981}
+[data-theme="dark"] .resource-folder-v11 summary,[data-theme="dark"] .resource-folder-v11[open] summary{background:linear-gradient(145deg,#18212d,#141c26);border-color:#303c4d}
+[data-theme="dark"] .resource-folder-count-v11{background:#0f1620;border-color:#344255;color:#c3cfdd}
+[data-theme="dark"] .resource-folder-content-v11{background:#101720}
+[data-theme="dark"] .resource-folder-icon-v11{background:#40251f;border-color:#684033;color:#ffc8b7}
+[data-theme="dark"] .resource-folder-v11:nth-child(2) .resource-folder-icon-v11{background:#182a42;border-color:#31587f;color:#a9d0ff}
+[data-theme="dark"] .resource-folder-v11:nth-child(3) .resource-folder-icon-v11{background:#281f31;border-color:#514064;color:#d2b8e8}
+[data-theme="dark"] .resource-folder-v11:nth-child(4) .resource-folder-icon-v11{background:#173028;border-color:#2d5c4e;color:#9ad7c2}
+.student-resource-folder-wrap-v11{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.student-resource-folder-wrap-v11 .resource-folder-v11[open]{grid-column:1/-1}
+@media(max-width:720px){.resource-folder-grid-v11,.student-resource-folder-wrap-v11{grid-template-columns:1fr}.resource-folder-v11[open]{grid-column:auto}.resource-folder-v11 summary{grid-template-columns:42px minmax(0,1fr) auto;padding:12px}.resource-folder-icon-v11{width:42px;height:42px}}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -2573,28 +2605,29 @@ function resourceVisual(r){
 function resourceIcon(t){t=String(t||'').toLowerCase();if(t.includes('interactive'))return '✦';if(t.includes('pdf')||t.includes('note'))return '▤';if(t.includes('slide'))return '▣';if(t.includes('video'))return '▶';if(t.includes('quiz'))return '✓';return '↗'}
 function adminResources(){
   const all=(data.resources||[]).slice();
-  let h=section('Resources','A student-by-student library of the exact materials sent in your lesson chats.','<div class="row"><button class="btn small" onclick="openLinkResource()">+ Link</button><button class="btn small primary" onclick="openUpload()">+ Upload</button></div>');
+  let h=section('Resources','Open a student, then choose the resource folder you need. Nothing is expanded until you ask for it.','<div class="row"><button class="btn small" onclick="openLinkResource()">+ Link</button><button class="btn small primary" onclick="openUpload()">+ Upload</button></div>');
   const students=(data.students||[]).slice().sort((a,b)=>String(a.display_name||'').localeCompare(String(b.display_name||'')));
-  const byType=[
-    ['Interactive lessons',r=>String(r.resource_type||'').toLowerCase().includes('interactive')],
-    ['Assessments',r=>String(r.resource_type||'').toLowerCase()==='assessment'],
-    ['Quizzes',r=>String(r.resource_type||'').toLowerCase().includes('quiz')],
-    ['Notes & study material',r=>/pdf|note|slide|worksheet/i.test(String(r.resource_type||''))],
-    ['Other',r=>true]
+  const folders=[
+    ['Interactive lessons','✦','Lessons actually sent and used',r=>String(r.resource_type||'').toLowerCase().includes('interactive')],
+    ['Notes','≡','Study notes, PDFs and worksheets',r=>/pdf|note|slide|worksheet/i.test(String(r.resource_type||''))],
+    ['Quizzes','✓','Quiz links and reports',r=>String(r.resource_type||'').toLowerCase().includes('quiz')],
+    ['Assessments','A','Baseline and formal assessments',r=>String(r.resource_type||'').toLowerCase()==='assessment']
   ];
   h+='<div class="resource-library-v10">';
   students.forEach(s=>{
     const sr=all.filter(r=>r.student_id===s.id);
     if(!sr.length)return;
-    h+='<section class="resource-student-v10"><div class="resource-student-head-v10"><div><h3>'+esc(s.display_name)+'</h3><p>'+esc((s.grade||'Student')+(s.subjects?' · '+s.subjects:''))+'</p></div><span class="resource-student-count-v10">'+sr.length+' resource'+(sr.length===1?'':'s')+'</span></div><div class="resource-student-body-v10">';
-    const used=new Set();
-    byType.forEach(([label,test],idx)=>{
-      let rs=sr.filter(r=>!used.has(r.id)&&test(r));
-      if(label==='Other')rs=sr.filter(r=>!used.has(r.id));
-      rs.forEach(r=>used.add(r.id));
-      if(rs.length)h+='<div class="resource-type-block-v10"><div class="resource-type-head-v10"><b>'+esc(label)+'</b><span>'+rs.length+' item'+(rs.length===1?'':'s')+'</span></div>'+resourceCards(rs,true,false,false)+'</div>';
+    const matched=new Set();
+    folders.forEach(f=>sr.filter(f[3]).forEach(r=>matched.add(r.id)));
+    const other=sr.filter(r=>!matched.has(r.id));
+    h+='<section class="resource-student-v10"><div class="resource-student-head-v10"><div><h3>'+esc(s.display_name)+'</h3><p>'+esc((s.grade||'Student')+(s.subjects?' · '+s.subjects:''))+'</p></div><span class="resource-student-count-v10">'+sr.length+' resource'+(sr.length===1?'':'s')+'</span></div><div class="resource-student-body-v10"><div class="resource-folder-grid-v11">';
+    folders.forEach(([label,icon,desc,test])=>{
+      const rs=sr.filter(test);
+      if(!rs.length)return;
+      h+='<details class="resource-folder-v11"><summary><div class="resource-folder-icon-v11">'+icon+'</div><div class="resource-folder-copy-v11"><b>'+esc(label)+'</b><p>'+esc(desc)+'</p></div><span class="resource-folder-count-v11">'+rs.length+'</span></summary><div class="resource-folder-content-v11">'+resourceCards(rs,true,false,false)+'</div></details>';
     });
-    h+='</div></section>';
+    if(other.length)h+='<details class="resource-folder-v11"><summary><div class="resource-folder-icon-v11">＋</div><div class="resource-folder-copy-v11"><b>Other resources</b><p>Additional material sent in lessons</p></div><span class="resource-folder-count-v11">'+other.length+'</span></summary><div class="resource-folder-content-v11">'+resourceCards(other,true,false,false)+'</div></details>';
+    h+='</div></div></section>';
   });
   h+='</div>';
   if(!all.length)h+=emptyState('No resources','Upload or link your first teaching resource.');
@@ -2876,18 +2909,24 @@ function studentMessages(){
   setTimeout(async()=>{await markMessagesRead(data.user.id);const m=$('#messages');if(m){m.innerHTML=chatHtml(data.user.id);m.scrollTop=m.scrollHeight}},30);
 }
 function studentResources(){
-  const all=data.resources||[],groups=[
-    ['Interactive lessons',r=>String(r.resource_type||'').toLowerCase().includes('interactive'),'Lessons you can open and work through'],
-    ['Notes & study material',r=>/pdf|note|slide|worksheet/i.test(String(r.resource_type||'')),'Notes, slides and worksheets prepared for you'],
-    ['Quiz resources',r=>String(r.resource_type||'').toLowerCase().includes('quiz'),'Quiz links and reports']
+  const all=data.resources||[];
+  const folders=[
+    ['Interactive lessons','✦','Open the lessons you worked through with Victoria',r=>String(r.resource_type||'').toLowerCase().includes('interactive')],
+    ['Notes','≡','Study notes, PDFs and worksheets',r=>/pdf|note|slide|worksheet/i.test(String(r.resource_type||''))],
+    ['Quizzes','✓','Quiz links and reports',r=>String(r.resource_type||'').toLowerCase().includes('quiz')],
+    ['Assessments','A','Baseline and formal assessments',r=>String(r.resource_type||'').toLowerCase()==='assessment']
   ];
-  let h=section('Resources','Everything Victoria has prepared for your learning');
-  groups.forEach(g=>{const rs=all.filter(g[1]);if(rs.length)h+='<section class="student-resource-section"><div class="student-resource-head"><div><h3>'+esc(g[0])+'</h3><p>'+esc(g[2])+'</p></div><span class="chip">'+rs.length+'</span></div><div class="student-resource-body">'+resourceCards(rs,false)+'</div></section>'});
-  const matched=new Set(groups.flatMap(g=>all.filter(g[1]).map(r=>r.id))),other=all.filter(r=>!matched.has(r.id));
-  if(other.length)h+='<section class="student-resource-section"><div class="student-resource-head"><div><h3>Other resources</h3><p>Additional learning material</p></div><span class="chip">'+other.length+'</span></div><div class="student-resource-body">'+resourceCards(other,false)+'</div></section>';
+  let h=section('Resources','Choose a folder to open only the materials you need.');
+  const matched=new Set();folders.forEach(f=>all.filter(f[3]).forEach(r=>matched.add(r.id)));const other=all.filter(r=>!matched.has(r.id));
+  h+='<div class="student-resource-folder-wrap-v11">';
+  folders.forEach(([label,icon,desc,test])=>{
+    const rs=all.filter(test);if(!rs.length)return;
+    h+='<details class="resource-folder-v11"><summary><div class="resource-folder-icon-v11">'+icon+'</div><div class="resource-folder-copy-v11"><b>'+esc(label)+'</b><p>'+esc(desc)+'</p></div><span class="resource-folder-count-v11">'+rs.length+'</span></summary><div class="resource-folder-content-v11">'+resourceCards(rs,false)+'</div></details>';
+  });
+  if(other.length)h+='<details class="resource-folder-v11"><summary><div class="resource-folder-icon-v11">＋</div><div class="resource-folder-copy-v11"><b>Other resources</b><p>Additional learning material</p></div><span class="resource-folder-count-v11">'+other.length+'</span></summary><div class="resource-folder-content-v11">'+resourceCards(other,false)+'</div></details>';
+  h+='</div>';
   if(!all.length)h+=emptyState('No resources yet','Your lessons and notes will appear here.');
-  h+=section('Lesson plans','What Victoria has prepared for your lessons');
-  h+='<div class="list">'+((data.lessonPlans||[]).length?(data.lessonPlans||[]).map(lessonPlanCard).join(''):emptyState('No lesson plans','Lesson plans will appear here when they are published.'))+'</div>';
+  if((data.lessonPlans||[]).length){h+=section('Lesson plans','What Victoria has prepared for your lessons');h+='<div class="list">'+(data.lessonPlans||[]).map(lessonPlanCard).join('')+'</div>'}
   $('#content').innerHTML=h;
 }
 function lessonPlanCard(p){return '<div class="card"><div class="row between"><div><b>'+esc(p.title)+'</b><div class="tiny muted">'+esc(p.subject||'')+(p.topic?' • '+esc(p.topic):'')+'</div></div>'+status('Ready')+'</div>'+(p.objectives?'<p class="tiny"><b>Objectives:</b> '+esc(p.objectives)+'</p>':'')+'<div style="white-space:pre-wrap;font-size:12px;line-height:1.55">'+esc(p.content||'')+'</div></div>'}
