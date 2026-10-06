@@ -3966,6 +3966,93 @@ body[data-theme="dark"]{background:#0a1018!important}
   .schedule-summary-v4,.quiz-overview-v5,.curriculum-wrap{padding:7px;border-radius:15px}
 }
 </style>
+
+<style id="vta-student-page-fix-v15">
+.students-page-toolbar{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:17px 18px;margin:4px 0 13px;
+  border:1px solid #d8e1eb;border-radius:17px;
+  background:linear-gradient(135deg,#ffffff,#f8fafc);
+  box-shadow:0 8px 22px rgba(15,23,42,.04)
+}
+.students-page-toolbar>div{min-width:0}
+.students-page-toolbar .students-kicker{
+  display:block;font-size:8px;font-weight:950;letter-spacing:.11em;
+  color:#d36449;margin-bottom:5px
+}
+.students-page-toolbar b{font-size:15px;letter-spacing:-.025em}
+.students-page-toolbar p{font-size:9px;color:var(--muted);margin:3px 0 0}
+.students-grid{align-items:start!important}
+.student-card-v3{
+  min-height:0!important;
+}
+.student-card-v3 .student-card-cover{
+  min-height:96px!important;
+  padding:15px 16px!important;
+}
+.student-card-body{
+  padding:13px 14px 14px!important;
+}
+.student-card-metrics{
+  gap:7px!important;
+}
+.student-metric{
+  padding:9px 10px!important;
+  min-height:67px;
+}
+.student-metric span{font-size:7px!important}
+.student-metric b{font-size:15px!important;margin-top:5px!important}
+.student-card-v3 .curriculum-mini{
+  margin-top:9px!important;
+  padding:9px 10px!important;
+}
+.student-card-footer{
+  margin-top:10px!important;
+  padding-top:10px;
+  border-top:1px solid #edf0f4;
+}
+.student-target-copy{font-size:9px;color:var(--muted)}
+.student-card-footer .btn{min-width:auto!important}
+.archived-students{
+  margin-top:14px;border:1px solid #d9e1ea;border-radius:16px;background:#fff;
+  overflow:hidden;box-shadow:0 7px 18px rgba(15,23,42,.035)
+}
+.archived-students summary{
+  list-style:none;cursor:pointer;padding:13px 15px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px
+}
+.archived-students summary::-webkit-details-marker{display:none}
+.archived-students summary span{
+  display:block;font-size:7px;font-weight:950;letter-spacing:.1em;color:#8a97a8
+}
+.archived-students summary b{display:block;font-size:11px;margin-top:3px}
+.archived-students summary small{font-size:8px;color:var(--muted)}
+.archived-students[open] summary{background:#f7f9fb;border-bottom:1px solid #e1e7ee}
+.archived-student-list{padding:8px 10px}
+.archived-student-row{
+  display:flex;align-items:center;gap:10px;padding:9px 7px;border-bottom:1px solid #edf0f4
+}
+.archived-student-row:last-child{border-bottom:0}
+.archived-student-row .student-avatar-v3{
+  width:36px!important;height:36px!important;border-radius:11px!important;
+  background:#eef2f6!important;color:#52647a!important;border-color:#d8e0e9!important
+}
+.archived-student-row b{font-size:10px}.archived-student-row p{font-size:8px;color:var(--muted);margin:2px 0 0}
+[data-theme="dark"] .students-page-toolbar{
+  background:linear-gradient(135deg,#151d27,#121922);
+  border-color:#344151
+}
+[data-theme="dark"] .student-card-footer{border-color:#303b49}
+[data-theme="dark"] .archived-students{background:#121922;border-color:#344151}
+[data-theme="dark"] .archived-students[open] summary{background:#171f29;border-color:#303c4b}
+[data-theme="dark"] .archived-student-row{border-color:#303b49}
+[data-theme="dark"] .archived-student-row .student-avatar-v3{background:#1b2531!important;color:#c4cfdd!important;border-color:#344151!important}
+@media(max-width:760px){
+  .students-page-toolbar{padding:14px;margin-top:0}
+  .students-page-toolbar p{display:none}
+  .student-card-footer{align-items:flex-end!important}
+}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -4416,13 +4503,21 @@ function lessonRow(l){
   return '<div class="list-row lesson lesson-row-v12"><div class="date"><b>'+new Date(l.lesson_date+'T12:00:00').getDate()+'</b><span class="tiny muted">'+new Date(l.lesson_date+'T12:00:00').toLocaleDateString('en-ZA',{month:'short'})+'</span></div><div><h4>'+esc(n)+' • '+esc(l.subject||'Lesson')+'</h4><p>'+esc(l.topic||'Topic not recorded')+' • '+esc(timeFmt(l.start_time))+' • '+esc(l.duration_minutes)+' min</p></div><div class="row">'+status(l.status)+(role()==='ADMIN'?'<button class="btn small" onclick="openLessonQuickActions(\''+l.id+'\')">Actions</button>':'')+'</div></div>'
 }
 function adminStudents(){
-  const students=(data.students||[]).slice().sort((a,b)=>a.display_name.localeCompare(b.display_name));
-  let h=section('Students','A clean snapshot — open a student only when you need the detail','<button class="btn small primary" onclick="openStudentCreate()">+ Student</button>');
-  h+='<div class="students-grid">'+students.map((s,idx)=>{
+  const all=(data.students||[]).slice().sort((a,b)=>a.display_name.localeCompare(b.display_name));
+  const students=all.filter(s=>s.active!==false),archived=all.filter(s=>s.active===false);
+  let h='<div class="students-page-toolbar"><div><span class="students-kicker">ACTIVE STUDENTS</span><b>'+students.length+' current learner'+(students.length===1?'':'s')+'</b><p>Open a student only when you need the detail.</p></div><button class="btn small primary" onclick="openStudentCreate()">+ Student</button></div>';
+  h+='<div class="students-grid">';
+  students.forEach((s,idx)=>{
     const cr=(data.curriculumSubtopics||[]).filter(x=>x.student_id===s.id),done=cr.filter(x=>curriculumStatus(x.status)==='Completed').length,pct=cr.length?Math.round(done/cr.length*100):0;
     const target=Number(currentPlanForRaw(s.id)?.target_hours||0),doneH=completedHoursInCalendarMonth(0,s.id),remain=thisMonthRemaining(s.id),old=previousMonthCatchupRemaining(s.id);
-    return '<div class="card student-card compact student-card-v2 student-card-v3 tone-'+(idx%4)+'"><div class="student-card-cover"><div class="student-card-head"><div class="student-id-wrap"><div class="student-avatar-v3">'+esc(initials(s.display_name))+'</div><div><div class="student-name-v3">'+esc(s.display_name)+'</div><div class="student-meta-v3">'+esc(s.grade||'Grade not set')+' · '+esc(s.subjects||'Subjects not set')+'</div></div></div><span class="student-status-v3">'+(s.active===false?'Inactive':'Active')+'</span></div><div class="student-month-v3">'+esc(monthBounds(0).label)+' overview</div></div><div class="student-card-body"><div class="student-card-metrics"><div class="student-metric"><span>Completed</span><b>'+doneH.toFixed(1)+'h</b></div><div class="student-metric"><span>Still to cover</span><b>'+remain.toFixed(1)+'h</b></div><div class="student-metric"><span>Old catch-up</span><b>'+old.toFixed(1)+'h</b></div></div><div class="curriculum-mini" style="margin-top:13px"><div class="curr-row"><span>Curriculum progress</span><span>'+pct+'%</span></div><div class="progress"><i style="width:'+pct+'%"></i></div></div><div class="student-card-footer"><span class="tiny muted">'+target.toFixed(0)+'h monthly target</span><div class="row"><button class="btn small" onclick="openStudentQuickActions(\''+s.id+'\')">Quick</button><button class="btn small primary" onclick="studentDetail(\''+s.id+'\')">Open student</button></div></div></div></div>'
-  }).join('')+'</div>';
+    h+='<div class="card student-card compact student-card-v2 student-card-v3 tone-'+(idx%4)+'"><div class="student-card-cover"><div class="student-card-head"><div class="student-id-wrap"><div class="student-avatar-v3">'+esc(initials(s.display_name))+'</div><div><div class="student-name-v3">'+esc(s.display_name)+'</div><div class="student-meta-v3">'+esc(s.grade||'Grade not set')+' · '+esc(s.subjects||'Subjects not set')+'</div></div></div><span class="student-status-v3">Active</span></div><div class="student-month-v3">'+esc(monthBounds(0).label)+' overview</div></div><div class="student-card-body"><div class="student-card-metrics"><div class="student-metric"><span>Completed</span><b>'+doneH.toFixed(1)+'h</b></div><div class="student-metric"><span>Still to cover</span><b>'+remain.toFixed(1)+'h</b></div><div class="student-metric"><span>Old catch-up</span><b>'+old.toFixed(1)+'h</b></div></div>'+
+      (cr.length?'<div class="curriculum-mini"><div class="curr-row"><span>Curriculum progress</span><span>'+pct+'%</span></div><div class="progress"><i style="width:'+pct+'%"></i></div></div>':'')+
+      '<div class="student-card-footer"><span class="student-target-copy">'+(target>0?target.toFixed(0)+'h monthly target':'No current monthly target')+'</span><div class="row"><button class="btn small" onclick="openStudentQuickActions(\''+s.id+'\')">Quick</button><button class="btn small primary" onclick="studentDetail(\''+s.id+'\')">Open student</button></div></div></div></div>';
+  });
+  h+='</div>';
+  if(archived.length){
+    h+='<details class="archived-students"><summary><div><span>ARCHIVED</span><b>'+archived.length+' past student'+(archived.length===1?'':'s')+'</b></div><small>Show</small></summary><div class="archived-student-list">'+archived.map(s=>'<div class="archived-student-row"><div class="student-avatar-v3">'+esc(initials(s.display_name))+'</div><div class="grow"><b>'+esc(s.display_name)+'</b><p>'+esc(s.grade||'')+(s.subjects?' · '+esc(s.subjects):'')+'</p></div><button class="btn small" onclick="studentDetail(\''+s.id+'\')">View history</button></div>').join('')+'</div></details>';
+  }
   $('#content').innerHTML=h;
 }
 
