@@ -2141,6 +2141,71 @@ input:focus,select:focus,textarea:focus{border-color:#7893b5!important;box-shado
 .student-resource-folder-wrap-v11 .resource-folder-v11[open]{grid-column:1/-1}
 @media(max-width:720px){.resource-folder-grid-v11,.student-resource-folder-wrap-v11{grid-template-columns:1fr}.resource-folder-v11[open]{grid-column:auto}.resource-folder-v11 summary{grid-template-columns:42px minmax(0,1fr) auto;padding:12px}.resource-folder-icon-v11{width:42px;height:42px}}
 </style>
+
+<style id="vta-minimal-premium-v5">
+/* Finance — varied premium cards, not all the same colour */
+.finance-v2-grid .finance-v2-card:nth-child(1){
+  background:linear-gradient(145deg,#0d1728,#1e304b)!important;color:#fff!important;border-color:#354b68!important
+}
+.finance-v2-grid .finance-v2-card:nth-child(1) span,.finance-v2-grid .finance-v2-card:nth-child(1) p{color:#bdc8d7!important}
+.finance-v2-grid .finance-v2-card:nth-child(2){
+  background:linear-gradient(145deg,#fff3ee,#ffe5db)!important;color:#7c3525!important;border-color:#efc6b9!important
+}
+.finance-v2-grid .finance-v2-card:nth-child(2) span,.finance-v2-grid .finance-v2-card:nth-child(2) p{color:#a65b49!important}
+.finance-v2-grid .finance-v2-card:nth-child(2) b{color:#7c3525!important}
+.finance-v2-grid .finance-v2-card:nth-child(3){
+  background:linear-gradient(145deg,#edf5ff,#dfeeff)!important;color:#173f73!important;border-color:#bfd3ec!important
+}
+.finance-v2-grid .finance-v2-card:nth-child(3) span,.finance-v2-grid .finance-v2-card:nth-child(3) p{color:#54749a!important}
+.finance-v2-grid .finance-v2-card:nth-child(3) b{color:#173f73!important}
+.finance-v2-grid .finance-v2-card:nth-child(4){
+  background:linear-gradient(145deg,#effaf5,#ddf3e8)!important;color:#185b42!important;border-color:#bfe0d0!important
+}
+.finance-v2-grid .finance-v2-card:nth-child(4) span,.finance-v2-grid .finance-v2-card:nth-child(4) p{color:#537e6e!important}
+.finance-v2-grid .finance-v2-card:nth-child(4) b{color:#185b42!important}
+.finance-v2-grid .finance-v2-card:before{opacity:.45}
+.finance-v2-grid .finance-v2-card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(15,23,42,.12)!important}
+.finance-v2-grid .finance-v2-card.clickable:after{color:currentColor!important;opacity:.68}
+
+.finance-total-premium{background:linear-gradient(135deg,#0d1728,#263a58)!important;border-color:#3a5272!important;color:#fff!important}
+.finance-total-premium span,.finance-total-premium p,.finance-total-premium small{color:#bdc9d8!important}
+.finance-total-premium b,.finance-total-premium strong{color:#fff!important}
+
+/* Larger, tidy toggle */
+.finance-toggle{margin-top:13px;border:1px solid #d7e0ea;border-radius:16px;background:var(--panel);overflow:hidden;box-shadow:0 7px 20px rgba(15,23,42,.035)}
+.finance-toggle summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 17px;cursor:pointer}
+.finance-toggle summary::-webkit-details-marker{display:none}
+.finance-toggle-title small{display:block;font-size:8px;letter-spacing:.1em;text-transform:uppercase;font-weight:900;color:#c8674e;margin-bottom:4px}
+.finance-toggle-title b{display:block;font-size:14px;color:var(--text)}
+.finance-toggle-value{font-size:21px;font-weight:900;letter-spacing:-.03em;color:var(--text)}
+.finance-toggle-body{padding:0 17px 16px;border-top:1px solid var(--line);padding-top:13px}
+.finance-toggle[open]{border-color:#9eafc4;box-shadow:0 12px 28px rgba(15,23,42,.07)}
+[data-theme="dark"] .finance-toggle{background:#161d26;border-color:#364252}
+[data-theme="dark"] .finance-toggle-title b,[data-theme="dark"] .finance-toggle-value{color:#f4f6f8}
+
+/* Focus cards: subtle colour coding for priorities 1,2,3 */
+.focus-task-primary:nth-child(1){background:linear-gradient(135deg,#fff3ee,#fff9f6)!important;border-color:#f0c7bb!important}
+.focus-task-primary:nth-child(1) .step{background:#c65f45!important;color:#fff!important}
+.focus-task-primary:nth-child(2){background:linear-gradient(135deg,#eef5ff,#f8fbff)!important;border-color:#c8d8ed!important}
+.focus-task-primary:nth-child(2) .step{background:#365f93!important;color:#fff!important}
+.focus-task-primary:nth-child(3){background:linear-gradient(135deg,#eff9f4,#f8fcfa)!important;border-color:#c7e1d4!important}
+.focus-task-primary:nth-child(3) .step{background:#2e755a!important;color:#fff!important}
+[data-theme="dark"] .focus-task-primary:nth-child(1){background:linear-gradient(135deg,#2b1e1a,#1d2027)!important;border-color:#5f3a31!important}
+[data-theme="dark"] .focus-task-primary:nth-child(2){background:linear-gradient(135deg,#17253a,#1b2029)!important;border-color:#354d70!important}
+[data-theme="dark"] .focus-task-primary:nth-child(3){background:linear-gradient(135deg,#172a22,#1b2029)!important;border-color:#315b49!important}
+
+/* Student cards — cleaner premium separation */
+.student-card-v2{border:1px solid #d7e0ea!important;box-shadow:0 10px 28px rgba(15,23,42,.055)!important}
+.student-card-v2:hover{transform:translateY(-2px);border-color:#9eafc4!important;box-shadow:0 16px 36px rgba(15,23,42,.09)!important}
+
+/* Dashboard upcoming remains colourful but calmer */
+.upcoming-premium:nth-child(2n) .upcoming-date{background:linear-gradient(145deg,#173f73,#315f94)}
+.upcoming-premium:nth-child(3n) .upcoming-date{background:linear-gradient(145deg,#7d3f2e,#b85e44)}
+
+@media(max-width:760px){
+ .finance-toggle summary{padding:14px}.finance-toggle-title b{font-size:13px}.finance-toggle-value{font-size:18px}
+}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -2759,48 +2824,50 @@ function openFinanceCalculation(kind){
   const rate=150,cur=monthBounds(0),prev=monthBounds(-1);
   const currentLessons=lessonsInCalendarMonth(0,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date));
   const previousLessons=lessonsInCalendarMonth(-1,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date));
-  const currentEarned=currentLessons.reduce((s,l)=>s+lessonValue(l,rate),0),previousEarned=previousLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
+  const currentEarned=currentLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
+  const previousEarned=previousMonthResolvedValue(rate),previousResolvedHours=previousMonthResolvedHours(),adjustments=previousMonthAdjustments();
   const currentRemain=newMonthPlans().filter(p=>Number(p.target_hours||0)>0).reduce((s,p)=>s+thisMonthRemaining(p.student_id),0);
   const catchupRows=previousMonthPlans().map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:Math.max(previousMonthCompletedHoursByDate(p.student_id),Number(p.completed_hours||0)),remain:previousMonthCatchupRemaining(p.student_id)})).filter(x=>x.remain>0);
   const previousCatchup=catchupRows.reduce((s,x)=>s+x.remain,0),outstanding=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
-  const teachingTotal=previousEarned+currentEarned;
   const currentTarget=currentMonthRegularTarget()*rate;
-  const forwardPotential=currentTarget+(previousCatchup*rate)+outstanding;
+  const teachingTotal=previousEarned+currentEarned;
+  const fullTeachingPotential=previousEarned+currentTarget+(previousCatchup*rate);
+  const totalPotential=fullTeachingPotential+outstanding;
   const weeklyPlans=forecastWeeksToCutoff(),catchupPlan=suggestedCatchupPlan();
 
   function lessonRows(ls,total){
-    return '<div class="finance-drill-list">'+ls.map(l=>'<div class="finance-drill-row"><div>'+esc(dateFmt(l.lesson_date))+'</div><div><strong>'+esc(studentName(l.student_id))+'</strong></div><div>'+esc(l.subject||'Lesson')+' · '+esc(l.topic||'Topic not recorded')+'</div><div>'+((Number(l.duration_minutes||0)/60).toFixed(1))+'h</div><div class="money">R'+lessonValue(l,rate).toFixed(0)+'</div></div>').join('')+'<div class="finance-drill-row finance-drill-total"><div></div><div></div><div><strong>Total</strong></div><div><strong>'+ls.reduce((s,l)=>s+Number(l.duration_minutes||0)/60,0).toFixed(1)+'h</strong></div><div class="money">R'+total.toFixed(0)+'</div></div></div>'
+    const datedHours=ls.reduce((s,l)=>s+Number(l.duration_minutes||0)/60,0);
+    const adj=adjustments.map(a=>'<div class="finance-drill-row"><div>Recording</div><div><strong>'+esc(studentName(a.studentId))+'</strong></div><div>Previous-month obligation adjustment · recorded replacement included</div><div>'+a.adjustment.toFixed(1)+'h</div><div class="money">R'+(a.adjustment*rate).toFixed(0)+'</div></div>').join('');
+    return '<div class="finance-drill-list">'+ls.map(l=>'<div class="finance-drill-row"><div>'+esc(dateFmt(l.lesson_date))+'</div><div><strong>'+esc(studentName(l.student_id))+'</strong></div><div>'+esc(l.subject||'Lesson')+' · '+esc(l.topic||'Topic not recorded')+'</div><div>'+((Number(l.duration_minutes||0)/60).toFixed(1))+'h</div><div class="money">R'+lessonValue(l,rate).toFixed(0)+'</div></div>').join('')+adj+'<div class="finance-drill-row finance-drill-total"><div></div><div></div><div><strong>Total</strong></div><div><strong>'+previousResolvedHours.toFixed(1)+'h</strong></div><div class="money">R'+total.toFixed(0)+'</div></div></div>'
   }
 
   let title='',body='';
   if(kind==='previous'){
     title=prev.label+' earnings';
-    body='<div class="finance-drill-head"><span>PREVIOUS MONTH EARNED</span><b>R'+previousEarned.toFixed(0)+'</b><p>Every completed lesson dated in '+esc(prev.label)+'.</p></div>'+lessonRows(previousLessons,previousEarned);
+    body='<div class="finance-drill-head"><span>PREVIOUS MONTH RESOLVED</span><b>R'+previousEarned.toFixed(0)+'</b><p>Completed dated lessons plus any resolved recorded-replacement obligation. Nothing is counted above the agreed monthly target.</p></div>'+lessonRows(previousLessons,previousEarned);
   }else if(kind==='current'){
     title=cur.label+' earnings so far';
-    body='<div class="finance-drill-head"><span>THIS MONTH EARNED</span><b>R'+currentEarned.toFixed(0)+'</b><p>Lessons already completed this month.</p></div>'+lessonRows(currentLessons,currentEarned);
+    body='<div class="finance-drill-head"><span>THIS MONTH EARNED</span><b>R'+currentEarned.toFixed(0)+'</b><p>Only completed lessons dated this month.</p></div><div class="finance-drill-list">'+currentLessons.map(l=>'<div class="finance-drill-row"><div>'+esc(dateFmt(l.lesson_date))+'</div><div><strong>'+esc(studentName(l.student_id))+'</strong></div><div>'+esc(l.subject||'Lesson')+' · '+esc(l.topic||'Topic not recorded')+'</div><div>'+((Number(l.duration_minutes||0)/60).toFixed(1))+'h</div><div class="money">R'+lessonValue(l,rate).toFixed(0)+'</div></div>').join('')+'<div class="finance-drill-row finance-drill-total"><div></div><div></div><div><strong>Total</strong></div><div><strong>'+completedHoursInCalendarMonth(0).toFixed(1)+'h</strong></div><div class="money">R'+currentEarned.toFixed(0)+'</div></div></div>';
   }else if(kind==='catchup'){
     title='Previous-month catch-up plan';
-    body='<div class="finance-drill-head"><span>STILL TO EARN FROM '+esc(prev.label.toUpperCase())+'</span><b>'+previousCatchup.toFixed(1)+'h · R'+(previousCatchup*rate).toFixed(0)+'</b><p>Dates are not fixed yet, so this is a suggested pace rather than booked lessons.</p></div>'+
-      '<div class="finance-drill-list">'+catchupRows.map(x=>'<div class="finance-drill-row"><div>Unscheduled</div><div><strong>'+esc(studentName(x.studentId))+'</strong></div><div>'+x.done.toFixed(1)+' of '+x.target.toFixed(1)+'h resolved for last month</div><div>'+x.remain.toFixed(1)+'h</div><div class="money">R'+(x.remain*rate).toFixed(0)+'</div></div>').join('')+'</div>'+
+    body='<div class="finance-drill-head"><span>STILL TO EARN FROM '+esc(prev.label.toUpperCase())+'</span><b>'+previousCatchup.toFixed(1)+'h · R'+(previousCatchup*rate).toFixed(0)+'</b><p>These dates are not booked yet, so the weekly split below is only a planning suggestion.</p></div>'+
+      '<div class="finance-drill-list">'+catchupRows.map(x=>'<div class="finance-drill-row"><div>Unscheduled</div><div><strong>'+esc(studentName(x.studentId))+'</strong></div><div>'+x.done.toFixed(1)+' of '+x.target.toFixed(1)+'h already resolved</div><div>'+x.remain.toFixed(1)+'h</div><div class="money">R'+(x.remain*rate).toFixed(0)+'</div></div>').join('')+'</div>'+
       '<div class="catchup-plan">'+catchupPlan.map((w,i)=>'<div class="catchup-plan-block"><div class="catchup-plan-head"><b>Suggested '+(i===0?'this week':'next period')+' · '+esc(dateFmt(w.start))+' – '+esc(dateFmt(w.end))+'</b><span>'+w.hours.toFixed(1)+'h · R'+(w.hours*rate).toFixed(0)+'</span></div><div class="catchup-plan-students">'+w.rows.map(r=>'<span>'+esc(studentName(r.studentId))+' · '+r.hours.toFixed(1)+'h</span>').join('')+'</div></div>').join('')+'</div>';
   }else if(kind==='remaining'){
     title='This month still to teach';
-    body='<div class="finance-drill-head"><span>REGULAR LESSONS STILL TO COVER</span><b>'+currentRemain.toFixed(1)+'h · R'+(currentRemain*rate).toFixed(0)+'</b><p>Your active current-month targets minus lessons already completed.</p></div>'+
+    body='<div class="finance-drill-head"><span>ACTIVE REGULAR LESSONS</span><b>'+currentRemain.toFixed(1)+'h · R'+(currentRemain*rate).toFixed(0)+'</b><p>Lateya is excluded from the active current-month target.</p></div>'+
       '<div class="finance-drill-list">'+newMonthPlans().filter(p=>Number(p.target_hours||0)>0).map(p=>{const done=completedHoursInCalendarMonth(0,p.student_id),remain=thisMonthRemaining(p.student_id);return '<div class="finance-drill-row"><div>'+esc(cur.label)+'</div><div><strong>'+esc(studentName(p.student_id))+'</strong></div><div>'+done.toFixed(1)+'h completed of '+Number(p.target_hours||0).toFixed(1)+'h monthly target</div><div>'+remain.toFixed(1)+'h</div><div class="money">R'+(remain*rate).toFixed(0)+'</div></div>'}).join('')+'</div>'+
       '<div class="catchup-plan">'+weeklyPlans.map((w,i)=>'<div class="catchup-plan-block"><div class="catchup-plan-head"><b>'+(i===0?'This week':'Next period')+' · '+esc(dateFmt(w.start))+' – '+esc(dateFmt(w.end))+'</b><span>'+w.remain.toFixed(1)+'h left · R'+(w.remain*rate).toFixed(0)+'</span></div><div class="catchup-plan-students">'+w.rows.filter(r=>r.target>0).map(r=>'<span>'+esc(studentName(r.studentId))+' · '+r.remain.toFixed(1)+'h left</span>').join('')+'</div></div>').join('')+'</div>';
   }else{
-    title='Recorded total & expected receivable';
-    body='<div class="finance-drill-head"><span>RECORDED COMPLETED TEACHING</span><b>R'+teachingTotal.toFixed(0)+'</b><p>'+esc(prev.label)+' historical teaching + '+esc(cur.label)+' completed teaching.</p></div>'+
+    title='Total & expected amount';
+    body='<div class="finance-drill-head"><span>CLEAN FINANCE SUMMARY</span><b>R'+totalPotential.toFixed(0)+'</b><p>Full value if the active current-month target and remaining catch-up are completed, including the separate outstanding payment.</p></div>'+
       '<div class="finance-breakdown">'+
-        '<div class="finance-break-row"><span>'+esc(prev.label)+' completed teaching</span><b>R'+previousEarned.toFixed(0)+'</b></div>'+
-        '<div class="finance-break-row"><span>'+esc(cur.label)+' completed so far</span><b>R'+currentEarned.toFixed(0)+'</b></div>'+
-        '<div class="finance-break-row finance-break-total"><span>Recorded completed teaching total</span><b>R'+teachingTotal.toFixed(0)+'</b></div>'+
-        '<div class="finance-break-row"><span>Full active '+esc(cur.label)+' target</span><b>R'+currentTarget.toFixed(0)+'</b></div>'+
-        '<div class="finance-break-row"><span>Previous catch-up still to earn</span><b>R'+(previousCatchup*rate).toFixed(0)+'</b></div>'+
-        '<div class="finance-break-row"><span>Outstanding unpaid balance</span><b>R'+outstanding.toFixed(0)+'</b></div>'+
-        '<div class="finance-break-row finance-break-total"><span>Forward-looking amount if active '+esc(cur.label)+' target + catch-up are completed, plus outstanding payment</span><b>R'+forwardPotential.toFixed(0)+'</b></div>'+
-      '</div><div class="finance-potential-box"><b>Important:</b> R'+previousEarned.toFixed(0)+' from '+esc(prev.label)+' is historical teaching value and is not added again to the forward-looking receivable. This prevents double-counting money that has already been paid or invoiced.</div>';
+      '<div class="finance-break-row"><span>'+esc(prev.label)+' resolved teaching</span><b>R'+previousEarned.toFixed(0)+'</b></div>'+
+      '<div class="finance-break-row"><span>Full active '+esc(cur.label)+' regular target</span><b>R'+currentTarget.toFixed(0)+'</b></div>'+
+      '<div class="finance-break-row"><span>Previous-month catch-up still to earn</span><b>R'+(previousCatchup*rate).toFixed(0)+'</b></div>'+
+      '<div class="finance-break-row"><span>Separate outstanding unpaid balance</span><b>R'+outstanding.toFixed(0)+'</b></div>'+
+      '<div class="finance-break-row finance-break-total"><span>Potential amount including outstanding</span><b>R'+totalPotential.toFixed(0)+'</b></div>'+
+      '</div><div class="finance-potential-box">Current completed '+esc(cur.label)+' earnings are already part of the full R'+currentTarget.toFixed(0)+' October target, so they are not added on top again. That is what removes the earlier double-counting confusion.</div>';
   }
   modal(title,body,'<button class="btn primary" onclick="closeModal()">Close</button>');
 }
@@ -2823,39 +2890,48 @@ function forecastWeeksToCutoff(){
   return weeks;
 }
 
+
+function previousMonthResolvedHours(){
+  return previousMonthPlans().reduce((sum,p)=>{
+    const dated=previousMonthCompletedHoursByDate(p.student_id);
+    const resolved=Math.max(dated,Number(p.completed_hours||0));
+    return sum+Math.min(Number(p.target_hours||0),resolved);
+  },0)
+}
+function previousMonthResolvedValue(rate=150){return previousMonthResolvedHours()*rate}
+function previousMonthAdjustments(){
+  return previousMonthPlans().map(p=>{
+    const dated=previousMonthCompletedHoursByDate(p.student_id);
+    const resolved=Math.min(Number(p.target_hours||0),Math.max(dated,Number(p.completed_hours||0)));
+    return {studentId:p.student_id,dated,resolved,adjustment:Math.max(0,resolved-dated),notes:p.notes||''};
+  }).filter(x=>x.adjustment>0)
+}
+
 function adminFinance(){
   const rate=150,cur=monthBounds(0),prev=monthBounds(-1);
   const currentLessons=lessonsInCalendarMonth(0,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date));
-  const previousLessons=lessonsInCalendarMonth(-1,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date));
-  const earned=currentLessons.reduce((s,l)=>s+lessonValue(l,rate),0),previousEarned=previousLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
+  const earned=currentLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
+  const previousEarned=previousMonthResolvedValue(rate),previousHours=previousMonthResolvedHours();
   const currentRemainingRows=newMonthPlans().filter(p=>Number(p.target_hours||0)>0).map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:completedHoursInCalendarMonth(0,p.student_id),remain:thisMonthRemaining(p.student_id)}));
   const currentRemain=currentRemainingRows.reduce((s,x)=>s+x.remain,0);
   const catchupRows=previousMonthPlans().map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:Math.max(previousMonthCompletedHoursByDate(p.student_id),Number(p.completed_hours||0)),remain:previousMonthCatchupRemaining(p.student_id)})).filter(x=>x.remain>0);
   const catchupHours=catchupRows.reduce((s,x)=>s+x.remain,0),catchupValue=catchupHours*rate;
   const oldDue=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
-  const teachingTotal=earned+previousEarned,currentTarget=currentMonthRegularTarget()*rate,potentialTeaching=currentTarget+catchupValue+oldDue;
+  const currentTarget=currentMonthRegularTarget()*rate,totalPotential=previousEarned+currentTarget+catchupValue+oldDue;
+  const recordedSoFar=previousEarned+earned;
 
-  function ledger(ls){
-    return '<div class="finance-ledger"><div class="finance-ledger-row head"><div>Date</div><div>Student</div><div>Subject</div><div>Topic / subtopic</div><div>Hours</div><div class="money">Value</div></div>'+ls.map(l=>'<div class="finance-ledger-row"><div>'+esc(dateFmt(l.lesson_date))+'</div><div><b>'+esc(studentName(l.student_id))+'</b></div><div>'+esc(l.subject||'—')+'</div><div>'+esc(l.topic||l.notes||'Topic not recorded')+'</div><div>'+((Number(l.duration_minutes||0)/60).toFixed(1))+'h</div><div class="money">R'+lessonValue(l,rate).toFixed(0)+'</div></div>').join('')+'</div>'
-  }
-
-  let h='<div class="finance-shell"><div class="finance-hero"><div class="kicker">FINANCE AT A GLANCE</div><h2>Finance</h2><p>Minimal on the surface. Tap a block when you want the calculation behind it.</p></div>';
+  let h='<div class="finance-shell"><div class="finance-hero"><div class="kicker">FINANCE AT A GLANCE</div><h2>Finance</h2><p>Clean summary on the surface. Tap a card only when you want the calculation behind it.</p></div>';
 
   h+='<div class="finance-v2-grid">'+
-    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'previous\')"><span>'+esc(prev.label)+' earned</span><b>R'+previousEarned.toFixed(0)+'</b><p>'+completedHoursInCalendarMonth(-1).toFixed(1)+'h completed · tap for lesson dates</p></div>'+
-    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'catchup\')"><span>'+esc(prev.label)+' catch-up still to earn</span><b>R'+catchupValue.toFixed(0)+'</b><p>'+catchupHours.toFixed(1)+'h still owed</p></div>'+
-    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'current\')"><span>'+esc(cur.label)+' earned so far</span><b>R'+earned.toFixed(0)+'</b><p>'+completedHoursInCalendarMonth(0).toFixed(1)+'h completed · tap for lesson dates</p></div>'+
-    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'remaining\')"><span>'+esc(cur.label)+' still to teach</span><b>R'+(currentRemain*rate).toFixed(0)+'</b><p>'+currentRemain.toFixed(1)+'h regular teaching remaining</p></div>'+
+    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'previous\')"><span>'+esc(prev.label)+' resolved</span><b>R'+previousEarned.toFixed(0)+'</b><p>'+previousHours.toFixed(1)+'h resolved · tap for lesson dates and adjustment</p></div>'+
+    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'catchup\')"><span>'+esc(prev.label)+' catch-up</span><b>R'+catchupValue.toFixed(0)+'</b><p>'+catchupHours.toFixed(1)+'h still to schedule</p></div>'+
+    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'current\')"><span>'+esc(cur.label)+' earned so far</span><b>R'+earned.toFixed(0)+'</b><p>'+completedHoursInCalendarMonth(0).toFixed(1)+'h completed</p></div>'+
+    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'remaining\')"><span>'+esc(cur.label)+' still to teach</span><b>R'+(currentRemain*rate).toFixed(0)+'</b><p>'+currentRemain.toFixed(1)+'h active regular teaching remaining</p></div>'+
   '</div>';
 
-  h+='<div class="finance-v2-card clickable finance-total-premium" onclick="openFinanceCalculation(\'total\')"><div><span>Recorded teaching total · '+esc(prev.label)+' + '+esc(cur.label)+'</span><b>R'+teachingTotal.toFixed(0)+'</b><p>Completed teaching already recorded.</p></div><div class="total-side"><small>Potential teaching value</small><strong>R'+potentialTeaching.toFixed(0)+'</strong><small>if current target + old catch-up are completed</small></div></div>';
+  h+='<div class="finance-v2-card clickable finance-total-premium" onclick="openFinanceCalculation(\'total\')"><div><span>Resolved / completed teaching recorded</span><b>R'+recordedSoFar.toFixed(0)+'</b><p>'+esc(prev.label)+' resolved + '+esc(cur.label)+' already completed.</p></div><div class="total-side"><small>Potential amount including outstanding</small><strong>R'+totalPotential.toFixed(0)+'</strong><small>tap for the exact breakdown</small></div></div>';
 
-  h+='<details class="finance-toggle"><summary><div class="finance-toggle-title"><small>Money still due</small><b>Outstanding payment</b></div><div class="finance-toggle-value">R'+oldDue.toFixed(0)+'</div></summary><div class="finance-toggle-body"><p class="tiny muted" style="margin:0">This is the separate unpaid balance already identified from the earlier invoicing/payment cycle. It is not counted again inside the teaching totals above.</p></div></details>';
-
-  h+='<details class="finance-toggle"><summary><div class="finance-toggle-title"><small>Historical detail</small><b>'+esc(prev.label)+' lesson history</b></div><div class="finance-toggle-value">R'+previousEarned.toFixed(0)+'</div></summary><div class="finance-toggle-body">'+(previousLessons.length?ledger(previousLessons):emptyState('No completed lessons','No completed lesson history for this month.'))+'</div></details>';
-
-  h+=section('Students this month','Only active October targets are shown');
-  h+='<div class="grid2">'+currentRemainingRows.map(x=>'<div class="student-finance-card"><div class="student-finance-head"><h4>'+esc(studentName(x.studentId))+'</h4><b>R'+(x.target*rate).toFixed(0)+'</b></div><div class="student-finance-meta"><span>'+x.done.toFixed(1)+'h completed</span><span>'+x.remain.toFixed(1)+'h still to cover</span><span>'+x.target.toFixed(0)+'h target</span></div><div class="progress" style="margin-top:9px"><i style="width:'+(x.target?Math.min(100,Math.round(x.done/x.target*100)):0)+'%"></i></div></div>').join('')+'</div>';
+  if(oldDue>0)h+='<details class="finance-toggle"><summary><div class="finance-toggle-title"><small>Money still due</small><b>Outstanding unpaid balance</b></div><div class="finance-toggle-value">R'+oldDue.toFixed(0)+'</div></summary><div class="finance-toggle-body"><p class="tiny muted" style="margin:0">This is kept separate from lesson earnings so it cannot be accidentally counted twice.</p></div></details>';
 
   h+='</div>';$('#content').innerHTML=h;
 }
