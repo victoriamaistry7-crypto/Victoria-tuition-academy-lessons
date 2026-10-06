@@ -4135,6 +4135,95 @@ body[data-theme="dark"]{background:#0a1018!important}
   }
 }
 </style>
+
+<style id="vta-reference-structure-v17">
+/* Reference structure, Victoria styling */
+.section-title:after,.section-title::after{display:none!important;content:none!important}
+.topbar>div:first-child{display:none}
+.topbar{justify-content:flex-end!important}
+.top-actions{width:100%;justify-content:flex-end}
+.top-search-trigger{margin-right:auto;width:min(440px,38vw)!important}
+
+.admin-page-header{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:18px;
+  margin:2px 2px 13px;
+}
+.admin-page-copy h2{
+  margin:0;font-size:26px;line-height:1.08;font-weight:950;
+  letter-spacing:-.045em;color:#142033
+}
+.admin-page-copy p{
+  margin:5px 0 0;color:#738196;font-size:10px;line-height:1.45
+}
+.admin-page-action{flex:0 0 auto;align-self:center}
+.admin-page-action>.btn,.admin-page-action>.row>.btn{min-height:39px;padding:0 14px!important}
+.page-surface{
+  padding:12px;
+  border:1px solid #dbe3ec;
+  border-radius:20px;
+  background:rgba(255,255,255,.55);
+  box-shadow:0 8px 26px rgba(15,23,42,.035);
+}
+.students-surface{padding:11px}
+.students-grid{margin:0!important}
+.student-card-v3{box-shadow:none!important}
+.student-card-v3:hover{box-shadow:0 12px 28px rgba(15,23,42,.08)!important}
+
+.schedule-surface .schedule-summary-v4,
+.quizzes-surface .quiz-overview-v5{
+  margin:0 0 11px!important;
+}
+.schedule-surface .calendar-pro{margin-top:11px}
+.messages-surface{padding:9px}
+.messages-surface .chat-layout.chat-v3{margin:0!important}
+.resources-surface{padding:10px}
+.resources-surface .resource-library-v10{gap:13px!important}
+.quizzes-surface{padding:10px}
+.quizzes-surface .quiz-list-v5{margin-top:0!important}
+
+.archived-students{margin:12px 0 0!important}
+
+/* tighter reference-like cards */
+.student-card-v3 .student-card-cover{min-height:88px!important}
+.student-card-body{padding:12px 13px 13px!important}
+.student-metric{min-height:61px!important;padding:8px 9px!important}
+.student-card-footer{padding-top:9px!important;margin-top:9px!important}
+.resource-student-head-v10{padding:14px 16px!important}
+.resource-student-body-v10{padding:11px!important}
+.quiz-cover-v5{min-height:86px!important}
+.quiz-body-v5{padding:12px 13px 13px!important}
+
+/* utility bar like the reference */
+.sync-pill{background:#fff!important;border:1px solid #dfe5ec!important;border-radius:12px!important;height:40px;padding:0 12px!important}
+.top-quick-btn,.iconbtn,.logoutbtn{height:40px!important}
+
+/* remove older students header completely */
+.students-page-toolbar,.students-page-head{display:none!important}
+
+/* dark */
+[data-theme="dark"] .admin-page-copy h2{color:#f2f5f8}
+[data-theme="dark"] .admin-page-copy p{color:#9ba8b9}
+[data-theme="dark"] .page-surface{
+  background:rgba(18,25,34,.68);
+  border-color:#344151;
+  box-shadow:0 9px 28px rgba(0,0,0,.18)
+}
+[data-theme="dark"] .sync-pill{background:#151d27!important;border-color:#344151!important}
+
+@media(max-width:950px){
+  .top-search-trigger{width:44px!important;margin-right:auto}
+}
+@media(max-width:760px){
+  .topbar>div:first-child{display:block}
+  .topbar{justify-content:space-between!important}
+  .top-actions{width:auto}
+  .admin-page-header{align-items:center;margin:0 0 11px}
+  .admin-page-copy h2{font-size:22px}
+  .admin-page-copy p{display:none}
+  .admin-page-action>.btn,.admin-page-action>.row>.btn{min-height:36px;padding:0 11px!important}
+  .page-surface{padding:7px;border-radius:15px}
+}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -4584,11 +4673,16 @@ function lessonRow(l){
   const n=studentName(l.student_id);
   return '<div class="list-row lesson lesson-row-v12"><div class="date"><b>'+new Date(l.lesson_date+'T12:00:00').getDate()+'</b><span class="tiny muted">'+new Date(l.lesson_date+'T12:00:00').toLocaleDateString('en-ZA',{month:'short'})+'</span></div><div><h4>'+esc(n)+' • '+esc(l.subject||'Lesson')+'</h4><p>'+esc(l.topic||'Topic not recorded')+' • '+esc(timeFmt(l.start_time))+' • '+esc(l.duration_minutes)+' min</p></div><div class="row">'+status(l.status)+(role()==='ADMIN'?'<button class="btn small" onclick="openLessonQuickActions(\''+l.id+'\')">Actions</button>':'')+'</div></div>'
 }
+
+function adminPageHeader(title,sub,action){
+  return '<div class="admin-page-header"><div class="admin-page-copy"><h2>'+esc(title)+'</h2>'+(sub?'<p>'+esc(sub)+'</p>':'')+'</div>'+(action?'<div class="admin-page-action">'+action+'</div>':'')+'</div>';
+}
+
 function adminStudents(){
   const all=(data.students||[]).slice().sort((a,b)=>a.display_name.localeCompare(b.display_name));
   const students=all.filter(s=>s.active!==false),archived=all.filter(s=>s.active===false);
-  let h='<div class="students-page-head"><div class="students-page-copy"><span class="students-kicker">ACTIVE STUDENTS</span><div class="students-summary-line"><b>'+students.length+' current learner'+(students.length===1?'':'s')+'</b><span>Open a student only when you need the detail.</span></div></div><button class="btn primary students-add-btn" onclick="openStudentCreate()">+ Student</button></div>';
-  h+='<div class="students-grid">';
+  let h=adminPageHeader('Students',students.length+' active learner'+(students.length===1?'':'s')+' · Open a profile only when you need more detail.','<button class="btn primary" onclick="openStudentCreate()">+ Student</button>');
+  h+='<div class="page-surface students-surface"><div class="students-grid">';
   students.forEach((s,idx)=>{
     const cr=(data.curriculumSubtopics||[]).filter(x=>x.student_id===s.id),done=cr.filter(x=>curriculumStatus(x.status)==='Completed').length,pct=cr.length?Math.round(done/cr.length*100):0;
     const target=Number(currentPlanForRaw(s.id)?.target_hours||0),doneH=completedHoursInCalendarMonth(0,s.id),remain=thisMonthRemaining(s.id),old=previousMonthCatchupRemaining(s.id);
@@ -4600,6 +4694,7 @@ function adminStudents(){
   if(archived.length){
     h+='<details class="archived-students"><summary><div><span>ARCHIVED</span><b>'+archived.length+' past student'+(archived.length===1?'':'s')+'</b></div><small>Show</small></summary><div class="archived-student-list">'+archived.map(s=>'<div class="archived-student-row"><div class="student-avatar-v3">'+esc(initials(s.display_name))+'</div><div class="grow"><b>'+esc(s.display_name)+'</b><p>'+esc(s.grade||'')+(s.subjects?' · '+esc(s.subjects):'')+'</p></div><button class="btn small" onclick="studentDetail(\''+s.id+'\')">View history</button></div>').join('')+'</div></details>';
   }
+  h+='</div>';
   $('#content').innerHTML=h;
 }
 
@@ -4639,11 +4734,11 @@ function adminSchedule(){
   const pending=(data.bookings||[]).filter(x=>x.status==='Pending'),needs=(data.lessons||[]).filter(x=>x.status==='Needs confirmation'),events=mergedLessonEvents();
   const todays=events.filter(e=>e.event_date===today()),googleCount=events.filter(e=>e.event_date>=today()&&e.source==='Google Calendar').length;
   const todayHours=todays.reduce((s,e)=>{const st=String(e.start_time||'00:00').slice(0,5).split(':').map(Number),et=String(e.end_time||e.start_time||'00:00').slice(0,5).split(':').map(Number);return s+Math.max(0,(et[0]*60+et[1]-st[0]*60-st[1])/60)},0);
-  let h=section('Schedule','Portal lessons and synced Google Calendar lessons in one view','<button class="btn small primary" onclick="openLesson()">+ Add lesson</button>');
-  h+='<div class="schedule-summary-v4"><div class="schedule-summary-card primary"><div class="label">TODAY</div><div class="value">'+(todays.length?todays.length+' lesson'+(todays.length===1?'':'s'):'No lessons')+'</div><p>'+new Date(today()+'T12:00:00').toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long'})+'</p></div><div class="schedule-summary-card"><div class="label">TEACHING TIME TODAY</div><div class="value">'+todayHours.toFixed(1)+'h</div><p>Based on scheduled calendar blocks</p></div><div class="schedule-summary-card"><div class="label">CALENDAR SYNC</div><div class="value">'+googleCount+'</div><p>Upcoming Google Calendar lesson'+(googleCount===1?'':'s')+'</p></div></div>';
+  let h=adminPageHeader('Schedule','View lessons, synced calendar events and booking requests in one place.','<button class="btn primary" onclick="openLesson()">+ Add lesson</button>');
+  h+='<div class="page-surface schedule-surface"><div class="schedule-summary-v4"><div class="schedule-summary-card primary"><div class="label">TODAY</div><div class="value">'+(todays.length?todays.length+' lesson'+(todays.length===1?'':'s'):'No lessons')+'</div><p>'+new Date(today()+'T12:00:00').toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long'})+'</p></div><div class="schedule-summary-card"><div class="label">TEACHING TIME TODAY</div><div class="value">'+todayHours.toFixed(1)+'h</div><p>Based on scheduled calendar blocks</p></div><div class="schedule-summary-card"><div class="label">CALENDAR SYNC</div><div class="value">'+googleCount+'</div><p>Upcoming Google Calendar lesson'+(googleCount===1?'':'s')+'</p></div></div>';
   if(needs.length){h+='<details class="previous-month-details"><summary>'+needs.length+' past lesson'+(needs.length===1?'':'s')+' need confirmation</summary><div class="list" style="padding:0 12px 12px">'+needs.map(l=>'<div class="list-row"><div><h4>'+esc(studentName(l.student_id))+' · '+esc(l.subject||'Lesson')+'</h4><p>'+esc(dateFmt(l.lesson_date))+' · '+esc(timeFmt(l.start_time))+' · '+esc(l.topic||'')+'</p></div><div class="confirm-actions"><button class="btn primary" onclick="setLessonStatus(\''+l.id+'\',\'Completed\')">Completed</button><button class="btn" onclick="setLessonStatus(\''+l.id+'\',\'Cancelled\')">Did not happen</button></div></div>').join('')+'</div></details>'}
-  if(pending.length){h+='<details class="previous-month-details" open><summary>'+pending.length+' booking request'+(pending.length===1?'':'s')+'</summary><div class="list" style="padding:0 12px 12px">'+pending.map(x=>'<div class="list-row"><div><h4>'+esc(studentName(x.student_id))+' · '+esc(x.subject)+'</h4><p>'+esc(dateFmt(x.requested_date))+' at '+esc(timeFmt(x.requested_time))+' · '+esc(x.duration_minutes)+' min</p></div><div class="row"><button class="btn small primary" onclick="bookingStatus(\''+x.id+'\',\'Confirmed\')">Confirm</button><button class="btn small danger" onclick="bookingStatus(\''+x.id+'\',\'Declined\')">Decline</button></div></div>').join('')+'</div></details>'}
-  h+=calendarToolbar()+lessonCalendar();$('#content').innerHTML=h;
+  if(pending.length){h+='<details class="previous-month-details"><summary>'+pending.length+' booking request'+(pending.length===1?'':'s')+'</summary><div class="list" style="padding:0 12px 12px">'+pending.map(x=>'<div class="list-row"><div><h4>'+esc(studentName(x.student_id))+' · '+esc(x.subject)+'</h4><p>'+esc(dateFmt(x.requested_date))+' at '+esc(timeFmt(x.requested_time))+' · '+esc(x.duration_minutes)+' min</p></div><div class="row"><button class="btn small primary" onclick="bookingStatus(\''+x.id+'\',\'Confirmed\')">Confirm</button><button class="btn small danger" onclick="bookingStatus(\''+x.id+'\',\'Declined\')">Decline</button></div></div>').join('')+'</div></details>'}
+  h+=calendarToolbar()+lessonCalendar()+'</div>';$('#content').innerHTML=h;
 }
 async function markMessagesRead(studentId){
   try{
@@ -4654,15 +4749,15 @@ async function markMessagesRead(studentId){
 }
 
 function adminMessages(){
-  const students=data.students||[];if(!chatStudent&&students[0])chatStudent=students[0].id;
+  const students=(data.students||[]).filter(s=>s.active!==false);if(!chatStudent&&students[0])chatStudent=students[0].id;
   const msgs=data.messages||[];
   function lastFor(id){return msgs.filter(m=>m.student_id===id).slice().sort((a,b)=>String(b.created_at).localeCompare(String(a.created_at)))[0]}
   function unreadFor(id){return msgs.filter(m=>m.student_id===id&&m.sender_id!==data.user.id&&!m.read_at).length}
-  let h=section('Messages','Private conversations with your students');
-  h+='<div class="chat-layout chat-v3"><div class="chat-people">'+students.map(s=>{
+  let h=adminPageHeader('Messages','Private conversations with your current students.');
+  h+='<div class="page-surface messages-surface"><div class="chat-layout chat-v3"><div class="chat-people">'+students.map(s=>{
     const last=lastFor(s.id),unread=unreadFor(s.id);
     return '<div class="chat-contact-v3 '+(chatStudent===s.id?'active':'')+'" onclick="chatStudent=\''+s.id+'\';adminMessages()"><div class="chat-avatar-v3">'+esc(initials(s.display_name))+'</div><div class="chat-contact-copy"><strong>'+esc(s.display_name)+'</strong><p>'+esc(last?.body||s.grade||'Student')+'</p></div><div class="chat-contact-meta">'+(last?'<time>'+new Date(last.created_at).toLocaleDateString('en-ZA',{day:'numeric',month:'short'})+'</time>':'')+(unread?'<span class="unread-dot-v3">'+unread+'</span>':'')+'</div></div>'
-  }).join('')+'</div><div class="chat-main"><div class="chat-head"><div class="chat-head-person"><div class="chat-head-avatar">'+esc(initials(studentName(chatStudent)))+'</div><div><strong>'+esc(studentName(chatStudent))+'</strong><span>Student conversation</span></div></div><div class="chat-head-actions"><button class="btn small danger" onclick="askClearChat(\''+chatStudent+'\')">Clear</button></div></div><div id="messages" class="messages">'+chatHtml(chatStudent)+'</div><form class="composer" onsubmit="sendMessage(event,\''+chatStudent+'\')"><input id="msg" placeholder="Write a message…" autocomplete="off"><button class="btn primary">Send</button></form></div></div>';
+  }).join('')+'</div><div class="chat-main"><div class="chat-head"><div class="chat-head-person"><div class="chat-head-avatar">'+esc(initials(studentName(chatStudent)))+'</div><div><strong>'+esc(studentName(chatStudent))+'</strong><span>Student conversation</span></div></div><div class="chat-head-actions"><button class="btn small danger" onclick="askClearChat(\''+chatStudent+'\')">Clear</button></div></div><div id="messages" class="messages">'+chatHtml(chatStudent)+'</div><form class="composer" onsubmit="sendMessage(event,\''+chatStudent+'\')"><input id="msg" placeholder="Write a message…" autocomplete="off"><button class="btn primary">Send</button></form></div></div></div>';
   $('#content').innerHTML=h;
   setTimeout(async()=>{await markMessagesRead(chatStudent);const m=$('#messages');if(m){m.innerHTML=chatHtml(chatStudent);m.scrollTop=m.scrollHeight}},30);
 }
@@ -4697,15 +4792,15 @@ function resourceVisual(r){
 function resourceIcon(t){t=String(t||'').toLowerCase();if(t.includes('interactive'))return '✦';if(t.includes('pdf')||t.includes('note'))return '▤';if(t.includes('slide'))return '▣';if(t.includes('video'))return '▶';if(t.includes('quiz'))return '✓';return '↗'}
 function adminResources(){
   const all=(data.resources||[]).slice();
-  let h=section('Resources','Open a student, then choose the resource folder you need. Nothing is expanded until you ask for it.','<div class="row"><button class="btn small" onclick="openLinkResource()">+ Link</button><button class="btn small primary" onclick="openUpload()">+ Upload</button></div>');
-  const students=(data.students||[]).slice().sort((a,b)=>String(a.display_name||'').localeCompare(String(b.display_name||'')));
+  let h=adminPageHeader('Resources','Open a student, then choose the folder you need.','<div class="row"><button class="btn" onclick="openLinkResource()">+ Link</button><button class="btn primary" onclick="openUpload()">+ Upload</button></div>');
+  const students=(data.students||[]).filter(s=>s.active!==false).slice().sort((a,b)=>String(a.display_name||'').localeCompare(String(b.display_name||'')));
   const folders=[
     ['Interactive lessons','✦','Lessons actually sent and used',r=>String(r.resource_type||'').toLowerCase().includes('interactive')],
     ['Notes','≡','Study notes, PDFs and worksheets',r=>/pdf|note|slide|worksheet/i.test(String(r.resource_type||''))],
     ['Quizzes','✓','Quiz links and reports',r=>String(r.resource_type||'').toLowerCase().includes('quiz')],
     ['Assessments','A','Baseline and formal assessments',r=>String(r.resource_type||'').toLowerCase()==='assessment']
   ];
-  h+='<div class="resource-library-v10">';
+  h+='<div class="page-surface resources-surface"><div class="resource-library-v10">';
   students.forEach(s=>{
     const sr=all.filter(r=>r.student_id===s.id);
     if(!sr.length)return;
@@ -4723,7 +4818,7 @@ function adminResources(){
   });
   h+='</div>';
   if(!all.length)h+=emptyState('No resources','Upload or link your first teaching resource.');
-  $('#content').innerHTML=h;
+  h+='</div>';$('#content').innerHTML=h;
 }
 async function openResource(id){
   const w=window.open('about:blank','_blank');
@@ -4815,13 +4910,13 @@ function adminQuizzes(){
   const qs=(data.quizzes||[]).slice().sort((a,b)=>String(b.scheduled_for||b.created_at).localeCompare(String(a.scheduled_for||a.created_at)));
   const attempts=data.quizAttempts||[],withSubmissions=new Set(attempts.map(a=>a.quiz_id)).size;
   const linkCount=qs.filter(q=>!!quizLinkFor(q.id)).length;
-  let h=section('Quizzes','A clean view of what is ready, what students have opened, and the reports beside them.','<button class="btn small primary" onclick="openUnifiedQuizAdd()">+ Add quiz</button>');
-  h+='<div class="quiz-overview-v5"><div class="quiz-overview-card primary"><div class="eyebrow">QUIZ LIBRARY</div><div class="big">'+qs.length+' quiz'+(qs.length===1?'':'zes')+'</div><p>Everything you have added for your students.</p></div><div class="quiz-overview-card"><div class="eyebrow">WITH SUBMISSIONS</div><div class="big">'+withSubmissions+'</div><p>Quizzes with student responses.</p></div><div class="quiz-overview-card"><div class="eyebrow">LINKED QUIZZES</div><div class="big">'+linkCount+'</div><p>Hosted quizzes that open directly.</p></div></div>';
+  let h=adminPageHeader('Quizzes','View quiz activity, submissions and reports.','<button class="btn primary" onclick="openUnifiedQuizAdd()">+ Add quiz</button>');
+  h+='<div class="page-surface quizzes-surface"><div class="quiz-overview-v5"><div class="quiz-overview-card primary"><div class="eyebrow">QUIZ LIBRARY</div><div class="big">'+qs.length+' quiz'+(qs.length===1?'':'zes')+'</div><p>Everything you have added for your students.</p></div><div class="quiz-overview-card"><div class="eyebrow">WITH SUBMISSIONS</div><div class="big">'+withSubmissions+'</div><p>Quizzes with student responses.</p></div><div class="quiz-overview-card"><div class="eyebrow">LINKED QUIZZES</div><div class="big">'+linkCount+'</div><p>Hosted quizzes that open directly.</p></div></div>';
   h+='<div class="quiz-list-v5">'+(qs.length?qs.map(q=>{
     const link=quizLinkFor(q.id),type=link?'Link':(q.quiz_mode==='Uploaded file'||q.storage_path?'File':'Browser quiz');
     const at=attempts.filter(a=>a.quiz_id===q.id).slice().sort((a,b)=>String(b.completed_at).localeCompare(String(a.completed_at))),latest=at[0];
     return '<div class="quiz-card-v5"><div class="quiz-cover-v5"><div class="quiz-cover-top"><div class="quiz-cover-title"><div class="quiz-mark-v5">✓</div><div><h4>'+esc(q.title)+'</h4><div class="student">'+esc(studentName(q.student_id))+'</div></div></div><span class="quiz-kind-v5">'+esc(type)+'</span></div><div class="quiz-date-v5">'+(q.scheduled_for?esc(dateFmt(q.scheduled_for)):'No date set')+'</div></div><div class="quiz-body-v5"><div class="quiz-subject-v5"><b>'+esc(q.subject||'Subject not set')+'</b><span>'+at.length+' submission'+(at.length===1?'':'s')+'</span></div><div class="quiz-topic-v5">'+esc(q.topic||'No topic added yet.')+'</div>'+(latest?'<div class="quiz-submission-v5">Latest submission · '+new Date(latest.completed_at).toLocaleString('en-ZA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+(latest.mark_status==='MARKED'?' · '+esc(latest.score)+'/'+esc(latest.total):' · Awaiting/review available')+'</div>':'<div class="quiz-submission-v5">No student submission yet.</div>')+'<div class="quiz-actions-v5"><button class="btn small primary" onclick="openQuizAsset((data.quizzes||[]).find(x=>x.id===\''+q.id+'\'))">Open quiz</button><button class="btn small" onclick="openQuizReportCenter(\''+q.id+'\')">Report</button></div></div></div>';
-  }).join(''):emptyState('No quizzes','Add a link or upload a quiz file.'))+'</div>';
+  }).join(''):emptyState('No quizzes','Add a link or upload a quiz file.'))+'</div></div>';
   $('#content').innerHTML=h;
 }
 function reviewQuizAttempt(id){
