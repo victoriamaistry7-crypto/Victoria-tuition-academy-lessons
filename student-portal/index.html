@@ -2084,6 +2084,12 @@ input:focus,select:focus,textarea:focus{border-color:#7893b5!important;box-shado
   }
 }
 </style>
+
+<style id="vta-resource-owner-v9">
+.resource-owner-pill{display:inline-flex;align-items:center;gap:5px;padding:5px 7px;border-radius:999px;background:#edf3f8;border:1px solid #d5e0eb;color:#4d627c;font-size:8px;font-weight:900;margin:7px 0 1px}
+.resource-owner-pill:before{content:"•";color:#df5f42;font-size:12px;line-height:0}
+[data-theme="dark"] .resource-owner-pill{background:#1c2735;border-color:#39495d;color:#c5d0de}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -2534,7 +2540,7 @@ async function clearChat(id){try{await api({action:'messageClear',studentId:id})
 async function sendMessage(e,id){e.preventDefault();const inp=$('#msg');const v=inp.value.trim();if(!v)return;inp.value='';try{await api({action:'messageSend',studentId:id,message:v});await sync()}catch(err){toast(err.message)}}
 function resourceCards(rs,admin,featured=false){
   if(!rs.length)return '<div class="card muted">No resources here yet.</div>';
-  return '<div class="resource-grid '+(featured?'featured-grid':'')+'">'+rs.map(r=>'<div class="card resource-card">'+resourceVisual(r)+'<div class="row between"><div class="icon">'+resourceIcon(r.resource_type)+'</div>'+status(r.completion_status||'Available')+'</div><h4>'+esc(r.title)+'</h4><div class="tiny strong muted">'+esc(r.resource_type||'Resource')+'</div><p>'+esc(r.description||'')+'</p>'+(r.access_note?'<div class="note"><b>Access:</b> '+esc(r.access_note)+'</div>':'')+'<div class="row wrap"><button class="btn small primary" onclick="openResource(\''+r.id+'\')">Open</button>'+(admin?'<button class="btn small" onclick="editResource(\''+r.id+'\')">Edit</button>':'')+'</div></div>').join('')+'</div>';
+  return '<div class="resource-grid '+(featured?'featured-grid':'')+'">'+rs.map(r=>'<div class="card resource-card">'+resourceVisual(r)+'<div class="row between"><div class="icon">'+resourceIcon(r.resource_type)+'</div>'+status(r.completion_status||'Available')+'</div><h4>'+esc(r.title)+'</h4>'+(admin?'<div class="resource-owner-pill">Used for '+esc(studentName(r.student_id))+'</div>':'')+'<div class="tiny strong muted">'+esc(r.resource_type||'Resource')+'</div><p>'+esc(r.description||'')+'</p>'+(r.access_note?'<div class="note"><b>Access:</b> '+esc(r.access_note)+'</div>':'')+'<div class="row wrap"><button class="btn small primary" onclick="openResource(\''+r.id+'\')">Open</button>'+(admin?'<button class="btn small" onclick="editResource(\''+r.id+'\')">Edit</button>':'')+'</div></div>').join('')+'</div>';
 }
 function resourceVisual(r){
   const s=(String(r.subject||'')+' '+String(r.title||'')+' '+String(r.resource_type||'')).toLowerCase();
@@ -2547,14 +2553,27 @@ function resourceVisual(r){
 }
 function resourceIcon(t){t=String(t||'').toLowerCase();if(t.includes('interactive'))return '✦';if(t.includes('pdf')||t.includes('note'))return '▤';if(t.includes('slide'))return '▣';if(t.includes('video'))return '▶';if(t.includes('quiz'))return '✓';return '↗'}
 function adminResources(){
-  const cats=['Interactive Lesson','Slides','PDF / Notes','Worksheet','Video','Quiz Link','Quiz Report','Other'];
-  let h=section('Resources','Lessons, notes, worksheets and files organised by format','<div class="row"><button class="btn small" onclick="openLinkResource()">+ Link</button><button class="btn small primary" onclick="openUpload()">+ Upload</button></div>');
+  const cats=['Interactive Lesson','Assessment','Slides','PDF / Notes','Worksheet','Video','Quiz Link','Quiz Report','Other'];
+  let h=section('Resources','Lessons, assessments, notes, quizzes and files organised by format and student','<div class="row"><button class="btn small" onclick="openLinkResource()">+ Link</button><button class="btn small primary" onclick="openUpload()">+ Upload</button></div>');
   const all=data.resources||[];
   cats.forEach(cat=>{
     const first=cat.split(' ')[0].toLowerCase();
-    const rs=all.filter(r=>{const t=String(r.resource_type||'Other').toLowerCase();if(cat==='Quiz Link')return t==='quiz link';if(cat==='Quiz Report')return t==='quiz report';if(cat==='Other')return !cats.slice(0,-1).some(z=>{const zz=z.toLowerCase();return zz.startsWith('quiz ')?t===zz:t.includes(z.split(' ')[0].toLowerCase())});return t.includes(first)});
+    const rs=all.filter(r=>{
+      const t=String(r.resource_type||'Other').toLowerCase();
+      if(cat==='Quiz Link')return t==='quiz link';
+      if(cat==='Quiz Report')return t==='quiz report';
+      if(cat==='Assessment')return t==='assessment';
+      if(cat==='Other')return !cats.slice(0,-1).some(z=>{const zz=z.toLowerCase();return zz.startsWith('quiz ')?t===zz:t===zz||t.includes(z.split(' ')[0].toLowerCase())});
+      return t.includes(first);
+    });
     if(rs.length){
-      h+='<section class="resource-category-v4"><div class="resource-category-head"><div><h3>'+esc(cat)+'</h3><p>'+esc(cat==='Interactive Lesson'?'Interactive teaching experiences':cat==='PDF / Notes'?'Reference notes and study material':cat==='Worksheet'?'Practice and homework files':cat==='Quiz Link'||cat==='Quiz Report'?'Quiz-related resources':'Teaching resources')+'</p></div><span class="resource-count-v4">'+rs.length+' '+(rs.length===1?'item':'items')+'</span></div><div class="resource-category-body">'+resourceCards(rs,true)+'</div></section>';
+      const desc=cat==='Interactive Lesson'?'Interactive teaching experiences actually used with students':
+        cat==='Assessment'?'Baseline and formal assessment records':
+        cat==='PDF / Notes'?'Reference notes and study material':
+        cat==='Worksheet'?'Practice and homework files':
+        cat==='Quiz Link'||cat==='Quiz Report'?'Quiz-related resources':
+        'Teaching resources';
+      h+='<section class="resource-category-v4"><div class="resource-category-head"><div><h3>'+esc(cat)+'</h3><p>'+esc(desc)+'</p></div><span class="resource-count-v4">'+rs.length+' '+(rs.length===1?'item':'items')+'</span></div><div class="resource-category-body">'+resourceCards(rs,true)+'</div></section>';
     }
   });
   if(!all.length)h+=emptyState('No resources','Upload or link your first teaching resource.');
