@@ -1,0 +1,16 @@
+{
+  "name": "Vic Distinction Study",
+  "short_name": "Vic Study",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#070814",
+  "theme_color": "#7c3cff",
+  "icons": [
+    {
+      "src": "./vic-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
