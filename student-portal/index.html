@@ -2931,6 +2931,106 @@ input:focus,select:focus,textarea:focus{
   .calendar-pro,.chat-layout.chat-v3{border-radius:15px!important}
 }
 </style>
+
+<style id="vta-ultra-features-v13">
+/* Top search + launch */
+.top-actions{gap:7px!important}
+.top-search-trigger{
+  width:min(330px,27vw);height:40px;
+  display:flex;align-items:center;gap:8px;
+  padding:0 10px;border:1px solid #dce3eb;border-radius:12px;
+  background:rgba(255,255,255,.82);color:#7a8798;
+  box-shadow:0 4px 12px rgba(15,23,42,.03);
+  text-align:left;font-size:10px;font-weight:700;
+}
+.top-search-trigger:hover{border-color:#b8c5d3;background:#fff}
+.top-search-trigger .search-glyph{font-size:17px;color:#4f6075}
+.top-search-trigger>span:nth-child(2){white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.top-search-trigger kbd{padding:2px 6px;border:1px solid #dbe2ea;border-bottom-width:2px;border-radius:6px;background:#f7f9fb;color:#718096;font-size:9px}
+.top-quick-btn{
+  height:40px;padding:0 13px;border-radius:12px;
+  border:1px solid #d86449;background:linear-gradient(135deg,#d75c41,#e67559);
+  color:#fff;font-size:12px;font-weight:900;box-shadow:0 7px 16px rgba(216,100,73,.16)
+}
+.top-quick-btn span{font-size:10px;margin-left:2px}
+
+/* Quick launcher */
+.quick-launch-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:4px}
+.quick-launch-grid.compact{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:12px}
+.quick-launch-grid button{
+  min-height:104px;text-align:left;padding:13px;border:1px solid #dfe5ec;
+  border-radius:14px;background:linear-gradient(145deg,#fff,#f8fafc);
+  color:var(--text);transition:.16s ease
+}
+.quick-launch-grid button:hover{transform:translateY(-2px);border-color:#aebccc;box-shadow:0 10px 24px rgba(15,23,42,.07)}
+.quick-launch-grid b{display:block;font-size:11px;margin-top:9px}
+.quick-launch-grid small{display:block;font-size:8px;color:var(--muted);line-height:1.4;margin-top:3px}
+.quick-launch-icon{width:35px;height:35px;border-radius:11px;display:grid;place-items:center;font-size:15px;font-weight:900;border:1px solid transparent}
+.quick-launch-icon.lesson{background:#eef4fb;color:#376594;border-color:#d5e2ef}
+.quick-launch-icon.task{background:#eef8f4;color:#38725d;border-color:#d1e6dc}
+.quick-launch-icon.student{background:#f5effa;color:#76598e;border-color:#e5d8ef}
+.quick-launch-icon.resource{background:#fff4ef;color:#b95b42;border-color:#f0d2c8}
+.quick-launch-icon.quiz{background:#fbf5ea;color:#94662d;border-color:#ebddc4}
+.quick-launch-icon.message{background:#f0f4fa;color:#516b8d;border-color:#d9e2ed}
+.quick-context-head{display:flex;align-items:center;gap:11px;padding:11px;border:1px solid var(--line);border-radius:13px;background:var(--panel2)}
+.quick-context-avatar{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#111827,#344b6c);color:#fff;font-weight:900}
+.quick-context-head b{display:block;font-size:12px}.quick-context-head span{display:block;font-size:8px;color:var(--muted);margin-top:3px}
+.lesson-action-summary{margin-top:11px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--panel2)}
+.lesson-action-summary span{display:block;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:900}.lesson-action-summary b{display:block;font-size:11px;margin-top:4px}
+.lesson-action-buttons{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}
+
+/* Search modal */
+.global-search-shell{margin-top:3px}
+.global-search-field{height:48px;display:flex;align-items:center;gap:9px;padding:0 13px;border:1px solid #cfd9e4;border-radius:13px;background:#fff;box-shadow:0 8px 20px rgba(15,23,42,.045)}
+.global-search-field span{font-size:20px;color:#53657a}.global-search-field input{border:0!important;box-shadow:none!important;padding:0!important;background:transparent!important;font-size:12px}
+.global-search-results{display:grid;gap:6px;margin-top:10px;max-height:460px;overflow:auto}
+.search-result{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left;padding:10px 11px;border:1px solid #e0e6ed;border-radius:12px;background:var(--panel);color:var(--text)}
+.search-result:hover{border-color:#aab9ca;background:var(--panel2)}
+.search-kind{font-size:7px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:5px 6px;border-radius:999px;background:#eef3f8;color:#52667f;text-align:center}
+.search-result b{font-size:10px}.search-result p{font-size:8px;color:var(--muted);margin:3px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.search-arrow{font-size:19px;color:#8a98aa}
+.search-empty{text-align:center;padding:32px 10px;color:var(--muted)}.search-empty>span{display:block;font-size:28px;color:#7d8ca0}.search-empty b{display:block;color:var(--text);font-size:12px;margin-top:7px}.search-empty p{font-size:9px;margin:4px 0 0}
+
+/* Student + lesson actions */
+.student-card-footer .row{gap:6px}
+.lesson-row-v12{transition:.16s ease}
+.lesson-row-v12:hover{border-color:#aebdce!important;box-shadow:0 7px 18px rgba(15,23,42,.045)}
+.lesson-row-v12 .btn{white-space:nowrap}
+
+/* Ultra micro-polish */
+.modal-card{border-radius:19px!important;box-shadow:0 34px 90px rgba(15,23,42,.24)!important}
+.modal-card>div:first-child h3{letter-spacing:-.025em}
+.empty-state{border:1px dashed #d7dfe8;border-radius:14px;padding:20px;background:linear-gradient(145deg,rgba(255,255,255,.7),rgba(248,250,252,.75))}
+.progress{height:6px!important;background:#edf1f5!important}
+.progress i{background:linear-gradient(90deg,#dc6548,#e98c73)!important}
+.student-card-v3.tone-1 .progress i{background:linear-gradient(90deg,#6a5685,#9e84ba)!important}
+.student-card-v3.tone-2 .progress i{background:linear-gradient(90deg,#37765f,#68a58e)!important}
+.student-card-v3.tone-3 .progress i{background:linear-gradient(90deg,#8c5948,#be8069)!important}
+
+/* Dark */
+[data-theme="dark"] .top-search-trigger{background:#151d27;border-color:#344151;color:#9facbd}
+[data-theme="dark"] .top-search-trigger:hover{background:#1a2430;border-color:#52647a}
+[data-theme="dark"] .top-search-trigger kbd{background:#101720;border-color:#344151;color:#9dacbd}
+[data-theme="dark"] .quick-launch-grid button{background:linear-gradient(145deg,#171f29,#131a22);border-color:#344151;color:#f2f4f7}
+[data-theme="dark"] .global-search-field{background:#111821;border-color:#344151}
+[data-theme="dark"] .search-result{background:#151d27;border-color:#303c4b}.search-result:hover{background:#1b2531;border-color:#52647a}
+[data-theme="dark"] .search-kind{background:#1d2937;color:#bdc9d7}
+[data-theme="dark"] .progress{background:#202a37!important}
+[data-theme="dark"] .empty-state{background:#121922;border-color:#344151}
+
+/* Mobile */
+@media(max-width:1050px){
+  .top-search-trigger{width:44px;padding:0;justify-content:center}
+  .top-search-trigger>span:nth-child(2),.top-search-trigger kbd{display:none}
+  .top-quick-btn span{display:none}
+}
+@media(max-width:760px){
+  .top-search-trigger{display:none}
+  .top-quick-btn{height:38px;width:38px;padding:0;display:grid;place-items:center;font-size:18px}
+  .quick-launch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .quick-launch-grid button{min-height:94px}
+  .search-result{grid-template-columns:54px minmax(0,1fr) auto}
+}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -2965,6 +3065,8 @@ input:focus,select:focus,textarea:focus{
     <header class="topbar">
       <div><div id="topDate" class="top-date"></div><h1 id="pageTitle">Dashboard</h1></div>
       <div class="top-actions">
+        <button id="globalSearchTrigger" class="top-search-trigger" type="button" onclick="openGlobalSearch()" aria-label="Search portal"><span class="search-glyph">⌕</span><span>Search students, lessons, resources…</span><kbd>/</kbd></button>
+        <button class="top-quick-btn" type="button" onclick="openQuickActions()" title="Quick actions">＋ <span>New</span></button>
         <div class="sync-pill"><span class="dot"></span><span id="syncText">Live cloud portal</span></div>
         <button class="iconbtn" title="Refresh" onclick="sync()">↻</button>
         <button class="iconbtn" title="Theme" onclick="toggleTheme()" aria-label="Change theme">◐</button>
@@ -3252,6 +3354,91 @@ function buildNav(){
   $('#sideProfile').innerHTML='<div class="profile-avatar">'+esc(initials(data.user.displayName))+'</div><strong>'+esc(data.user.displayName)+'</strong><span>'+esc(data.user.role==='ADMIN'?'Tutor / Admin':'Student')+'</span>';
 }
 function go(t){tab=t;buildNav();window.scrollTo({top:0,left:0,behavior:'auto'});render()}
+
+function quickIcon(kind){
+  const map={lesson:'◫',task:'✓',student:'◉',resource:'▱',quiz:'◇',message:'✉',search:'⌕'};
+  return map[kind]||'•';
+}
+function openQuickActions(){
+  const body='<div class="quick-launch-grid">'+
+    '<button onclick="closeModal();openLesson()"><span class="quick-launch-icon lesson">'+quickIcon('lesson')+'</span><b>Add lesson</b><small>Schedule or record teaching</small></button>'+
+    '<button onclick="closeModal();openTaskCreate()"><span class="quick-launch-icon task">'+quickIcon('task')+'</span><b>Add task</b><small>Add something to your focus list</small></button>'+
+    '<button onclick="closeModal();openStudentCreate()"><span class="quick-launch-icon student">'+quickIcon('student')+'</span><b>Add student</b><small>Create a new learner profile</small></button>'+
+    '<button onclick="closeModal();openLinkResource()"><span class="quick-launch-icon resource">'+quickIcon('resource')+'</span><b>Add resource</b><small>Link a lesson, note or file</small></button>'+
+    '<button onclick="closeModal();openUnifiedQuizAdd()"><span class="quick-launch-icon quiz">'+quickIcon('quiz')+'</span><b>Add quiz</b><small>Paste a link or upload a file</small></button>'+
+    '<button onclick="closeModal();go(\'messages\')"><span class="quick-launch-icon message">'+quickIcon('message')+'</span><b>Messages</b><small>Open student conversations</small></button>'+
+  '</div>';
+  modal('Quick actions',body,'<button class="btn" onclick="closeModal()">Close</button>');
+}
+function openStudentQuickActions(id){
+  const s=(data.students||[]).find(x=>x.id===id);if(!s)return;
+  const body='<div class="quick-context-head"><div class="quick-context-avatar">'+esc(initials(s.display_name))+'</div><div><b>'+esc(s.display_name)+'</b><span>'+esc(s.grade||'Student')+(s.subjects?' · '+esc(s.subjects):'')+'</span></div></div>'+
+    '<div class="quick-launch-grid compact">'+
+    '<button onclick="closeModal();openLesson(\''+id+'\')"><span class="quick-launch-icon lesson">'+quickIcon('lesson')+'</span><b>Add lesson</b><small>Schedule this student</small></button>'+
+    '<button onclick="closeModal();chatStudent=\''+id+'\';go(\'messages\')"><span class="quick-launch-icon message">'+quickIcon('message')+'</span><b>Message</b><small>Open conversation</small></button>'+
+    '<button onclick="closeModal();openLinkResource(\''+id+'\')"><span class="quick-launch-icon resource">'+quickIcon('resource')+'</span><b>Add resource</b><small>Attach a link or lesson</small></button>'+
+    '<button onclick="closeModal();openUnifiedQuizAdd(\''+id+'\')"><span class="quick-launch-icon quiz">'+quickIcon('quiz')+'</span><b>Add quiz</b><small>Create or attach a quiz</small></button>'+
+    '</div>';
+  modal('Student actions',body,'<button class="btn" onclick="closeModal()">Close</button><button class="btn primary" onclick="closeModal();studentDetail(\''+id+'\')">Open profile</button>');
+}
+function openLessonQuickActions(id){
+  const l=(data.lessons||[]).find(x=>x.id===id);if(!l)return;
+  const body='<div class="quick-context-head"><div class="quick-context-avatar">'+esc(initials(studentName(l.student_id)))+'</div><div><b>'+esc(studentName(l.student_id))+' · '+esc(l.subject||'Lesson')+'</b><span>'+esc(dateFmt(l.lesson_date))+' · '+esc(timeFmt(l.start_time))+' · '+esc(l.duration_minutes||0)+' min</span></div></div>'+
+    '<div class="lesson-action-summary"><span>Topic</span><b>'+esc(l.topic||'Topic not recorded')+'</b></div>'+
+    '<div class="lesson-action-buttons"><button class="btn" onclick="closeModal();openLessonWorkflow(\''+id+'\')">Open lesson plan</button>'+
+    (l.status!=='Completed'?'<button class="btn primary" onclick="closeModal();setLessonStatus(\''+id+'\',\'Completed\')">Mark completed</button>':'')+
+    (l.status!=='Cancelled'?'<button class="btn danger" onclick="closeModal();setLessonStatus(\''+id+'\',\'Cancelled\')">Did not happen</button>':'')+
+    '</div>';
+  modal('Lesson actions',body,'<button class="btn" onclick="closeModal()">Close</button>');
+}
+function openResourceFromSearch(id){
+  const r=(data.resources||[]).find(x=>x.id===id);if(!r)return;
+  if(r.external_url){window.open(r.external_url,'_blank','noopener');return}
+  openResource(id);
+}
+function globalSearchResults(q){
+  const needle=String(q||'').trim().toLowerCase();
+  if(!needle)return [];
+  const out=[];
+  (data.students||[]).forEach(s=>{
+    const hay=[s.display_name,s.grade,s.subjects,s.curriculum].join(' ').toLowerCase();
+    if(hay.includes(needle))out.push({kind:'Student',title:s.display_name,sub:[s.grade,s.subjects].filter(Boolean).join(' · '),action:"studentDetail('"+s.id+"')"});
+  });
+  (data.lessons||[]).forEach(l=>{
+    const hay=[studentName(l.student_id),l.subject,l.topic,l.lesson_date].join(' ').toLowerCase();
+    if(hay.includes(needle))out.push({kind:'Lesson',title:studentName(l.student_id)+' · '+(l.subject||'Lesson'),sub:dateFmt(l.lesson_date)+' · '+timeFmt(l.start_time)+' · '+(l.topic||'Topic not recorded'),action:"openLessonQuickActions('"+l.id+"')"});
+  });
+  (data.resources||[]).forEach(r=>{
+    const hay=[studentName(r.student_id),r.title,r.resource_type,r.description].join(' ').toLowerCase();
+    if(hay.includes(needle))out.push({kind:'Resource',title:r.title,sub:studentName(r.student_id)+' · '+(r.resource_type||'Resource'),action:"openResourceFromSearch('"+r.id+"')"});
+  });
+  (data.quizzes||[]).forEach(qz=>{
+    const hay=[studentName(qz.student_id),qz.title,qz.subject,qz.topic].join(' ').toLowerCase();
+    if(hay.includes(needle))out.push({kind:'Quiz',title:qz.title,sub:studentName(qz.student_id)+' · '+(qz.subject||'Quiz'),action:"openQuizAsset((data.quizzes||[]).find(x=>x.id==='"+qz.id+"'))"});
+  });
+  (data.curriculumSubtopics||[]).forEach(x=>{
+    const hay=[studentName(x.student_id),x.subject,x.topic,x.subtopic,x.notes,x.taught_content].join(' ').toLowerCase();
+    if(hay.includes(needle))out.push({kind:'Topic',title:x.subtopic||x.topic,sub:studentName(x.student_id)+' · '+x.subject+' · '+x.topic,action:"studentDetail('"+x.student_id+"')"});
+  });
+  return out.slice(0,18);
+}
+function renderGlobalSearchResults(){
+  const inp=document.querySelector('#globalSearchInput'),box=document.querySelector('#globalSearchResults');if(!inp||!box)return;
+  const results=globalSearchResults(inp.value);
+  if(!inp.value.trim()){box.innerHTML='<div class="search-empty"><span>⌕</span><b>Search your whole academy</b><p>Students, lessons, topics, resources and quizzes.</p></div>';return}
+  box.innerHTML=results.length?results.map(r=>'<button class="search-result" onclick="closeModal();'+r.action+'"><span class="search-kind">'+esc(r.kind)+'</span><div><b>'+esc(r.title)+'</b><p>'+esc(r.sub||'')+'</p></div><span class="search-arrow">›</span></button>').join(''):'<div class="search-empty"><span>⌕</span><b>No matches</b><p>Try a student name, topic or resource title.</p></div>';
+}
+function openGlobalSearch(){
+  modal('Search portal','<div class="global-search-shell"><div class="global-search-field"><span>⌕</span><input id="globalSearchInput" autocomplete="off" placeholder="Search students, lessons, topics, resources…" oninput="renderGlobalSearchResults()"></div><div id="globalSearchResults" class="global-search-results"></div></div>','<button class="btn" onclick="closeModal()">Close</button>');
+  setTimeout(()=>{const i=document.querySelector('#globalSearchInput');if(i){i.focus();renderGlobalSearchResults()}},30);
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey){
+    const tag=String(document.activeElement?.tagName||'').toLowerCase();
+    if(!['input','textarea','select'].includes(tag)){e.preventDefault();openGlobalSearch()}
+  }
+});
+
 function render(){
   if(!data)return;buildNav();const titles={home:'Dashboard',students:'Students',schedule:'Schedule & bookings',messages:'Messages',resources:'Resources',quizzes:'Quizzes',finance:'Finance',learning:'My learning',book:'Book a lesson',work:'Work sent'};
   $('#pageTitle').textContent=titles[tab]||'VTA Portal';
@@ -3289,14 +3476,17 @@ function weekView(lessons){
   }
   return h+'</div>';
 }
-function lessonRow(l){const n=studentName(l.student_id),action=role()==='ADMIN'?'<button class="btn small" onclick="openLessonWorkflow(\''+l.id+'\')">Plan</button>':'';return '<div class="list-row lesson"><div class="date"><b>'+new Date(l.lesson_date+'T12:00:00').getDate()+'</b><span class="tiny muted">'+new Date(l.lesson_date+'T12:00:00').toLocaleDateString('en-ZA',{month:'short'})+'</span></div><div><h4>'+esc(n)+' • '+esc(l.subject||'Lesson')+'</h4><p>'+esc(l.topic||'Topic not recorded')+' • '+esc(timeFmt(l.start_time))+' • '+esc(l.duration_minutes)+' min</p></div><div class="row">'+status(l.status)+action+'</div></div>'}
+function lessonRow(l){
+  const n=studentName(l.student_id);
+  return '<div class="list-row lesson lesson-row-v12"><div class="date"><b>'+new Date(l.lesson_date+'T12:00:00').getDate()+'</b><span class="tiny muted">'+new Date(l.lesson_date+'T12:00:00').toLocaleDateString('en-ZA',{month:'short'})+'</span></div><div><h4>'+esc(n)+' • '+esc(l.subject||'Lesson')+'</h4><p>'+esc(l.topic||'Topic not recorded')+' • '+esc(timeFmt(l.start_time))+' • '+esc(l.duration_minutes)+' min</p></div><div class="row">'+status(l.status)+(role()==='ADMIN'?'<button class="btn small" onclick="openLessonQuickActions(\''+l.id+'\')">Actions</button>':'')+'</div></div>'
+}
 function adminStudents(){
   const students=(data.students||[]).slice().sort((a,b)=>a.display_name.localeCompare(b.display_name));
   let h=section('Students','A clean snapshot — open a student only when you need the detail','<button class="btn small primary" onclick="openStudentCreate()">+ Student</button>');
   h+='<div class="students-grid">'+students.map((s,idx)=>{
     const cr=(data.curriculumSubtopics||[]).filter(x=>x.student_id===s.id),done=cr.filter(x=>curriculumStatus(x.status)==='Completed').length,pct=cr.length?Math.round(done/cr.length*100):0;
     const target=Number(currentPlanForRaw(s.id)?.target_hours||0),doneH=completedHoursInCalendarMonth(0,s.id),remain=thisMonthRemaining(s.id),old=previousMonthCatchupRemaining(s.id);
-    return '<div class="card student-card compact student-card-v2 student-card-v3 tone-'+(idx%4)+'"><div class="student-card-cover"><div class="student-card-head"><div class="student-id-wrap"><div class="student-avatar-v3">'+esc(initials(s.display_name))+'</div><div><div class="student-name-v3">'+esc(s.display_name)+'</div><div class="student-meta-v3">'+esc(s.grade||'Grade not set')+' · '+esc(s.subjects||'Subjects not set')+'</div></div></div><span class="student-status-v3">'+(s.active===false?'Inactive':'Active')+'</span></div><div class="student-month-v3">'+esc(monthBounds(0).label)+' overview</div></div><div class="student-card-body"><div class="student-card-metrics"><div class="student-metric"><span>Completed</span><b>'+doneH.toFixed(1)+'h</b></div><div class="student-metric"><span>Still to cover</span><b>'+remain.toFixed(1)+'h</b></div><div class="student-metric"><span>Old catch-up</span><b>'+old.toFixed(1)+'h</b></div></div><div class="curriculum-mini" style="margin-top:13px"><div class="curr-row"><span>Curriculum progress</span><span>'+pct+'%</span></div><div class="progress"><i style="width:'+pct+'%"></i></div></div><div class="student-card-footer"><span class="tiny muted">'+target.toFixed(0)+'h monthly target</span><button class="btn small primary" onclick="studentDetail(\''+s.id+'\')">Open student</button></div></div></div>'
+    return '<div class="card student-card compact student-card-v2 student-card-v3 tone-'+(idx%4)+'"><div class="student-card-cover"><div class="student-card-head"><div class="student-id-wrap"><div class="student-avatar-v3">'+esc(initials(s.display_name))+'</div><div><div class="student-name-v3">'+esc(s.display_name)+'</div><div class="student-meta-v3">'+esc(s.grade||'Grade not set')+' · '+esc(s.subjects||'Subjects not set')+'</div></div></div><span class="student-status-v3">'+(s.active===false?'Inactive':'Active')+'</span></div><div class="student-month-v3">'+esc(monthBounds(0).label)+' overview</div></div><div class="student-card-body"><div class="student-card-metrics"><div class="student-metric"><span>Completed</span><b>'+doneH.toFixed(1)+'h</b></div><div class="student-metric"><span>Still to cover</span><b>'+remain.toFixed(1)+'h</b></div><div class="student-metric"><span>Old catch-up</span><b>'+old.toFixed(1)+'h</b></div></div><div class="curriculum-mini" style="margin-top:13px"><div class="curr-row"><span>Curriculum progress</span><span>'+pct+'%</span></div><div class="progress"><i style="width:'+pct+'%"></i></div></div><div class="student-card-footer"><span class="tiny muted">'+target.toFixed(0)+'h monthly target</span><div class="row"><button class="btn small" onclick="openStudentQuickActions(\''+s.id+'\')">Quick</button><button class="btn small primary" onclick="studentDetail(\''+s.id+'\')">Open student</button></div></div></div></div>'
   }).join('')+'</div>';
   $('#content').innerHTML=h;
 }
@@ -3475,8 +3665,8 @@ async function publishQuiz(id){try{await api({action:'quizPublish',id});toast('Q
 async function previewBrowserQuiz(id){try{const r=await api({action:'quizGet',id});const qs=r.questions||[];modal(r.quiz?.title||'Quiz preview','<div class="review-report">'+qs.map((q,i)=>(i+1)+'. '+q.prompt+(q.options?.length?'\n   '+q.options.join(' · '):'')).join('\n\n')+'</div>','<button class="btn primary" onclick="closeModal()">Close preview</button>')}catch(err){toast(err.message)}}
 
 
-function openUnifiedQuizAdd(){
-  modal('Add quiz','<div class="field"><label>Student</label><select id="uqStudent">'+studentOptions()+'</select></div><div class="grid2" style="margin-top:12px">'+field('Quiz name','uqTitle','')+field('Subject','uqSubject','')+field('Topic','uqTopic','')+field('Quiz date','uqDate',today(),'date')+'</div><div class="field" style="margin-top:12px"><label>How do you want to add it?</label><select id="uqMode" onchange="toggleUnifiedQuizMode()"><option value="link">Paste a link</option><option value="file">Upload a file</option></select></div><div id="uqLinkBox" class="field" style="margin-top:12px"><label>Quiz link</label><input id="uqUrl" type="url" placeholder="https://..."></div><div id="uqFileBox" class="field hidden" style="margin-top:12px"><label>Quiz file</label><input id="uqFile" type="file"></div>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveUnifiedQuiz()">Add quiz</button>');
+function openUnifiedQuizAdd(studentId){
+  modal('Add quiz','<div class="field"><label>Student</label><select id="uqStudent">'+studentOptions(studentId)+'</select></div><div class="grid2" style="margin-top:12px">'+field('Quiz name','uqTitle','')+field('Subject','uqSubject','')+field('Topic','uqTopic','')+field('Quiz date','uqDate',today(),'date')+'</div><div class="field" style="margin-top:12px"><label>How do you want to add it?</label><select id="uqMode" onchange="toggleUnifiedQuizMode()"><option value="link">Paste a link</option><option value="file">Upload a file</option></select></div><div id="uqLinkBox" class="field" style="margin-top:12px"><label>Quiz link</label><input id="uqUrl" type="url" placeholder="https://..."></div><div id="uqFileBox" class="field hidden" style="margin-top:12px"><label>Quiz file</label><input id="uqFile" type="file"></div>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveUnifiedQuiz()">Add quiz</button>');
 }
 function toggleUnifiedQuizMode(){const file=$('#uqMode').value==='file';$('#uqFileBox').classList.toggle('hidden',!file);$('#uqLinkBox').classList.toggle('hidden',file)}
 async function saveUnifiedQuiz(){
@@ -3782,10 +3972,14 @@ async function saveTopic(studentId,id){try{await api({action:'topicUpsert',id:id
 function editPlan(id){const p=(data.plans||[]).filter(x=>x.student_id===id).sort((a,b)=>String(b.month_key).localeCompare(String(a.month_key)))[0]||{};modal('Monthly learning plan','<div class="grid2">'+field('Month (YYYY-MM)','plMonth',p.month_key||today().slice(0,7))+field('Lesson target','plTarget',p.lesson_target||4,'number')+'</div>'+field('Goal','plGoal',p.goal||'')+'<div class="field"><label>Focus topics (comma separated)</label><textarea id="plFocus">'+esc((p.focus_topics||[]).join(', '))+'</textarea></div>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="savePlan(\''+id+'\')">Save</button>')}
 async function savePlan(id){try{await api({action:'planUpdate',studentId:id,monthKey:$('#plMonth').value,lessonTarget:Number($('#plTarget').value),goal:$('#plGoal').value,focusTopics:$('#plFocus').value.split(',').map(x=>x.trim()).filter(Boolean)});closeModal();toast('Plan updated');await sync();studentDetail(id)}catch(err){toast(err.message)}}
 function studentOptions(id){return (data.students||[]).map(s=>'<option value="'+s.id+'" '+(s.id===id?'selected':'')+'>'+esc(s.display_name)+'</option>').join('')}
-function openLesson(){modal('Add lesson','<div class="grid2"><div class="field"><label>Student</label><select id="leStudent">'+studentOptions()+'</select></div>'+field('Date','leDate',today(),'date')+field('Time','leTime','17:00','time')+selectField('Duration','leDuration',['60','120'],'60')+field('Subject','leSubject','Natural Sciences')+field('Topic','leTopic','')+selectField('Status','leStatus',['Planned','Confirmed','Completed'],'Planned')+selectField('Allocation','leAllocation',['New month','Previous month'],'New month')+selectField('Mode','leMode',['Live','Recorded'],'Live')+'</div><div class="field" style="margin-top:12px"><label>Notes</label><textarea id="leNotes"></textarea></div><details class="later"><summary>Lesson structure (optional)</summary><div class="lesson-plan-box" style="margin-top:12px">'+field('Main objective','leObjective','')+field('Homework / follow-up','leHomework','')+'<div class="check-grid"><label class="check-option"><input id="leQuizNeeded" type="checkbox"> Quiz needed</label><label class="check-option"><input id="leParentUpdate" type="checkbox"> Parent update needed</label></div>'+field('Quiz date','leQuizDate','','date')+'</div></details>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveLesson()">Save lesson</button>')}
+function openLesson(studentId){
+  modal('Add lesson','<div class="grid2"><div class="field"><label>Student</label><select id="leStudent">'+studentOptions(studentId)+'</select></div>'+field('Date','leDate',today(),'date')+field('Time','leTime','17:00','time')+selectField('Duration','leDuration',['60','120'],'60')+field('Subject','leSubject','Natural Sciences')+field('Topic','leTopic','')+selectField('Status','leStatus',['Planned','Confirmed','Completed'],'Planned')+selectField('Allocation','leAllocation',['New month','Previous month'],'New month')+selectField('Mode','leMode',['Live','Recorded'],'Live')+'</div><div class="field" style="margin-top:12px"><label>Notes</label><textarea id="leNotes"></textarea></div><details class="later"><summary>Lesson structure (optional)</summary><div class="lesson-plan-box" style="margin-top:12px">'+field('Main objective','leObjective','')+field('Homework / follow-up','leHomework','')+'<div class="check-grid"><label class="check-option"><input id="leQuizNeeded" type="checkbox"> Quiz needed</label><label class="check-option"><input id="leParentUpdate" type="checkbox"> Parent update needed</label></div>'+field('Quiz date','leQuizDate','','date')+'</div></details>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveLesson()">Save lesson</button>')
+}
 async function saveLesson(){try{await api({action:'lessonUpsert',studentId:$('#leStudent').value,date:$('#leDate').value,time:$('#leTime').value,duration:Number($('#leDuration').value),subject:$('#leSubject').value,topic:$('#leTopic').value,status:$('#leStatus').value,notes:$('#leNotes').value,allocationBucket:$('#leAllocation').value,lessonMode:$('#leMode').value,objective:$('#leObjective').value,homework:$('#leHomework').value,quizNeeded:$('#leQuizNeeded').checked,quizDate:$('#leQuizDate').value||null,parentUpdateNeeded:$('#leParentUpdate').checked});closeModal();toast('Lesson saved');await sync()}catch(err){toast(err.message)}}
 async function bookingStatus(id,s){try{await api({action:'bookingStatus',id,status:s});toast('Booking '+s.toLowerCase());await sync()}catch(err){toast(err.message)}}
-function openLinkResource(){modal('Add interactive lesson / link','<div class="grid2"><div class="field"><label>Student</label><select id="rlStudent">'+studentOptions()+'</select></div>'+field('Title','rlTitle','')+selectField('Type','rlType',['Interactive Lesson','Slides','Video','Other'],'Interactive Lesson')+field('Link','rlUrl','')+field('Password / access note','rlAccess','')+selectField('Status','rlStatus',['Available','Completed','Future'],'Available')+'</div><div class="field" style="margin-top:12px"><label>Description</label><textarea id="rlDesc"></textarea></div>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveLinkResource()">Save resource</button>')}
+function openLinkResource(studentId){
+  modal('Add interactive lesson / link','<div class="grid2"><div class="field"><label>Student</label><select id="rlStudent">'+studentOptions(studentId)+'</select></div>'+field('Title','rlTitle','')+selectField('Type','rlType',['Interactive Lesson','Slides','Video','Other'],'Interactive Lesson')+field('Link','rlUrl','')+field('Password / access note','rlAccess','')+selectField('Status','rlStatus',['Available','Completed','Future'],'Available')+'</div><div class="field" style="margin-top:12px"><label>Description</label><textarea id="rlDesc"></textarea></div>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveLinkResource()">Save resource</button>')
+}
 async function saveLinkResource(){try{await api({action:'resourceCreateLink',studentId:$('#rlStudent').value,title:$('#rlTitle').value,resourceType:$('#rlType').value,externalUrl:$('#rlUrl').value,accessNote:$('#rlAccess').value,completionStatus:$('#rlStatus').value,description:$('#rlDesc').value});closeModal();toast('Resource added');await sync()}catch(err){toast(err.message)}}
 function openUpload(){modal('Upload resource','<div class="grid2"><div class="field"><label>Student</label><select id="ruStudent">'+studentOptions()+'</select></div>'+field('Title','ruTitle','')+selectField('Type','ruType',['PDF / Notes','Slides','Worksheet','Image','Other'],'PDF / Notes')+field('Password / access note','ruAccess','')+selectField('Status','ruStatus',['Available','Completed','Future'],'Available')+'</div><div class="field" style="margin-top:12px"><label>Description</label><textarea id="ruDesc"></textarea></div><div class="field" style="margin-top:12px"><label>File (maximum 8 MB)</label><input id="ruFile" type="file"></div>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="uploadResource()">Upload</button>')}
 async function uploadResource(){const f=$('#ruFile').files[0];if(!f){toast('Choose a file');return}if(f.size>8*1024*1024){toast('File must be 8 MB or smaller');return}try{const b64=await file64(f);await api({action:'resourceUpload',studentId:$('#ruStudent').value,title:$('#ruTitle').value||f.name,resourceType:$('#ruType').value,fileName:f.name,mimeType:f.type||'application/octet-stream',base64:b64,description:$('#ruDesc').value,accessNote:$('#ruAccess').value,completionStatus:$('#ruStatus').value,featured:true});closeModal();toast('Upload complete');await sync()}catch(err){toast(err.message)}}
