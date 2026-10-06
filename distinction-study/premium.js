@@ -44,3 +44,9 @@ const v6KpiRoutes=['progress','progress','planner','progress','focus'];
 document.querySelectorAll('.homeKpi').forEach((el,i)=>{el.style.cursor='pointer';el.tabIndex=0;el.setAttribute('role','button');el.onclick=()=>openFeature(v6KpiRoutes[i]||'progress');el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click()}}});
 document.querySelectorAll('.achievement').forEach(el=>{el.style.cursor='pointer';el.onclick=()=>openFeature('progress')});
 if(typeof featureKind!=='undefined'&&document.getElementById('featureView')?.classList.contains('active'))v6DecorateFeature(featureKind);
+
+
+/* VIC PAGE POSITION FIX 2026-10-06 */
+try{history.scrollRestoration='manual'}catch(e){}
+window.addEventListener('pageshow',()=>{requestAnimationFrame(()=>window.scrollTo({top:0,left:0,behavior:'auto'}))});
+document.addEventListener('DOMContentLoaded',()=>{requestAnimationFrame(()=>window.scrollTo({top:0,left:0,behavior:'auto'}))});
