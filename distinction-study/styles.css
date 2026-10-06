@@ -424,3 +424,50 @@ body{min-width:0!important}
   .quickGrid .span2{grid-column:auto!important}
   .homeHeroCopy h1{font-size:28px!important}
 }
+
+
+/* ===== VIC HERO VISIBILITY FIX 2026-10-06 ===== */
+.homeHero{
+  height:auto!important;
+  min-height:250px!important;
+  align-items:stretch!important;
+}
+.homeHeroMedia{
+  min-height:250px!important;
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+  padding:8px 8px 0!important;
+  background:radial-gradient(circle at 50% 28%,rgba(137,83,255,.20),transparent 42%)!important;
+}
+.homeHeroMedia img{
+  width:100%!important;
+  height:100%!important;
+  max-height:250px!important;
+  object-fit:contain!important;
+  object-position:center bottom!important;
+  display:block!important;
+  padding:0!important;
+  transform:none!important;
+}
+.homeHeroMedia:after{
+  background:linear-gradient(90deg,transparent 72%,rgba(15,13,36,.82) 100%),linear-gradient(180deg,transparent 86%,rgba(15,13,36,.32))!important;
+}
+.homeHeroCopy{
+  min-height:250px!important;
+  justify-content:center!important;
+}
+#vicInstallBtn{
+  display:none!important;
+}
+@media(max-width:1450px){
+  .homeHero{min-height:236px!important}
+  .homeHeroMedia,.homeHeroCopy{min-height:236px!important}
+  .homeHeroMedia img{max-height:236px!important}
+}
+@media(max-width:840px){
+  .homeHero{min-height:0!important}
+  .homeHeroMedia{display:none!important}
+  .homeHeroCopy{min-height:260px!important;padding:26px!important}
+}
