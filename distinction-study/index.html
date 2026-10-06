@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Vic Distinction Study</title>
+<meta content="Vic Distinction Study" name="application-name"/>
+<meta content="#120a2d" name="theme-color"/>
+<link href="./manifest.webmanifest" rel="manifest"/>
+<link href="./vic-logo.svg" rel="apple-touch-icon"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<link href="./vic-logo.svg" rel="icon" type="image/svg+xml"/>
+
+
+<link href="./styles.css" rel="stylesheet"/></head>
+<body><aside class="desktopSidebar">
+<div class="sideBrand"><img alt="Vic" src="./vic-logo.svg"/><div class="victoria">VICTORIA</div><div class="academy">TUITION ACADEMY</div></div>
+<nav class="sideMenu" id="sideMenu">
+<button class="active" data-side="home" onclick="nav('homeView')"><span class="sideIcon">⌂</span>Home</button>
+<button data-side="hub" onclick="nav('distinctionView')"><span class="sideIcon">◉</span>Study Hub</button>
+<button data-side="topics" onclick="nav(S.d?'learnView':'setupView')"><span class="sideIcon">▤</span>Topics &amp; Notes</button>
+<button data-side="practice" onclick="S.d?nav('practiceView'):nav('setupView')"><span class="sideIcon">✎</span>Practice Questions</button>
+<button data-side="papers" onclick="openFeature('papers')"><span class="sideIcon">▣</span>Past Paper Practice</button>
+<button data-side="mock" onclick="openFeature('mock')"><span class="sideIcon">▥</span>Timed Topic Tests</button>
+<button data-side="flash" onclick="openFeature('flash')"><span class="sideIcon">▱</span>Flashcards</button>
+<button data-side="mistakes" onclick="openFeature('mistakes')"><span class="sideIcon">▧</span>Mistake Book</button>
+<button data-side="progress" onclick="openFeature('progress')"><span class="sideIcon">▥</span>Progress &amp; Reports</button>
+<button data-side="planner" onclick="openFeature('planner')"><span class="sideIcon">▦</span>Study Planner</button>
+<button data-side="focus" onclick="openFeature('focus')"><span class="sideIcon">◷</span>Focus Mode</button>
+<button data-side="vault" onclick="openFeature('vault')"><span class="sideIcon">▤</span>Formula &amp; Exam Vault</button>
+<button data-side="resources" onclick="openFeature('resources')"><span class="sideIcon">▰</span>Resources</button>
+<div class="sideDivider"></div>
+<button data-side="settings" onclick="openFeature('settings')"><span class="sideIcon">⚙</span>Settings</button>
+</nav>
+<div class="sideUser"><div class="sideUserTop"><div class="sideAvatar">V</div><div><small>Good day,</small><b>Learner</b></div></div><div class="distinctionPath">♛ Distinction Path</div></div>
+</aside>
+<div id="topPill" style="display:none"></div><div class="desktopTopbar"><div class="searchWrap"><input class="desktopSearch" id="globalSearch" placeholder="Search for a subject, topic or question…"/><div class="homeSearchHint" id="homeSearchHint"></div></div><div class="topMeta"><span class="topBadge">🔔</span><span class="topBadge">🏆</span><span class="topDate">▣  <strong id="homeDate">—</strong></span><span>◷  <strong id="homeTime">—</strong></span></div></div><div class="app"><section class="view active" id="homeView"><div class="homeWrap">
+<div class="homeHeroGrid">
+<div class="homeHero"><div class="homeHeroMedia"><img alt="Vic study coach" src="./vic-hero.svg"/></div><div class="homeHeroCopy"><h1>Hi! I’m Vic 👑<span>Your personal study coach for <em>Distinctions and A’s.</em></span></h1><p>Let’s learn, practise and master your topics with clear explanations, real exam questions and step-by-step solutions.</p><button class="btn primary heroBtn" onclick="homeContinue()">Continue Studying →</button><div class="heroQuote">“Consistency turns effort into results.”<br/>– VIC</div></div></div>
+<div class="examCard"><div><div class="examCardTop"><div class="examIcon">🎓</div><div><h3>Exam Countdown</h3><small id="homeExamLabel">Next major exam</small></div></div><div class="examDays" id="homeExamDays">— <span>days left</span></div><div class="examRing"></div><small id="homeExamDate">Set an exam date in Study Hub</small></div><button class="btn secondary" onclick="openFeature('planner')">View Study Plan →</button></div>
+</div>
+<div class="homeKpis"><div class="homeKpi"><div class="kpiIcon">◉</div><div><small>Overall Progress</small><b id="homeAvg">—</b><span id="homeAvgSub">Start practising</span></div></div><div class="homeKpi"><div class="kpiIcon green">▥</div><div><small>Questions Completed</small><b id="homeQuestions">0</b><span id="homeQuestionsSub">Build momentum</span></div></div><div class="homeKpi"><div class="kpiIcon orange">🔥</div><div><small>Study Streak</small><b id="homeStreak">0 days</b><span>Keep going!</span></div></div><div class="homeKpi"><div class="kpiIcon gold">🏆</div><div><small>A-Readiness</small><b id="homeReady">0%</b><span id="homeReadySub">Build exam confidence</span></div></div><div class="homeKpi"><div class="kpiIcon blue">◷</div><div><small>Focus Time</small><b id="homeFocus">0m</b><span>This week</span></div></div></div>
+<div class="homeMain">
+<div class="homePanel"><div class="homePanelHead"><h3>🚀 Quick Start</h3><small>Choose your grade, curriculum, subject and topic.</small></div><div class="quickGrid"><label>Grade<select id="homeGrade"></select></label><label>Curriculum<select id="homeCurriculum"></select></label><label class="span2">Subject<select id="homeSubject"></select></label><label class="span2">Topic<select id="homeTopic"></select></label></div><button class="btn primary homeStart" id="homeStart">Start Learning →</button></div>
+<div class="homePanel"><div class="homePanelHead"><h3>🎯 Today’s Distinction Plan</h3><small>Highest-value work first</small></div><div class="homePlan" id="homePlan"></div></div>
+<div class="homePanel"><div class="homePanelHead"><h3>✣ Strengths &amp; Focus Areas</h3><small>Mastery by topic</small></div><div class="focusList" id="homeFocusAreas"></div></div>
+</div>
+<div class="homeTools">
+<div class="toolCard" onclick="nav(S.d?'learnView':'setupView')"><div class="toolIcon">💛</div><b>Topics &amp; Notes</b><span>Clear explanations with diagrams</span></div>
+<div class="toolCard" onclick="S.d?nav('practiceView'):nav('setupView')"><div class="toolIcon">☑</div><b>Practice Questions</b><span>Topic-based interactive practice</span></div>
+<div class="toolCard" onclick="openFeature('papers')"><div class="toolIcon">🗂</div><b>Past Paper Practice</b><span>Sourced + clearly labelled exam-style questions</span></div>
+<div class="toolCard" onclick="openFeature('mock')"><div class="toolIcon">▣</div><b>Timed Topic Tests</b><span>Timed topic exam simulations</span></div>
+<div class="toolCard" onclick="openFeature('flash')"><div class="toolIcon">▱</div><b>Flashcards</b><span>Definitions, formulas and key facts</span></div>
+<div class="toolCard" onclick="openFeature('mistakes')"><div class="toolIcon">♟</div><b>Mistake Book</b><span>Automatic revision of errors</span></div>
+<div class="toolCard" onclick="openFeature('progress')"><div class="toolIcon">▥</div><b>Progress Reports</b><span>Detailed analysis and improvement plan</span></div>
+</div>
+<div class="homeBottom">
+<div class="homePanel"><div class="homePanelHead"><h3>◷ Recent Activity</h3><small>Latest work</small></div><div class="activityList" id="homeRecent"></div></div>
+<div class="homePanel motivationPanel"><div class="homePanelHead"><h3>♛ Motivational Message</h3></div><blockquote>“You don’t have to be perfect.<br/>You just have to be consistent.”</blockquote><small>— VIC</small><button class="btn primary" onclick="homeContinue()" style="margin-top:11px">Let’s keep going →</button></div>
+<div class="homePanel"><div class="homePanelHead"><h3>♕ Latest Achievements</h3><small>Milestones</small></div><div class="achievementGrid" id="homeAchievements"></div></div>
+</div>
+</div></section>
+<section class="view" id="setupView">
+<div class="hero"><div class="eyebrow">Vic Study Engine</div><h1>What are we learning today?</h1><p>Build a complete topic session: understand the ideas, see them visually, practise in different ways, then get a detailed diagnosis of what to fix next.</p></div>
+<div class="card setup">
+<div class="field"><label>Grade</label><div class="picker" id="gradePicker"><button aria-expanded="false" aria-haspopup="listbox" class="pickerBtn" id="gradeBtn" type="button"><span id="gradeLabel">Grade 9</span><span class="chev">⌄</span></button><div class="pickerMenu" id="gradeMenu" role="listbox"></div></div></div>
+<div class="field"><label>Curriculum</label><div class="picker" id="curriculumPicker"><button aria-expanded="false" aria-haspopup="listbox" class="pickerBtn" id="curriculumBtn" type="button"><span id="curriculumLabel">South Africa • CAPS</span><span class="chev">⌄</span></button><div class="pickerMenu" id="curriculumMenu" role="listbox"></div></div></div>
+<div class="field"><label>Subject</label><div class="picker" id="subjectPicker"><button aria-expanded="false" aria-haspopup="listbox" class="pickerBtn" id="subjectBtn" type="button"><span id="subjectLabel">Natural Sciences</span><span class="chev">⌄</span></button><div class="pickerMenu" id="subjectMenu" role="listbox"></div></div></div>
+<div class="field full topicChooser"><label>How would you like to choose your topic?</label><div class="choicegrid" id="topicMode">
+<button class="choice active" data-topicmode="browse" type="button"><span>Browse</span><small>Explore topics Vic has mapped for your selection.</small></button>
+<button class="choice" data-topicmode="search" type="button"><span>Search</span><small>Type a topic you already know.</small></button>
+<button class="choice" data-topicmode="recommend" type="button"><span>Help me choose</span><small>See suggested starting points for this subject.</small></button>
+</div></div>
+<div class="field full" id="topicSearchField"><label>Topic</label><input id="topic" list="topicList" placeholder="Search or type a topic…"/><datalist id="topicList"></datalist><div class="hint" id="topicHint"></div></div>
+<div class="full" id="topicRecommendation"></div>
+<div class="full actions"><button class="btn primary" id="build">Build my study session</button><button class="btn secondary" id="browse">Browse topics</button></div>
+<div class="full notice" id="notice"></div>
+</div>
+<div class="card browse" id="browsePanel"><div class="browsehead"><div><b>Curriculum library</b><div class="subtle" id="browseMeta"></div></div><button class="btn ghost small" id="closeBrowse">Close</button></div><div class="topicgrid" id="topicGrid"></div></div>
+</section>
+<section class="view" id="distinctionView">
+<div class="dxHero"><div><div class="eyebrow">Distinction Hub</div><h1>Study like an A-student.</h1><p>Vic turns your practice history into a daily revision system: weak concepts return, mistakes become review cards, exam practice is timed, and progress is measured across topics instead of one session at a time.</p><div class="dxDesktopNote">Progress is stored locally on this computer.</div></div><div class="dxGoalBadge"><small>Target</small><strong id="dxTargetBadge">80%</strong><span class="subtle">Distinction goal</span></div></div>
+<div id="dxDashboard"></div>
+</section>
+<section class="view" id="featureView">
+<div class="featureHead">
+<div><div class="eyebrow" id="featureEyebrow">Distinction tools</div><h1 id="featureTitle">Tool</h1><p id="featureIntro">Focused study tools that use your real progress and current topic.</p></div>
+<div class="featureHeadActions"><button class="btn ghost" onclick="nav('homeView')">Back home</button><button class="btn secondary" onclick="nav('distinctionView')">Study Hub</button></div>
+</div>
+<div id="featureBody"></div>
+</section>
+<section class="view" id="learnView">
+<div class="sessionhead"><div><div class="eyebrow">01 • Learn</div><h2 id="sessionTitle">Topic</h2><p id="sessionMeta">Grade · Curriculum · Subject</p></div><div class="sessionactions"><button class="btn secondary" id="download">Download notes</button><button class="btn ghost" id="sources">Curriculum &amp; sources</button></div></div>
+<div class="rail"><button class="on" data-step="learnView"><span class="stepno">01</span>Learn</button><button data-step="practiceView"><span class="stepno">02</span>Practice</button><button data-step="reportView"><span class="stepno">03</span>Report</button></div>
+<div class="layout"><main class="card main" id="notes"></main><aside class="card side"><div class="eyebrow">At a glance</div><div id="sideSummary"></div><div id="sideSource" style="margin-top:15px"></div></aside></div>
+</section>
+<section class="view" id="practiceView">
+<div class="sessionhead"><div><div class="eyebrow">02 • Practice</div><h2>Show what you know</h2><p>Use multiple answer formats. Your answers stay saved while you move through the sections.</p></div><div class="sessionactions"><button class="btn secondary" id="backLearn">Back to learn</button><button class="btn primary" id="submit">Mark full practice</button></div></div>
+<div class="rail"><button data-step="learnView"><span class="stepno">01</span>Learn</button><button class="on" data-step="practiceView"><span class="stepno">02</span>Practice</button><button data-step="reportView"><span class="stepno">03</span>Report</button></div>
+<div class="card main"><div class="examModeBar" id="examModeBar"></div><div class="practice-summary" id="practiceSummary"></div><div class="practice-toolbar"><div class="filters" id="filters"></div><div class="subtle" id="attemptProgress"></div></div><div class="progressline"><i id="practiceProgress"></i></div><div id="practice"></div><div class="submitrow"><div class="subtle">This build labels generated questions as <b>Exam-style practice</b>. It does not claim unauthenticated past-paper questions are official.</div><button class="btn primary" id="submitBottom">Mark full practice</button></div></div>
+</section>
+<section class="view" id="reportView">
+<div class="sessionhead"><div><div class="eyebrow">03 • Progress</div><h2>Topic mastery report</h2><p>See exactly what is secure, what is weak, and what to do next.</p></div><div class="sessionactions"><button class="btn secondary" id="retry">Retake practice</button><button class="btn ghost" id="reportLearn">Back to learn</button></div></div>
+<div class="rail"><button data-step="learnView"><span class="stepno">01</span>Learn</button><button data-step="practiceView"><span class="stepno">02</span>Practice</button><button class="on" data-step="reportView"><span class="stepno">03</span>Report</button></div>
+<div id="report"></div>
+</section>
+<div class="mobilebar"><button data-view="setupView">Study</button><button data-view="distinctionView">Distinction</button><button data-view="learnView">Learn</button><button data-view="practiceView">Practice</button><button data-view="reportView">Progress</button></div>
+</div>
+<input accept="application/json,.json" id="dxImportFile" style="display:none" type="file"/>
+<div class="modal" id="modal"><div class="modalcard card"><div class="modalclose"><button class="btn ghost small" id="modalClose">Close</button></div><div id="modalBody"></div></div></div>
+
+
+
+<button aria-label="Install Vic Distinction Study" id="vicInstallBtn" type="button">⬇ Install Vic</button>
+
+<script src="./app.js"></script><script id="vic-v6-premium-js" src="./premium.js"></script><script id="vic-pwa-js" src="./pwa.js"></script></body>
+</html>
