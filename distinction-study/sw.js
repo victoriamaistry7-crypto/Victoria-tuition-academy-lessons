@@ -1,5 +1,5 @@
 const CACHE='vic-distinction-v2';
-const ASSETS=['./','./index.html','./styles.css','./app.js','./premium.js','./pwa.js','./vic-logo.svg','./vic-hero.svg','./manifest.webmanifest'];
+const ASSETS=['./','./index.html','./styles.css','./app.js','./premium.js','./pwa.js','./vic-logo.svg','./vic-hero.svg','./vic-hero-girl.png','./manifest.webmanifest'];
 self.addEventListener('install',event=>{
   self.skipWaiting();
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)));
