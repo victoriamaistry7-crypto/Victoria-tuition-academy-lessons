@@ -4053,6 +4053,88 @@ body[data-theme="dark"]{background:#0a1018!important}
   .student-card-footer{align-items:flex-end!important}
 }
 </style>
+
+<style id="vta-header-cleanup-v16">
+/* Remove the decorative line that was left behind from the older page headers */
+.section-title:after,
+.section-title::after{
+  content:none!important;
+  display:none!important;
+}
+
+/* Students header: simple, aligned, no unnecessary box/line */
+.students-page-toolbar{display:none!important}
+.students-page-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:18px;
+  margin:4px 2px 16px;
+  padding:0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+}
+.students-page-copy{min-width:0}
+.students-kicker{
+  display:block;
+  margin-bottom:5px;
+  color:#d66349;
+  font-size:8px;
+  font-weight:950;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+.students-summary-line{
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.students-summary-line b{
+  color:var(--text);
+  font-size:16px;
+  font-weight:900;
+  letter-spacing:-.025em;
+}
+.students-summary-line span{
+  color:var(--muted);
+  font-size:9px;
+}
+.students-add-btn{
+  flex:0 0 auto;
+  min-width:104px;
+  height:39px;
+  padding:0 15px!important;
+  border-radius:11px!important;
+  align-self:center;
+}
+.students-grid{
+  margin-top:0!important;
+}
+
+/* Remove any leftover visual divider directly before the students grid */
+.students-page-head + .students-grid{
+  border-top:0!important;
+  padding-top:0!important;
+}
+
+[data-theme="dark"] .students-summary-line b{color:#f2f4f7}
+[data-theme="dark"] .students-summary-line span{color:#96a4b5}
+
+@media(max-width:760px){
+  .students-page-head{
+    align-items:center;
+    margin:0 0 12px;
+  }
+  .students-summary-line span{display:none}
+  .students-add-btn{
+    min-width:auto;
+    height:37px;
+    padding:0 12px!important;
+  }
+}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -4505,7 +4587,7 @@ function lessonRow(l){
 function adminStudents(){
   const all=(data.students||[]).slice().sort((a,b)=>a.display_name.localeCompare(b.display_name));
   const students=all.filter(s=>s.active!==false),archived=all.filter(s=>s.active===false);
-  let h='<div class="students-page-toolbar"><div><span class="students-kicker">ACTIVE STUDENTS</span><b>'+students.length+' current learner'+(students.length===1?'':'s')+'</b><p>Open a student only when you need the detail.</p></div><button class="btn small primary" onclick="openStudentCreate()">+ Student</button></div>';
+  let h='<div class="students-page-head"><div class="students-page-copy"><span class="students-kicker">ACTIVE STUDENTS</span><div class="students-summary-line"><b>'+students.length+' current learner'+(students.length===1?'':'s')+'</b><span>Open a student only when you need the detail.</span></div></div><button class="btn primary students-add-btn" onclick="openStudentCreate()">+ Student</button></div>';
   h+='<div class="students-grid">';
   students.forEach((s,idx)=>{
     const cr=(data.curriculumSubtopics||[]).filter(x=>x.student_id===s.id),done=cr.filter(x=>curriculumStatus(x.status)==='Completed').length,pct=cr.length?Math.round(done/cr.length*100):0;
