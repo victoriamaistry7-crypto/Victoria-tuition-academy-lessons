@@ -3031,6 +3031,523 @@ input:focus,select:focus,textarea:focus{
   .search-result{grid-template-columns:54px minmax(0,1fr) auto}
 }
 </style>
+
+<style id="vta-ultra-all-pages-v14">
+/* =========================================================
+   VTA ULTRA DESIGN SYSTEM — FINAL VISUAL HIERARCHY PASS
+   Strong separation, minimal content, consistent every page
+   ========================================================= */
+
+:root{
+  --ultra-canvas:#f1f4f7;
+  --ultra-surface:#ffffff;
+  --ultra-surface-2:#f7f9fb;
+  --ultra-line:#d8e0e8;
+  --ultra-line-strong:#c4cfda;
+  --ultra-ink:#172033;
+  --ultra-muted:#6f7c8f;
+  --ultra-navy:#0f1929;
+  --ultra-navy-2:#243a58;
+  --ultra-coral:#dc6548;
+  --ultra-blue:#406c9d;
+  --ultra-green:#3e7b63;
+  --ultra-purple:#715b8c;
+  --ultra-gold:#9a6b38;
+  --ultra-shadow:0 14px 34px rgba(15,23,42,.075);
+  --ultra-shadow-hover:0 20px 46px rgba(15,23,42,.11);
+}
+
+/* Global canvas and section rhythm */
+html,body{background:var(--ultra-canvas)!important}
+.content{
+  background:
+    radial-gradient(circle at 5% 2%,rgba(220,101,72,.032),transparent 25rem),
+    radial-gradient(circle at 98% 10%,rgba(64,108,157,.03),transparent 28rem),
+    transparent!important;
+}
+.section-title{
+  position:relative;
+  padding:0 2px 10px!important;
+  margin-top:30px!important;
+  border-bottom:1px solid rgba(196,207,218,.68);
+}
+.section-title:before{
+  content:"";
+  position:absolute;
+  left:0;bottom:-1px;
+  width:52px;height:2px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--ultra-coral),#efa08a);
+}
+.section-title h3{
+  color:var(--ultra-ink)!important;
+  font-size:19px!important;
+  font-weight:900!important;
+  letter-spacing:-.035em!important;
+}
+.section-title p{color:var(--ultra-muted)!important}
+
+/* Shared premium surfaces */
+.card,
+.dashboard-panel,
+.admin-focus-card,
+.student-card-v3,
+.quiz-card-v5,
+.resource-student-v10,
+.resource-folder-v11,
+.calendar-pro,
+.chat-layout.chat-v3,
+.finance-period,
+.finance-toggle,
+.previous-month-details{
+  border:1px solid var(--ultra-line)!important;
+  box-shadow:0 1px 0 rgba(255,255,255,.85),var(--ultra-shadow)!important;
+}
+.card:hover,
+.dashboard-panel:hover,
+.student-card-v3:hover,
+.quiz-card-v5:hover,
+.resource-folder-v11:hover{
+  border-color:var(--ultra-line-strong)!important;
+  box-shadow:0 1px 0 rgba(255,255,255,.9),var(--ultra-shadow-hover)!important;
+}
+
+/* Dashboard */
+.hero{
+  border:1px solid #344b68!important;
+  box-shadow:0 22px 55px rgba(15,23,42,.17)!important;
+}
+.admin-dashboard-grid{
+  padding:10px;
+  border:1px solid var(--ultra-line);
+  border-radius:21px;
+  background:rgba(255,255,255,.52);
+  box-shadow:0 8px 24px rgba(15,23,42,.035);
+}
+.admin-focus-card{
+  box-shadow:none!important;
+  border-color:#dce3eb!important;
+}
+.admin-focus-card.accent{
+  border-color:#3b516e!important;
+  box-shadow:0 13px 31px rgba(15,23,42,.13)!important;
+}
+.dashboard-split{gap:13px!important}
+.dashboard-panel{
+  border-radius:19px!important;
+  background:var(--ultra-surface)!important;
+}
+.dashboard-panel-head{
+  padding-bottom:11px;
+  border-bottom:1px solid #e6ebf0;
+  margin-bottom:9px;
+}
+.dashboard-panel-head h4{font-size:14px!important;letter-spacing:-.025em}
+
+/* Focus 1–3: premium color cards */
+.focus-task-primary{
+  border-width:1px!important;
+  box-shadow:0 6px 16px rgba(15,23,42,.035)!important;
+}
+.focus-task-primary:nth-child(1){
+  background:linear-gradient(135deg,#fff0ea 0%,#fff9f6 100%)!important;
+  border-color:#e9bdaf!important;
+}
+.focus-task-primary:nth-child(2){
+  background:linear-gradient(135deg,#eaf3fc 0%,#f8fbfe 100%)!important;
+  border-color:#bfd2e7!important;
+}
+.focus-task-primary:nth-child(3){
+  background:linear-gradient(135deg,#ebf7f1 0%,#f9fcfa 100%)!important;
+  border-color:#bfdacb!important;
+}
+
+/* Students */
+.students-grid{
+  padding:10px;
+  border:1px solid var(--ultra-line);
+  border-radius:21px;
+  background:rgba(255,255,255,.48);
+}
+.student-card-v3{
+  background:#fff!important;
+  box-shadow:0 10px 27px rgba(15,23,42,.06)!important;
+}
+.student-card-body{
+  background:linear-gradient(180deg,#fff 0%,#fcfdfe 100%)!important;
+}
+.student-metric{
+  border:1px solid #dfe6ed!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8)
+}
+.student-card-footer{
+  padding-top:11px;
+  border-top:1px solid #e8edf2;
+}
+
+/* Student detail / curriculum */
+.routine-card{
+  border:1px solid var(--ultra-line)!important;
+  border-radius:18px!important;
+  background:linear-gradient(145deg,#fff,#f8fafc)!important;
+  box-shadow:var(--ultra-shadow)!important;
+}
+.routine-stat{
+  border-right:1px solid #e4e9ef;
+}
+.routine-stat:last-child{border-right:0}
+.curriculum-wrap{
+  padding:10px;
+  border:1px solid var(--ultra-line);
+  border-radius:19px;
+  background:rgba(255,255,255,.5);
+}
+.curriculum-subject{
+  border-radius:15px!important;
+  background:linear-gradient(135deg,#101927,#2a405e)!important;
+  color:#fff!important;
+  border:1px solid #3b526f!important;
+}
+.curriculum-subject h4,.curriculum-subject .curriculum-total{color:#fff!important}
+.term-block{
+  border:1px solid #dce3ea!important;
+  box-shadow:0 5px 15px rgba(15,23,42,.025)!important;
+}
+.topic-block[open]{
+  border-color:#9eb0c4!important;
+  box-shadow:0 10px 25px rgba(15,23,42,.06)!important;
+}
+
+/* Schedule */
+.schedule-summary-v4{
+  padding:10px;
+  border:1px solid var(--ultra-line);
+  border-radius:19px;
+  background:rgba(255,255,255,.5);
+}
+.schedule-summary-card{
+  border:1px solid #d8e1ea!important;
+  box-shadow:0 7px 18px rgba(15,23,42,.035)!important;
+}
+.calendar-pro{
+  border:1px solid #bfcbd8!important;
+  box-shadow:0 18px 43px rgba(15,23,42,.09)!important;
+}
+.calendar-pro-toolbar{
+  background:linear-gradient(180deg,#ffffff,#f5f8fa)!important;
+  border-bottom:1px solid #cfd9e3!important;
+}
+.calendar-pro-tabs{border:1px solid #d8e0e8!important}
+.time-grid-head{box-shadow:0 4px 12px rgba(15,23,42,.035)}
+.time-grid-head .dayhead{border-left-color:#d4dde7!important}
+.time-cell{border-left-color:#d8e0e8!important}
+.time-cell.hour{border-top-color:#c9d3df!important}
+.cal-month-day{
+  box-shadow:inset 0 0 0 1px rgba(214,222,231,.8);
+}
+
+/* Messages */
+.chat-layout.chat-v3{
+  border:1px solid #c2ceda!important;
+  box-shadow:0 18px 45px rgba(15,23,42,.09)!important;
+}
+.chat-v3 .chat-people{
+  border-right:1px solid #ccd7e2!important;
+}
+.chat-v3 .chat-head{
+  border-bottom:1px solid #d4dde6!important;
+}
+.chat-contact-v3.active{
+  border-color:#b9c8d7!important;
+  box-shadow:0 7px 18px rgba(15,23,42,.065)!important
+}
+.chat-v3 .composer{
+  border-top:1px solid #d7e0e9!important;
+}
+
+/* Resources */
+.resource-library-v10{
+  padding:10px;
+  border:1px solid var(--ultra-line);
+  border-radius:22px;
+  background:rgba(255,255,255,.48);
+}
+.resource-student-v10{
+  box-shadow:0 11px 28px rgba(15,23,42,.055)!important;
+}
+.resource-student-head-v10{
+  border-bottom:1px solid rgba(255,255,255,.08)
+}
+.resource-folder-v11{
+  box-shadow:0 6px 17px rgba(15,23,42,.035)!important;
+}
+.resource-folder-v11[open]{
+  border-color:#a8b8c9!important;
+  box-shadow:0 13px 31px rgba(15,23,42,.075)!important;
+}
+
+/* Quizzes */
+.quiz-overview-v5{
+  padding:10px;
+  border:1px solid var(--ultra-line);
+  border-radius:20px;
+  background:rgba(255,255,255,.5);
+}
+.quiz-overview-card{
+  box-shadow:0 7px 18px rgba(15,23,42,.035)!important
+}
+.quiz-list-v5{
+  padding:10px;
+  border:1px solid var(--ultra-line);
+  border-radius:20px;
+  background:rgba(255,255,255,.48);
+}
+.quiz-card-v5{
+  box-shadow:0 10px 27px rgba(15,23,42,.055)!important;
+}
+
+/* FINANCE — strongest separation from page background */
+.finance-shell{
+  padding:14px;
+  border-radius:25px;
+  border:1px solid #cfd8e2;
+  background:
+    radial-gradient(circle at 92% 0%,rgba(220,101,72,.07),transparent 19rem),
+    linear-gradient(180deg,#e9eef3 0%,#f4f6f8 46%,#eef2f5 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 17px 42px rgba(15,23,42,.065);
+}
+.finance-hero{
+  margin-bottom:13px;
+  border:1px solid #3e5675!important;
+  box-shadow:0 18px 41px rgba(15,23,42,.16)!important;
+}
+.finance-v2-grid{
+  padding:11px;
+  gap:11px!important;
+  border-radius:19px;
+  border:1px solid #cbd5df;
+  background:#f8fafc;
+  box-shadow:0 8px 22px rgba(15,23,42,.035);
+}
+.finance-v2-card{
+  min-height:132px!important;
+  border-width:1px!important;
+  box-shadow:0 9px 23px rgba(15,23,42,.055)!important;
+}
+.finance-v2-grid .finance-v2-card:nth-child(1){
+  background:linear-gradient(145deg,#0d1727,#2b4262)!important;
+  border-color:#405b7d!important;
+  color:#fff!important;
+}
+.finance-v2-grid .finance-v2-card:nth-child(2){
+  background:linear-gradient(145deg,#fff0e8,#fff8f4)!important;
+  border-color:#e7bfae!important;
+}
+.finance-v2-grid .finance-v2-card:nth-child(3){
+  background:linear-gradient(145deg,#e9f3fc,#f8fbfe)!important;
+  border-color:#bcd0e5!important;
+}
+.finance-v2-grid .finance-v2-card:nth-child(4){
+  background:linear-gradient(145deg,#eaf7f0,#f8fcfa)!important;
+  border-color:#bdd8c9!important;
+}
+.finance-v2-card:hover{
+  transform:translateY(-3px)!important;
+  box-shadow:0 17px 38px rgba(15,23,42,.11)!important;
+}
+.finance-total-premium{
+  margin-top:12px!important;
+  border:1px solid #496485!important;
+  box-shadow:0 18px 42px rgba(15,23,42,.18)!important;
+}
+.finance-shell>.section-title{
+  margin-left:2px!important;
+  margin-right:2px!important;
+}
+.student-finance-card{
+  background:#fff!important;
+  border:1px solid #d4dde6!important;
+  border-radius:15px!important;
+  box-shadow:0 7px 19px rgba(15,23,42,.045)!important;
+}
+.finance-period{
+  margin-top:15px!important;
+  padding:16px!important;
+  border-radius:17px!important;
+  background:#fff!important;
+  border-color:#d2dbe5!important;
+  box-shadow:0 9px 24px rgba(15,23,42,.045)!important;
+}
+.finance-toggle{
+  background:#fff!important;
+  border-color:#d1dbe5!important;
+  box-shadow:0 8px 22px rgba(15,23,42,.045)!important;
+}
+.finance-toggle summary{
+  min-height:67px;
+  padding:16px 17px!important;
+  background:linear-gradient(145deg,#fff,#f8fafc);
+}
+.finance-toggle[open] summary{
+  background:linear-gradient(145deg,#f5f8fb,#eef3f7)!important;
+}
+.finance-toggle-title small{font-size:9px!important}
+.finance-toggle-title b{font-size:15px!important}
+.finance-toggle-value{font-size:22px!important}
+.previous-month-details{
+  background:#fff!important;
+  border-color:#d1dbe5!important;
+  box-shadow:0 8px 22px rgba(15,23,42,.04)!important;
+}
+.previous-month-details summary{
+  font-size:13px!important;
+  font-weight:900!important;
+  padding:15px 16px!important;
+}
+.finance-note{
+  margin-top:14px!important;
+  background:linear-gradient(145deg,#fff6eb,#fffaf5)!important;
+  border:1px solid #e7cfb1!important;
+  box-shadow:0 7px 18px rgba(15,23,42,.035);
+}
+
+/* Search / quick actions */
+.global-search-field,
+.quick-context-head,
+.lesson-action-summary{
+  box-shadow:0 7px 19px rgba(15,23,42,.04)
+}
+.quick-launch-grid button{
+  box-shadow:0 5px 14px rgba(15,23,42,.03);
+}
+
+/* Modal polish */
+.modal{
+  backdrop-filter:blur(7px);
+}
+.modal-card{
+  border:1px solid #cbd6e1!important;
+  background:#fff!important;
+  box-shadow:0 36px 95px rgba(15,23,42,.27)!important;
+}
+.modal-card>div:first-child{
+  padding-bottom:12px;
+  border-bottom:1px solid #e8edf2;
+  margin-bottom:13px;
+}
+.modal-actions{
+  padding-top:13px!important;
+  border-top:1px solid #e6ebf0!important;
+}
+
+/* Dark mode — deliberately separated surfaces */
+[data-theme="dark"]{
+  --ultra-canvas:#0a1018;
+  --ultra-surface:#121923;
+  --ultra-surface-2:#171f2a;
+  --ultra-line:#303b49;
+  --ultra-line-strong:#455468;
+  --ultra-ink:#f1f4f7;
+  --ultra-muted:#9ca9b9;
+}
+[data-theme="dark"] html,
+[data-theme="dark"] body,
+html[data-theme="dark"],
+body[data-theme="dark"]{background:#0a1018!important}
+[data-theme="dark"] .section-title{border-color:#293542}
+[data-theme="dark"] .section-title h3{color:#f2f4f7!important}
+[data-theme="dark"] .admin-dashboard-grid,
+[data-theme="dark"] .students-grid,
+[data-theme="dark"] .curriculum-wrap,
+[data-theme="dark"] .schedule-summary-v4,
+[data-theme="dark"] .resource-library-v10,
+[data-theme="dark"] .quiz-overview-v5,
+[data-theme="dark"] .quiz-list-v5{
+  background:#0f161f!important;
+  border-color:#2d3947!important;
+}
+[data-theme="dark"] .dashboard-panel,
+[data-theme="dark"] .student-card-v3,
+[data-theme="dark"] .quiz-card-v5,
+[data-theme="dark"] .resource-student-v10,
+[data-theme="dark"] .resource-folder-v11,
+[data-theme="dark"] .finance-period,
+[data-theme="dark"] .finance-toggle,
+[data-theme="dark"] .previous-month-details{
+  background:#141c26!important;
+  border-color:#344151!important;
+  box-shadow:0 12px 30px rgba(0,0,0,.2)!important;
+}
+[data-theme="dark"] .dashboard-panel-head,
+[data-theme="dark"] .student-card-footer{border-color:#2e3a48!important}
+[data-theme="dark"] .routine-card{
+  background:linear-gradient(145deg,#151d27,#101720)!important;
+  border-color:#344151!important;
+}
+[data-theme="dark"] .focus-task-primary:nth-child(1){
+  background:linear-gradient(135deg,#2a1e1a,#171e27)!important;border-color:#563d34!important
+}
+[data-theme="dark"] .focus-task-primary:nth-child(2){
+  background:linear-gradient(135deg,#172433,#171e27)!important;border-color:#38516b!important
+}
+[data-theme="dark"] .focus-task-primary:nth-child(3){
+  background:linear-gradient(135deg,#17261f,#171e27)!important;border-color:#365446!important
+}
+[data-theme="dark"] .finance-shell{
+  background:
+    radial-gradient(circle at 92% 0%,rgba(220,101,72,.055),transparent 19rem),
+    linear-gradient(180deg,#0e151e,#111821 48%,#0d141c)!important;
+  border-color:#344151!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025),0 18px 42px rgba(0,0,0,.25)!important;
+}
+[data-theme="dark"] .finance-v2-grid{
+  background:#101720!important;
+  border-color:#344151!important;
+}
+[data-theme="dark"] .finance-v2-grid .finance-v2-card:nth-child(1){
+  background:linear-gradient(145deg,#0d1522,#223651)!important;border-color:#425b79!important
+}
+[data-theme="dark"] .finance-v2-grid .finance-v2-card:nth-child(2){
+  background:linear-gradient(145deg,#2b211c,#171e27)!important;border-color:#553d34!important
+}
+[data-theme="dark"] .finance-v2-grid .finance-v2-card:nth-child(3){
+  background:linear-gradient(145deg,#172535,#171e27)!important;border-color:#38536e!important
+}
+[data-theme="dark"] .finance-v2-grid .finance-v2-card:nth-child(4){
+  background:linear-gradient(145deg,#17271f,#171e27)!important;border-color:#375648!important
+}
+[data-theme="dark"] .student-finance-card{
+  background:#171f29!important;border-color:#344151!important
+}
+[data-theme="dark"] .finance-toggle summary{
+  background:linear-gradient(145deg,#171f29,#141b24)!important
+}
+[data-theme="dark"] .finance-toggle[open] summary{
+  background:linear-gradient(145deg,#1c2632,#17202a)!important
+}
+[data-theme="dark"] .modal-card{
+  background:#111821!important;
+  border-color:#3a4758!important;
+  box-shadow:0 38px 100px rgba(0,0,0,.6)!important
+}
+[data-theme="dark"] .modal-card>div:first-child,
+[data-theme="dark"] .modal-actions{border-color:#2d3947!important}
+
+/* Mobile keeps the hierarchy without feeling boxed in */
+@media(max-width:760px){
+  .admin-dashboard-grid,
+  .students-grid,
+  .schedule-summary-v4,
+  .resource-library-v10,
+  .quiz-overview-v5,
+  .quiz-list-v5{padding:7px;border-radius:16px}
+  .finance-shell{padding:9px;border-radius:18px}
+  .finance-v2-grid{padding:7px;border-radius:15px}
+  .finance-v2-card{min-height:116px!important}
+  .finance-period{padding:13px!important}
+  .section-title{margin-top:24px!important}
+}
+</style>
 </head>
 <body>
 <section id="login" class="login">
