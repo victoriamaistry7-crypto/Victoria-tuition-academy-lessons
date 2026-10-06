@@ -1,0 +1,9 @@
+{
+  "name": "v-private-voice-call-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=20"},
+  "scripts": {"start": "node server.js"},
+  "dependencies": {"express": "^5.1.0"}
+}
