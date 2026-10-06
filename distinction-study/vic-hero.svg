@@ -1,1 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1d0f3e"/><stop offset=".58" stop-color="#0a1025"/><stop offset="1" stop-color="#090a12"/></linearGradient><radialGradient id="glow"><stop stop-color="#a84dff" stop-opacity=".55"/><stop offset="1" stop-color="#a84dff" stop-opacity="0"/></radialGradient></defs><rect width="960" height="520" rx="36" fill="url(#bg)"/><circle cx="235" cy="215" r="190" fill="url(#glow)"/><circle cx="785" cy="105" r="125" fill="url(#glow)" opacity=".55"/><rect x="80" y="360" width="800" height="20" rx="10" fill="#3d295c"/><rect x="130" y="280" width="260" height="82" rx="16" fill="#14192d" stroke="#8f62ff" stroke-width="4"/><rect x="155" y="300" width="210" height="43" rx="8" fill="#25184b"/><path d="M486 316c62-39 119-43 167-9v96c-51-29-107-27-167 10v-97zm334 0c-62-39-119-43-167-9v96c51-29 107-27 167 10v-97z" fill="#efe9ff"/><path d="M653 309v103" stroke="#a07cff" stroke-width="9"/><path d="M567 272l18-63 43 34 25-65 25 65 43-34 18 63H567z" fill="#f5c454"/><text x="95" y="100" font-family="Segoe UI,Arial,sans-serif" font-size="58" font-weight="800" fill="#fff">Vic Distinction Study</text><text x="96" y="155" font-family="Segoe UI,Arial,sans-serif" font-size="25" fill="#cfbaff">Your personal study coach for distinctions and A's.</text><text x="97" y="208" font-family="Segoe UI,Arial,sans-serif" font-size="19" fill="#d8d4e4">Learn • Practise • Diagnose • Improve</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#211146"/><stop offset=".62" stop-color="#0d1730"/><stop offset="1" stop-color="#090d18"/></linearGradient>
+  <radialGradient id="g1"><stop stop-color="#9b5cff" stop-opacity=".58"/><stop offset="1" stop-color="#9b5cff" stop-opacity="0"/></radialGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff1a6"/><stop offset=".48" stop-color="#f2c45c"/><stop offset="1" stop-color="#ad6c17"/></linearGradient>
+  <linearGradient id="page" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f1ff"/><stop offset="1" stop-color="#afa4d8"/></linearGradient>
+</defs>
+<rect width="720" height="520" rx="34" fill="url(#bg)"/>
+<circle cx="230" cy="180" r="185" fill="url(#g1)"/>
+<circle cx="610" cy="86" r="115" fill="url(#g1)" opacity=".34"/>
+<path d="M95 390c100-64 187-69 258-16v94c-77-46-163-42-258 18v-96z" fill="url(#page)"/>
+<path d="M625 390c-100-64-187-69-272-16v94c83-46 172-42 272 18v-96z" fill="url(#page)"/>
+<path d="M353 374v102" stroke="#7f65c6" stroke-width="10"/>
+<path d="M205 316l27-91 57 43 64-117 64 117 57-43 27 91H205z" fill="url(#gold)" stroke="#ffeaa0" stroke-width="5"/>
+<circle cx="232" cy="214" r="10" fill="#fff1a6"/><circle cx="353" cy="142" r="11" fill="#fff1a6"/><circle cx="474" cy="214" r="10" fill="#fff1a6"/>
+<path d="M353 205l22 31-22 31-22-31 22-31z" fill="#7137e6"/>
+<rect x="74" y="408" width="572" height="15" rx="7.5" fill="#33214f" opacity=".65"/>
+<circle cx="92" cy="104" r="5" fill="#d8b9ff"/><circle cx="561" cy="160" r="4" fill="#ffd879"/><circle cx="623" cy="245" r="6" fill="#a67dff"/>
+</svg>
