@@ -1,0 +1,13 @@
+name: Activate quiz submission email
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/activate-empirical-quiz-email.yml'
+jobs:
+  activate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger FormSubmit activation
+        run: |
+          curl --fail --silent --show-error -X POST             -F "name=Victoria Tuition Academy Quiz Setup"             -F "message=One-time activation request for the Empirical Formula Quiz submission form."             -F "_subject=Activate Empirical Formula Quiz submissions"             https://formsubmit.co/victoriamaistry18@gmail.com
