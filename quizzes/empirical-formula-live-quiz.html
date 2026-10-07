@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Empirical Formula Quiz | Victoria Tuition Academy</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+:root{--bg:#f5f3ff;--card:#fff;--ink:#17151f;--muted:#6f6a7b;--line:#e7e1f2;--accent:#6d28d9;--accent2:#4c1d95;--ok:#0f766e;--danger:#b42318;--shadow:0 12px 30px rgba(56,32,98,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#ede9fe 0,#f7f5fb 260px,#f8f7fb 100%);color:var(--ink)}
+.wrap{max-width:860px;margin:0 auto;padding:22px 14px 70px}.hero{background:linear-gradient(135deg,#2e1065,#6d28d9);color:#fff;border-radius:26px;padding:26px 22px;box-shadow:var(--shadow)}
+.brand{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;opacity:.82}.hero h1{font-size:30px;line-height:1.1;margin:10px 0 8px}.hero p{margin:0;opacity:.9;line-height:1.55}.meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px}.pill{padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.13);font-size:13px;font-weight:700}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;margin-top:16px;box-shadow:var(--shadow)}.panel h2{margin:0 0 14px;font-size:18px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:640px){.grid{grid-template-columns:1fr}.hero h1{font-size:25px}}
+label{display:block;font-size:13px;font-weight:800;margin:0 0 7px;color:#3d3750}input,select{width:100%;font:inherit;padding:13px 14px;border-radius:13px;border:1px solid #d9d2e6;background:#fff;color:var(--ink);outline:none}input:focus,select:focus{border-color:#8b5cf6;box-shadow:0 0 0 3px rgba(139,92,246,.14)}
+.note{font-size:13px;color:var(--muted);line-height:1.55}.formula-box{background:#faf8ff;border:1px dashed #cec3e2;border-radius:15px;padding:13px;margin-top:10px;overflow:auto}.formula-box .katex{font-size:1.08em}
+.q{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;margin-top:14px;box-shadow:0 8px 20px rgba(56,32,98,.05)}.qhead{display:flex;align-items:flex-start;gap:10px}.num{min-width:34px;height:34px;border-radius:11px;background:#ede9fe;color:#4c1d95;display:grid;place-items:center;font-weight:900}.q h3{margin:3px 0 0;font-size:16px;line-height:1.48}.data{margin:13px 0;padding:12px 14px;border-radius:14px;background:#fafafa;border:1px solid #eee;line-height:1.8}.answer{margin-top:12px}.answer input{text-transform:none}.helper{font-size:12px;color:var(--muted);margin-top:7px}
+.actions{position:sticky;bottom:10px;margin-top:20px;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:0 12px 30px rgba(37,26,56,.13)}button{width:100%;border:0;border-radius:14px;padding:15px 18px;background:linear-gradient(135deg,var(--accent2),var(--accent));color:#fff;font-weight:900;font-size:16px;cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}.status{display:none;margin-top:12px;border-radius:15px;padding:14px;font-weight:750;line-height:1.5}.status.show{display:block}.status.ok{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}.status.err{background:#fff1f2;color:#9f1239;border:1px solid #fecdd3}.tiny{text-align:center;color:var(--muted);font-size:11px;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="brand">Victoria Tuition Academy</div>
+    <h1>Empirical Formula Quiz</h1>
+    <p>Quantitative Chemistry • Show your working on paper, then enter only your final empirical formula for each question.</p>
+    <div class="meta"><span class="pill">12 questions</span><span class="pill">12 marks</span><span class="pill">Teacher receives submission</span></div>
+  </section>
+
+  <section class="panel">
+    <h2>Student details</h2>
+    <div class="grid">
+      <div><label for="studentName">Full name</label><input id="studentName" autocomplete="name" placeholder="Enter your full name" required></div>
+      <div><label for="grade">Grade</label><select id="grade"><option value="">Select grade</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option></select></div>
+    </div>
+    <div class="formula-box">Use: \[ n=\frac{m}{M} \] Then divide every mole value by the smallest value to obtain the simplest whole-number ratio.</div>
+    <p class="note"><strong>Important:</strong> enter formulas with normal numbers, for example <strong>Fe2O3</strong>. Your teacher will receive your completed submission. Answers and marks are not shown after submission.</p>
+  </section>
+
+  <main id="questions"></main>
+
+  <div class="actions">
+    <button id="submitBtn" type="button">Submit Quiz</button>
+    <div id="status" class="status"></div>
+  </div>
+  <div class="tiny">Victoria Tuition Academy • Empirical Formula Assessment</div>
+</div>
+<script>
+const DESTINATION = ['victoriamaistry18','gmail.com'].join('@');
+const quiz = [
+ {id:1, question:'A compound contains 40.0% carbon, 6.7% hydrogen and 53.3% oxygen by mass. Determine its empirical formula.', data:'C = 40.0% &nbsp;&nbsp; H = 6.7% &nbsp;&nbsp; O = 53.3%', answer:'CH2O'},
+ {id:2, question:'A compound contains 52.2% carbon, 13.0% hydrogen and 34.8% oxygen by mass. Determine its empirical formula.', data:'C = 52.2% &nbsp;&nbsp; H = 13.0% &nbsp;&nbsp; O = 34.8%', answer:'C2H6O'},
+ {id:3, question:'A compound contains 27.3% carbon and 72.7% oxygen by mass. Determine its empirical formula.', data:'C = 27.3% &nbsp;&nbsp; O = 72.7%', answer:'CO2'},
+ {id:4, question:'A compound contains 43.7% phosphorus and 56.3% oxygen by mass. Determine its empirical formula.', data:'P = 43.7% &nbsp;&nbsp; O = 56.3%', answer:'P2O5'},
+ {id:5, question:'An iron oxide contains 69.9% iron and 30.1% oxygen by mass. Determine its empirical formula.', data:'Fe = 69.9% &nbsp;&nbsp; O = 30.1%', answer:'Fe2O3'},
+ {id:6, question:'A compound is formed from 4.8 g of magnesium and 3.2 g of oxygen. Determine its empirical formula.', data:'m(Mg) = 4.8 g &nbsp;&nbsp; m(O) = 3.2 g &nbsp;&nbsp; Ar(Mg) = 24 &nbsp;&nbsp; Ar(O) = 16', answer:'MgO'},
+ {id:7, question:'An iron oxide contains 5.6 g of iron combined with 2.4 g of oxygen. Determine its empirical formula.', data:'m(Fe) = 5.6 g &nbsp;&nbsp; m(O) = 2.4 g &nbsp;&nbsp; Ar(Fe) = 56 &nbsp;&nbsp; Ar(O) = 16', answer:'Fe2O3'},
+ {id:8, question:'A compound contains 2.4 g carbon, 0.6 g hydrogen and 3.2 g oxygen. Determine its empirical formula.', data:'m(C) = 2.4 g &nbsp;&nbsp; m(H) = 0.6 g &nbsp;&nbsp; m(O) = 3.2 g', answer:'CH3O'},
+ {id:9, question:'A hydrocarbon contains 85.7% carbon and 14.3% hydrogen by mass. Determine its empirical formula.', data:'C = 85.7% &nbsp;&nbsp; H = 14.3%', answer:'CH2'},
+ {id:10, question:'A manganese oxide contains 63.2% manganese and 36.8% oxygen by mass. Determine its empirical formula.', data:'Mn = 63.2% &nbsp;&nbsp; O = 36.8% &nbsp;&nbsp; Ar(Mn) = 54.9', answer:'MnO2'},
+ {id:11, question:'A compound contains 54.5% carbon, 9.1% hydrogen and 36.4% oxygen by mass. Determine its empirical formula.', data:'C = 54.5% &nbsp;&nbsp; H = 9.1% &nbsp;&nbsp; O = 36.4%', answer:'C2H4O'},
+ {id:12, question:'A sulfur oxide contains 40.0% sulfur and 60.0% oxygen by mass. Determine its empirical formula.', data:'S = 40.0% &nbsp;&nbsp; O = 60.0%', answer:'SO3'}
+];
+
+function renderQuiz(){
+ const root=document.getElementById('questions');
+ root.innerHTML=quiz.map(q=>`<section class="q"><div class="qhead"><div class="num">${q.id}</div><h3>${q.question}</h3></div><div class="data">${q.data}</div><div class="answer"><label for="q${q.id}">Final empirical formula</label><input id="q${q.id}" inputmode="text" autocomplete="off" autocapitalize="characters" placeholder="e.g. Fe2O3"><div class="helper">Show your calculations on paper before entering your final formula.</div></div></section>`).join('');
+ if(window.renderMathInElement){renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]});}
+}
+window.addEventListener('DOMContentLoaded',()=>{renderQuiz();});
+
+function normalizeFormula(s){return (s||'').replace(/\s+/g,'').replace(/[₀-₉]/g,ch=>'₀₁₂₃₄₅₆₇₈₉'.indexOf(ch)).toLowerCase();}
+function safeName(s){return (s||'student').trim().replace(/[^a-z0-9]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,50)||'student';}
+function setStatus(type,msg){const el=document.getElementById('status');el.className='status show '+type;el.textContent=msg;}
+
+async function makeWorkbook(student,grade,submittedAt,responses,score){
+ const wb=XLSX.utils.book_new();
+ const summary=[
+  ['Victoria Tuition Academy','Empirical Formula Quiz'],
+  ['Student',student],['Grade',grade||'Not supplied'],['Submitted',submittedAt],['Score',`${score} / ${quiz.length}`],['Percentage',`${Math.round(score/quiz.length*100)}%`],[],
+  ['Teacher note','Correct answers and marking are included only in this emailed workbook.']
+ ];
+ const ws1=XLSX.utils.aoa_to_sheet(summary);
+ ws1['!cols']=[{wch:22},{wch:42}];
+ const rows=responses.map(r=>({Question:r.id,'Question text':r.question,'Student answer':r.studentAnswer,'Correct answer':r.correctAnswer,'Mark':r.mark,'Max mark':1}));
+ rows.push({Question:'TOTAL','Question text':'','Student answer':'','Correct answer':'','Mark':score,'Max mark':quiz.length});
+ const ws2=XLSX.utils.json_to_sheet(rows);
+ ws2['!cols']=[{wch:10},{wch:72},{wch:18},{wch:18},{wch:10},{wch:10}];
+ XLSX.utils.book_append_sheet(wb,ws1,'Summary');
+ XLSX.utils.book_append_sheet(wb,ws2,'Responses');
+ return XLSX.write(wb,{bookType:'xlsx',type:'array'});
+}
+
+async function submitQuiz(){
+ const btn=document.getElementById('submitBtn');
+ const student=document.getElementById('studentName').value.trim();
+ const grade=document.getElementById('grade').value;
+ if(!student){document.getElementById('studentName').focus();setStatus('err','Please enter your full name before submitting.');return;}
+ const answers=quiz.map(q=>document.getElementById('q'+q.id).value.trim());
+ const missing=answers.findIndex(a=>!a);
+ if(missing!==-1){document.getElementById('q'+quiz[missing].id).focus();setStatus('err',`Please answer Question ${quiz[missing].id} before submitting.`);return;}
+ btn.disabled=true;btn.textContent='Submitting…';setStatus('ok','Preparing your submission…');
+ const submittedAt=new Date().toLocaleString('en-ZA',{dateStyle:'medium',timeStyle:'short'});
+ const responses=quiz.map((q,i)=>{const ok=normalizeFormula(answers[i])===normalizeFormula(q.answer);return{id:q.id,question:q.question,studentAnswer:answers[i],correctAnswer:q.answer,mark:ok?1:0};});
+ const score=responses.reduce((a,r)=>a+r.mark,0);
+ try{
+   if(!window.XLSX) throw new Error('Spreadsheet library did not load.');
+   const data=await makeWorkbook(student,grade,submittedAt,responses,score);
+   const file=new File([data],`Empirical_Formula_Quiz_${safeName(student)}.xlsx`,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+   const fd=new FormData();
+   fd.append('Student',student);fd.append('Grade',grade||'Not supplied');fd.append('Submitted',submittedAt);
+   fd.append('Assessment','Empirical Formula Quiz');fd.append('Score',`${score}/${quiz.length}`);fd.append('Percentage',`${Math.round(score/quiz.length*100)}%`);
+   fd.append('_subject',`Empirical Formula Quiz — ${student}`);fd.append('_template','table');fd.append('_captcha','false');
+   fd.append('attachment',file,file.name);
+   quiz.forEach((q,i)=>fd.append(`Q${q.id} response`,answers[i]));
+   const res=await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(DESTINATION)}`,{method:'POST',body:fd,headers:{'Accept':'application/json'}});
+   const out=await res.json().catch(()=>({}));
+   if(!res.ok || out.success===false) throw new Error(out.message||'Submission service returned an error.');
+   document.querySelectorAll('input,select').forEach(el=>el.disabled=true);
+   btn.textContent='Submitted';
+   setStatus('ok','Assessment submitted successfully. Your teacher has received your submission.');
+   window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+ }catch(err){
+   console.error(err);
+   btn.disabled=false;btn.textContent='Submit Quiz';
+   setStatus('err','The quiz could not be sent. Check your internet connection and try again. Your answers are still on this page.');
+ }
+}
+document.addEventListener('click',e=>{if(e.target && e.target.id==='submitBtn')submitQuiz();});
+</script>
+</body>
+</html>
