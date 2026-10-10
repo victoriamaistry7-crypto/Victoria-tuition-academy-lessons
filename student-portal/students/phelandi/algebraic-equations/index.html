@@ -116,7 +116,7 @@ function texMath(input,block){
 function richMath(s){return String(s).replace(/\\\(([\s\S]*?)\\\)|\\\[([\s\S]*?)\\\]/g,function(_,a,b){return texMath(a===undefined?b:a,b!==undefined)})}
 function typeset(){
  document.querySelectorAll(".examplebox p,.question,.feedback,#notation").forEach(function(el){
-  var raw=el.innerHTML;if(raw.indexOf("\\\\(")>=0||raw.indexOf("\\\\[")>=0)el.innerHTML=richMath(raw);
+  var raw=el.innerHTML, formatted=richMath(raw); if(formatted!==raw)el.innerHTML=formatted;
  });
 }
 
