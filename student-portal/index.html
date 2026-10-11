@@ -4382,6 +4382,8 @@ function progressDisplay(s){const v=curriculumStatus(s);return v==='Not started'
 function progressClass(s){const v=curriculumStatus(s);return v==='Completed'?'completed':v==='In progress'?'in-progress':v==='Revisit'?'revisit':'not-completed'}
 
 function curriculumStatus(s){return s==='Covered'?'Completed':s==='Current'||s==='Next'?'In progress':s==='Future'||s==='Resource Ready'?'Not started':s||'Not started'}
+function currentAcademicTerm(){const m=new Date(today()+'T12:00:00').getMonth()+1;return m<=3?1:m<=6?2:m<=9?3:4}
+function activeCurriculumScope(rows){const term=currentAcademicTerm(),scoped=(rows||[]).filter(x=>Number(x.term_number)===term);return scoped.length?scoped:(rows||[])}
 function curriculumTracker(rows,editable){
   if(!rows.length)return emptyState('No curriculum loaded','Curriculum subtopics will appear here.');
   const subjects=[...new Set(rows.map(x=>x.subject))];
@@ -4684,10 +4686,10 @@ function adminStudents(){
   let h=adminPageHeader('Students',students.length+' active learner'+(students.length===1?'':'s')+' · Open a profile only when you need more detail.','<button class="btn primary" onclick="openStudentCreate()">+ Student</button>');
   h+='<div class="page-surface students-surface"><div class="students-grid">';
   students.forEach((s,idx)=>{
-    const cr=(data.curriculumSubtopics||[]).filter(x=>x.student_id===s.id),done=cr.filter(x=>curriculumStatus(x.status)==='Completed').length,pct=cr.length?Math.round(done/cr.length*100):0;
+    const cr=(data.curriculumSubtopics||[]).filter(x=>x.student_id===s.id),scope=activeCurriculumScope(cr),done=scope.filter(x=>curriculumStatus(x.status)==='Completed').length,pct=scope.length?Math.round(done/scope.length*100):0;
     const target=Number(currentPlanForRaw(s.id)?.target_hours||0),doneH=completedHoursInCalendarMonth(0,s.id),remain=thisMonthRemaining(s.id),old=previousMonthCatchupRemaining(s.id);
     h+='<div class="card student-card compact student-card-v2 student-card-v3 tone-'+(idx%4)+'"><div class="student-card-cover"><div class="student-card-head"><div class="student-id-wrap"><div class="student-avatar-v3">'+esc(initials(s.display_name))+'</div><div><div class="student-name-v3">'+esc(s.display_name)+'</div><div class="student-meta-v3">'+esc(s.grade||'Grade not set')+' · '+esc(s.subjects||'Subjects not set')+'</div></div></div><span class="student-status-v3">Active</span></div><div class="student-month-v3">'+esc(monthBounds(0).label)+' overview</div></div><div class="student-card-body"><div class="student-card-metrics"><div class="student-metric"><span>Completed</span><b>'+doneH.toFixed(1)+'h</b></div><div class="student-metric"><span>Still to cover</span><b>'+remain.toFixed(1)+'h</b></div><div class="student-metric"><span>Old catch-up</span><b>'+old.toFixed(1)+'h</b></div></div>'+
-      (cr.length?'<div class="curriculum-mini"><div class="curr-row"><span>Curriculum progress</span><span>'+pct+'%</span></div><div class="progress"><i style="width:'+pct+'%"></i></div></div>':'')+
+      (scope.length?'<div class="curriculum-mini"><div class="curr-row"><span>Term '+currentAcademicTerm()+' progress</span><span>'+pct+'%</span></div><div class="progress"><i style="width:'+pct+'%"></i></div></div>':'')+
       '<div class="student-card-footer"><span class="student-target-copy">'+(target>0?target.toFixed(0)+'h monthly target':'No current monthly target')+'</span><div class="row"><button class="btn small" onclick="openStudentQuickActions(\''+s.id+'\')">Quick</button><button class="btn small primary" onclick="studentDetail(\''+s.id+'\')">Open student</button></div></div></div></div>';
   });
   h+='</div>';
@@ -4731,8 +4733,8 @@ function studentDetail(id){
 }
 function adminSchedule(){
   if(!scheduleAnchor)scheduleAnchor=today();
-  const pending=(data.bookings||[]).filter(x=>x.status==='Pending'),needs=(data.lessons||[]).filter(x=>x.status==='Needs confirmation'),events=mergedLessonEvents();
-  const todays=events.filter(e=>e.event_date===today()),googleCount=events.filter(e=>e.event_date>=today()&&e.source==='Google Calendar').length;
+  const pending=(data.bookings||[]).filter(x=>x.status==='Pending'),needs=(data.lessons||[]).filter(x=>String(x.status||'').toLowerCase()==='needs confirmation'),events=mergedLessonEvents();
+  const todays=events.filter(e=>e.event_date===today()),googleCount=calendarLessonEvents().filter(e=>e.event_date>=today()).length;
   const todayHours=todays.reduce((s,e)=>{const st=String(e.start_time||'00:00').slice(0,5).split(':').map(Number),et=String(e.end_time||e.start_time||'00:00').slice(0,5).split(':').map(Number);return s+Math.max(0,(et[0]*60+et[1]-st[0]*60-st[1])/60)},0);
   let h=adminPageHeader('Schedule','View lessons, synced calendar events and booking requests in one place.','<button class="btn primary" onclick="openLesson()">+ Add lesson</button>');
   h+='<div class="page-surface schedule-surface"><div class="schedule-summary-v4"><div class="schedule-summary-card primary"><div class="label">TODAY</div><div class="value">'+(todays.length?todays.length+' lesson'+(todays.length===1?'':'s'):'No lessons')+'</div><p>'+new Date(today()+'T12:00:00').toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long'})+'</p></div><div class="schedule-summary-card"><div class="label">TEACHING TIME TODAY</div><div class="value">'+todayHours.toFixed(1)+'h</div><p>Based on scheduled calendar blocks</p></div><div class="schedule-summary-card"><div class="label">CALENDAR SYNC</div><div class="value">'+googleCount+'</div><p>Upcoming Google Calendar lesson'+(googleCount===1?'':'s')+'</p></div></div>';
@@ -5061,13 +5063,13 @@ function renderStudent(){
   if(tab==='home')studentHome();else if(tab==='learning')studentLearning();else if(tab==='book')studentBook();else if(tab==='messages')studentMessages();else if(tab==='resources')studentResources();else if(tab==='work')studentWork();else if(tab==='quizzes')studentQuizzes();
 }
 function studentHome(){
-  const lessons=data.lessons||[],tp=data.curriculumSubtopics||[],covered=tp.filter(x=>curriculumStatus(x.status)==='Completed').length,pct=tp.length?Math.round(covered/tp.length*100):0;
+  const lessons=data.lessons||[],tp=data.curriculumSubtopics||[],scope=activeCurriculumScope(tp),covered=scope.filter(x=>curriculumStatus(x.status)==='Completed').length,pct=scope.length?Math.round(covered/scope.length*100):0;
   const next=lessons.filter(x=>x.lesson_date>=today()&&x.status!=='Cancelled').sort((a,b)=>(a.lesson_date+(a.start_time||'')).localeCompare(b.lesson_date+(b.start_time||'')))[0];
-  const focus=tp.filter(x=>['In progress','Revisit','Current','Next'].includes(curriculumStatus(x.status)));
+  const focus=scope.filter(x=>['In progress','Revisit'].includes(curriculumStatus(x.status)));
   const featured=(data.resources||[]).filter(r=>r.featured).slice(0,3);
   let h='<section class="hero student-hero-premium"><div class="hero-grid"><div class="hero-copy"><div class="tiny strong" style="color:#ffad98">YOUR VTA LEARNING SPACE</div><h2>'+greeting()+', '+esc(data.user.displayName)+'.</h2><p>Your lessons, progress, resources and support — all in one place.</p></div><div class="hero-actions"><button class="hero-action" onclick="go(\'book\')"><b>Book a lesson</b><span>Choose topic & time</span></button><button class="hero-action" onclick="go(\'messages\')"><b>Message Victoria</b><span>Ask for help</span></button><button class="hero-action" onclick="go(\'resources\')"><b>Open resources</b><span>Lessons & notes</span></button><button class="hero-action" onclick="go(\'work\')"><b>Send work</b><span>Homework & assessments</span></button></div></div></section>';
   h+=section('Your learning dashboard','A quick view of progress and what comes next');
-  h+='<div class="student-dashboard-v2"><div class="card progress-card student-progress-v2"><div class="progress-ring" style="--p:'+pct+'"><span>'+pct+'%</span></div><div><div class="tiny strong muted">SYLLABUS PROGRESS</div><h3 style="margin:5px 0 6px">'+covered+' of '+tp.length+' subtopics completed</h3><div class="tiny muted">'+(pct>=80?'Strong progress — keep practising exam questions.':pct>=40?'You are building momentum topic by topic.':'Your progress will grow as topics are completed.')+'</div><div class="student-actions"><button class="student-action primary" onclick="go(\'learning\')">View learning</button><button class="student-action" onclick="go(\'resources\')">Resources</button></div></div></div>';
+  h+='<div class="student-dashboard-v2"><div class="card progress-card student-progress-v2"><div class="progress-ring" style="--p:'+pct+'"><span>'+pct+'%</span></div><div><div class="tiny strong muted">TERM '+currentAcademicTerm()+' PROGRESS</div><h3 style="margin:5px 0 6px">'+covered+' of '+scope.length+' current-term subtopics completed</h3><div class="tiny muted">'+(pct>=80?'Strong progress — keep practising exam questions.':pct>=40?'You are building momentum topic by topic.':'Your progress will grow as topics are completed.')+'</div><div class="student-actions"><button class="student-action primary" onclick="go(\'learning\')">View learning</button><button class="student-action" onclick="go(\'resources\')">Resources</button></div></div></div>';
   h+='<div class="card next-card student-next-v2"><div class="eyebrow">YOUR NEXT LESSON</div>'+(next?'<h4>'+esc(next.subject||'Lesson')+'</h4><p>'+esc(next.topic||'Topic to confirm')+'</p><div class="when"><span class="chip orange">'+esc(dateFmt(next.lesson_date))+'</span><span class="chip">'+esc(timeFmt(next.start_time))+'</span><span class="chip">'+esc(next.duration_minutes)+' min</span></div><div class="student-actions"><button class="student-action primary" onclick="go(\'messages\')">Ask a question</button><button class="student-action" onclick="go(\'book\')">Book another</button></div>':'<h4>No lessons</h4><p>Nothing is scheduled right now.</p><div class="student-actions"><button class="student-action primary" onclick="go(\'book\')">Book a lesson</button></div>')+'</div></div>';
   if(featured.length){h+=section('Featured for you','Recommended lessons, notes and practice from Victoria');h+=resourceCards(featured,false,true)}
   h+=section('What to focus on next','Based on your syllabus progress');
@@ -5077,9 +5079,9 @@ function studentHome(){
   $('#content').innerHTML=h;
 }
 function studentLearning(){
-  const cr=data.curriculumSubtopics||[],st=lessonStats(data.user.id),done=cr.filter(x=>curriculumStatus(x.status)==='Completed').length;
+  const cr=data.curriculumSubtopics||[],scope=activeCurriculumScope(cr),st=lessonStats(data.user.id),done=scope.filter(x=>curriculumStatus(x.status)==='Completed').length;
   let h=section('My learning','Open a term, then a topic, to see your subtopics and progress');
-  h+='<div class="student-learning-stats"><div class="student-learning-stat"><span>Completed lessons</span><b>'+st.completed+'</b></div><div class="student-learning-stat"><span>Lesson hours</span><b>'+st.completedHours.toFixed(1)+'h</b></div><div class="student-learning-stat"><span>Curriculum complete</span><b>'+done+' / '+cr.length+'</b></div></div>';
+  h+='<div class="student-learning-stats"><div class="student-learning-stat"><span>Completed lessons</span><b>'+st.completed+'</b></div><div class="student-learning-stat"><span>Lesson hours</span><b>'+st.completedHours.toFixed(1)+'h</b></div><div class="student-learning-stat"><span>Term '+currentAcademicTerm()+' complete</span><b>'+done+' / '+scope.length+'</b></div></div>';
   h+=curriculumTracker(cr,false);
   const ls=(data.lessons||[]).slice().sort((a,b)=>(b.lesson_date+(b.start_time||'')).localeCompare(a.lesson_date+(a.start_time||'')));
   h+=section('Lesson history','Your recorded sessions');
