@@ -4224,7 +4224,26 @@ body[data-theme="dark"]{background:#0a1018!important}
   .page-surface{padding:7px;border-radius:15px}
 }
 </style>
-<link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#111827"></head>
+<link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#111827">
+<style id="vta-structure-v12">
+.resource-overview-v12{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0}
+.resource-overview-v12>div,.schedule-agenda-v12,.payments-v12{background:var(--panel);border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 28px rgba(15,23,42,.045)}
+.resource-overview-v12>div{padding:17px}.resource-overview-v12 span,.payments-head-v12 span,.schedule-agenda-head-v12 span{font-size:8px;font-weight:950;letter-spacing:.1em;color:var(--muted)}
+.resource-overview-v12 b{display:block;font-size:25px;margin-top:6px}.resource-overview-v12 p{font-size:9px;color:var(--muted);margin:5px 0 0}
+.resource-empty-v12{grid-column:1/-1;padding:22px;border:1px dashed var(--line);border-radius:16px;background:var(--panel2)}.resource-empty-v12 b{font-size:12px}.resource-empty-v12 p{font-size:10px;color:var(--muted);margin:4px 0 0}
+.schedule-sync-strip-v12{display:flex;justify-content:space-between;gap:14px;align-items:center;margin:14px 0;padding:13px 15px;border:1px solid #cfe1d5;background:#f4fbf6;border-radius:15px}
+.schedule-sync-strip-v12>div{display:flex;gap:10px;align-items:center}.schedule-sync-strip-v12 b{font-size:11px}.schedule-sync-strip-v12 p,.schedule-sync-strip-v12>span{font-size:9px;color:var(--muted);margin:2px 0 0}
+.sync-dot-v12{width:10px;height:10px;border-radius:50%;background:#2c9b5f;box-shadow:0 0 0 5px rgba(44,155,95,.12)}
+.schedule-agenda-v12{margin-bottom:14px;overflow:hidden}.schedule-agenda-head-v12,.payments-head-v12{display:flex;justify-content:space-between;align-items:end;padding:16px 17px;border-bottom:1px solid var(--line)}.schedule-agenda-head-v12 h3,.payments-head-v12 h3{margin:4px 0 0;font-size:17px}.schedule-agenda-head-v12>b{font-size:11px;color:var(--muted)}
+.schedule-agenda-list-v12{padding:5px 14px}.schedule-agenda-row-v12{display:flex;gap:12px;align-items:center;padding:11px 2px;border-bottom:1px solid var(--line)}.schedule-agenda-row-v12:last-child{border-bottom:0}.schedule-agenda-row-v12>.grow>b{font-size:11px}.schedule-agenda-row-v12 p{font-size:9px;color:var(--muted);margin:3px 0 0}
+.schedule-agenda-date-v12{width:48px;text-align:center;border-right:1px solid var(--line);padding-right:10px}.schedule-agenda-date-v12 b{display:block;font-size:9px;color:var(--muted)}.schedule-agenda-date-v12 span{display:block;font-size:20px;font-weight:950;margin-top:2px}
+.finance-hero{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.payments-v12{margin-top:14px;overflow:hidden}.payments-head-v12>div:last-child{text-align:right}.payments-head-v12 small{display:block;font-size:8px;color:var(--muted)}.payments-head-v12 b{display:block;font-size:22px;margin-top:3px}.payments-list-v12{padding:5px 14px}.payment-row-v12{display:flex;gap:12px;align-items:center;padding:11px 2px;border-bottom:1px solid var(--line)}.payment-row-v12:last-child{border-bottom:0}.payment-date-v12{width:86px;font-size:9px;font-weight:850;color:var(--muted)}.payment-row-v12 .grow b{font-size:11px}.payment-row-v12 p{font-size:9px;color:var(--muted);margin:3px 0 0}.payment-row-v12 strong{font-size:13px}
+[data-theme="dark"] .schedule-sync-strip-v12{background:#13241b;border-color:#2f6040}
+@media(max-width:900px){.resource-overview-v12{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.resource-overview-v12{grid-template-columns:1fr 1fr}.finance-hero,.schedule-sync-strip-v12{align-items:flex-start;flex-direction:column}.schedule-agenda-row-v12{align-items:flex-start}.schedule-agenda-row-v12>.chip{display:none}.payment-row-v12{align-items:flex-start;flex-wrap:wrap}.payment-date-v12{width:auto}.payment-row-v12 strong{margin-left:auto}}
+</style>
+</head>
 <body>
 <section id="login" class="login">
   <div class="login-art">
@@ -4649,7 +4668,7 @@ function adminHome(){
   const pending=(data.bookings||[]).filter(x=>x.status==='Pending').sort((a,b)=>(a.requested_date+a.requested_time).localeCompare(b.requested_date+b.requested_time));
   const allEvents=mergedLessonEvents(),next=nextMergedLesson(),upcoming=allEvents.filter(e=>e.event_date>=today()).slice(0,8);
   const allTasks=(data.tasks||[]).slice().sort((a,b)=>(String(a.due_date||'9999')+String(a.sort_order||0)).localeCompare(String(b.due_date||'9999')+String(b.sort_order||0)));
-  const tasks=allTasks.filter(x=>x.status!=='Done'),completed=allTasks.filter(x=>x.status==='Done').slice(-4);
+  const tasks=allTasks.filter(x=>x.status!=='Done'&&(!x.due_date||x.due_date>=today())),completed=allTasks.filter(x=>x.status==='Done'&&(!x.updated_at||String(x.updated_at).slice(0,10)>=addDays(today(),-7))).slice(-4);
   const thisLessons=lessonsInCalendarMonth(0,null,['Completed']),thisHours=completedHoursInCalendarMonth(0);
   const focus=tasks.slice(0,3),later=tasks.slice(3);
   let h='<section class="hero"><div class="tiny strong" style="color:#fca58f">ADMIN WORKSPACE</div><h2>'+greeting()+', '+esc(data.user.displayName)+'.</h2><p>One calm view of your next lesson, bookings and the few things worth focusing on now.</p></section>';
@@ -4734,10 +4753,13 @@ function studentDetail(id){
 function adminSchedule(){
   if(!scheduleAnchor)scheduleAnchor=today();
   const pending=(data.bookings||[]).filter(x=>x.status==='Pending'),needs=(data.lessons||[]).filter(x=>String(x.status||'').toLowerCase()==='needs confirmation'),events=mergedLessonEvents();
-  const todays=events.filter(e=>e.event_date===today()),googleCount=calendarLessonEvents().filter(e=>e.event_date>=today()).length;
+  const todays=events.filter(e=>e.event_date===today()),googleCount=calendarLessonEvents().filter(e=>e.event_date>=today()).length, syncState=settingValue('calendar_sync_status')||{};
+  const weekEnd=addDays(today(),6),weekEvents=events.filter(e=>e.event_date>=today()&&e.event_date<=weekEnd).slice(0,12);
   const todayHours=todays.reduce((s,e)=>{const st=String(e.start_time||'00:00').slice(0,5).split(':').map(Number),et=String(e.end_time||e.start_time||'00:00').slice(0,5).split(':').map(Number);return s+Math.max(0,(et[0]*60+et[1]-st[0]*60-st[1])/60)},0);
-  let h=adminPageHeader('Schedule','View lessons, synced calendar events and booking requests in one place.','<button class="btn primary" onclick="openLesson()">+ Add lesson</button>');
-  h+='<div class="page-surface schedule-surface"><div class="schedule-summary-v4"><div class="schedule-summary-card primary"><div class="label">TODAY</div><div class="value">'+(todays.length?todays.length+' lesson'+(todays.length===1?'':'s'):'No lessons')+'</div><p>'+new Date(today()+'T12:00:00').toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long'})+'</p></div><div class="schedule-summary-card"><div class="label">TEACHING TIME TODAY</div><div class="value">'+todayHours.toFixed(1)+'h</div><p>Based on scheduled calendar blocks</p></div><div class="schedule-summary-card"><div class="label">CALENDAR SYNC</div><div class="value">'+googleCount+'</div><p>Upcoming Google Calendar lesson'+(googleCount===1?'':'s')+'</p></div></div>';
+  let h=adminPageHeader('Schedule','Google Calendar is the source of truth; the portal keeps your tutoring view structured around it.','<button class="btn primary" onclick="openLesson()">+ Add lesson</button>');
+  h+='<div class="page-surface schedule-surface"><div class="schedule-summary-v4"><div class="schedule-summary-card primary"><div class="label">TODAY</div><div class="value">'+(todays.length?todays.length+' lesson'+(todays.length===1?'':'s'):'No lessons')+'</div><p>'+new Date(today()+'T12:00:00').toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long'})+'</p></div><div class="schedule-summary-card"><div class="label">TEACHING TIME TODAY</div><div class="value">'+todayHours.toFixed(1)+'h</div><p>Based on scheduled calendar blocks</p></div><div class="schedule-summary-card"><div class="label">GOOGLE CALENDAR</div><div class="value">'+googleCount+'</div><p>'+esc(syncState.events_seen||googleCount)+' events in the latest synced window</p></div></div>';
+  h+='<div class="schedule-sync-strip-v12"><div><span class="sync-dot-v12"></span><div><b>Google Calendar connected</b><p>Latest portal sync: '+esc(syncState.last_synced_at?new Date(syncState.last_synced_at).toLocaleString('en-ZA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'not recorded')+'</p></div></div><span>'+esc(syncState.window_end?'Synced through '+dateFmt(syncState.window_end):'Calendar sync active')+'</span></div>';
+  h+='<div class="schedule-agenda-v12"><div class="schedule-agenda-head-v12"><div><span>THIS WEEK</span><h3>Teaching agenda</h3></div><b>'+weekEvents.length+' lesson'+(weekEvents.length===1?'':'s')+'</b></div><div class="schedule-agenda-list-v12">'+(weekEvents.length?weekEvents.map(e=>'<div class="schedule-agenda-row-v12"><div class="schedule-agenda-date-v12"><b>'+new Date(e.event_date+'T12:00:00').toLocaleDateString('en-ZA',{weekday:'short'})+'</b><span>'+new Date(e.event_date+'T12:00:00').getDate()+'</span></div><div class="grow"><b>'+esc(e.title)+'</b><p>'+esc(timeFmt(e.start_time))+(e.end_time?' – '+esc(timeFmt(e.end_time)):'')+(e.description?' · '+esc(e.description):'')+'</p></div><span class="chip">'+esc(e.source)+'</span></div>').join(''):emptyState('No lessons this week','Your Google Calendar tutoring events will appear here.'))+'</div></div>';
   if(needs.length){h+='<details class="previous-month-details"><summary>'+needs.length+' past lesson'+(needs.length===1?'':'s')+' need confirmation</summary><div class="list" style="padding:0 12px 12px">'+needs.map(l=>'<div class="list-row"><div><h4>'+esc(studentName(l.student_id))+' · '+esc(l.subject||'Lesson')+'</h4><p>'+esc(dateFmt(l.lesson_date))+' · '+esc(timeFmt(l.start_time))+' · '+esc(l.topic||'')+'</p></div><div class="confirm-actions"><button class="btn primary" onclick="setLessonStatus(\''+l.id+'\',\'Completed\')">Completed</button><button class="btn" onclick="setLessonStatus(\''+l.id+'\',\'Cancelled\')">Did not happen</button></div></div>').join('')+'</div></details>'}
   if(pending.length){h+='<details class="previous-month-details"><summary>'+pending.length+' booking request'+(pending.length===1?'':'s')+'</summary><div class="list" style="padding:0 12px 12px">'+pending.map(x=>'<div class="list-row"><div><h4>'+esc(studentName(x.student_id))+' · '+esc(x.subject)+'</h4><p>'+esc(dateFmt(x.requested_date))+' at '+esc(timeFmt(x.requested_time))+' · '+esc(x.duration_minutes)+' min</p></div><div class="row"><button class="btn small primary" onclick="bookingStatus(\''+x.id+'\',\'Confirmed\')">Confirm</button><button class="btn small danger" onclick="bookingStatus(\''+x.id+'\',\'Declined\')">Decline</button></div></div>').join('')+'</div></details>'}
   h+=lessonCalendar()+'</div>';$('#content').innerHTML=h;
@@ -4794,7 +4816,11 @@ function resourceVisual(r){
 function resourceIcon(t){t=String(t||'').toLowerCase();if(t.includes('interactive'))return '✦';if(t.includes('pdf')||t.includes('note'))return '▤';if(t.includes('slide'))return '▣';if(t.includes('video'))return '▶';if(t.includes('quiz'))return '✓';return '↗'}
 function adminResources(){
   const all=(data.resources||[]).slice();
-  let h=adminPageHeader('Resources','Open a student, then choose the folder you need.','<div class="row"><button class="btn" onclick="openLinkResource()">+ Link</button><button class="btn primary" onclick="openUpload()">+ Upload</button></div>');
+  const used=all.filter(r=>String(r.completion_status||'').toLowerCase()==='used').length;
+  const quizAssets=all.filter(r=>/quiz/i.test(String(r.resource_type||''))).length;
+  const assessments=all.filter(r=>String(r.resource_type||'').toLowerCase()==='assessment').length;
+  let h=adminPageHeader('Resources','A structured library by student, resource type and actual lesson use.','<div class="row"><button class="btn" onclick="openLinkResource()">+ Link</button><button class="btn primary" onclick="openUpload()">+ Upload</button></div>');
+  h+='<div class="resource-overview-v12"><div><span>Total library</span><b>'+all.length+'</b><p>All linked and uploaded teaching material</p></div><div><span>Used in lessons</span><b>'+used+'</b><p>Verified as actually used</p></div><div><span>Quiz assets</span><b>'+quizAssets+'</b><p>Quiz links and reports</p></div><div><span>Assessments</span><b>'+assessments+'</b><p>Baseline and formal work</p></div></div>';
   const students=(data.students||[]).filter(s=>s.active!==false).slice().sort((a,b)=>String(a.display_name||'').localeCompare(String(b.display_name||'')));
   const folders=[
     ['Interactive lessons','✦','Lessons actually used during teaching',r=>String(r.resource_type||'').toLowerCase().includes('interactive')&&String(r.completion_status||'').toLowerCase()==='used'],
@@ -4805,11 +4831,10 @@ function adminResources(){
   h+='<div class="page-surface resources-surface"><div class="resource-library-v10">';
   students.forEach(s=>{
     const sr=all.filter(r=>r.student_id===s.id);
-    if(!sr.length)return;
     const matched=new Set();
     folders.forEach(f=>sr.filter(f[3]).forEach(r=>matched.add(r.id)));
     const other=sr.filter(r=>!matched.has(r.id));
-    h+='<section class="resource-student-v10"><div class="resource-student-head-v10"><div><h3>'+esc(s.display_name)+'</h3><p>'+esc((s.grade||'Student')+(s.subjects?' · '+s.subjects:''))+'</p></div><span class="resource-student-count-v10">'+sr.length+' resource'+(sr.length===1?'':'s')+'</span></div><div class="resource-student-body-v10"><div class="resource-folder-grid-v11">';
+    h+='<section class="resource-student-v10"><div class="resource-student-head-v10"><div><h3>'+esc(s.display_name)+'</h3><p>'+esc((s.grade||'Student')+(s.subjects?' · '+s.subjects:''))+'</p></div><span class="resource-student-count-v10">'+sr.length+' resource'+(sr.length===1?'':'s')+'</span></div><div class="resource-student-body-v10"><div class="resource-folder-grid-v11">'+(!sr.length?'<div class="resource-empty-v12"><b>No resources yet</b><p>Add the first lesson, note, quiz or assessment for '+esc(s.display_name)+'.</p></div>':'');
     folders.forEach(([label,icon,desc,test])=>{
       const rs=sr.filter(test);
       if(!rs.length)return;
@@ -5044,7 +5069,9 @@ function adminFinance(){
   const currentTarget=currentMonthRegularTarget()*rate,totalPotential=currentTarget+catchupValue+oldDue;
   const recordedSoFar=previousEarned+earned;
 
-  let h='<div class="finance-shell"><div class="finance-hero"><div class="kicker">FINANCE AT A GLANCE</div><h2>Finance</h2><p>Clean summary on the surface. Tap a card only when you want the calculation behind it.</p></div>';
+  const payments=(data.payments||[]).slice().sort((a,b)=>String(b.payment_date||'').localeCompare(String(a.payment_date||'')));
+  const paidTotal=payments.reduce((s,p)=>s+Number(p.amount_cents||0)/100,0);
+  let h='<div class="finance-shell"><div class="finance-hero"><div><div class="kicker">FINANCE AT A GLANCE</div><h2>Finance</h2><p>Teaching value, payments received and money still due are kept separate.</p></div><button class="btn primary" onclick="openPayment()">+ Record payment</button></div>';
 
   h+='<div class="finance-v2-grid">'+
     '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'previous\')"><span>'+esc(prev.label)+' resolved</span><b>R'+previousEarned.toFixed(0)+'</b><p>'+previousHours.toFixed(1)+'h resolved · tap for lesson dates and adjustment</p></div>'+
@@ -5056,7 +5083,7 @@ function adminFinance(){
   h+='<div class="finance-v2-card clickable finance-total-premium" onclick="openFinanceCalculation(\'total\')"><div><span>Resolved / completed teaching recorded</span><b>R'+recordedSoFar.toFixed(0)+'</b><p>'+esc(prev.label)+' resolved + '+esc(cur.label)+' already completed.</p></div><div class="total-side"><small>Forward-looking potential + outstanding</small><strong>R'+totalPotential.toFixed(0)+'</strong><small>excludes historical earnings · tap for breakdown</small></div></div>';
 
   if(oldDue>0)h+='<details class="finance-toggle"><summary><div class="finance-toggle-title"><small>Money still due</small><b>Outstanding unpaid balance</b></div><div class="finance-toggle-value">R'+oldDue.toFixed(0)+'</div></summary><div class="finance-toggle-body"><p class="tiny muted" style="margin:0">This is kept separate from lesson earnings so it cannot be accidentally counted twice.</p></div></details>';
-
+  h+='<div class="payments-v12"><div class="payments-head-v12"><div><span>PAYMENTS RECEIVED</span><h3>Payment history</h3></div><div><small>Total recorded</small><b>R'+paidTotal.toFixed(0)+'</b></div></div><div class="payments-list-v12">'+(payments.length?payments.map(p=>'<div class="payment-row-v12"><div class="payment-date-v12">'+esc(dateFmt(p.payment_date))+'</div><div class="grow"><b>'+esc(p.payer||'Payment')+'</b><p>'+esc(p.note||'Payment received')+'</p></div><strong>'+(p.amount_cents!=null?'R'+(Number(p.amount_cents)/100).toFixed(0):'Amount pending')+'</strong></div>').join(''):emptyState('No payments recorded','Use Record payment when Tracey pays you.'))+'</div></div>';
   h+='</div>';$('#content').innerHTML=h;
 }
 function renderStudent(){
