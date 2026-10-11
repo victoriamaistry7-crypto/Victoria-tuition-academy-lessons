@@ -1,0 +1,10 @@
+{
+  "name": "Victoria Tuition Academy",
+  "short_name": "VTA",
+  "description": "Victoria Tuition Academy tutor and student portal",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f7fb",
+  "theme_color": "#111827"
+}
