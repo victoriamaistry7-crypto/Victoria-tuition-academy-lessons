@@ -4224,7 +4224,7 @@ body[data-theme="dark"]{background:#0a1018!important}
   .page-surface{padding:7px;border-radius:15px}
 }
 </style>
-</head>
+<link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#111827"></head>
 <body>
 <section id="login" class="login">
   <div class="login-art">
@@ -4518,7 +4518,7 @@ function lessonCalendar(){
   const events=mergedLessonEvents(),base=scheduleBase();
   if(scheduleView==='month'){
     const d=new Date(base+'T12:00:00'),first=new Date(d.getFullYear(),d.getMonth(),1),start=new Date(first);start.setDate(1-((first.getDay()+6)%7));
-    let out='<div class="calendar-pro"><div class="calendar-month-v2">'+['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(x=>'<div class="cal-month-head">'+x+'</div>').join('');
+    let out='<div class="calendar-pro">'+calendarToolbar()+'<div class="calendar-month-v2">'+['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(x=>'<div class="cal-month-head">'+x+'</div>').join('');
     for(let i=0;i<42;i++){const x=new Date(start);x.setDate(start.getDate()+i);const dt=isoDate(x),items=events.filter(e=>e.event_date===dt),outside=x.getMonth()!==d.getMonth();out+='<div class="cal-month-day '+(outside?'out ':'')+(dt===today()?'today':'')+'" onclick="scheduleAnchor=\''+dt+'\';scheduleView=\'day\';adminSchedule()"><div class="cal-month-num">'+x.getDate()+'</div>'+items.slice(0,4).map(e=>'<div class="cal-month-event '+(e.source==='Google Calendar'?'google':'')+'">'+esc(timeFmt(e.start_time))+' '+esc(e.title)+'</div>').join('')+(items.length>4?'<div class="tiny muted">+'+(items.length-4)+' more</div>':'')+'</div>'}return out+'</div></div>';
   }
   const n=scheduleView==='day'?1:scheduleView==='3'?3:7,start=scheduleView==='7'?(()=>{const d=new Date(base+'T12:00:00'),k=(d.getDay()+6)%7;d.setDate(d.getDate()-k);return isoDate(d)})():base;
@@ -4738,7 +4738,7 @@ function adminSchedule(){
   h+='<div class="page-surface schedule-surface"><div class="schedule-summary-v4"><div class="schedule-summary-card primary"><div class="label">TODAY</div><div class="value">'+(todays.length?todays.length+' lesson'+(todays.length===1?'':'s'):'No lessons')+'</div><p>'+new Date(today()+'T12:00:00').toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long'})+'</p></div><div class="schedule-summary-card"><div class="label">TEACHING TIME TODAY</div><div class="value">'+todayHours.toFixed(1)+'h</div><p>Based on scheduled calendar blocks</p></div><div class="schedule-summary-card"><div class="label">CALENDAR SYNC</div><div class="value">'+googleCount+'</div><p>Upcoming Google Calendar lesson'+(googleCount===1?'':'s')+'</p></div></div>';
   if(needs.length){h+='<details class="previous-month-details"><summary>'+needs.length+' past lesson'+(needs.length===1?'':'s')+' need confirmation</summary><div class="list" style="padding:0 12px 12px">'+needs.map(l=>'<div class="list-row"><div><h4>'+esc(studentName(l.student_id))+' · '+esc(l.subject||'Lesson')+'</h4><p>'+esc(dateFmt(l.lesson_date))+' · '+esc(timeFmt(l.start_time))+' · '+esc(l.topic||'')+'</p></div><div class="confirm-actions"><button class="btn primary" onclick="setLessonStatus(\''+l.id+'\',\'Completed\')">Completed</button><button class="btn" onclick="setLessonStatus(\''+l.id+'\',\'Cancelled\')">Did not happen</button></div></div>').join('')+'</div></details>'}
   if(pending.length){h+='<details class="previous-month-details"><summary>'+pending.length+' booking request'+(pending.length===1?'':'s')+'</summary><div class="list" style="padding:0 12px 12px">'+pending.map(x=>'<div class="list-row"><div><h4>'+esc(studentName(x.student_id))+' · '+esc(x.subject)+'</h4><p>'+esc(dateFmt(x.requested_date))+' at '+esc(timeFmt(x.requested_time))+' · '+esc(x.duration_minutes)+' min</p></div><div class="row"><button class="btn small primary" onclick="bookingStatus(\''+x.id+'\',\'Confirmed\')">Confirm</button><button class="btn small danger" onclick="bookingStatus(\''+x.id+'\',\'Declined\')">Decline</button></div></div>').join('')+'</div></details>'}
-  h+=calendarToolbar()+lessonCalendar()+'</div>';$('#content').innerHTML=h;
+  h+=lessonCalendar()+'</div>';$('#content').innerHTML=h;
 }
 async function markMessagesRead(studentId){
   try{
@@ -4795,7 +4795,7 @@ function adminResources(){
   let h=adminPageHeader('Resources','Open a student, then choose the folder you need.','<div class="row"><button class="btn" onclick="openLinkResource()">+ Link</button><button class="btn primary" onclick="openUpload()">+ Upload</button></div>');
   const students=(data.students||[]).filter(s=>s.active!==false).slice().sort((a,b)=>String(a.display_name||'').localeCompare(String(b.display_name||'')));
   const folders=[
-    ['Interactive lessons','✦','Lessons actually sent and used',r=>String(r.resource_type||'').toLowerCase().includes('interactive')],
+    ['Interactive lessons','✦','Lessons actually used during teaching',r=>String(r.resource_type||'').toLowerCase().includes('interactive')&&String(r.completion_status||'').toLowerCase()==='used'],
     ['Notes','≡','Study notes, PDFs and worksheets',r=>/pdf|note|slide|worksheet/i.test(String(r.resource_type||''))],
     ['Quizzes','✓','Quiz links and reports',r=>String(r.resource_type||'').toLowerCase().includes('quiz')],
     ['Assessments','A','Baseline and formal assessments',r=>String(r.resource_type||'').toLowerCase()==='assessment']
@@ -4953,7 +4953,7 @@ function openFinanceCalculation(kind){
   const previousCatchup=catchupRows.reduce((s,x)=>s+x.remain,0),outstanding=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
   const currentTarget=currentMonthRegularTarget()*rate;
   const teachingTotal=previousEarned+currentEarned;
-  const fullTeachingPotential=previousEarned+currentTarget+(previousCatchup*rate);
+  const fullTeachingPotential=currentTarget+(previousCatchup*rate);
   const totalPotential=fullTeachingPotential+outstanding;
   const weeklyPlans=forecastWeeksToCutoff(),catchupPlan=suggestedCatchupPlan();
 
@@ -5039,7 +5039,7 @@ function adminFinance(){
   const catchupRows=previousMonthPlans().map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:Math.max(previousMonthCompletedHoursByDate(p.student_id),Number(p.completed_hours||0)),remain:previousMonthCatchupRemaining(p.student_id)})).filter(x=>x.remain>0);
   const catchupHours=catchupRows.reduce((s,x)=>s+x.remain,0),catchupValue=catchupHours*rate;
   const oldDue=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
-  const currentTarget=currentMonthRegularTarget()*rate,totalPotential=previousEarned+currentTarget+catchupValue+oldDue;
+  const currentTarget=currentMonthRegularTarget()*rate,totalPotential=currentTarget+catchupValue+oldDue;
   const recordedSoFar=previousEarned+earned;
 
   let h='<div class="finance-shell"><div class="finance-hero"><div class="kicker">FINANCE AT A GLANCE</div><h2>Finance</h2><p>Clean summary on the surface. Tap a card only when you want the calculation behind it.</p></div>';
@@ -5051,7 +5051,7 @@ function adminFinance(){
     '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'remaining\')"><span>'+esc(cur.label)+' still to teach</span><b>R'+(currentRemain*rate).toFixed(0)+'</b><p>'+currentRemain.toFixed(1)+'h active regular teaching remaining</p></div>'+
   '</div>';
 
-  h+='<div class="finance-v2-card clickable finance-total-premium" onclick="openFinanceCalculation(\'total\')"><div><span>Resolved / completed teaching recorded</span><b>R'+recordedSoFar.toFixed(0)+'</b><p>'+esc(prev.label)+' resolved + '+esc(cur.label)+' already completed.</p></div><div class="total-side"><small>Potential amount including outstanding</small><strong>R'+totalPotential.toFixed(0)+'</strong><small>tap for the exact breakdown</small></div></div>';
+  h+='<div class="finance-v2-card clickable finance-total-premium" onclick="openFinanceCalculation(\'total\')"><div><span>Resolved / completed teaching recorded</span><b>R'+recordedSoFar.toFixed(0)+'</b><p>'+esc(prev.label)+' resolved + '+esc(cur.label)+' already completed.</p></div><div class="total-side"><small>Forward-looking potential + outstanding</small><strong>R'+totalPotential.toFixed(0)+'</strong><small>excludes historical earnings · tap for breakdown</small></div></div>';
 
   if(oldDue>0)h+='<details class="finance-toggle"><summary><div class="finance-toggle-title"><small>Money still due</small><b>Outstanding unpaid balance</b></div><div class="finance-toggle-value">R'+oldDue.toFixed(0)+'</div></summary><div class="finance-toggle-body"><p class="tiny muted" style="margin:0">This is kept separate from lesson earnings so it cannot be accidentally counted twice.</p></div></details>';
 
@@ -5109,7 +5109,7 @@ function studentMessages(){
 function studentResources(){
   const all=data.resources||[];
   const folders=[
-    ['Interactive lessons','✦','Open the lessons you worked through with Victoria',r=>String(r.resource_type||'').toLowerCase().includes('interactive')],
+    ['Interactive lessons','✦','Open the lessons you actually worked through with Victoria',r=>String(r.resource_type||'').toLowerCase().includes('interactive')&&String(r.completion_status||'').toLowerCase()==='used'],
     ['Notes','≡','Study notes, PDFs and worksheets',r=>/pdf|note|slide|worksheet/i.test(String(r.resource_type||''))],
     ['Quizzes','✓','Quiz links and reports',r=>String(r.resource_type||'').toLowerCase().includes('quiz')],
     ['Assessments','A','Baseline and formal assessments',r=>String(r.resource_type||'').toLowerCase()==='assessment']
@@ -5191,7 +5191,7 @@ async function saveLinkResource(){try{await api({action:'resourceCreateLink',stu
 function openUpload(){modal('Upload resource','<div class="grid2"><div class="field"><label>Student</label><select id="ruStudent">'+studentOptions()+'</select></div>'+field('Title','ruTitle','')+selectField('Type','ruType',['PDF / Notes','Slides','Worksheet','Image','Other'],'PDF / Notes')+field('Password / access note','ruAccess','')+selectField('Status','ruStatus',['Available','Completed','Future'],'Available')+'</div><div class="field" style="margin-top:12px"><label>Description</label><textarea id="ruDesc"></textarea></div><div class="field" style="margin-top:12px"><label>File (maximum 8 MB)</label><input id="ruFile" type="file"></div>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="uploadResource()">Upload</button>')}
 async function uploadResource(){const f=$('#ruFile').files[0];if(!f){toast('Choose a file');return}if(f.size>8*1024*1024){toast('File must be 8 MB or smaller');return}try{const b64=await file64(f);await api({action:'resourceUpload',studentId:$('#ruStudent').value,title:$('#ruTitle').value||f.name,resourceType:$('#ruType').value,fileName:f.name,mimeType:f.type||'application/octet-stream',base64:b64,description:$('#ruDesc').value,accessNote:$('#ruAccess').value,completionStatus:$('#ruStatus').value,featured:true});closeModal();toast('Upload complete');await sync()}catch(err){toast(err.message)}}
 function file64(f){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]);r.onerror=rej;r.readAsDataURL(f)})}
-function editResource(id){const r=(data.resources||[]).find(x=>x.id===id);modal('Edit resource','<div class="grid2">'+field('Title','reTitle',r.title)+selectField('Type','reType',['Interactive Lesson','PDF / Notes','Slides','Worksheet','Video','Other'],r.resource_type||'Other')+field('Password / access note','reAccess',r.access_note)+selectField('Status','reStatus',['Available','Completed','Future'],r.completion_status||'Available')+'</div><div class="field" style="margin-top:12px"><label>Description</label><textarea id="reDesc">'+esc(r.description||'')+'</textarea></div>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveResourceEdit(\''+id+'\')">Save</button>')}
+function editResource(id){const r=(data.resources||[]).find(x=>x.id===id);modal('Edit resource','<div class="grid2">'+field('Title','reTitle',r.title)+selectField('Type','reType',['Interactive Lesson','PDF / Notes','Slides','Worksheet','Video','Other'],r.resource_type||'Other')+field('Password / access note','reAccess',r.access_note)+selectField('Status','reStatus',['Created','Sent','Used','Received','Archived','Available','Future'],r.completion_status||'Available')+'</div><div class="field" style="margin-top:12px"><label>Description</label><textarea id="reDesc">'+esc(r.description||'')+'</textarea></div>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveResourceEdit(\''+id+'\')">Save</button>')}
 async function saveResourceEdit(id){try{await api({action:'resourceUpdate',id,title:$('#reTitle').value,resourceType:$('#reType').value,accessNote:$('#reAccess').value,completionStatus:$('#reStatus').value,description:$('#reDesc').value,featured:true});closeModal();toast('Resource updated');await sync()}catch(err){toast(err.message)}}
 function openQuizCreate(){modal('Build browser quiz','<div class="grid2"><div class="field"><label>Student</label><select id="qStudent">'+studentOptions()+'</select></div>'+field('Quiz date','qDate',today(),'date')+field('Title','qTitle','')+field('Subject','qSubject','Natural Sciences')+field('Topic','qTopic','')+field('Time limit (minutes)','qTime','60','number')+'</div><div class="field" style="margin-top:12px"><label>Instructions</label><textarea id="qInstructions">Answer all questions carefully.</textarea></div><div class="field"><label>Questions — one per line</label><textarea id="qQuestions" placeholder="Question | option A ; option B ; option C ; option D | correct answer | explanation | marks"></textarea><div class="tiny muted">Question | choices separated by ; | answer | explanation | marks</div></div>','<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="createQuiz()">Schedule quiz</button>')}
 async function createQuiz(){const lines=$('#qQuestions').value.split('\n').map(x=>x.trim()).filter(Boolean);const questions=lines.map(line=>{const p=line.split('|').map(x=>x.trim());return {type:(p[1]?'MCQ':'Short'),prompt:p[0]||'',options:p[1]?p[1].split(';').map(x=>x.trim()).filter(Boolean):[],answer:p[2]||'',explanation:p[3]||'',marks:Number(p[4]||1)}});if(!questions.length){toast('Add at least one question');return}try{await api({action:'quizCreate',studentId:$('#qStudent').value,title:$('#qTitle').value,subject:$('#qSubject').value,topic:$('#qTopic').value,instructions:$('#qInstructions').value,status:'Published',scheduledFor:$('#qDate').value||null,timeLimitMinutes:Number($('#qTime').value||0)||null,questions});closeModal();toast('Quiz scheduled');await sync()}catch(err){toast(err.message)}}
@@ -5223,5 +5223,9 @@ function toggleTheme(){const next=document.documentElement.dataset.theme==='dark
 document.documentElement.dataset.theme=localStorage.getItem('vta_theme')||'light';
 if(token)sync(true);else showLogin();
 </script>
-</body>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+</script></body>
 </html>
