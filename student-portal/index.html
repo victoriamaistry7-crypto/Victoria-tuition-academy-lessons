@@ -4243,6 +4243,84 @@ body[data-theme="dark"]{background:#0a1018!important}
 @media(max-width:900px){.resource-overview-v12{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.resource-overview-v12{grid-template-columns:1fr 1fr}.finance-hero,.schedule-sync-strip-v12{align-items:flex-start;flex-direction:column}.schedule-agenda-row-v12{align-items:flex-start}.schedule-agenda-row-v12>.chip{display:none}.payment-row-v12{align-items:flex-start;flex-wrap:wrap}.payment-date-v12{width:auto}.payment-row-v12 strong{margin-left:auto}}
 </style>
+
+<style id="vta-rebuild-v13">
+/* Button system */
+.btn{min-height:38px!important;border-radius:11px!important;padding:9px 13px!important;font-size:10px!important;font-weight:850!important;letter-spacing:.01em!important;box-shadow:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:6px!important}
+.btn.small{min-height:32px!important;padding:7px 10px!important;font-size:9px!important}
+.btn.primary{background:linear-gradient(135deg,#172234,#2e4666)!important;color:#fff!important;border:1px solid #344e70!important}
+.btn.primary:hover{transform:translateY(-1px);box-shadow:0 7px 18px rgba(24,37,55,.16)!important}
+.btn.soft-v13,.btn.ghost-v13{background:var(--panel)!important;color:var(--text)!important;border:1px solid #cad5e1!important}
+.btn.soft-v13:hover,.btn.ghost-v13:hover{background:var(--panel2)!important;border-color:#9fb0c2!important}
+[data-theme="dark"] .btn.soft-v13,[data-theme="dark"] .btn.ghost-v13{background:#17202b!important;border-color:#3b4b60!important;color:#f2f5f8!important}
+
+/* Student profile */
+.student-profile-hero-v13{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;padding:22px;border:1px solid #d7e0e9;border-radius:22px;background:linear-gradient(135deg,#fbfcfe,#f0f5fa);box-shadow:0 12px 30px rgba(15,23,42,.055)}
+.student-profile-main-v13{display:grid;gap:16px}.back-link-v13{justify-self:start;border:0;background:transparent;color:var(--muted);font-size:10px;font-weight:850;padding:0;cursor:pointer}
+.student-profile-id-v13{display:flex;align-items:center;gap:15px}.student-avatar-xl-v13{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(135deg,#172234,#355173);color:#fff;font-size:19px;font-weight:950;box-shadow:0 9px 20px rgba(23,34,52,.18)}
+.student-profile-id-v13 h2{margin:4px 0 3px;font-size:28px;letter-spacing:-.035em}.student-profile-id-v13 p{margin:0;color:var(--muted);font-size:11px}
+.student-profile-actions-v13{display:flex;gap:8px;flex-wrap:wrap}
+.student-profile-stats-v13{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin:14px 0 22px}
+.student-profile-stats-v13>div{padding:16px;border:1px solid var(--line);border-radius:17px;background:var(--panel)}
+.student-profile-stats-v13 span{font-size:8px;letter-spacing:.08em;font-weight:900;color:var(--muted);text-transform:uppercase}.student-profile-stats-v13 b{display:block;font-size:20px;margin-top:7px}.student-profile-stats-v13 p{font-size:9px;color:var(--muted);margin:5px 0 0}
+.curriculum-wrap-v13{display:grid;gap:16px}.curriculum-subject-v13{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:17px 18px;border:1px solid var(--line);border-radius:18px;background:var(--panel)}
+.curriculum-subject-v13 span{font-size:8px;font-weight:900;letter-spacing:.08em;color:var(--muted)}.curriculum-subject-v13 h4{margin:4px 0;font-size:19px}.curriculum-subject-v13 p{margin:0;font-size:10px;color:var(--muted)}
+.curriculum-subject-score-v13{text-align:right}.curriculum-subject-score-v13 b{font-size:23px}.curriculum-subject-score-v13 span{display:block;margin-top:3px}
+.term-overview-grid-v13{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.term-overview-card-v13{padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}.term-overview-card-v13.current{border-color:#e6a897;background:linear-gradient(145deg,#fff8f5,var(--panel))}
+.term-overview-card-v13.empty{opacity:.65}.term-overview-top-v13{display:flex;justify-content:space-between;align-items:center}.term-overview-top-v13>span{font-size:8px;font-weight:950;color:var(--muted);letter-spacing:.08em}.term-overview-top-v13 em{font-style:normal;font-size:7px;font-weight:950;background:#fff0ea;color:#aa4b34;padding:4px 6px;border-radius:999px}
+.term-overview-numbers-v13{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px}.term-overview-numbers-v13 div{min-width:0}.term-overview-numbers-v13 b{display:block;font-size:17px}.term-overview-numbers-v13 span{display:block;font-size:7px;color:var(--muted);margin-top:2px}
+.term-progress-bar-v13{height:5px;border-radius:999px;background:var(--panel2);overflow:hidden;margin-top:11px}.term-progress-bar-v13 i{display:block;height:100%;background:#2f5f91;border-radius:999px}
+.term-block-v13{border-radius:18px!important}.term-block-v13>summary{padding:15px 16px!important}.term-summary-stats-v13{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.term-summary-stats-v13 span,.topic-counts-v13 span{font-size:8px;padding:5px 7px;border:1px solid var(--line);border-radius:999px;background:var(--panel2);color:var(--muted)}.term-summary-stats-v13 b{color:var(--text)}
+.topic-counts-v13{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.subtopic-card-v13{border-radius:13px!important}
+.student-upcoming-v13,.lesson-history-v13{border:1px solid var(--line);border-radius:18px;background:var(--panel);overflow:hidden}
+.student-upcoming-row-v13,.lesson-history-row-v13{display:flex;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line)}.student-upcoming-row-v13:last-child,.lesson-history-row-v13:last-child{border-bottom:0}
+.student-upcoming-date-v13{width:44px;text-align:center}.student-upcoming-date-v13 b{display:block;font-size:19px}.student-upcoming-date-v13 span{font-size:8px;color:var(--muted);text-transform:uppercase}
+.student-upcoming-row-v13 .grow>b,.lesson-history-row-v13 .grow>b{font-size:11px}.student-upcoming-row-v13 p,.lesson-history-row-v13 p{font-size:9px;color:var(--muted);margin:3px 0}.lesson-history-row-v13 small{font-size:8px;color:var(--muted)}
+.lesson-history-date-v13{width:105px}.lesson-history-date-v13 b{display:block;font-size:10px}.lesson-history-date-v13 span{font-size:8px;color:var(--muted)}.history-earned-v13{font-size:11px;font-weight:900;color:#237044}
+
+/* Resource structure */
+.resource-summary-v13{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}.resource-summary-v13>div{padding:16px;border:1px solid var(--line);border-radius:17px;background:var(--panel)}.resource-summary-v13 span{font-size:8px;font-weight:950;color:var(--muted);letter-spacing:.08em}.resource-summary-v13 b{display:block;font-size:23px;margin-top:6px}.resource-summary-v13 p{font-size:9px;color:var(--muted);margin:4px 0 0}
+.resource-student-list-v13{display:grid;gap:12px}.resource-student-panel-v13{border:1px solid #d3dde8;border-radius:19px;background:var(--panel);overflow:hidden;box-shadow:0 8px 22px rgba(15,23,42,.035)}.resource-student-panel-v13>summary{list-style:none;cursor:pointer;padding:15px 17px;display:flex;align-items:center;gap:12px}.resource-student-panel-v13>summary::-webkit-details-marker{display:none}.resource-student-panel-v13[open]>summary{border-bottom:1px solid var(--line);background:var(--panel2)}
+.resource-student-avatar-v13,.quiz-student-avatar-v13{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:#eaf0f7;color:#29496d;font-weight:950}.resource-student-panel-v13 h3,.quiz-student-panel-v13 h3{margin:0;font-size:14px}.resource-student-panel-v13 p,.quiz-student-panel-v13 p{font-size:9px;color:var(--muted);margin:3px 0 0}
+.resource-student-meta-v13{text-align:right;min-width:58px}.resource-student-meta-v13 b{display:block;font-size:15px}.resource-student-meta-v13 span{font-size:7px;color:var(--muted);text-transform:uppercase}.resource-student-meta-v13.used b{color:#237044}.resource-student-panel-body-v13{padding:12px}
+.resource-groups-v13{display:grid;gap:9px}.resource-group-v13{border:1px solid var(--line);border-radius:15px;background:var(--panel2);overflow:hidden}.resource-group-v13>summary{list-style:none;display:flex;gap:10px;align-items:center;padding:12px 13px;cursor:pointer}.resource-group-v13>summary::-webkit-details-marker{display:none}.resource-group-v13>summary>b{font-size:11px}.resource-group-v13>summary p{font-size:8px;color:var(--muted);margin:3px 0 0}.resource-group-v13>summary>span{font-size:9px;font-weight:900;color:var(--muted)}.resource-group-icon-v13{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--panel);border:1px solid var(--line);font-weight:900}.resource-group-body-v13{padding:0 10px 10px}.resource-empty-v13{padding:22px;border:1px dashed var(--line);border-radius:16px;background:var(--panel2)}
+
+/* Quiz structure */
+.quiz-summary-v13{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}.quiz-summary-v13>div{padding:16px;border:1px solid var(--line);border-radius:17px;background:var(--panel)}.quiz-summary-v13 span{font-size:8px;font-weight:950;letter-spacing:.08em;color:var(--muted)}.quiz-summary-v13 b{display:block;font-size:23px;margin-top:6px}.quiz-summary-v13 p{font-size:9px;color:var(--muted);margin:4px 0 0}
+.quiz-student-list-v13{display:grid;gap:12px}.quiz-student-panel-v13{border:1px solid #d3dde8;border-radius:19px;background:var(--panel);overflow:hidden}.quiz-student-panel-v13>summary{list-style:none;display:flex;align-items:center;gap:12px;padding:15px 17px;cursor:pointer}.quiz-student-panel-v13>summary::-webkit-details-marker{display:none}.quiz-student-panel-v13[open]>summary{border-bottom:1px solid var(--line);background:var(--panel2)}.quiz-student-count-v13{font-size:9px;font-weight:900;color:var(--muted)}.quiz-student-body-v13{padding:12px}
+.quiz-grid-v13{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.quiz-card-v13{border:1px solid var(--line);border-radius:17px;background:var(--panel);padding:15px;box-shadow:0 7px 19px rgba(15,23,42,.035)}.quiz-card-head-v13{display:flex;justify-content:space-between;gap:12px}.quiz-card-head-v13 span{font-size:7px;font-weight:950;letter-spacing:.08em;color:var(--muted)}.quiz-card-head-v13 h4{margin:5px 0 3px;font-size:14px}.quiz-card-head-v13 p{font-size:9px;color:var(--muted);margin:0}.quiz-card-date-v13{font-size:8px;font-weight:900;color:var(--muted);white-space:nowrap}.quiz-card-stats-v13{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:13px 0}.quiz-card-stats-v13>div{padding:9px;border-radius:11px;background:var(--panel2)}.quiz-card-stats-v13 b{display:block;font-size:15px}.quiz-card-stats-v13 span{font-size:7px;color:var(--muted)}.quiz-latest-v13{padding:10px;border:1px solid var(--line);border-radius:12px}.quiz-latest-v13 span{font-size:7px;font-weight:900;color:var(--muted)}.quiz-latest-v13 b{display:block;font-size:10px;margin-top:4px}.quiz-latest-v13 p{font-size:8px;color:var(--muted);margin:3px 0 0}.quiz-actions-v13{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+
+/* Visual calendar */
+.calendar-legend-v13{display:flex;gap:15px;align-items:center;padding:9px 14px;border-bottom:1px solid var(--line);font-size:8px;color:var(--muted);font-weight:800}.calendar-legend-v13 span{display:flex;align-items:center;gap:6px}.calendar-legend-v13 i{width:9px;height:9px;border-radius:3px}.calendar-legend-v13 i.planned{background:#dcecff;border:1px solid #83aee4}.calendar-legend-v13 i.completed{background:#dff4e7;border:1px solid #79bb91}.calendar-legend-v13 i.needs{background:#fff0db;border:1px solid #dda85c}
+.time-grid-wrap-v13{max-height:720px!important}.time-grid-v13{min-width:960px!important}.time-grid-head .dayhead small{display:block;font-size:7px;color:var(--muted);margin-top:1px}.time-grid-body-v13 .time-label{position:sticky;left:0;z-index:5;background:var(--panel)!important}
+.calendar-block-v13{cursor:pointer!important;padding:6px 8px!important;border-left-width:4px!important;border-radius:9px!important;box-sizing:border-box}.calendar-block-v13:hover{z-index:9;filter:brightness(.985);box-shadow:0 10px 25px rgba(15,23,42,.14)!important}.calendar-block-v13.planned{background:#eef5ff!important;color:#244d7f!important;border-color:#a8c7eb!important}.calendar-block-v13.completed{background:#ebf8ef!important;color:#225f37!important;border-color:#9bc9aa!important}.calendar-block-v13.needs{background:#fff6e9!important;color:#895b1d!important;border-color:#e0b879!important}.calendar-block-time-v13{font-size:8px;font-weight:950;margin-bottom:3px;letter-spacing:.02em}.calendar-block-v13 b{font-size:9px!important}.calendar-block-v13 small{font-size:7px!important}
+.cal-month-event.completed{background:#e7f5ec!important;color:#27663b!important}
+
+/* Finance 5th→4th */
+.finance-cycle-banner-v13{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 20px;border:1px solid #d3dde8;border-radius:20px;background:linear-gradient(135deg,#f9fbfd,#edf3f8);margin:14px 0}.finance-cycle-banner-v13 span,.finance-summary-v13 span,.finance-bottom-head-v13 span,.finance-outstanding-v13>span{font-size:8px;font-weight:950;letter-spacing:.09em;color:var(--muted)}.finance-cycle-banner-v13 h3{margin:5px 0 4px;font-size:20px}.finance-cycle-banner-v13 p{font-size:9px;color:var(--muted);margin:0}.finance-cycle-rate-v13{text-align:right}.finance-cycle-rate-v13 b{display:block;font-size:24px;margin-top:5px}
+.finance-summary-v13{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.finance-summary-v13>div{padding:16px;border:1px solid var(--line);border-radius:17px;background:var(--panel)}.finance-summary-v13>div.earned{border-top:3px solid #3f8a5d}.finance-summary-v13>div.projected{border-top:3px solid #4a6f9f}.finance-summary-v13 b{display:block;font-size:24px;margin-top:7px}.finance-summary-v13 p{font-size:9px;color:var(--muted);margin:4px 0 0}
+.finance-note-v13{display:grid;grid-template-columns:1.5fr .5fr;gap:10px;margin:10px 0 20px}.finance-note-v13>div{padding:13px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel2)}.finance-note-v13 b{font-size:10px}.finance-note-v13 p{font-size:9px;color:var(--muted);line-height:1.45;margin:4px 0 0}
+.finance-student-table-v13{border:1px solid var(--line);border-radius:18px;background:var(--panel);overflow:hidden}.finance-student-head-v13,.finance-student-row-v13{display:grid;grid-template-columns:1.35fr repeat(5,minmax(90px,.72fr));gap:8px;align-items:center;padding:11px 14px}.finance-student-head-v13{background:var(--panel2);font-size:7px;font-weight:950;letter-spacing:.07em;color:var(--muted);text-transform:uppercase}.finance-student-row-v13{border-top:1px solid var(--line)}.finance-student-row-v13>div:not(:first-child) b{display:block;font-size:12px}.finance-student-row-v13 small{display:block;font-size:7px;color:var(--muted);margin-top:2px}.finance-student-name-v13{display:flex;align-items:center;gap:9px}.finance-student-name-v13>div{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:#edf2f8;color:#294968;font-weight:950}.finance-student-name-v13 span b{display:block;font-size:10px}
+.finance-history-v13,.finance-week-v13{border:1px solid var(--line);border-radius:18px;background:var(--panel);overflow:hidden}.finance-history-row-v13,.finance-week-row-v13{display:flex;gap:12px;align-items:center;padding:11px 14px;border-bottom:1px solid var(--line)}.finance-history-row-v13:last-child,.finance-week-row-v13:last-child{border-bottom:0}.finance-history-row-v13>div:first-child{width:105px}.finance-history-row-v13>div:first-child b{display:block;font-size:9px}.finance-history-row-v13>div:first-child span{font-size:8px;color:var(--muted)}.finance-history-row-v13 .grow>b,.finance-week-row-v13 .grow>b{font-size:10px}.finance-history-row-v13 p,.finance-week-row-v13 p{font-size:8px;color:var(--muted);margin:3px 0}.finance-history-row-v13>div:last-child{text-align:right}.finance-history-row-v13>div:last-child b{display:block;font-size:10px}.finance-history-row-v13>div:last-child span,.finance-week-row-v13>span{font-size:11px;font-weight:900;color:#237044}
+.finance-week-date-v13{width:40px;text-align:center}.finance-week-date-v13 b{display:block;font-size:8px;color:var(--muted)}.finance-week-date-v13 span{display:block;font-size:19px;font-weight:950}
+.finance-excluded-v13{padding:13px 14px;border:1px solid #efd6ad;border-radius:14px;background:#fff8ed;margin-top:10px}.finance-excluded-v13 b{font-size:10px}.finance-excluded-v13 p{font-size:9px;color:#7d6240;margin:4px 0 0}
+.finance-bottom-grid-v13{display:grid;grid-template-columns:1.4fr .6fr;gap:12px;margin-top:18px}.finance-bottom-grid-v13>div{border:1px solid var(--line);border-radius:18px;background:var(--panel);overflow:hidden}.finance-bottom-head-v13{padding:14px;border-bottom:1px solid var(--line)}.finance-bottom-head-v13 b{display:block;font-size:11px;margin-top:4px}.payment-row-simple-v13{display:grid;grid-template-columns:90px minmax(0,1fr) 70px;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line);align-items:center}.payment-row-simple-v13>span{font-size:8px;color:var(--muted)}.payment-row-simple-v13 b{font-size:10px}.payment-row-simple-v13 p{font-size:8px;color:var(--muted);margin:3px 0 0}.payment-row-simple-v13 strong{text-align:right;font-size:12px}.finance-outstanding-v13{padding:17px!important}.finance-outstanding-v13>b{display:block;font-size:29px;margin:8px 0}.finance-outstanding-v13 p{font-size:9px;color:var(--muted);line-height:1.5;margin:0}
+
+/* Dark mode */
+[data-theme="dark"] .student-profile-hero-v13,[data-theme="dark"] .finance-cycle-banner-v13{background:linear-gradient(135deg,#121a24,#1a2532)!important;border-color:#334255!important}
+[data-theme="dark"] .term-overview-card-v13.current{background:linear-gradient(145deg,#29201d,#151d27)!important;border-color:#6d463b!important}
+[data-theme="dark"] .resource-student-avatar-v13,[data-theme="dark"] .quiz-student-avatar-v13,[data-theme="dark"] .finance-student-name-v13>div{background:#202d3c!important;color:#e5edf6!important}
+[data-theme="dark"] .calendar-block-v13.planned{background:#172c46!important;color:#bcd8fb!important;border-color:#365b86!important}.calendar-block-v13.completed{}
+[data-theme="dark"] .calendar-block-v13.completed{background:#173024!important;color:#a8e1bc!important;border-color:#35684a!important}
+[data-theme="dark"] .calendar-block-v13.needs{background:#352918!important;color:#f1c982!important;border-color:#72552a!important}
+[data-theme="dark"] .finance-excluded-v13{background:#2e2518!important;border-color:#63502d!important}.finance-excluded-v13 p{color:#cbb68d!important}
+
+/* Responsive */
+@media(max-width:1050px){.student-profile-stats-v13,.finance-summary-v13,.quiz-summary-v13{grid-template-columns:repeat(2,minmax(0,1fr))}.term-overview-grid-v13{grid-template-columns:repeat(2,minmax(0,1fr))}.finance-student-table-v13{overflow:auto}.finance-student-head-v13,.finance-student-row-v13{min-width:780px}.quiz-grid-v13{grid-template-columns:1fr}.finance-bottom-grid-v13{grid-template-columns:1fr}}
+@media(max-width:760px){.student-profile-hero-v13{align-items:flex-start;flex-direction:column}.student-profile-actions-v13{width:100%}.student-profile-actions-v13 .btn{flex:1}.student-profile-stats-v13,.finance-summary-v13,.quiz-summary-v13,.resource-summary-v13{grid-template-columns:1fr 1fr}.term-overview-grid-v13{grid-template-columns:1fr 1fr}.term-summary-stats-v13{justify-content:flex-start}.student-upcoming-row-v13,.lesson-history-row-v13{align-items:flex-start;flex-wrap:wrap}.history-earned-v13{margin-left:auto}.finance-note-v13{grid-template-columns:1fr}.time-grid-v13{min-width:880px!important}}
+@media(max-width:480px){.student-profile-stats-v13,.finance-summary-v13,.quiz-summary-v13,.resource-summary-v13,.term-overview-grid-v13{grid-template-columns:1fr}.student-profile-id-v13 h2{font-size:24px}.finance-cycle-banner-v13{align-items:flex-start;flex-direction:column}.finance-cycle-rate-v13{text-align:left}}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -4301,7 +4379,7 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;'
 const money=c=>'R'+((Number(c)||0)/100).toLocaleString('en-ZA',{minimumFractionDigits:2,maximumFractionDigits:2});
 const dateFmt=s=>{if(!s)return 'Date not recorded';const d=new Date(s+'T12:00:00');return d.toLocaleDateString('en-ZA',{day:'numeric',month:'short',year:'numeric'})};
 const timeFmt=s=>s?String(s).slice(0,5):'Time not recorded';
-const today=()=>new Date().toISOString().slice(0,10);
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const studentName=id=>{const a=(data&&data.students)||[];const s=a.find(x=>x.id===id);return s?s.display_name||s.displayName||'Student':(data&&data.user&&data.user.id===id?data.user.displayName:'Student')};
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),2600)}
 async function api(payload,auth=true){
@@ -4406,19 +4484,39 @@ function activeCurriculumScope(rows){const term=currentAcademicTerm(),scoped=(ro
 function curriculumTracker(rows,editable){
   if(!rows.length)return emptyState('No curriculum loaded','Curriculum subtopics will appear here.');
   const subjects=[...new Set(rows.map(x=>x.subject))];
-  return '<div class="curriculum-wrap">'+subjects.map(subject=>{
-    const sr=rows.filter(x=>x.subject===subject),done=sr.filter(x=>curriculumStatus(x.status)==='Completed').length;
-    let out='<div class="curriculum-subject"><div><h4>'+esc(subject)+'</h4><div class="curriculum-total">'+done+' of '+sr.length+' subtopics completed</div></div><span class="chip">'+Math.round(done/Math.max(sr.length,1)*100)+'%</span></div>';
+  return '<div class="curriculum-wrap-v13">'+subjects.map(subject=>{
+    const sr=rows.filter(x=>x.subject===subject);
+    const done=sr.filter(x=>curriculumStatus(x.status)==='Completed').length;
+    let out='<div class="curriculum-subject-v13"><div><span>SUBJECT</span><h4>'+esc(subject)+'</h4><p>'+done+' of '+sr.length+' subtopics completed across all loaded terms</p></div><div class="curriculum-subject-score-v13"><b>'+Math.round(done/Math.max(sr.length,1)*100)+'%</b><span>overall</span></div></div>';
+    out+='<div class="term-overview-grid-v13">';
+    for(let term=1;term<=4;term++){
+      const tr=sr.filter(x=>Number(x.term_number)===term);
+      if(!tr.length){
+        out+='<div class="term-overview-card-v13 empty"><span>TERM '+term+'</span><b>No syllabus loaded</b><p>Add curriculum when needed.</p></div>';
+        continue;
+      }
+      const td=tr.filter(x=>curriculumStatus(x.status)==='Completed').length;
+      const tip=tr.filter(x=>curriculumStatus(x.status)==='In progress'||curriculumStatus(x.status)==='Revisit').length;
+      const left=Math.max(0,tr.length-td);
+      out+='<div class="term-overview-card-v13 '+(term===currentAcademicTerm()?'current':'')+'"><div class="term-overview-top-v13"><span>TERM '+term+'</span>'+(term===currentAcademicTerm()?'<em>CURRENT</em>':'')+'</div><div class="term-overview-numbers-v13"><div><b>'+td+'</b><span>Done</span></div><div><b>'+tip+'</b><span>Working on</span></div><div><b>'+left+'</b><span>To cover</span></div></div><div class="term-progress-bar-v13"><i style="width:'+Math.round(td/Math.max(tr.length,1)*100)+'%"></i></div></div>';
+    }
+    out+='</div>';
     for(let term=1;term<=4;term++){
       const tr=sr.filter(x=>Number(x.term_number)===term);if(!tr.length)continue;
-      const td=tr.filter(x=>curriculumStatus(x.status)==='Completed').length,topics=[...new Set(tr.map(x=>x.topic))],termKey='term:'+subject+':'+term;
-      out+='<details class="term-block" data-curr-key="'+esc(termKey)+'" '+(term===1?'open':'')+'><summary><div class="term-title"><div class="term-num">'+term+'</div><div><b>Term '+term+'</b><div class="tiny muted">'+topics.length+' topic'+(topics.length===1?'':'s')+'</div></div></div><div class="term-progress"><b>'+td+' / '+tr.length+'</b><span>subtopics complete</span></div></summary><div class="term-body">';
+      const td=tr.filter(x=>curriculumStatus(x.status)==='Completed').length;
+      const active=tr.filter(x=>curriculumStatus(x.status)==='In progress'||curriculumStatus(x.status)==='Revisit').length;
+      const toCover=Math.max(0,tr.length-td);
+      const topics=[...new Set(tr.map(x=>x.topic))],termKey='term:'+subject+':'+term;
+      out+='<details class="term-block term-block-v13" data-curr-key="'+esc(termKey)+'" '+(term===currentAcademicTerm()?'open':'')+'><summary><div class="term-title"><div class="term-num">'+term+'</div><div><b>Term '+term+'</b><div class="tiny muted">'+topics.length+' topic'+(topics.length===1?'':'s')+' · '+tr.length+' subtopics</div></div></div><div class="term-summary-stats-v13"><span><b>'+td+'</b> done</span><span><b>'+active+'</b> active</span><span><b>'+toCover+'</b> to cover</span></div></summary><div class="term-body">';
       for(const topic of topics){
-        const ar=tr.filter(x=>x.topic===topic),ad=ar.filter(x=>curriculumStatus(x.status)==='Completed').length,topicKey='topic:'+subject+':'+term+':'+topic;
-        out+='<details class="topic-block" data-curr-key="'+esc(topicKey)+'"><summary><div><b>'+esc(topic)+'</b><span>'+esc(ar[0].strand||'')+'</span></div><span>'+ad+' / '+ar.length+' complete</span></summary><div class="subtopic-list">';
+        const ar=tr.filter(x=>x.topic===topic);
+        const ad=ar.filter(x=>curriculumStatus(x.status)==='Completed').length;
+        const aa=ar.filter(x=>curriculumStatus(x.status)==='In progress'||curriculumStatus(x.status)==='Revisit').length;
+        const topicKey='topic:'+subject+':'+term+':'+topic;
+        out+='<details class="topic-block topic-block-v13" data-curr-key="'+esc(topicKey)+'"><summary><div><b>'+esc(topic)+'</b><span>'+esc(ar[0].strand||'')+'</span></div><div class="topic-counts-v13"><span>'+ad+' done</span><span>'+Math.max(0,ar.length-ad)+' left</span>'+(aa?'<span>'+aa+' active</span>':'')+'</div></summary><div class="subtopic-list">';
         out+=ar.map(x=>{
           const cls=progressClass(x.status),label=progressDisplay(x.status),note=String(x.notes||'').trim(),taught=String(x.taught_content||'').trim(),issues=String(x.student_issues||'').trim();
-          return '<div class="subtopic-card" data-progress="'+cls+'" onclick="openSubtopicDetail(\''+x.id+'\','+(editable?'true':'false')+')"><div class="subtopic-name">'+esc(x.subtopic)+'</div><div class="subtopic-status"><span class="subtopic-status-label">Progress</span><span class="progress-badge '+cls+'">'+esc(label)+'</span></div><div class="subtopic-note-box"><div class="subtopic-note-title">Summary</div><div class="subtopic-note-text">'+esc(taught||note||issues||'No details added yet')+'</div></div><span class="subtopic-view">View details ›</span></div>'
+          return '<div class="subtopic-card subtopic-card-v13" data-progress="'+cls+'" onclick="openSubtopicDetail(\''+x.id+'\','+(editable?'true':'false')+')"><div class="subtopic-name">'+esc(x.subtopic)+'</div><div class="subtopic-status"><span class="subtopic-status-label">Progress</span><span class="progress-badge '+cls+'">'+esc(label)+'</span></div><div class="subtopic-note-box"><div class="subtopic-note-title">'+(taught?'What was taught':issues?'Needs work':'Next step')+'</div><div class="subtopic-note-text">'+esc(taught||issues||note||'Not covered yet')+'</div></div><span class="subtopic-view">View ›</span></div>'
         }).join('');
         out+='</div></details>';
       }
@@ -4539,17 +4637,39 @@ function lessonCalendar(){
   const events=mergedLessonEvents(),base=scheduleBase();
   if(scheduleView==='month'){
     const d=new Date(base+'T12:00:00'),first=new Date(d.getFullYear(),d.getMonth(),1),start=new Date(first);start.setDate(1-((first.getDay()+6)%7));
-    let out='<div class="calendar-pro">'+calendarToolbar()+'<div class="calendar-month-v2">'+['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(x=>'<div class="cal-month-head">'+x+'</div>').join('');
-    for(let i=0;i<42;i++){const x=new Date(start);x.setDate(start.getDate()+i);const dt=isoDate(x),items=events.filter(e=>e.event_date===dt),outside=x.getMonth()!==d.getMonth();out+='<div class="cal-month-day '+(outside?'out ':'')+(dt===today()?'today':'')+'" onclick="scheduleAnchor=\''+dt+'\';scheduleView=\'day\';adminSchedule()"><div class="cal-month-num">'+x.getDate()+'</div>'+items.slice(0,4).map(e=>'<div class="cal-month-event '+(e.source==='Google Calendar'?'google':'')+'">'+esc(timeFmt(e.start_time))+' '+esc(e.title)+'</div>').join('')+(items.length>4?'<div class="tiny muted">+'+(items.length-4)+' more</div>':'')+'</div>'}return out+'</div></div>';
+    let out='<div class="calendar-pro calendar-pro-v13">'+calendarToolbar()+'<div class="calendar-month-v2">'+['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(x=>'<div class="cal-month-head">'+x+'</div>').join('');
+    for(let i=0;i<42;i++){
+      const x=new Date(start);x.setDate(start.getDate()+i);const dt=isoDate(x),items=events.filter(e=>e.event_date===dt),outside=x.getMonth()!==d.getMonth();
+      out+='<div class="cal-month-day '+(outside?'out ':'')+(dt===today()?'today':'')+'" onclick="scheduleAnchor=\''+dt+'\';scheduleView=\'day\';adminSchedule()"><div class="cal-month-num">'+x.getDate()+'</div>'+items.slice(0,5).map(e=>'<div class="cal-month-event '+(e.status==='Completed'?'completed':'')+'">'+esc(timeFmt(e.start_time))+' '+esc(e.title)+'</div>').join('')+(items.length>5?'<div class="tiny muted">+'+(items.length-5)+' more</div>':'')+'</div>';
+    }
+    return out+'</div></div>';
   }
-  const n=scheduleView==='day'?1:scheduleView==='3'?3:7,start=scheduleView==='7'?(()=>{const d=new Date(base+'T12:00:00'),k=(d.getDay()+6)%7;d.setDate(d.getDate()-k);return isoDate(d)})():base;
-  const days=Array.from({length:n},(_,i)=>addDays(start,i)),startHour=5,endHour=24,rowH=48,rows=(endHour-startHour)*2;
-  let out='<div class="calendar-pro">'+calendarToolbar()+'<div class="time-grid-wrap"><div class="time-grid" style="grid-template-columns:58px repeat('+n+',minmax(150px,1fr))">';
-  out+='<div class="time-grid-head" style="grid-column:1/-1;grid-template-columns:58px repeat('+n+',minmax(150px,1fr))"><div class="blank"></div>'+days.map(dt=>{const d=new Date(dt+'T12:00:00');return '<div class="dayhead '+(dt===today()?'today':'')+'" onclick="scheduleAnchor=\''+dt+'\';scheduleView=\'day\';adminSchedule()"><span>'+d.toLocaleDateString('en-ZA',{weekday:'short'})+'</span><b>'+d.getDate()+'</b></div>'}).join('')+'</div>';
-  out+='<div class="time-grid-body" style="grid-column:1/-1;grid-template-columns:58px repeat('+n+',minmax(150px,1fr));grid-template-rows:repeat('+rows+','+rowH+'px)">';
-  for(let r=0;r<rows;r++){const mins=startHour*60+r*30,label=r%2===0?String(Math.floor(mins/60)).padStart(2,'0')+':00':'';out+='<div class="time-label" style="grid-column:1;grid-row:'+(r+1)+'">'+label+'</div>';for(let d=0;d<n;d++)out+='<div class="time-cell '+(r%2===0?'hour':'')+'" style="grid-column:'+(d+2)+';grid-row:'+(r+1)+'"></div>'}
-  days.forEach((dt,di)=>{events.filter(e=>e.event_date===dt).forEach(e=>{const st=String(e.start_time||'07:00').slice(0,5).split(':').map(Number),et=String(e.end_time||addMinutesToTime(e.start_time||'07:00',60)).slice(0,5).split(':').map(Number),sm=st[0]*60+st[1],em=et[0]*60+et[1],top=((sm-startHour*60)/30)*rowH,height=Math.max(28,((em-sm)/30)*rowH-4),left='calc((100% - 58px) / '+n+' * '+di+' + 58px + 4px)',width='calc((100% - 58px) / '+n+' - 8px)';out+='<div class="calendar-block '+(e.source==='Google Calendar'?'google':'')+'" style="top:'+top+'px;height:'+height+'px;left:'+left+';width:'+width+'"><b>'+esc(timeFmt(e.start_time))+' · '+esc(e.title)+'</b><small>'+esc(e.description||e.source)+'</small></div>'})});
-  const now=new Date(),todayIdx=days.indexOf(today());if(todayIdx>=0&&now.getHours()>=startHour&&now.getHours()<endHour){const m=now.getHours()*60+now.getMinutes(),top=((m-startHour*60)/30)*rowH,left='calc((100% - 58px) / '+n+' * '+todayIdx+' + 58px)',width='calc((100% - 58px) / '+n+')';out+='<div class="now-line" style="top:'+top+'px;left:'+left+';width:'+width+'"></div>'}
+  const n=scheduleView==='day'?1:scheduleView==='3'?3:7;
+  const start=scheduleView==='7'?(()=>{const d=new Date(base+'T12:00:00'),k=(d.getDay()+6)%7;d.setDate(d.getDate()-k);return isoDate(d)})():base;
+  const days=Array.from({length:n},(_,i)=>addDays(start,i)),startHour=5,endHour=24,rowH=34,rows=(endHour-startHour)*2;
+  let out='<div class="calendar-pro calendar-pro-v13">'+calendarToolbar()+'<div class="calendar-legend-v13"><span><i class="planned"></i>Scheduled / projected</span><span><i class="completed"></i>Completed / earned</span><span><i class="needs"></i>Needs confirmation</span></div><div class="time-grid-wrap time-grid-wrap-v13"><div class="time-grid time-grid-v13" style="grid-template-columns:64px repeat('+n+',minmax(165px,1fr))">';
+  out+='<div class="time-grid-head" style="grid-column:1/-1;grid-template-columns:64px repeat('+n+',minmax(165px,1fr))"><div class="blank"></div>'+days.map(dt=>{const d=new Date(dt+'T12:00:00');return '<div class="dayhead '+(dt===today()?'today':'')+'" onclick="scheduleAnchor=\''+dt+'\';scheduleView=\'day\';adminSchedule()"><span>'+d.toLocaleDateString('en-ZA',{weekday:'short'})+'</span><b>'+d.getDate()+'</b><small>'+d.toLocaleDateString('en-ZA',{month:'short'})+'</small></div>'}).join('')+'</div>';
+  out+='<div class="time-grid-body time-grid-body-v13" style="grid-column:1/-1;grid-template-columns:64px repeat('+n+',minmax(165px,1fr));grid-template-rows:repeat('+rows+','+rowH+'px)">';
+  for(let r=0;r<rows;r++){
+    const mins=startHour*60+r*30,label=r%2===0?String(Math.floor(mins/60)).padStart(2,'0')+':00':'';
+    out+='<div class="time-label" style="grid-column:1;grid-row:'+(r+1)+'">'+label+'</div>';
+    for(let d=0;d<n;d++)out+='<div class="time-cell '+(r%2===0?'hour':'half')+'" style="grid-column:'+(d+2)+';grid-row:'+(r+1)+'"></div>';
+  }
+  days.forEach((dt,di)=>{
+    events.filter(e=>e.event_date===dt).forEach(e=>{
+      const st=String(e.start_time||'07:00').slice(0,5).split(':').map(Number),et=String(e.end_time||addMinutesToTime(e.start_time||'07:00',60)).slice(0,5).split(':').map(Number);
+      const sm=st[0]*60+st[1],em=et[0]*60+et[1],top=((sm-startHour*60)/30)*rowH,height=Math.max(38,((em-sm)/30)*rowH-4);
+      const left='calc((100% - 64px) / '+n+' * '+di+' + 64px + 5px)',width='calc((100% - 64px) / '+n+' - 10px)';
+      const stClass=e.status==='Completed'?'completed':String(e.status||'').toLowerCase().includes('needs')?'needs':'planned';
+      const click=e.lesson_id?' onclick="openLessonQuickActions(\''+e.lesson_id+'\')"':'';
+      out+='<div class="calendar-block calendar-block-v13 '+stClass+'" '+click+' style="top:'+top+'px;height:'+height+'px;left:'+left+';width:'+width+'"><div class="calendar-block-time-v13">'+esc(timeFmt(e.start_time))+' – '+esc(timeFmt(e.end_time))+'</div><b>'+esc(e.title)+'</b><small>'+esc(e.description||e.status||e.source)+'</small></div>';
+    })
+  });
+  const now=new Date(),todayIdx=days.indexOf(today());
+  if(todayIdx>=0&&now.getHours()>=startHour&&now.getHours()<endHour){
+    const m=now.getHours()*60+now.getMinutes(),top=((m-startHour*60)/30)*rowH,left='calc((100% - 64px) / '+n+' * '+todayIdx+' + 64px)',width='calc((100% - 64px) / '+n+')';
+    out+='<div class="now-line" style="top:'+top+'px;left:'+left+';width:'+width+'"></div>';
+  }
   out+='</div></div></div>';return out;
 }
 function weeklyPlanCard(n){
@@ -4736,18 +4856,31 @@ async function saveSubtopicDetail(id){
 
 function studentDetail(id){
   const s=(data.students||[]).find(x=>x.id===id);if(!s)return;
-  const ls=(data.lessons||[]).filter(x=>x.student_id===id).sort((a,b)=>b.lesson_date.localeCompare(a.lesson_date)),rs=(data.resources||[]).filter(x=>x.student_id===id);
+  const allLessons=(data.lessons||[]).filter(x=>x.student_id===id).slice().sort((a,b)=>(b.lesson_date+String(b.start_time||'')).localeCompare(a.lesson_date+String(a.start_time||'')));
+  const completedLessons=allLessons.filter(x=>x.status==='Completed');
+  const upcomingLessons=allLessons.filter(x=>x.lesson_date>=today()&&['Confirmed','Scheduled','Planned','Needs confirmation','Needs Confirmation'].includes(x.status)).slice().sort((a,b)=>(a.lesson_date+String(a.start_time||'')).localeCompare(b.lesson_date+String(b.start_time||'')));
+  const rs=(data.resources||[]).filter(x=>x.student_id===id);
   const cur=currentPlanFor(id),stats=lessonStats(id),catchup=remainingCatchup(id),monthHours=completedHoursInCalendarMonth(0,id);
-  let h='<div class="row between wrap"><div><button class="btn small" onclick="go(\'students\')">← Students</button><h2 style="margin:14px 0 3px">'+esc(s.display_name)+'</h2><div class="muted">'+esc(s.grade||'')+' · '+esc(s.curriculum||'')+' · '+esc(s.subjects||'')+'</div></div><div class="row wrap"><button class="btn small" onclick="editStudent(\''+id+'\')">Edit profile</button><button class="btn small" onclick="resetPassword(\''+id+'\')">Reset password</button></div></div>';
-  h+=section('Student overview','Current month activity and overall progress','<button class="btn small" onclick="editRoutine(\''+id+'\')">Edit routine</button>');
-  h+='<div class="routine-card"><div class="routine-stat"><span>'+esc(monthBounds(0).label)+' lessons</span><b>'+monthHours.toFixed(1)+'h</b></div><div class="routine-stat"><span>Monthly target</span><b>'+Number(cur?.target_hours||0).toFixed(0)+'h</b></div><div class="routine-stat"><span>Catch-up remaining</span><b>'+catchup.toFixed(0)+'h</b></div><div class="routine-stat"><span>All-time completed</span><b>'+stats.completed+' sessions</b></div></div>';
   const curriculum=(data.curriculumSubtopics||[]).filter(x=>x.student_id===id);
-  h+=section('Topics & subtopics','Open a topic, then tap a subtopic for exactly what was taught, progress, issues and notes.');
+  const currentScope=activeCurriculumScope(curriculum),currentDone=currentScope.filter(x=>curriculumStatus(x.status)==='Completed').length;
+  const currentLeft=Math.max(0,currentScope.length-currentDone);
+  const next=upcomingLessons[0];
+  let h='<div class="student-profile-hero-v13"><div class="student-profile-main-v13"><button class="back-link-v13" onclick="go(\'students\')">← Students</button><div class="student-profile-id-v13"><div class="student-avatar-xl-v13">'+esc(initials(s.display_name))+'</div><div><span class="eyebrow">STUDENT PROFILE</span><h2>'+esc(s.display_name)+'</h2><p>'+esc(s.grade||'Grade not set')+' · '+esc(s.curriculum||'Curriculum not set')+' · '+esc(s.subjects||'Subjects not set')+'</p></div></div></div><div class="student-profile-actions-v13"><button class="btn soft-v13" onclick="editStudent(\''+id+'\')">Edit profile</button><button class="btn soft-v13" onclick="editRoutine(\''+id+'\')">Routine</button><button class="btn primary" onclick="openLesson(\''+id+'\')">+ Lesson</button></div></div>';
+  h+='<div class="student-profile-stats-v13"><div><span>Verified lessons</span><b>'+stats.completed+'</b><p>'+stats.completedHours.toFixed(1)+' teaching hours</p></div><div><span>'+esc(monthBounds(0).label)+' completed</span><b>'+monthHours.toFixed(1)+'h</b><p>Only verified completed teaching</p></div><div><span>Current term</span><b>'+currentDone+' / '+currentScope.length+'</b><p>'+currentLeft+' subtopics still to cover</p></div><div><span>Next lesson</span><b>'+(next?esc(dateFmt(next.lesson_date)):'None')+'</b><p>'+(next?esc(timeFmt(next.start_time))+' · '+esc(next.subject||'Lesson'):'Nothing currently scheduled')+'</p></div></div>';
+  h+=section('Curriculum coverage','All loaded terms are shown below. Open a term to see every topic, what is done, what is active and what still needs teaching.');
   h+=curriculumTracker(curriculum,true);
-  h+=section('Lesson history','Dates, subjects and topics actually taught');h+='<div class="list">'+(ls.length?ls.map(lessonRow).join(''):emptyState('No lessons recorded','Completed and scheduled lessons will appear here.'))+'</div>';
-  h+=section('Resources','Interactive lessons, notes, slides, PDFs and worksheets');h+=resourceCards(rs,true);
-  const lps=(data.lessonPlans||[]).filter(x=>x.student_id===id);h+=section('Lesson plans','Teaching plans for this student','<button class="btn small primary" onclick="openLessonPlan(\''+id+'\')">+ Lesson plan</button>');h+='<div class="list">'+(lps.length?lps.map(lessonPlanCard).join(''):emptyState('No lesson plans yet','Add one when needed.'))+'</div>';
-  const subs=(data.submissions||[]).filter(x=>x.student_id===id);h+=section('Work sent','Homework, assessments and files from the student');h+='<div class="list">'+(subs.length?subs.map(submissionAdminRow).join(''):emptyState('No work submitted yet','Submitted work will appear here.'))+'</div>';
+  h+=section('Upcoming lessons','Calendar-linked lessons are planning only and do not count as earned until marked completed.');
+  h+='<div class="student-upcoming-v13">'+(upcomingLessons.length?upcomingLessons.slice(0,8).map(l=>'<div class="student-upcoming-row-v13"><div class="student-upcoming-date-v13"><b>'+new Date(l.lesson_date+'T12:00:00').getDate()+'</b><span>'+new Date(l.lesson_date+'T12:00:00').toLocaleDateString('en-ZA',{month:'short'})+'</span></div><div class="grow"><b>'+esc(l.subject||'Lesson')+'</b><p>'+esc(l.topic||'Topic to confirm')+' · '+esc(timeFmt(l.start_time))+' · '+esc(l.duration_minutes)+' min</p></div>'+status(l.status)+'<button class="btn small ghost-v13" onclick="openLessonQuickActions(\''+l.id+'\')">Manage</button></div>').join(''):emptyState('No upcoming lessons','Nothing is scheduled for this student.'))+'</div>';
+  h+=section('Verified lesson history','Only sessions marked Completed appear here. Scheduled, cancelled and unverified sessions are excluded.');
+  h+='<div class="lesson-history-v13">'+(completedLessons.length?completedLessons.map(l=>'<div class="lesson-history-row-v13"><div class="lesson-history-date-v13"><b>'+esc(dateFmt(l.lesson_date))+'</b><span>'+esc(timeFmt(l.start_time))+'</span></div><div class="grow"><b>'+esc(l.subject||'Lesson')+'</b><p>'+esc(l.topic||'Topic not recorded')+'</p><small>'+esc(l.duration_minutes)+' min · '+esc(l.lesson_mode||'Lesson')+' · '+esc(l.record_source||'Verified record')+'</small></div><span class="history-earned-v13">R'+lessonValue(l,150).toFixed(0)+'</span><button class="btn small ghost-v13" onclick="openLessonQuickActions(\''+l.id+'\')">View</button></div>').join(''):emptyState('No verified lessons','Completed teaching will appear here.'))+'</div>';
+  h+=section('Resources used & prepared','Student-specific teaching material, organised by use and type.');
+  h+=studentResourceLibraryV13(id,rs,true);
+  const lps=(data.lessonPlans||[]).filter(x=>x.student_id===id);
+  h+=section('Lesson plans','Teaching plans prepared for this learner','<button class="btn small primary" onclick="openLessonPlan(\''+id+'\')">+ Lesson plan</button>');
+  h+='<div class="list">'+(lps.length?lps.map(lessonPlanCard).join(''):emptyState('No lesson plans yet','Add one when needed.'))+'</div>';
+  const subs=(data.submissions||[]).filter(x=>x.student_id===id);
+  h+=section('Work sent','Homework, assessments and files from the student');
+  h+='<div class="list">'+(subs.length?subs.map(submissionAdminRow).join(''):emptyState('No work submitted yet','Submitted work will appear here.'))+'</div>';
   $('#content').innerHTML=h;
 }
 function adminSchedule(){
@@ -4814,37 +4947,35 @@ function resourceVisual(r){
   return '<div class="resource-thumb">'+art+'<span class="rtag">'+esc(r.featured?'FEATURED':(r.resource_type||'RESOURCE'))+'</span></div>';
 }
 function resourceIcon(t){t=String(t||'').toLowerCase();if(t.includes('interactive'))return '✦';if(t.includes('pdf')||t.includes('note'))return '▤';if(t.includes('slide'))return '▣';if(t.includes('video'))return '▶';if(t.includes('quiz'))return '✓';return '↗'}
+function studentResourceLibraryV13(studentId,resources,admin){
+  const rs=(resources||[]).filter(r=>r.student_id===studentId);
+  const used=rs.filter(r=>String(r.completion_status||'').toLowerCase()==='used');
+  const usedIds=new Set(used.map(r=>r.id));
+  const groups=[
+    ['Used in lessons','✓','Verified as actually used during teaching',used],
+    ['Interactive lessons','✦','Interactive lessons prepared or sent',rs.filter(r=>!usedIds.has(r.id)&&/interactive/i.test(String(r.resource_type||'')))],
+    ['Notes & worksheets','≡','Notes, PDFs, slides and worksheets',rs.filter(r=>!usedIds.has(r.id)&&/pdf|note|slide|worksheet/i.test(String(r.resource_type||'')))],
+    ['Quizzes','◇','Quiz links, quiz files and reports',rs.filter(r=>!usedIds.has(r.id)&&/quiz/i.test(String(r.resource_type||'')))],
+    ['Assessments','A','Baseline and formal assessments',rs.filter(r=>!usedIds.has(r.id)&&String(r.resource_type||'').toLowerCase()==='assessment')]
+  ];
+  const matched=new Set(groups.flatMap(g=>g[3].map(r=>r.id)));
+  const other=rs.filter(r=>!matched.has(r.id));
+  if(other.length)groups.push(['Other','＋','Additional teaching material',other]);
+  if(!rs.length)return '<div class="resource-empty-v13"><b>No resources for this student yet</b><p>Add a lesson, note, quiz or assessment when you prepare it.</p></div>';
+  return '<div class="resource-groups-v13">'+groups.filter(g=>g[3].length).map(([label,icon,desc,list])=>'<details class="resource-group-v13" '+(label==='Used in lessons'?'open':'')+'><summary><div class="resource-group-icon-v13">'+icon+'</div><div class="grow"><b>'+esc(label)+'</b><p>'+esc(desc)+'</p></div><span>'+list.length+'</span></summary><div class="resource-group-body-v13">'+resourceCards(list,admin,false,false)+'</div></details>').join('')+'</div>';
+}
+
 function adminResources(){
   const all=(data.resources||[]).slice();
-  const used=all.filter(r=>String(r.completion_status||'').toLowerCase()==='used').length;
-  const quizAssets=all.filter(r=>/quiz/i.test(String(r.resource_type||''))).length;
-  const assessments=all.filter(r=>String(r.resource_type||'').toLowerCase()==='assessment').length;
-  let h=adminPageHeader('Resources','A structured library by student, resource type and actual lesson use.','<div class="row"><button class="btn" onclick="openLinkResource()">+ Link</button><button class="btn primary" onclick="openUpload()">+ Upload</button></div>');
-  h+='<div class="resource-overview-v12"><div><span>Total library</span><b>'+all.length+'</b><p>All linked and uploaded teaching material</p></div><div><span>Used in lessons</span><b>'+used+'</b><p>Verified as actually used</p></div><div><span>Quiz assets</span><b>'+quizAssets+'</b><p>Quiz links and reports</p></div><div><span>Assessments</span><b>'+assessments+'</b><p>Baseline and formal work</p></div></div>';
   const students=(data.students||[]).filter(s=>s.active!==false).slice().sort((a,b)=>String(a.display_name||'').localeCompare(String(b.display_name||'')));
-  const folders=[
-    ['Interactive lessons','✦','Lessons actually used during teaching',r=>String(r.resource_type||'').toLowerCase().includes('interactive')&&String(r.completion_status||'').toLowerCase()==='used'],
-    ['Notes','≡','Study notes, PDFs and worksheets',r=>/pdf|note|slide|worksheet/i.test(String(r.resource_type||''))],
-    ['Quizzes','✓','Quiz links and reports',r=>String(r.resource_type||'').toLowerCase().includes('quiz')],
-    ['Assessments','A','Baseline and formal assessments',r=>String(r.resource_type||'').toLowerCase()==='assessment']
-  ];
-  h+='<div class="page-surface resources-surface"><div class="resource-library-v10">';
-  students.forEach(s=>{
-    const sr=all.filter(r=>r.student_id===s.id);
-    const matched=new Set();
-    folders.forEach(f=>sr.filter(f[3]).forEach(r=>matched.add(r.id)));
-    const other=sr.filter(r=>!matched.has(r.id));
-    h+='<section class="resource-student-v10"><div class="resource-student-head-v10"><div><h3>'+esc(s.display_name)+'</h3><p>'+esc((s.grade||'Student')+(s.subjects?' · '+s.subjects:''))+'</p></div><span class="resource-student-count-v10">'+sr.length+' resource'+(sr.length===1?'':'s')+'</span></div><div class="resource-student-body-v10"><div class="resource-folder-grid-v11">'+(!sr.length?'<div class="resource-empty-v12"><b>No resources yet</b><p>Add the first lesson, note, quiz or assessment for '+esc(s.display_name)+'.</p></div>':'');
-    folders.forEach(([label,icon,desc,test])=>{
-      const rs=sr.filter(test);
-      if(!rs.length)return;
-      h+='<details class="resource-folder-v11"><summary><div class="resource-folder-icon-v11">'+icon+'</div><div class="resource-folder-copy-v11"><b>'+esc(label)+'</b><p>'+esc(desc)+'</p></div><span class="resource-folder-count-v11">'+rs.length+'</span></summary><div class="resource-folder-content-v11">'+resourceCards(rs,true,false,false)+'</div></details>';
-    });
-    if(other.length)h+='<details class="resource-folder-v11"><summary><div class="resource-folder-icon-v11">＋</div><div class="resource-folder-copy-v11"><b>Other resources</b><p>Additional material sent in lessons</p></div><span class="resource-folder-count-v11">'+other.length+'</span></summary><div class="resource-folder-content-v11">'+resourceCards(other,true,false,false)+'</div></details>';
-    h+='</div></div></section>';
+  const used=all.filter(r=>String(r.completion_status||'').toLowerCase()==='used').length;
+  let h=adminPageHeader('Resources','Choose a student first. Inside each student, resources are separated into what was actually used, interactive lessons, notes, quizzes and assessments.','<div class="row"><button class="btn soft-v13" onclick="openLinkResource()">+ Link</button><button class="btn primary" onclick="openUpload()">+ Upload</button></div>');
+  h+='<div class="resource-summary-v13"><div><span>ACTIVE STUDENTS</span><b>'+students.length+'</b><p>Structured resource libraries</p></div><div><span>TOTAL RESOURCES</span><b>'+all.length+'</b><p>Uploaded and linked material</p></div><div><span>USED IN LESSONS</span><b>'+used+'</b><p>Verified teaching use only</p></div></div>';
+  h+='<div class="resource-student-list-v13">';
+  students.forEach((s,idx)=>{
+    const sr=all.filter(r=>r.student_id===s.id),usedCount=sr.filter(r=>String(r.completion_status||'').toLowerCase()==='used').length;
+    h+='<details class="resource-student-panel-v13" '+(idx===0?'open':'')+'><summary><div class="resource-student-avatar-v13">'+esc(initials(s.display_name))+'</div><div class="grow"><h3>'+esc(s.display_name)+'</h3><p>'+esc(s.grade||'Student')+' · '+esc(s.subjects||'Subjects not set')+'</p></div><div class="resource-student-meta-v13"><b>'+sr.length+'</b><span>resources</span></div><div class="resource-student-meta-v13 used"><b>'+usedCount+'</b><span>used</span></div></summary><div class="resource-student-panel-body-v13">'+studentResourceLibraryV13(s.id,all,true)+'</div></details>';
   });
-  h+='</div>';
-  if(!all.length)h+=emptyState('No resources','Upload or link your first teaching resource.');
   h+='</div>';$('#content').innerHTML=h;
 }
 async function openResource(id){
@@ -4935,16 +5066,27 @@ function openQuizReportCenter(id){
 
 function adminQuizzes(){
   const qs=(data.quizzes||[]).slice().sort((a,b)=>String(b.scheduled_for||b.created_at).localeCompare(String(a.scheduled_for||a.created_at)));
-  const attempts=data.quizAttempts||[],withSubmissions=new Set(attempts.map(a=>a.quiz_id)).size;
-  const linkCount=qs.filter(q=>!!quizLinkFor(q.id)).length;
-  let h=adminPageHeader('Quizzes','View quiz activity, submissions and reports.','<button class="btn primary" onclick="openUnifiedQuizAdd()">+ Add quiz</button>');
-  h+='<div class="page-surface quizzes-surface"><div class="quiz-overview-v5"><div class="quiz-overview-card primary"><div class="eyebrow">QUIZ LIBRARY</div><div class="big">'+qs.length+' quiz'+(qs.length===1?'':'zes')+'</div><p>Everything you have added for your students.</p></div><div class="quiz-overview-card"><div class="eyebrow">WITH SUBMISSIONS</div><div class="big">'+withSubmissions+'</div><p>Quizzes with student responses.</p></div><div class="quiz-overview-card"><div class="eyebrow">LINKED QUIZZES</div><div class="big">'+linkCount+'</div><p>Hosted quizzes that open directly.</p></div></div>';
-  h+='<div class="quiz-list-v5">'+(qs.length?qs.map(q=>{
-    const link=quizLinkFor(q.id),type=link?'Link':(q.quiz_mode==='Uploaded file'||q.storage_path?'File':'Browser quiz');
-    const at=attempts.filter(a=>a.quiz_id===q.id).slice().sort((a,b)=>String(b.completed_at).localeCompare(String(a.completed_at))),latest=at[0];
-    return '<div class="quiz-card-v5"><div class="quiz-cover-v5"><div class="quiz-cover-top"><div class="quiz-cover-title"><div class="quiz-mark-v5">✓</div><div><h4>'+esc(q.title)+'</h4><div class="student">'+esc(studentName(q.student_id))+'</div></div></div><span class="quiz-kind-v5">'+esc(type)+'</span></div><div class="quiz-date-v5">'+(q.scheduled_for?esc(dateFmt(q.scheduled_for)):'No date set')+'</div></div><div class="quiz-body-v5"><div class="quiz-subject-v5"><b>'+esc(q.subject||'Subject not set')+'</b><span>'+at.length+' submission'+(at.length===1?'':'s')+'</span></div><div class="quiz-topic-v5">'+esc(q.topic||'No topic added yet.')+'</div>'+(latest?'<div class="quiz-submission-v5">Latest submission · '+new Date(latest.completed_at).toLocaleString('en-ZA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+(latest.mark_status==='MARKED'?' · '+esc(latest.score)+'/'+esc(latest.total):' · Awaiting/review available')+'</div>':'<div class="quiz-submission-v5">No student submission yet.</div>')+'<div class="quiz-actions-v5"><button class="btn small primary" onclick="openQuizAsset((data.quizzes||[]).find(x=>x.id===\''+q.id+'\'))">Open quiz</button><button class="btn small" onclick="openQuizReportCenter(\''+q.id+'\')">Report</button></div></div></div>';
-  }).join(''):emptyState('No quizzes','Add a link or upload a quiz file.'))+'</div></div>';
-  $('#content').innerHTML=h;
+  const attempts=data.quizAttempts||[];
+  const students=(data.students||[]).filter(s=>s.active!==false).slice().sort((a,b)=>String(a.display_name||'').localeCompare(String(b.display_name||'')));
+  const marked=attempts.filter(a=>a.mark_status==='MARKED').length;
+  const pending=attempts.filter(a=>a.mark_status!=='MARKED').length;
+  let h=adminPageHeader('Quizzes','Student-by-student quiz library with submissions and reports kept together.','<button class="btn primary" onclick="openUnifiedQuizAdd()">+ Add quiz</button>');
+  h+='<div class="quiz-summary-v13"><div><span>QUIZZES</span><b>'+qs.length+'</b><p>Published and prepared</p></div><div><span>SUBMISSIONS</span><b>'+attempts.length+'</b><p>Student attempts received</p></div><div><span>MARKED</span><b>'+marked+'</b><p>Reviewed attempts</p></div><div><span>TO REVIEW</span><b>'+pending+'</b><p>Needs your attention</p></div></div>';
+  h+='<div class="quiz-student-list-v13">';
+  students.forEach((s,idx)=>{
+    const sq=qs.filter(q=>q.student_id===s.id),sa=attempts.filter(a=>a.student_id===s.id);
+    h+='<details class="quiz-student-panel-v13" '+(idx===0?'open':'')+'><summary><div class="quiz-student-avatar-v13">'+esc(initials(s.display_name))+'</div><div class="grow"><h3>'+esc(s.display_name)+'</h3><p>'+esc(s.grade||'Student')+' · '+esc(s.subjects||'Subjects not set')+'</p></div><span class="quiz-student-count-v13">'+sq.length+' quiz'+(sq.length===1?'':'zes')+'</span></summary><div class="quiz-student-body-v13">';
+    if(!sq.length){h+=emptyState('No quizzes yet','Add the first quiz for '+s.display_name+'.')}else{
+      h+='<div class="quiz-grid-v13">'+sq.map(q=>{
+        const link=quizLinkFor(q.id),type=link?'Hosted link':(q.quiz_mode==='Uploaded file'||q.storage_path?'Uploaded file':'Browser quiz');
+        const at=sa.filter(a=>a.quiz_id===q.id).slice().sort((a,b)=>String(b.completed_at||'').localeCompare(String(a.completed_at||''))),latest=at[0];
+        const reviewCount=at.filter(a=>a.mark_status!=='MARKED').length;
+        return '<div class="quiz-card-v13"><div class="quiz-card-head-v13"><div><span>'+esc(type.toUpperCase())+'</span><h4>'+esc(q.title)+'</h4><p>'+esc(q.subject||'Subject not set')+(q.topic?' · '+esc(q.topic):'')+'</p></div><div class="quiz-card-date-v13">'+(q.scheduled_for?esc(dateFmt(q.scheduled_for)):'No date')+'</div></div><div class="quiz-card-stats-v13"><div><b>'+at.length+'</b><span>Submissions</span></div><div><b>'+at.filter(a=>a.mark_status==='MARKED').length+'</b><span>Marked</span></div><div><b>'+reviewCount+'</b><span>To review</span></div></div>'+(latest?'<div class="quiz-latest-v13"><span>Latest</span><b>'+new Date(latest.completed_at).toLocaleString('en-ZA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+'</b><p>'+(latest.mark_status==='MARKED'?'Score '+esc(latest.score)+' / '+esc(latest.total):'Awaiting review')+'</p></div>':'<div class="quiz-latest-v13 empty"><span>NO SUBMISSION YET</span><p>Student response will appear here.</p></div>')+'<div class="quiz-actions-v13"><button class="btn small primary" onclick="openQuizAsset((data.quizzes||[]).find(x=>x.id===\''+q.id+'\'))">Open quiz</button><button class="btn small soft-v13" onclick="openQuizReportCenter(\''+q.id+'\')">Submissions & report</button></div></div>';
+      }).join('')+'</div>';
+    }
+    h+='</div></details>';
+  });
+  h+='</div>';$('#content').innerHTML=h;
 }
 function reviewQuizAttempt(id){
   const a=(data.quizAttempts||[]).find(x=>x.id===id);if(!a)return;const ans=a.answers||{},report=ans.completionReport||JSON.stringify(ans.responses||{},null,2),total=Number(a.total||ans.totalMarks||0),quiz=(data.quizzes||[]).find(q=>q.id===a.quiz_id),uploaded=quizReportFor(a.quiz_id);
@@ -5056,34 +5198,54 @@ function previousMonthAdjustments(){
   }).filter(x=>x.adjustment>0)
 }
 
+function financeCycleBounds(ref=today()){
+  const d=new Date(ref+'T12:00:00');
+  const y=d.getFullYear(),m=d.getMonth(),day=d.getDate();
+  const start=day>=5?new Date(y,m,5):new Date(y,m-1,5);
+  const end=new Date(start.getFullYear(),start.getMonth()+1,4);
+  return {start:isoDate(start),end:isoDate(end),label:dateFmt(isoDate(start))+' – '+dateFmt(isoDate(end))};
+}
+function currentWeekBounds(ref=today()){
+  const start=mondayOf(ref),end=addDays(start,6);return {start,end,label:dateFmt(start)+' – '+dateFmt(end)};
+}
+function financeLessonsBetween(start,end,statuses){
+  return (data.lessons||[]).filter(l=>l.lesson_date>=start&&l.lesson_date<=end&&statuses.includes(l.status));
+}
+function financeStudentActive(id){
+  const s=(data.students||[]).find(x=>x.id===id);return !!s&&s.active!==false;
+}
+function financeHours(ls){return (ls||[]).reduce((s,l)=>s+Number(l.duration_minutes||0)/60,0)}
+
 function adminFinance(){
-  const rate=150,cur=monthBounds(0),prev=monthBounds(-1);
-  const currentLessons=lessonsInCalendarMonth(0,null,['Completed']).slice().sort((a,b)=>a.lesson_date.localeCompare(b.lesson_date));
-  const earned=currentLessons.reduce((s,l)=>s+lessonValue(l,rate),0);
-  const previousEarned=previousMonthResolvedValue(rate),previousHours=previousMonthResolvedHours();
-  const currentRemainingRows=newMonthPlans().filter(p=>Number(p.target_hours||0)>0).map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:completedHoursInCalendarMonth(0,p.student_id),remain:thisMonthRemaining(p.student_id)}));
-  const currentRemain=currentRemainingRows.reduce((s,x)=>s+x.remain,0);
-  const catchupRows=previousMonthPlans().map(p=>({studentId:p.student_id,target:Number(p.target_hours||0),done:Math.max(previousMonthCompletedHoursByDate(p.student_id),Number(p.completed_hours||0)),remain:previousMonthCatchupRemaining(p.student_id)})).filter(x=>x.remain>0);
-  const catchupHours=catchupRows.reduce((s,x)=>s+x.remain,0),catchupValue=catchupHours*rate;
-  const oldDue=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
-  const currentTarget=currentMonthRegularTarget()*rate,totalPotential=currentTarget+catchupValue+oldDue;
-  const recordedSoFar=previousEarned+earned;
-
+  const rate=150,cycle=financeCycleBounds(),week=currentWeekBounds();
+  const completed=financeLessonsBetween(cycle.start,cycle.end,['Completed']).slice().sort((a,b)=>(a.lesson_date+String(a.start_time||'')).localeCompare(b.lesson_date+String(b.start_time||'')));
+  const future=financeLessonsBetween(cycle.start,cycle.end,['Confirmed','Scheduled','Planned']).filter(l=>l.lesson_date>=today()&&financeStudentActive(l.student_id)).slice().sort((a,b)=>(a.lesson_date+String(a.start_time||'')).localeCompare(b.lesson_date+String(b.start_time||'')));
+  const needs=financeLessonsBetween(cycle.start,cycle.end,['Needs confirmation','Needs Confirmation']).filter(l=>l.lesson_date>=today());
+  const weekScheduled=future.filter(l=>l.lesson_date>=week.start&&l.lesson_date<=week.end);
+  const earned=completed.reduce((s,l)=>s+lessonValue(l,rate),0),earnedHours=financeHours(completed);
+  const weekProjected=weekScheduled.reduce((s,l)=>s+lessonValue(l,rate),0),weekHours=financeHours(weekScheduled);
+  const cycleProjectedFuture=future.reduce((s,l)=>s+lessonValue(l,rate),0),futureHours=financeHours(future);
+  const projectedCycleTotal=earned+cycleProjectedFuture;
+  const outstanding=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
   const payments=(data.payments||[]).slice().sort((a,b)=>String(b.payment_date||'').localeCompare(String(a.payment_date||'')));
-  const paidTotal=payments.reduce((s,p)=>s+Number(p.amount_cents||0)/100,0);
-  let h='<div class="finance-shell"><div class="finance-hero"><div><div class="kicker">FINANCE AT A GLANCE</div><h2>Finance</h2><p>Teaching value, payments received and money still due are kept separate.</p></div><button class="btn primary" onclick="openPayment()">+ Record payment</button></div>';
-
-  h+='<div class="finance-v2-grid">'+
-    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'previous\')"><span>'+esc(prev.label)+' resolved</span><b>R'+previousEarned.toFixed(0)+'</b><p>'+previousHours.toFixed(1)+'h resolved · tap for lesson dates and adjustment</p></div>'+
-    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'catchup\')"><span>'+esc(prev.label)+' catch-up</span><b>R'+catchupValue.toFixed(0)+'</b><p>'+catchupHours.toFixed(1)+'h still to schedule</p></div>'+
-    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'current\')"><span>'+esc(cur.label)+' earned so far</span><b>R'+earned.toFixed(0)+'</b><p>'+completedHoursInCalendarMonth(0).toFixed(1)+'h completed</p></div>'+
-    '<div class="finance-v2-card clickable" onclick="openFinanceCalculation(\'remaining\')"><span>'+esc(cur.label)+' still to teach</span><b>R'+(currentRemain*rate).toFixed(0)+'</b><p>'+currentRemain.toFixed(1)+'h active regular teaching remaining</p></div>'+
-  '</div>';
-
-  h+='<div class="finance-v2-card clickable finance-total-premium" onclick="openFinanceCalculation(\'total\')"><div><span>Resolved / completed teaching recorded</span><b>R'+recordedSoFar.toFixed(0)+'</b><p>'+esc(prev.label)+' resolved + '+esc(cur.label)+' already completed.</p></div><div class="total-side"><small>Forward-looking potential + outstanding</small><strong>R'+totalPotential.toFixed(0)+'</strong><small>excludes historical earnings · tap for breakdown</small></div></div>';
-
-  if(oldDue>0)h+='<details class="finance-toggle"><summary><div class="finance-toggle-title"><small>Money still due</small><b>Outstanding unpaid balance</b></div><div class="finance-toggle-value">R'+oldDue.toFixed(0)+'</div></summary><div class="finance-toggle-body"><p class="tiny muted" style="margin:0">This is kept separate from lesson earnings so it cannot be accidentally counted twice.</p></div></details>';
-  h+='<div class="payments-v12"><div class="payments-head-v12"><div><span>PAYMENTS RECEIVED</span><h3>Payment history</h3></div><div><small>Total recorded</small><b>R'+paidTotal.toFixed(0)+'</b></div></div><div class="payments-list-v12">'+(payments.length?payments.map(p=>'<div class="payment-row-v12"><div class="payment-date-v12">'+esc(dateFmt(p.payment_date))+'</div><div class="grow"><b>'+esc(p.payer||'Payment')+'</b><p>'+esc(p.note||'Payment received')+'</p></div><strong>'+(p.amount_cents!=null?'R'+(Number(p.amount_cents)/100).toFixed(0):'Amount pending')+'</strong></div>').join(''):emptyState('No payments recorded','Use Record payment when Tracey pays you.'))+'</div></div>';
+  const syncState=settingValue('calendar_sync_status')||{};
+  const students=(data.students||[]).filter(s=>s.active!==false);
+  const studentRows=students.map(s=>{
+    const done=completed.filter(l=>l.student_id===s.id),wk=weekScheduled.filter(l=>l.student_id===s.id),futureRows=future.filter(l=>l.student_id===s.id);
+    return {student:s,done,week:wk,future:futureRows,doneHours:financeHours(done),weekHours:financeHours(wk),futureHours:financeHours(futureRows),earned:done.reduce((a,l)=>a+lessonValue(l,rate),0),weekValue:wk.reduce((a,l)=>a+lessonValue(l,rate),0),futureValue:futureRows.reduce((a,l)=>a+lessonValue(l,rate),0)};
+  });
+  let h=adminPageHeader('Finance','Invoice cycle: the 5th through the 4th. Completed lessons are earned; Google Calendar lessons are projections only.','<button class="btn primary" onclick="openPayment()">+ Record payment</button>');
+  h+='<div class="finance-cycle-banner-v13"><div><span>CURRENT INVOICE CYCLE</span><h3>'+esc(cycle.label)+'</h3><p>Your 5 October invoice closed the previous cycle. Teaching from 5 October onward builds the next invoice.</p></div><div class="finance-cycle-rate-v13"><span>RATE</span><b>R'+rate+'/h</b></div></div>';
+  h+='<div class="finance-summary-v13"><div class="earned"><span>EARNED · VERIFIED</span><b>R'+earned.toFixed(0)+'</b><p>'+completed.length+' completed lesson'+(completed.length===1?'':'s')+' · '+earnedHours.toFixed(1)+'h</p></div><div><span>THIS WEEK · SCHEDULED</span><b>R'+weekProjected.toFixed(0)+'</b><p>'+weekScheduled.length+' Calendar lesson'+(weekScheduled.length===1?'':'s')+' · '+weekHours.toFixed(1)+'h</p></div><div><span>REST OF CYCLE · SCHEDULED</span><b>R'+cycleProjectedFuture.toFixed(0)+'</b><p>'+future.length+' active scheduled lesson'+(future.length===1?'':'s')+' · '+futureHours.toFixed(1)+'h</p></div><div class="projected"><span>PROJECTED CYCLE TOTAL</span><b>R'+projectedCycleTotal.toFixed(0)+'</b><p>Earned + active Calendar schedule</p></div></div>';
+  h+='<div class="finance-note-v13"><div><b>What counts?</b><p><strong>Earned</strong> only increases after a lesson is marked Completed. <strong>Projected</strong> uses active students on Google Calendar and can change if lessons move or are cancelled.</p></div><div><b>Calendar sync</b><p>'+esc(syncState.last_synced_at?'Latest sync '+new Date(syncState.last_synced_at).toLocaleString('en-ZA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'No sync timestamp')+'</p></div></div>';
+  h+=section('Per-student cycle breakdown','See exactly how many lessons each learner has completed and what the current Calendar predicts.');
+  h+='<div class="finance-student-table-v13"><div class="finance-student-head-v13"><span>Student</span><span>Completed</span><span>Earned</span><span>This week</span><span>Week estimate</span><span>Cycle projection</span></div>'+studentRows.map(r=>'<div class="finance-student-row-v13"><div class="finance-student-name-v13"><div>'+esc(initials(r.student.display_name))+'</div><span><b>'+esc(r.student.display_name)+'</b><small>'+esc(r.student.grade||'')+'</small></span></div><div><b>'+r.done.length+'</b><small>'+r.doneHours.toFixed(1)+'h</small></div><div><b>R'+r.earned.toFixed(0)+'</b><small>verified</small></div><div><b>'+r.week.length+'</b><small>'+r.weekHours.toFixed(1)+'h</small></div><div><b>R'+r.weekValue.toFixed(0)+'</b><small>scheduled</small></div><div><b>R'+(r.earned+r.futureValue).toFixed(0)+'</b><small>earned + future</small></div></div>').join('')+'</div>';
+  h+=section('Completed lesson history','These are the only lessons currently counted as earned in this invoice cycle.');
+  h+='<div class="finance-history-v13">'+(completed.length?completed.map(l=>'<div class="finance-history-row-v13"><div><b>'+esc(dateFmt(l.lesson_date))+'</b><span>'+esc(timeFmt(l.start_time))+'</span></div><div class="grow"><b>'+esc(studentName(l.student_id))+' · '+esc(l.subject||'Lesson')+'</b><p>'+esc(l.topic||'Topic not recorded')+'</p></div><div><b>'+((Number(l.duration_minutes||0)/60).toFixed(1))+'h</b><span>R'+lessonValue(l,rate).toFixed(0)+'</span></div></div>').join(''):emptyState('No completed lessons yet','Once a lesson is verified Completed, it will appear here and count as earned.'))+'</div>';
+  h+=section('This week from Google Calendar',week.label+' · estimate only until lessons are completed.');
+  h+='<div class="finance-week-v13">'+(weekScheduled.length?weekScheduled.map(l=>'<div class="finance-week-row-v13"><div class="finance-week-date-v13"><b>'+new Date(l.lesson_date+'T12:00:00').toLocaleDateString('en-ZA',{weekday:'short'})+'</b><span>'+new Date(l.lesson_date+'T12:00:00').getDate()+'</span></div><div class="grow"><b>'+esc(studentName(l.student_id))+' · '+esc(l.subject||'Lesson')+'</b><p>'+esc(timeFmt(l.start_time))+' · '+esc(l.duration_minutes)+' min · '+esc(l.lesson_mode||'Lesson')+'</p></div><span>R'+lessonValue(l,rate).toFixed(0)+'</span></div>').join(''):emptyState('No active scheduled lessons','Calendar lessons for this week will appear here.'))+'</div>';
+  if(needs.length)h+='<div class="finance-excluded-v13"><b>'+needs.length+' scheduled lesson'+(needs.length===1?' is':'s are')+' excluded from projections</b><p>They are marked Needs confirmation or belong to a paused/inactive student. Confirm them before counting them.</p></div>';
+  h+='<div class="finance-bottom-grid-v13"><div><div class="finance-bottom-head-v13"><span>PAYMENTS RECEIVED</span><b>Recorded separately from earnings</b></div>'+(payments.length?payments.map(p=>'<div class="payment-row-simple-v13"><span>'+esc(dateFmt(p.payment_date))+'</span><div><b>'+esc(p.payer||'Payment')+'</b><p>'+esc(p.note||'Payment received')+'</p></div><strong>'+(p.amount_cents!=null?'R'+(Number(p.amount_cents)/100).toFixed(0):'Pending')+'</strong></div>').join(''):emptyState('No payments recorded','Record payments when received.'))+'</div><div class="finance-outstanding-v13"><span>OLDER OUTSTANDING BALANCE</span><b>R'+outstanding.toFixed(0)+'</b><p>This is money still due from a previous invoice/payment period. It is not added to teaching earned for the current 5th–4th cycle.</p></div></div>';
   h+='</div>';$('#content').innerHTML=h;
 }
 function renderStudent(){
