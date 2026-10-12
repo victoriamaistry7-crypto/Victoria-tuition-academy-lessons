@@ -4447,6 +4447,9 @@ input,select,textarea{background:#fff!important;border:1px solid #e0dce8!importa
 /* responsive */
 @media(max-width:1100px){.students-premium-grid-v17,.resource-dashboard-grid-v16,.quiz-premium-grid-v17{grid-template-columns:repeat(2,minmax(0,1fr))!important}.schedule-premium-summary-v17{grid-template-columns:1fr 1fr}.schedule-premium-summary-v17>div.primary{grid-column:1/-1}.messages-premium-v17{grid-template-columns:230px minmax(0,1fr)}}
 @media(max-width:760px){.content{padding:16px 12px 92px!important}.students-premium-grid-v17,.resource-dashboard-grid-v16,.quiz-premium-grid-v17,.schedule-premium-summary-v17{grid-template-columns:1fr!important}.schedule-premium-summary-v17>div.primary{grid-column:auto}.messages-premium-v17{height:calc(100vh - 150px);grid-template-columns:1fr}.messages-list-v17{display:none}.quiz-modal-card-v17{grid-template-columns:1fr}.quiz-modal-count-v17{text-align:left}.quiz-modal-actions-v17{justify-content:flex-start}.student-premium-meta-v17{grid-template-columns:1fr}}
+</style><style id="vta-final-student-v17">
+.student-resource-premium-v17{max-width:980px}.student-learning-stats{gap:9px!important}.student-learning-stat{border-radius:15px!important;box-shadow:var(--v17-shadow)!important}.booking-shell-v2,.student-work-form,.student-submission-card,.student-quiz-v6{border-radius:17px!important}.booking-head-v2,.student-work-form-head{background:linear-gradient(135deg,#f0ebff,#faf8ff)!important}.booking-step-label span{background:#7b5cf4!important}.topic-picks button{border-color:#e1ddea!important;background:#fff!important;color:#5d526f!important}.topic-picks button:hover{border-color:#cfc4ef!important;background:#faf8ff!important}.slot{border-color:#e1ddea!important;background:#fff!important}.student-quiz-grid-v6{gap:10px!important}.student-quiz-v6{overflow:hidden!important}.student-quiz-body-v6{padding:12px!important}.student-submission-card{background:#fff!important}.student-work-grid{gap:12px!important}
+[data-theme="dark"] .booking-shell-v2,[data-theme="dark"] .student-work-form,[data-theme="dark"] .student-submission-card,[data-theme="dark"] .student-quiz-v6,[data-theme="dark"] .student-learning-stat{background:#171421!important;border-color:#302a3d!important}[data-theme="dark"] .booking-head-v2,[data-theme="dark"] .student-work-form-head{background:linear-gradient(135deg,#211b35,#1a1726)!important}
 </style></head>
 <body>
 <section id="login" class="login">
@@ -5493,12 +5496,12 @@ function studentHome(){
 }
 function studentLearning(){
   const cr=data.curriculumSubtopics||[],scope=activeCurriculumScope(cr),st=lessonStats(data.user.id),done=scope.filter(x=>curriculumStatus(x.status)==='Completed').length;
-  let h=section('My learning','Open a term, then a topic, to see your subtopics and progress');
+  const ls=(data.lessons||[]).filter(x=>x.status==='Completed').slice().sort((a,b)=>(b.lesson_date+(b.start_time||'')).localeCompare(a.lesson_date+(a.start_time||'')));
+  let h=section('My learning','Your current-term progress and verified lesson history');
   h+='<div class="student-learning-stats"><div class="student-learning-stat"><span>Completed lessons</span><b>'+st.completed+'</b></div><div class="student-learning-stat"><span>Lesson hours</span><b>'+st.completedHours.toFixed(1)+'h</b></div><div class="student-learning-stat"><span>Term '+currentAcademicTerm()+' complete</span><b>'+done+' / '+scope.length+'</b></div></div>';
   h+=curriculumTracker(cr,false,data.user.id);
-  const ls=(data.lessons||[]).slice().sort((a,b)=>(b.lesson_date+(b.start_time||'')).localeCompare(a.lesson_date+(a.start_time||'')));
-  h+=section('Lesson history','Your recorded sessions');
-  h+='<div class="list">'+(ls.length?ls.map(lessonRow).join(''):emptyState('No lesson history','Your sessions will appear here.'))+'</div>';
+  h+=section('Lesson history','Only lessons that were actually completed');
+  h+='<div class="list">'+(ls.length?ls.map(lessonRow).join(''):emptyState('No completed lessons yet','Your verified sessions will appear here.'))+'</div>';
   $('#content').innerHTML=h;
 }
 function studentBook(){
@@ -5523,22 +5526,8 @@ function studentMessages(){
 }
 function studentResources(){
   const all=data.resources||[];
-  const folders=[
-    ['Interactive lessons','✦','Open the lessons you actually worked through with Victoria',r=>String(r.resource_type||'').toLowerCase().includes('interactive')&&String(r.completion_status||'').toLowerCase()==='used'],
-    ['Notes','≡','Study notes, PDFs and worksheets',r=>/pdf|note|slide|worksheet/i.test(String(r.resource_type||''))],
-    ['Quizzes','✓','Quiz links and reports',r=>String(r.resource_type||'').toLowerCase().includes('quiz')],
-    ['Assessments','A','Baseline and formal assessments',r=>String(r.resource_type||'').toLowerCase()==='assessment']
-  ];
-  let h=section('Resources','Choose a folder to open only the materials you need.');
-  const matched=new Set();folders.forEach(f=>all.filter(f[3]).forEach(r=>matched.add(r.id)));const other=all.filter(r=>!matched.has(r.id));
-  h+='<div class="student-resource-folder-wrap-v11">';
-  folders.forEach(([label,icon,desc,test])=>{
-    const rs=all.filter(test);if(!rs.length)return;
-    h+='<details class="resource-folder-v11"><summary><div class="resource-folder-icon-v11">'+icon+'</div><div class="resource-folder-copy-v11"><b>'+esc(label)+'</b><p>'+esc(desc)+'</p></div><span class="resource-folder-count-v11">'+rs.length+'</span></summary><div class="resource-folder-content-v11">'+resourceCards(rs,false)+'</div></details>';
-  });
-  if(other.length)h+='<details class="resource-folder-v11"><summary><div class="resource-folder-icon-v11">＋</div><div class="resource-folder-copy-v11"><b>Other resources</b><p>Additional learning material</p></div><span class="resource-folder-count-v11">'+other.length+'</span></summary><div class="resource-folder-content-v11">'+resourceCards(other,false)+'</div></details>';
-  h+='</div>';
-  if(!all.length)h+=emptyState('No resources yet','Your lessons and notes will appear here.');
+  let h=section('Resources','Your lessons, notes, quizzes and assessments in one organised library.');
+  h+='<div class="student-resource-premium-v17">'+studentResourceLibraryV13(data.user.id,all,false)+'</div>';
   if((data.lessonPlans||[]).length){h+=section('Lesson plans','What Victoria has prepared for your lessons');h+='<div class="list">'+(data.lessonPlans||[]).map(lessonPlanCard).join('')+'</div>'}
   $('#content').innerHTML=h;
 }
