@@ -4450,7 +4450,37 @@ input,select,textarea{background:#fff!important;border:1px solid #e0dce8!importa
 </style><style id="vta-final-student-v17">
 .student-resource-premium-v17{max-width:980px}.student-learning-stats{gap:9px!important}.student-learning-stat{border-radius:15px!important;box-shadow:var(--v17-shadow)!important}.booking-shell-v2,.student-work-form,.student-submission-card,.student-quiz-v6{border-radius:17px!important}.booking-head-v2,.student-work-form-head{background:linear-gradient(135deg,#f0ebff,#faf8ff)!important}.booking-step-label span{background:#7b5cf4!important}.topic-picks button{border-color:#e1ddea!important;background:#fff!important;color:#5d526f!important}.topic-picks button:hover{border-color:#cfc4ef!important;background:#faf8ff!important}.slot{border-color:#e1ddea!important;background:#fff!important}.student-quiz-grid-v6{gap:10px!important}.student-quiz-v6{overflow:hidden!important}.student-quiz-body-v6{padding:12px!important}.student-submission-card{background:#fff!important}.student-work-grid{gap:12px!important}
 [data-theme="dark"] .booking-shell-v2,[data-theme="dark"] .student-work-form,[data-theme="dark"] .student-submission-card,[data-theme="dark"] .student-quiz-v6,[data-theme="dark"] .student-learning-stat{background:#171421!important;border-color:#302a3d!important}[data-theme="dark"] .booking-head-v2,[data-theme="dark"] .student-work-form-head{background:linear-gradient(135deg,#211b35,#1a1726)!important}
-</style></head>
+</style><style id="vta-curriculum-mobile-fix-20261013">
+/* Uniform topic hierarchy across all terms; prevent progress text collisions. */
+.curriculum-ultra-v14 .term-smart-grid-v14{gap:14px}
+.curriculum-ultra-v14 .term-smart-card-v14{min-width:0;text-align:left;padding:18px!important}
+.curriculum-ultra-v14 .term-smart-title-v14{font-size:15px!important;line-height:1.5!important;overflow-wrap:anywhere}
+.curriculum-ultra-v14 .term-detail-v14{scroll-margin-top:90px}
+.curriculum-ultra-v14 .term-detail-v14>summary{display:flex!important;gap:18px!important;align-items:center!important;padding:19px 17px!important}
+.curriculum-ultra-v14 .term-detail-v14>summary>div:first-child{min-width:0;flex:1;display:grid;gap:8px}
+.curriculum-ultra-v14 .term-detail-v14>summary>div:last-child{flex-shrink:0;text-align:right}
+.curriculum-ultra-v14 .topic-smart-v14{min-width:0}
+.curriculum-ultra-v14 .topic-smart-v14>summary{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:16px!important;min-height:78px;padding:17px!important}
+.curriculum-ultra-v14 .topic-smart-v14>summary>div{min-width:0!important;flex:1 1 auto!important;display:grid!important;gap:7px!important}
+.curriculum-ultra-v14 .topic-smart-v14>summary>div>b{display:block!important;font-size:15px!important;line-height:1.5!important;overflow-wrap:anywhere}
+.curriculum-ultra-v14 .topic-smart-v14>summary>div>span{display:block!important;font-size:12px!important;line-height:1.5!important;color:var(--muted)!important}
+.curriculum-ultra-v14 .topic-smart-v14>summary>span{flex:0 0 auto!important;white-space:normal!important;font-size:12px!important;line-height:1.45!important;text-align:right!important;max-width:110px}
+.curriculum-ultra-v14 .topic-smart-body-v14{display:grid;gap:9px;padding:12px}
+.curriculum-ultra-v14 .subtopic-smart-v14{min-width:0;width:100%;display:flex;align-items:center;gap:14px;padding:15px!important;text-align:left}
+.curriculum-ultra-v14 .subtopic-smart-v14 .grow{min-width:0;flex:1}
+.curriculum-ultra-v14 .subtopic-smart-v14 b{display:block;font-size:14px!important;line-height:1.45!important;overflow-wrap:anywhere}
+.curriculum-ultra-v14 .subtopic-smart-v14 p{margin:7px 0 0!important;line-height:1.5!important;overflow-wrap:anywhere}
+.curriculum-ultra-v14 .subtopic-smart-v14 .progress-badge{flex-shrink:0}
+@media(max-width:760px){
+.curriculum-ultra-v14 .term-smart-grid-v14{grid-template-columns:1fr!important}
+.curriculum-ultra-v14 .topic-smart-v14>summary{gap:12px!important;padding:16px 13px!important}
+.curriculum-ultra-v14 .topic-smart-v14>summary>span{max-width:92px;font-size:11px!important}
+.curriculum-ultra-v14 .subtopic-smart-v14{flex-wrap:wrap;gap:10px}
+.curriculum-ultra-v14 .subtopic-smart-v14 .progress-badge{margin-left:auto}
+.modal-card{max-height:calc(100dvh - 34px);overflow-y:auto;overscroll-behavior:contain}
+}
+</style>
+</head>
 <body>
 <section id="login" class="login">
   <div class="login-art">
@@ -4646,6 +4676,7 @@ function curriculumTermRole(studentId,term){
   if(term<current)return {key:'past',label:'Review if needed',note:'Earlier teaching period · not an automatic backlog'};
   return {key:'later',label:'Later term',note:'Not the current focus yet'};
 }
+function topicsForTerm(rows){return new Set(rows.map(x=>x.topic)).size}
 function curriculumTracker(rows,editable,studentId=null){
   if(!rows.length)return emptyState('No curriculum loaded','Curriculum subtopics will appear here.');
   studentId=studentId||rows[0]?.student_id||data.user?.id||null;
@@ -4658,23 +4689,23 @@ function curriculumTracker(rows,editable,studentId=null){
       const tr=sr.filter(x=>Number(x.term_number)===term),role=curriculumTermRole(studentId,term);
       if(!tr.length){out+='<div class="term-smart-card-v14 empty"><div class="term-smart-top-v14"><span>TERM '+term+'</span><em>No syllabus</em></div><p>No curriculum loaded.</p></div>';continue}
       const td=tr.filter(x=>curriculumStatus(x.status)==='Completed').length,ta=tr.filter(x=>['In progress','Revisit'].includes(curriculumStatus(x.status))).length;
-      const thirdLabel=role.key==='focus'?'To focus on':role.key==='reference'?'Reference items':role.key==='started'?'Review if needed':'Available';
-      const thirdValue=role.key==='focus'?Math.max(0,tr.length-td):tr.length;
-      out+='<button class="term-smart-card-v14 '+role.key+'" onclick="openTermFocusV14(\''+esc(subject).replace(/'/g,"&#039;")+'\','+term+',\''+studentId+'\')"><div class="term-smart-top-v14"><span>TERM '+term+'</span><em>'+esc(role.label)+'</em></div><div class="term-smart-title-v14">'+esc(role.note)+'</div><div class="term-smart-stats-v14"><div><b>'+td+'</b><span>Done</span></div><div><b>'+ta+'</b><span>Active</span></div><div><b>'+thirdValue+'</b><span>'+esc(thirdLabel)+'</span></div></div>'+(role.key==='focus'?'<div class="term-smart-progress-v14"><i style="width:'+Math.round(td/Math.max(tr.length,1)*100)+'%"></i></div>':'')+'</button>';
+      const thirdLabel='Subtopics';
+      const thirdValue=tr.length;
+      out+='<button class="term-smart-card-v14 '+role.key+'" onclick="openTermFocusV14(\''+esc(subject).replace(/'/g,"&#039;")+'\','+term+',\''+studentId+'\')"><div class="term-smart-top-v14"><span>TERM '+term+'</span><em>'+(term===current?'Current term':'Curriculum')+'</em></div><div class="term-smart-title-v14">'+topicsForTerm(tr)+' main topics+'</div><div class="term-smart-stats-v14"><div><b>'+td+'</b><span>Done</span></div><div><b>'+ta+'</b><span>Active</span></div><div><b>'+thirdValue+'</b><span>'+esc(thirdLabel)+'</span></div></div>'+(role.key==='focus'?'<div class="term-smart-progress-v14"><i style="width:'+Math.round(td/Math.max(tr.length,1)*100)+'%"></i></div>':'')+'</button>';
     }
     out+='</div>';
     out+='<div class="term-detail-stack-v14">';
     for(let term=1;term<=4;term++){
       const tr=sr.filter(x=>Number(x.term_number)===term);if(!tr.length)continue;
       const role=curriculumTermRole(studentId,term),topics=[...new Set(tr.map(x=>x.topic))],td=tr.filter(x=>curriculumStatus(x.status)==='Completed').length;
-      out+='<details id="smart-term-'+studentId+'-'+term+'" class="term-detail-v14 '+role.key+'" '+(role.key==='focus'?'open':'')+'><summary><div><span>TERM '+term+' · '+esc(role.label.toUpperCase())+'</span><b>'+esc(role.note)+'</b></div><div><strong>'+td+' / '+tr.length+'</strong><small>'+(role.key==='focus'?'current coverage':'available reference')+'</small></div></summary><div class="term-detail-body-v14">';
+      out+='<details id="smart-term-'+studentId+'-'+term+'" class="term-detail-v14 '+role.key+'" '+(role.key==='focus'?'open':'')+'><summary><div><span>TERM '+term+' · '+(term===current?'CURRENT TERM':'CURRICULUM')+'</span><b>'+topics.length+' main topics</b></div><div><strong>'+td+' / '+tr.length+'</strong><small>'+'subtopics completed'+'</small></div></summary><div class="term-detail-body-v14">';
       for(const topic of topics){
         const ar=tr.filter(x=>x.topic===topic),ad=ar.filter(x=>curriculumStatus(x.status)==='Completed').length;
         out+='<details class="topic-smart-v14"><summary><div><b>'+esc(topic)+'</b><span>'+esc(ar[0].strand||'')+'</span></div><span>'+ad+' / '+ar.length+' done</span></summary><div class="topic-smart-body-v14">'+ar.map(x=>{
           const cls=progressClass(x.status),label=progressDisplay(x.status),taught=String(x.taught_content||'').trim(),issues=String(x.student_issues||'').trim(),note=String(x.notes||'').trim();
           const untouched=curriculumStatus(x.status)==='Not started'&&!taught&&!issues&&!note;
-          const displayLabel=(role.key!=='focus'&&untouched)?'Reference':label;
-          const displayCls=(role.key!=='focus'&&untouched)?'reference':cls;
+          const displayLabel=label;
+          const displayCls=cls;
           return '<button class="subtopic-smart-v14 '+displayCls+'" onclick="openSubtopicDetail(\''+x.id+'\','+(editable?'true':'false')+')"><div class="grow"><b>'+esc(x.subtopic)+'</b><p>'+esc(taught||issues||note||(role.key==='focus'?'Not covered yet':'Available if needed'))+'</p></div><span class="progress-badge '+displayCls+'">'+esc(displayLabel)+'</span><i>›</i></button>';
         }).join('')+'</div></details>';
       }
