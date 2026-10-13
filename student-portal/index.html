@@ -4670,11 +4670,11 @@ function studentStartInfo(studentId){
 }
 function curriculumTermRole(studentId,term){
   const start=studentStartInfo(studentId),current=currentAcademicTerm();
-  if(term<start.term)return {key:'reference',label:'Reference only',note:'Teach only if a gap or exam requires it'};
-  if(term===current)return {key:'focus',label:'Focus now',note:'Primary teaching focus for the current term'};
-  if(term===start.term&&start.term<current)return {key:'started',label:'Started with you',note:'Teaching began during this term · review only where needed'};
-  if(term<current)return {key:'past',label:'Review if needed',note:'Earlier teaching period · not an automatic backlog'};
-  return {key:'later',label:'Later term',note:'Not the current focus yet'};
+  if(term<start.term)return {key:'past',label:'Curriculum',note:'Topics available for review when needed'};
+  if(term===current)return {key:'focus',label:'Current term',note:'Current term topics and subtopics'};
+  if(term===start.term&&start.term<current)return {key:'past',label:'Curriculum',note:'Topics and subtopics available for review'};
+  if(term<current)return {key:'past',label:'Curriculum',note:'Topics and subtopics available for review'};
+  return {key:'later',label:'Curriculum',note:'Topics and subtopics available for planning'};
 }
 function topicsForTerm(rows){return new Set(rows.map(x=>x.topic)).size}
 function curriculumTracker(rows,editable,studentId=null){
@@ -4683,7 +4683,7 @@ function curriculumTracker(rows,editable,studentId=null){
   const subjects=[...new Set(rows.map(x=>x.subject))],current=currentAcademicTerm(),start=studentStartInfo(studentId);
   return '<div class="curriculum-ultra-v14">'+subjects.map(subject=>{
     const sr=rows.filter(x=>x.subject===subject),focus=sr.filter(x=>Number(x.term_number)===current),focusDone=focus.filter(x=>curriculumStatus(x.status)==='Completed').length,focusActive=focus.filter(x=>['In progress','Revisit'].includes(curriculumStatus(x.status))).length;
-    let out='<div class="curriculum-focus-hero-v14"><div><span>CURRENT LEARNING FOCUS</span><h3>'+esc(subject)+' · Term '+current+'</h3><p>'+(start.date?'Student started with you '+esc(dateFmt(start.date))+' in Term '+start.term+'. ':'')+'Only the current term is treated as planned coverage. Earlier terms are reference material unless needed.</p></div><div class="focus-ring-v14"><b>'+focusDone+'</b><span>of '+focus.length+' done</span></div></div>';
+    let out='<div class="curriculum-focus-hero-v14"><div><span>CURRENT LEARNING FOCUS</span><h3>'+esc(subject)+' · Term '+current+'</h3><p>'+(start.date?'Student started with you '+esc(dateFmt(start.date))+' in Term '+start.term+'. ':'')+'All four terms remain accessible. Progress only changes when you update a subtopic.</p></div><div class="focus-ring-v14"><b>'+focusDone+'</b><span>of '+focus.length+' done</span></div></div>';
     out+='<div class="term-smart-grid-v14">';
     for(let term=1;term<=4;term++){
       const tr=sr.filter(x=>Number(x.term_number)===term),role=curriculumTermRole(studentId,term);
