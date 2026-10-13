@@ -4691,7 +4691,7 @@ function curriculumTracker(rows,editable,studentId=null){
       const td=tr.filter(x=>curriculumStatus(x.status)==='Completed').length,ta=tr.filter(x=>['In progress','Revisit'].includes(curriculumStatus(x.status))).length;
       const thirdLabel='Subtopics';
       const thirdValue=tr.length;
-      out+='<button class="term-smart-card-v14 '+role.key+'" onclick="openTermFocusV14(\''+esc(subject).replace(/'/g,"&#039;")+'\','+term+',\''+studentId+'\')"><div class="term-smart-top-v14"><span>TERM '+term+'</span><em>'+(term===current?'Current term':'Curriculum')+'</em></div><div class="term-smart-title-v14">'+topicsForTerm(tr)+' main topics+'</div><div class="term-smart-stats-v14"><div><b>'+td+'</b><span>Done</span></div><div><b>'+ta+'</b><span>Active</span></div><div><b>'+thirdValue+'</b><span>'+esc(thirdLabel)+'</span></div></div>'+(role.key==='focus'?'<div class="term-smart-progress-v14"><i style="width:'+Math.round(td/Math.max(tr.length,1)*100)+'%"></i></div>':'')+'</button>';
+      out+='<button class="term-smart-card-v14 '+role.key+'" onclick="openTermFocusV14(\''+esc(subject).replace(/'/g,"&#039;")+'\','+term+',\''+studentId+'\')"><div class="term-smart-top-v14"><span>TERM '+term+'</span><em>'+(term===current?'Current term':'Curriculum')+'</em></div><div class="term-smart-title-v14">'+topicsForTerm(tr)+' main topics</div><div class="term-smart-stats-v14"><div><b>'+td+'</b><span>Done</span></div><div><b>'+ta+'</b><span>Active</span></div><div><b>'+thirdValue+'</b><span>'+esc(thirdLabel)+'</span></div></div>'+(role.key==='focus'?'<div class="term-smart-progress-v14"><i style="width:'+Math.round(td/Math.max(tr.length,1)*100)+'%"></i></div>':'')+'</button>';
     }
     out+='</div>';
     out+='<div class="term-detail-stack-v14">';
