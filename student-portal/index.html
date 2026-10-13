@@ -4480,6 +4480,43 @@ input,select,textarea{background:#fff!important;border:1px solid #e0dce8!importa
 .modal-card{max-height:calc(100dvh - 34px);overflow-y:auto;overscroll-behavior:contain}
 }
 </style>
+<style id="vta-student-mobile-polish-20261013">
+/* Mobile-first tutor workspace, with legible term/topic/subtopic cards. */
+.student-dashboard-v16,.curriculum-clean-v16{min-width:0}
+.student-dashboard-v16 button,.curriculum-clean-v16 button{touch-action:manipulation}
+.curriculum-clean-v16 .curriculum-clean-note-v16{padding:16px 18px!important;line-height:1.55}
+.curriculum-clean-v16 .curriculum-clean-note-v16 p{line-height:1.6!important;margin-top:7px}
+.curriculum-clean-v16 .curriculum-clean-terms-v16{display:grid;gap:14px}
+.curriculum-clean-v16 .curriculum-clean-term-v16{min-width:0;border-radius:17px}
+.curriculum-clean-v16 .curriculum-clean-term-v16>summary{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:14px!important;padding:18px!important;min-height:90px}
+.curriculum-clean-v16 .curriculum-clean-term-v16>summary>div{min-width:0;flex:1;display:grid;gap:6px}
+.curriculum-clean-v16 .curriculum-clean-term-v16>summary b{font-size:16px!important;line-height:1.45!important}
+.curriculum-clean-v16 .curriculum-clean-term-v16>summary p{margin:0!important;font-size:12px!important;line-height:1.5!important}
+.curriculum-clean-v16 .curriculum-clean-term-v16>summary em{flex-shrink:0}
+.curriculum-clean-v16 .curriculum-clean-term-body-v16{display:grid;gap:12px;padding:12px!important}
+.curriculum-clean-v16 .curriculum-clean-topic-v16{min-width:0;border-radius:14px}
+.curriculum-clean-v16 .curriculum-clean-topic-v16>summary{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:14px!important;padding:17px 15px!important;min-height:76px}
+.curriculum-clean-v16 .curriculum-clean-topic-v16>summary>div{min-width:0;flex:1;display:grid;gap:7px}
+.curriculum-clean-v16 .curriculum-clean-topic-v16>summary b{font-size:15px!important;line-height:1.45!important;overflow-wrap:anywhere}
+.curriculum-clean-v16 .curriculum-clean-topic-v16>summary span{font-size:12px!important;line-height:1.5!important;color:var(--muted)}
+.curriculum-clean-v16 .curriculum-clean-subtopic-v16{width:100%;min-width:0;display:flex;align-items:center;gap:12px;padding:15px!important;text-align:left}
+.curriculum-clean-v16 .curriculum-clean-subtopic-v16 .grow{min-width:0;flex:1}
+.curriculum-clean-v16 .curriculum-clean-subtopic-v16 b{font-size:14px!important;line-height:1.5!important;overflow-wrap:anywhere}
+.curriculum-clean-v16 .curriculum-clean-subtopic-v16 p{margin:6px 0 0!important;line-height:1.55!important;overflow-wrap:anywhere}
+@media(max-width:760px){
+.student-dashboard-v16{padding-bottom:24px}
+.student-dashboard-v16 .student-dashboard-head-v16{display:flex;flex-direction:column;align-items:stretch;gap:16px}
+.student-dashboard-v16 .student-dash-id-v16{min-width:0}
+.student-dashboard-v16 .student-dash-id-v16 h2{overflow-wrap:anywhere;line-height:1.25}
+.student-dashboard-v16 .student-dash-actions-v16{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.student-dashboard-v16 .student-dash-actions-v16 button{min-height:44px;white-space:normal}
+.student-dashboard-v16 .student-dash-main-v16{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+.student-dashboard-v16 .student-dash-shortcuts-v16{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.curriculum-clean-v16 .curriculum-clean-terms-v16{grid-template-columns:minmax(0,1fr)!important}
+.curriculum-clean-v16 .curriculum-clean-subtopic-v16{flex-wrap:wrap}
+.curriculum-clean-v16 .curriculum-clean-subtopic-v16>span{margin-left:auto;max-width:100%;white-space:normal}
+}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -5059,21 +5096,21 @@ function studentTutorFocusV15(studentId){
 function openStudentCurriculumV15(id){
   const s=(data.students||[]).find(x=>x.id===id),rows=(data.curriculumSubtopics||[]).filter(x=>x.student_id===id);if(!s)return;
   const subjects=[...new Set(rows.map(x=>x.subject))],start=studentStartInfo(id),current=currentAcademicTerm();
-  let body='<div class="curriculum-clean-v16"><div class="curriculum-clean-note-v16"><b>How this is used</b><p>Term '+current+' is your teaching focus. Terms before '+start.term+' are reference only because '+esc(s.display_name)+' had not started with you yet.</p></div>';
+  let body='<div class="curriculum-clean-v16"><div class="curriculum-clean-note-v16"><b>How this is used</b><p>Term '+current+' is the current teaching focus. All four terms remain accessible for planning, revision and tracking.</p></div>';
   subjects.forEach(subject=>{
     body+='<div class="curriculum-clean-subject-v16"><span>SUBJECT</span><h3>'+esc(subject)+'</h3></div><div class="curriculum-clean-terms-v16">';
     for(let term=1;term<=4;term++){
       const tr=rows.filter(x=>x.subject===subject&&Number(x.term_number)===term),role=curriculumTermRole(id,term);
       if(!tr.length){body+='<div class="curriculum-clean-term-v16 empty"><span>TERM '+term+'</span><b>No curriculum loaded</b></div>';continue}
       const done=tr.filter(x=>curriculumStatus(x.status)==='Completed').length,active=tr.filter(x=>['In progress','Revisit'].includes(curriculumStatus(x.status))).length;
-      const label=role.key==='focus'?'Current focus':role.key==='reference'?'Reference only':role.key==='started'?'Started with you':'Review if needed';
+      const label=role.key==='focus'?'Current term':'Curriculum';
       body+='<details class="curriculum-clean-term-v16 '+role.key+'" '+(role.key==='focus'?'open':'')+'><summary><div><span>TERM '+term+'</span><b>'+esc(label)+'</b><p>'+done+' completed'+(active?' · '+active+' active':'')+'</p></div><em>'+tr.length+'</em></summary><div class="curriculum-clean-term-body-v16">';
       const topics=[...new Set(tr.map(x=>x.topic))];
       topics.forEach(topic=>{
         const ar=tr.filter(x=>x.topic===topic),td=ar.filter(x=>curriculumStatus(x.status)==='Completed').length;
         body+='<details class="curriculum-clean-topic-v16"><summary><div><b>'+esc(topic)+'</b><span>'+td+' / '+ar.length+' completed</span></div><i>⌄</i></summary><div>'+ar.map(x=>{
-          const st=curriculumStatus(x.status),reference=role.key==='reference'&&st==='Not started';
-          return '<button class="curriculum-clean-subtopic-v16" onclick="openSubtopicDetail(\''+x.id+'\',true)"><div class="grow"><b>'+esc(x.subtopic)+'</b><p>'+esc(x.taught_content||x.notes||(reference?'Teach only if needed':'Not covered yet'))+'</p></div><span class="'+(reference?'reference':progressClass(x.status))+'">'+(reference?'Reference':esc(progressDisplay(x.status)))+'</span></button>';
+          const st=curriculumStatus(x.status),reference=false;
+          return '<button class="curriculum-clean-subtopic-v16" onclick="openSubtopicDetail(\''+x.id+'\',true)"><div class="grow"><b>'+esc(x.subtopic)+'</b><p>'+esc(x.taught_content||x.notes||'Not covered yet')+'</p></div><span class="'+progressClass(x.status)+'">'+esc(progressDisplay(x.status))+'</span></button>';
         }).join('')+'</div></details>';
       });
       body+='</div></details>';
@@ -5103,8 +5140,8 @@ function studentDetail(id){
   let h='<div class="student-dashboard-v16"><div class="student-dashboard-head-v16"><button class="student-dash-back-v16" onclick="go(\'students\')">←</button><div class="student-dash-id-v16"><div class="student-dash-avatar-v16">'+esc(initials(s.display_name))+'</div><div><span>STUDENT</span><h2>'+esc(s.display_name)+'</h2><p>'+esc(s.grade||'')+' · '+esc(s.subjects||'')+(s.curriculum?' · '+esc(s.curriculum):'')+'</p></div></div><div class="student-dash-actions-v16"><button class="btn soft-v13" onclick="editStudent(\''+id+'\')">Edit student</button><button class="btn primary" onclick="openLesson(\''+id+'\')">Add lesson</button></div></div>';
   h+='<div class="student-dash-main-v16"><section class="student-next-card-v16"><div class="student-next-accent-v16"></div><div class="student-next-copy-v16"><span>NEXT LESSON</span><h3>'+(next?esc(dateFmt(next.lesson_date))+' · '+esc(timeFmt(next.start_time)):'Nothing confirmed')+'</h3><p>'+(next?esc(next.subject||'Lesson')+' · '+esc(next.duration_minutes)+' min'+(next.status!=='Confirmed'?' · needs confirmation':''):'No confirmed lesson on the schedule.')+'</p></div>'+(next?'<button class="btn primary" onclick="openLessonQuickActions(\''+next.id+'\')">View lesson</button>':'')+'</section>';
   h+='<section class="student-focus-card-v16"><div class="student-section-head-v16"><div><span>TERM '+currentAcademicTerm()+' FOCUS</span><h3>What to teach next</h3></div><button onclick="openStudentCurriculumV15(\''+id+'\')">View all terms</button></div><div class="student-focus-progress-v16"><div class="student-focus-bar-v16"><i style="width:'+Math.round(done/Math.max(curr.length,1)*100)+'%"></i></div><p>'+done+' of '+curr.length+' current-term subtopics completed · '+active+' active</p></div><div class="student-focus-list-v16">'+(prep.length?prep.map((t,i)=>'<button onclick="openStudentCurriculumV15(\''+id+'\')"><div class="student-focus-num-v16">'+(i+1)+'</div><div class="grow"><b>'+esc(t.topic)+'</b><p>'+(t.active?'Continue this topic':'Ready when needed')+' · '+t.done+'/'+t.total+' done</p></div><span>'+Math.round(t.done/Math.max(t.total,1)*100)+'%</span></button>').join(''):emptyState('Current-term focus complete','No remaining current-term topics are loaded.'))+'</div></section>';
-  h+='<aside class="student-tutor-side-v16"><div class="student-tutor-info-v16"><span>LAST LESSON</span>'+(last?'<b>'+esc(dateFmt(last.lesson_date))+'</b><p>'+esc(last.topic||last.subject||'Lesson')+'</p><button onclick="openLessonQuickActions(\''+last.id+'\')">View</button>':'<b>No verified lesson</b><p>Completed teaching appears here.</p>')+'</div><div class="student-tutor-info-v16"><span>STARTED WITH YOU</span><b>'+(start.date?esc(dateFmt(start.date)):'Not recorded')+'</b><p>'+(start.date?'Term '+start.term+' · previous terms are reference':'')+'</p></div><div class="student-tutor-info-v16"><span>RESOURCES USED</span><b>'+used+'</b><p>'+rs.length+' resources in library</p><button onclick="openStudentResourcesV15(\''+id+'\')">Open resources</button></div></aside></div>';
-  h+='<div class="student-dash-shortcuts-v16"><button onclick="openStudentHistoryV15(\''+id+'\')"><div class="shortcut-icon-v16">LH</div><div><b>Lesson history</b><p>'+completed.length+' verified</p></div><span>›</span></button><button onclick="openStudentResourcesV15(\''+id+'\')"><div class="shortcut-icon-v16 purple">RS</div><div><b>Resources</b><p>'+rs.length+' saved</p></div><span>›</span></button><button onclick="openStudentCurriculumV15(\''+id+'\')"><div class="shortcut-icon-v16 pink">TM</div><div><b>All terms</b><p>Current + reference</p></div><span>›</span></button></div>';
+  h+='<aside class="student-tutor-side-v16"><div class="student-tutor-info-v16"><span>LAST LESSON</span>'+(last?'<b>'+esc(dateFmt(last.lesson_date))+'</b><p>'+esc(last.topic||last.subject||'Lesson')+'</p><button onclick="openLessonQuickActions(\''+last.id+'\')">View</button>':'<b>No verified lesson</b><p>Completed teaching appears here.</p>')+'</div><div class="student-tutor-info-v16"><span>STARTED WITH YOU</span><b>'+(start.date?esc(dateFmt(start.date)):'Not recorded')+'</b><p>'+(start.date?'Term '+start.term+' · all terms accessible':'')+'</p></div><div class="student-tutor-info-v16"><span>RESOURCES USED</span><b>'+used+'</b><p>'+rs.length+' resources in library</p><button onclick="openStudentResourcesV15(\''+id+'\')">Open resources</button></div></aside></div>';
+  h+='<div class="student-dash-shortcuts-v16"><button onclick="openStudentHistoryV15(\''+id+'\')"><div class="shortcut-icon-v16">LH</div><div><b>Lesson history</b><p>'+completed.length+' verified</p></div><span>›</span></button><button onclick="openStudentResourcesV15(\''+id+'\')"><div class="shortcut-icon-v16 purple">RS</div><div><b>Resources</b><p>'+rs.length+' saved</p></div><span>›</span></button><button onclick="openStudentCurriculumV15(\''+id+'\')"><div class="shortcut-icon-v16 pink">TM</div><div><b>All terms</b><p>Terms 1–4</p></div><span>›</span></button></div>';
   h+='</div>';$('#content').innerHTML=h;
 }
 function adminSchedule(){
