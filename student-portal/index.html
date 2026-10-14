@@ -5052,6 +5052,16 @@ async function api(payload,auth=true){
   if(!r.ok)throw new Error(j.error||'Request failed');
   return j;
 }
+let vtaLoginUserV35=null;
+function normalizeVtaSyncV35(response){
+  // Different API versions may return the state directly or inside data/state.
+  const state=response&&typeof response==='object'?(response.data&&typeof response.data==='object'&&!Array.isArray(response.data)&&('students' in response.data||'user' in response.data)?response.data:response.state&&typeof response.state==='object'&&('students' in response.state||'user' in response.state)?response.state:response):{};
+  const profile=state.user||state.profile||response?.user||response?.profile||vtaLoginUserV35;
+  if(!profile||typeof profile!=='object')throw new Error('The server did not return your account profile. Please sign in again or contact support.');
+  const role=String(profile.role||profile.user_role||profile.userRole||'').toUpperCase();
+  if(!role)throw new Error('Your account role is missing from the server response.');
+  return {...state,user:{...profile,role,displayName:profile.displayName||profile.display_name||profile.name||profile.username||'VTA User'}};
+}
 $('#loginForm').addEventListener('submit',async e=>{
   e.preventDefault();
   const error=$('#loginError'),status=$('#loginStatus'),btn=$('#loginBtn');
@@ -5060,7 +5070,7 @@ $('#loginForm').addEventListener('submit',async e=>{
   try{
     const r=await api({action:'login',username:$('#username').value.trim(),password:$('#password').value},false);
     if(!r||!r.token)throw new Error('The server did not return a login session.');
-    token=r.token;localStorage.setItem('vta_web_token',token);
+    token=r.token;vtaLoginUserV35=r.user||r.profile||null;localStorage.setItem('vta_web_token',token);
     status.textContent='Login accepted. Loading your dashboard…';
     await sync(true);
     if(!$('#login').classList.contains('hidden')&&!error.textContent)error.textContent='Your login was accepted, but the dashboard did not open. Please report this message.';
@@ -5076,7 +5086,7 @@ async function sync(first=false){
   const s=$('#syncText'),bar=$('#loadingBar');if(s)s.textContent='Syncing…';if(bar)bar.classList.remove('hidden');
   try{
     const syncToken=token;
-    data=await api({action:'sync'});
+    data=normalizeVtaSyncV35(await api({action:'sync'}));
     if(!token||token!==syncToken){data=null;showLogin();return;}
   }catch(err){
     if(/Unauthorized/i.test(err.message)){logout();const le=$('#loginError');if(le)le.textContent='Your session could not be verified. Please sign in again.';return}
@@ -5100,7 +5110,7 @@ async function sync(first=false){
 function showLogin(){$('#login').classList.remove('hidden');$('#app').classList.add('hidden')}
 function showApp(){$('#login').classList.add('hidden');$('#app').classList.remove('hidden');buildNav();if(liveTimer)clearInterval(liveTimer);liveTimer=setInterval(()=>sync(),45000)}
 function logout(){
-  token='';data=null;chatStudent=null;tab='home';
+  token='';data=null;vtaLoginUserV35=null;chatStudent=null;tab='home';
   try{localStorage.removeItem('vta_web_token');localStorage.removeItem('vta_token')}catch(e){}
   try{sessionStorage.removeItem('vta_token');sessionStorage.removeItem('vta_web_token')}catch(e){}
   if(liveTimer){clearInterval(liveTimer);liveTimer=null}
@@ -5379,7 +5389,8 @@ function buildNav(){
   $('#nav').innerHTML=items.map(x=>'<button class="'+(tab===x[0]?'active':'')+'" onclick="go(\''+x[0]+'\')">'+navIcon(x[0])+'<span>'+esc(x[1])+'</span></button>').join('');
   const primary=items.slice(0,4);
   $('#mobileNav').innerHTML=primary.map(x=>'<button class="'+(tab===x[0]?'active':'')+'" onclick="go(\''+x[0]+'\')">'+navIcon(x[0])+'<span>'+esc(x[1])+'</span></button>').join('')+'<button onclick="openMoreNav()">'+navIcon('more')+'<span>More</span></button>';
-  $('#sideProfile').innerHTML='<div class="profile-avatar">'+esc(initials(data.user.displayName))+'</div><strong>'+esc(data.user.displayName)+'</strong><span>'+esc(data.user.role==='ADMIN'?'Tutor / Admin':'Student')+'</span>';
+  const profile=data?.user||{};const display=profile.displayName||profile.display_name||profile.name||'VTA User';
+  $('#sideProfile').innerHTML='<div class="profile-avatar">'+esc(initials(display))+'</div><strong>'+esc(display)+'</strong><span>'+esc(profile.role==='ADMIN'?'Tutor / Admin':'Student')+'</span>';
 }
 function go(t){tab=t;buildNav();window.scrollTo({top:0,left:0,behavior:'auto'});render()}
 
