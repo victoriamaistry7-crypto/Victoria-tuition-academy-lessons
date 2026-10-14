@@ -4761,6 +4761,48 @@ input,select,textarea{background:#fff!important;border:1px solid #e0dce8!importa
 .curriculum-modal-v27 .curriculum-clean-subject-v16 h3{font-size:19px!important}
 }
 </style>
+<style id="vta-students-studio-v28">
+/* Premium, quiet editorial learner workspace */
+.students-command-v19{background:linear-gradient(125deg,#152641 0%,#263e5e 70%,#344d65 100%)!important;border:1px solid #344d67!important;border-radius:20px!important;box-shadow:0 14px 32px rgba(15,36,60,.13)!important}
+.students-command-v19:after{width:270px!important;height:270px!important;right:-115px!important;top:-145px!important;border:32px solid rgba(255,255,255,.035)!important}
+.students-command-title-v19 h2{letter-spacing:-.04em!important}
+.students-gallery-v20{gap:14px!important}
+.students-gallery-v20 .student-premium-card-v17{border:1px solid #dfe5ef!important;border-radius:19px!important;box-shadow:0 8px 24px rgba(30,44,72,.055)!important;text-align:left!important;transition:transform .15s,box-shadow .15s!important}
+.students-gallery-v20 .student-premium-card-v17:hover{transform:translateY(-2px)!important;box-shadow:0 16px 32px rgba(30,44,72,.12)!important}
+.students-gallery-v20 .student-premium-card-v17:after{display:none!important}
+.students-gallery-v20 .student-premium-cover-v17{height:65px!important;border-bottom:1px solid rgba(22,36,60,.06)!important}
+.students-gallery-v20 .student-premium-avatar-v17{border:2px solid white!important;box-shadow:0 3px 12px rgba(28,40,70,.13)!important;font-weight:850!important}
+.students-gallery-v20 .student-premium-body-v17{padding:18px!important}
+.students-gallery-v20 .student-premium-title-v17 h3{font-size:21px!important;letter-spacing:-.03em!important;line-height:1.2!important}
+.students-gallery-v20 .student-premium-title-v17 p{font-size:12px!important;line-height:1.55!important}
+.students-gallery-v20 .student-premium-focus-v17{background:var(--panel2)!important;border:1px solid var(--line)!important;border-radius:13px!important;margin-top:15px!important;padding:13px!important}
+.students-gallery-v20 .student-premium-meta-v17{gap:8px!important}
+.students-gallery-v20 .student-premium-meta-v17>div{border:1px solid var(--line)!important;border-radius:12px!important;padding:11px!important}
+.students-gallery-v20 .student-premium-foot-v17{border-top:1px solid var(--line)!important;margin-top:15px!important}
+.curriculum-modal-v27 .curriculum-clean-subject-v16{margin:0 0 12px!important;padding:0 1px!important}
+.curriculum-modal-v27 .curriculum-clean-subject-v16 h3{margin:0!important;font-size:18px!important}
+.curriculum-modal-v27 .curriculum-clean-subject-v16>span{display:none!important}
+.curriculum-modal-v27 .curriculum-experience-v20{gap:10px!important;padding:0!important}
+.curriculum-modal-v27 .curriculum-clean-note-v16{display:none!important}
+.curriculum-modal-v27 .curriculum-term-v20>summary .curriculum-term-chevron-v22{width:24px!important;height:24px!important;flex:0 0 24px!important;border-radius:7px!important;background:transparent!important;color:#63708a!important;transform:none!important}
+.curriculum-modal-v27 .curriculum-term-v20>summary .curriculum-term-chevron-v22:after{width:7px!important;height:7px!important;border-width:2px!important;transform:rotate(45deg)!important}
+.curriculum-modal-v27 .curriculum-term-v20[open]>summary .curriculum-term-chevron-v22{transform:rotate(180deg)!important}
+.curriculum-modal-v27 .curriculum-topic-v20>summary i{background:transparent!important;border:1px solid var(--line)!important;border-radius:8px!important;color:#64748b!important;width:28px!important;height:28px!important}
+.curriculum-modal-v27 .curriculum-topic-v20>summary i:after{width:7px!important;height:7px!important}
+.curriculum-modal-v27 .curriculum-topic-v20>summary{min-height:0!important;padding:12px 13px!important}
+.curriculum-modal-v27 .curriculum-term-v20>summary{min-height:72px!important}
+@media(max-width:600px){
+.students-command-v19{padding:19px!important;gap:14px!important;margin:8px 0 17px!important}
+.students-command-title-v19 h2{font-size:24px!important}
+.students-command-stats-v19>div{padding:11px 8px!important}
+.students-command-stats-v19 strong{font-size:21px!important}
+.students-command-stats-v19 span{font-size:10px!important}
+.students-gallery-v20 .student-premium-cover-v17{height:56px!important}
+.students-gallery-v20 .student-premium-body-v17{padding:15px!important}
+.curriculum-modal-v27>.curriculum-scroll-v27{padding-top:15px!important}
+}
+[data-theme="dark"] .students-gallery-v20 .student-premium-card-v17{border-color:#36445e!important}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -5312,7 +5354,7 @@ function adminStudents(){
   const all=(data.students||[]).slice().sort((a,b)=>String(a.display_name||'').localeCompare(String(b.display_name||'')));
   const students=all.filter(s=>s.active!==false),archived=all.filter(s=>s.active===false);
   let h=adminPageHeader('Students','Current learners and the teaching information you need at a glance.','<button class="btn primary" onclick="openStudentCreate()">'+vtaIcon('plus',15)+' Add student</button>');
-  h+='<div class="students-command-v19"><div class="students-command-title-v19"><span>YOUR LEARNERS</span><h2>Teaching workspace</h2><p>Open a student to continue teaching, review their curriculum or prepare their next lesson.</p></div><div class="students-command-stats-v19"><div><strong>'+students.length+'</strong><span>Active learners</span></div><div><strong>'+students.filter(st=>(data.lessons||[]).some(l=>l.student_id===st.id&&l.lesson_date>=today()&&l.status==='Confirmed')).length+'</strong><span>With confirmed lessons</span></div><div><strong>'+students.filter(st=>(data.curriculumSubtopics||[]).some(x=>x.student_id===st.id&&['In progress','Revisit'].includes(curriculumStatus(x.status)))).length+'</strong><span>With topics in progress</span></div></div></div>';h+='<div class="students-premium-grid-v17 students-gallery-v20">';
+  h+='<div class="students-command-v19"><div class="students-command-title-v19"><span>VTA · LEARNER MANAGEMENT</span><h2>Your teaching studio</h2><p>Every learner, lesson and learning milestone in one place.</p></div><div class="students-command-stats-v19"><div><strong>'+students.length+'</strong><span>Active learners</span></div><div><strong>'+students.filter(st=>(data.lessons||[]).some(l=>l.student_id===st.id&&l.lesson_date>=today()&&l.status==='Confirmed')).length+'</strong><span>With confirmed lessons</span></div><div><strong>'+students.filter(st=>(data.curriculumSubtopics||[]).some(x=>x.student_id===st.id&&['In progress','Revisit'].includes(curriculumStatus(x.status)))).length+'</strong><span>With topics in progress</span></div></div></div>';h+='<div class="students-premium-grid-v17 students-gallery-v20">';
   students.forEach((s,idx)=>{
     const curriculum=(data.curriculumSubtopics||[]).filter(x=>x.student_id===s.id),scope=activeCurriculumScope(curriculum),done=scope.filter(x=>curriculumStatus(x.status)==='Completed').length,pct=scope.length?Math.round(done/scope.length*100):0;
     const lessons=(data.lessons||[]).filter(x=>x.student_id===s.id),completed=lessons.filter(x=>x.status==='Completed').sort((a,b)=>String(b.lesson_date).localeCompare(String(a.lesson_date))),upcoming=lessons.filter(x=>x.lesson_date>=today()&&x.status==='Confirmed').sort((a,b)=>(a.lesson_date+String(a.start_time||'')).localeCompare(b.lesson_date+String(b.start_time||'')));
