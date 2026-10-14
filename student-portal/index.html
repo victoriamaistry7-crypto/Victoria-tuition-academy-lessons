@@ -4939,7 +4939,7 @@ function curriculumTracker(rows,editable,studentId=null){
     for(let term=1;term<=4;term++){
       const tr=sr.filter(x=>Number(x.term_number)===term);if(!tr.length)continue;
       const role=curriculumTermRole(studentId,term),topics=[...new Set(tr.map(x=>x.topic))],td=tr.filter(x=>curriculumStatus(x.status)==='Completed').length;
-      out+='<details id="smart-term-'+studentId+'-'+term+'" class="term-detail-v14 '+role.key+'" '><summary><div><span>TERM '+term+' · '+(term===current?'CURRENT TERM':'CURRICULUM')+'</span><b>'+topics.length+' main topics</b></div><div><strong>'+td+' / '+tr.length+'</strong><small>'+'subtopics completed'+'</small></div></summary><div class="term-detail-body-v14">';
+      out+='<details id="smart-term-'+studentId+'-'+term+'" class="term-detail-v14 '+role.key+'"><summary><div><span>TERM '+term+' · '+(term===current?'CURRENT TERM':'CURRICULUM')+'</span><b>'+topics.length+' main topics</b></div><div><strong>'+td+' / '+tr.length+'</strong><small>'+'subtopics completed'+'</small></div></summary><div class="term-detail-body-v14">';
       for(const topic of topics){
         const ar=tr.filter(x=>x.topic===topic),ad=ar.filter(x=>curriculumStatus(x.status)==='Completed').length;
         out+='<details class="topic-smart-v14"><summary><div><b>'+esc(topic)+'</b><span>'+esc(ar[0].strand||'')+'</span></div><span>'+ad+' / '+ar.length+' done</span></summary><div class="topic-smart-body-v14">'+ar.map(x=>{
