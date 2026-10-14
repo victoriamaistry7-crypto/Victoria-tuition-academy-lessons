@@ -1,4 +1,4 @@
-const CACHE_NAME = 'vta-shell-v36';
+const CACHE_NAME = 'vta-shell-v41';
 const SHELL = ['./', './index.html'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));
