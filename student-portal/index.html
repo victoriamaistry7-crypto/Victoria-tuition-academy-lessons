@@ -4788,7 +4788,7 @@ function vtaIcon(name,size=18){
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),2600)}
 async function api(payload,auth=true){
   const h={'Content-Type':'application/json'};if(auth&&token)h.Authorization='Bearer '+token;
-  const r=await fetch(API,{method:'POST',headers:h,body:JSON.stringify(payload)});
+  const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),20000);let r;try{r=await fetch(API,{method:'POST',headers:h,body:JSON.stringify(payload),signal:controller.signal})}catch(e){throw new Error(e.name==='AbortError'?'Server took too long to respond. Try again.':'Unable to reach login server. Check your connection.')}finally{clearTimeout(timeout)}
   let j={};try{j=await r.json()}catch(e){}
   if(!r.ok)throw new Error(j.error||'Request failed');
   return j;
@@ -4807,7 +4807,8 @@ async function sync(first=false){
     data=await api({action:'sync'});
     if(!token||token!==syncToken){data=null;showLogin();return;}
   }catch(err){
-    if(/Unauthorized/i.test(err.message)){logout();return}
+    if(/Unauthorized/i.test(err.message)){logout();const le=$('#loginError');if(le)le.textContent='Your session could not be verified. Please sign in again.';return}
+    if(first){showLogin();const le=$('#loginError');if(le)le.textContent='Sign-in was accepted, but your dashboard could not load: '+err.message+' Please try again.';}
     if(s)s.textContent='Connection issue • '+err.message;
     if(bar)bar.classList.add('hidden');
     return;
