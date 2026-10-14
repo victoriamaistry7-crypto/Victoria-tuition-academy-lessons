@@ -4933,6 +4933,29 @@ input,select,textarea{background:#fff!important;border:1px solid #e0dce8!importa
 @media(max-width:570px){.curriculum-modal-v27{max-width:calc(100vw - 12px)!important}.curriculum-modal-v27 .curriculum-scroll-v27{max-height:calc(100dvh - 175px)!important}}
 @media(prefers-reduced-motion:reduce){.learner-row-v31 *, .quiz-student-card-v17,.resource-dash-card-v16{transition:none!important;animation:none!important}}
 </style>
+<style id="vta-student-workspace-structure-v33">
+.student-dashboard-v16{min-width:0;max-width:1160px;margin:0 auto}
+.student-dashboard-head-v16{min-width:0;align-items:center;gap:12px}
+.student-dash-id-v16{min-width:0;flex:1}
+.student-dash-id-v16>div:last-child{min-width:0}
+.student-dash-id-v16 h2{overflow-wrap:anywhere;letter-spacing:-.035em}
+.student-dash-id-v16 p{overflow-wrap:anywhere}
+.student-workspace-tools-v33{display:grid;gap:12px;margin:16px 0 18px;min-width:0}
+.student-workspace-summary-v33{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.student-workspace-summary-v33>div{min-width:0;display:grid;align-content:center;gap:6px;padding:15px 14px;border:1px solid var(--line);border-radius:13px;background:var(--panel)}
+.student-workspace-summary-v33 span{font-size:9px;font-weight:800;letter-spacing:.1em;line-height:1.45;color:var(--muted)}
+.student-workspace-summary-v33 strong{font-size:18px;font-weight:800;line-height:1.25;letter-spacing:-.03em;color:var(--text);overflow-wrap:anywhere}
+.student-workspace-actions-v33{display:flex;flex-wrap:wrap;gap:8px}
+.student-workspace-actions-v33 button{display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 14px;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:11px;font-size:12px;font-weight:750;min-height:42px}
+.student-workspace-actions-v33 button:first-child{background:#eeeaff;border-color:#dfd7ff;color:#5b4ab0}
+.student-workspace-actions-v33 button:focus-visible{outline:3px solid #8264de;outline-offset:2px}
+.student-dash-main-v16,.student-dash-shortcuts-v16{min-width:0}
+.student-dash-main-v16>*{min-width:0}
+.student-next-card-v16,.student-focus-card-v16,.student-tutor-side-v16{overflow-wrap:anywhere}
+@media(max-width:680px){.student-workspace-summary-v33{grid-template-columns:repeat(2,minmax(0,1fr))}.student-workspace-summary-v33>div{padding:12px}.student-workspace-summary-v33 strong{font-size:17px}.student-workspace-actions-v33{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.student-workspace-actions-v33 button{padding:10px 8px;font-size:11px}.student-dash-actions-v16{flex-wrap:wrap;gap:7px}}
+@media(max-width:360px){.student-workspace-actions-v33{grid-template-columns:1fr 1fr}.student-workspace-actions-v33 button{font-size:10px}}
+[data-theme="dark"] .student-workspace-actions-v33 button:first-child{background:#393354;border-color:#4d426e;color:#e6ddff}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -5581,6 +5604,7 @@ function studentDetail(id){
   const done=curr.filter(x=>curriculumStatus(x.status)==='Completed').length,active=curr.filter(x=>['In progress','Revisit'].includes(curriculumStatus(x.status))).length;
   const prep=focus.topics.filter(t=>t.done<t.total).slice(0,3),rs=(data.resources||[]).filter(x=>x.student_id===id),used=rs.filter(x=>String(x.completion_status||'').toLowerCase()==='used').length,start=studentStartInfo(id);
   let h='<div class="student-dashboard-v16"><div class="student-dashboard-head-v16"><button class="student-dash-back-v16" onclick="go(\'students\')">←</button><div class="student-dash-id-v16"><div class="student-dash-avatar-v16">'+esc(initials(s.display_name))+'</div><div><span>STUDENT</span><h2>'+esc(s.display_name)+'</h2><p>'+esc(s.grade||'')+' · '+esc(s.subjects||'')+(s.curriculum?' · '+esc(s.curriculum):'')+'</p></div></div><div class="student-dash-actions-v16"><button class="btn soft-v13" onclick="editStudent(\''+id+'\')">Edit student</button><button class="btn primary" onclick="openLesson(\''+id+'\')">Add lesson</button></div></div>';
+  h+='<div class="student-workspace-tools-v33"><div class="student-workspace-summary-v33"><div><span>CURRENT TERM</span><strong>Term '+currentAcademicTerm()+'</strong></div><div><span>COMPLETED LESSONS</span><strong>'+completed.length+'</strong></div><div><span>SUBTOPICS COMPLETED</span><strong>'+done+' / '+curr.length+'</strong></div><div><span>RESOURCE LIBRARY</span><strong>'+rs.length+' items</strong></div></div><div class="student-workspace-actions-v33"><button onclick="openStudentCurriculumV15(\''+id+'\')">'+vtaIcon('book',16)+' Curriculum</button><button onclick="openStudentHistoryV15(\''+id+'\')">'+vtaIcon('history',16)+' Lesson history</button><button onclick="openStudentResourcesV15(\''+id+'\')">'+vtaIcon('folder',16)+' Resources</button><button onclick="editStudent(\''+id+'\')">'+vtaIcon('edit',16)+' Student notes</button></div></div>';
   h+='<div class="student-dash-main-v16"><section class="student-next-card-v16"><div class="student-next-accent-v16"></div><div class="student-next-copy-v16"><span>NEXT LESSON</span><h3>'+(next?esc(dateFmt(next.lesson_date))+' · '+esc(timeFmt(next.start_time)):'Nothing confirmed')+'</h3><p>'+(next?esc(next.subject||'Lesson')+' · '+esc(next.duration_minutes)+' min'+(next.status!=='Confirmed'?' · needs confirmation':''):'No confirmed lesson on the schedule.')+'</p></div>'+(next?'<button class="btn primary" onclick="openLessonQuickActions(\''+next.id+'\')">View lesson</button>':'')+'</section>';
   h+='<section class="student-focus-card-v16"><div class="student-section-head-v16"><div><span>TERM '+currentAcademicTerm()+' FOCUS</span><h3>What to teach next</h3></div><button onclick="openStudentCurriculumV15(\''+id+'\')">View all terms</button></div><div class="student-focus-progress-v16"><div class="student-focus-bar-v16"><i style="width:'+Math.round(done/Math.max(curr.length,1)*100)+'%"></i></div><p>'+done+' of '+curr.length+' current-term subtopics completed · '+active+' active</p></div><div class="student-focus-list-v16">'+(prep.length?prep.map((t,i)=>'<button onclick="openStudentCurriculumV15(\''+id+'\')"><div class="student-focus-num-v16">'+(i+1)+'</div><div class="grow"><b>'+esc(t.topic)+'</b><p>'+(t.active?'Continue this topic':'Ready when needed')+' · '+t.done+'/'+t.total+' done</p></div><span>'+Math.round(t.done/Math.max(t.total,1)*100)+'%</span></button>').join(''):emptyState('Current-term focus complete','No remaining current-term topics are loaded.'))+'</div></section>';
   h+='<aside class="student-tutor-side-v16"><div class="student-tutor-info-v16"><span>LAST LESSON</span>'+(last?'<b>'+esc(dateFmt(last.lesson_date))+'</b><p>'+esc(last.topic||last.subject||'Lesson')+'</p><button onclick="openLessonQuickActions(\''+last.id+'\')">View</button>':'<b>No verified lesson</b><p>Completed teaching appears here.</p>')+'</div><div class="student-tutor-info-v16"><span>STARTED WITH YOU</span><b>'+(start.date?esc(dateFmt(start.date)):'Not recorded')+'</b><p>'+(start.date?'Term '+start.term+' · all terms accessible':'')+'</p></div><div class="student-tutor-info-v16"><span>RESOURCES USED</span><b>'+used+'</b><p>'+rs.length+' resources in library</p><button onclick="openStudentResourcesV15(\''+id+'\')">Open resources</button></div></aside></div>';
