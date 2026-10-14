@@ -5012,114 +5012,117 @@ input,select,textarea{background:#fff!important;border:1px solid #e0dce8!importa
 @media(max-width:700px){#content .quiz-premium-grid-v17,#content .resource-dashboard-grid-v16{grid-template-columns:minmax(0,1fr)!important}#content .finance-dashboard-v30 .finance-dash-grid-v16{grid-template-columns:minmax(0,1fr)!important}#content .studio-page-intro-v30{padding:16px!important}#content .finance-dashboard-v30 .finance-dash-card-v16{padding:15px!important}#content .vta-library-toolbar-v37 label{max-width:none!important;flex-basis:100%}}
 @media(max-width:390px){#content .resource-dash-counts-v16{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 </style>
-<style id="vta-premium-system-v38">
-/* VTA unified premium design tokens — no backend or record changes */
-:root{--vta-accent:#7357d4;--vta-accent-strong:#5e46b5;--vta-ink:#1e2340;--vta-shadow:0 10px 30px rgba(31,38,73,.045);--vta-radius:17px;--vta-focus:0 0 0 3px rgba(119,89,224,.22)}
-html:not([data-theme="dark"]){--bg:#f6f5fa;--panel:#fff;--panel2:#f9f8fc;--text:#20243c;--muted:#70748a;--line:#e8e7f0}
-html[data-theme="dark"]{--vta-accent:#a793ff;--vta-accent-strong:#c1b2ff;--vta-ink:#f5f2ff;--vta-shadow:0 10px 32px rgba(0,0,0,.13)}
-body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.005em}
-#app,#app .main,#app .content{min-width:0}
-#app .main{background:var(--bg)}
-#app .content{max-width:1360px;width:100%;box-sizing:border-box;margin:0 auto}
-#app .topbar{border-bottom:1px solid var(--line);background:var(--panel);gap:14px}
-#app .topbar h1{font-size:clamp(21px,2.7vw,27px);letter-spacing:-.045em;line-height:1.2}
-#app .top-date{letter-spacing:.075em;font-size:10px;font-weight:750}
-#app .top-actions{gap:8px;min-width:0}
-#app .top-actions .iconbtn,#app .top-quick-btn{border-radius:11px;min-height:38px}
-#app .sidebar{background:#191b32;border-right:1px solid rgba(255,255,255,.08)}
-#app .side-brand{border-bottom:1px solid rgba(255,255,255,.08)}
-#app .nav{gap:5px}
-#app .nav button{border-radius:11px;font-size:13px;font-weight:650;min-height:43px;letter-spacing:0}
-#app .nav button.active{background:rgba(163,143,255,.17);color:#f4efff}
-#app .nav button:focus-visible,#app button:focus-visible,#app a:focus-visible,#app input:focus-visible,#app select:focus-visible,#app textarea:focus-visible{outline:2px solid var(--vta-accent);outline-offset:2px}
-#app .admin-page-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;min-width:0;flex-wrap:wrap}
-#app .admin-page-copy{min-width:0;flex:1 1 200px}
-#app .admin-page-copy h2{font-size:clamp(20px,2.8vw,27px);line-height:1.25;letter-spacing:-.035em;margin-bottom:4px;overflow-wrap:anywhere}
-#app .admin-page-copy p{font-size:12px;line-height:1.55;color:var(--muted);overflow-wrap:anywhere}
-#app .admin-page-action{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-width:0}
-#app .btn{border-radius:11px;font-weight:750;letter-spacing:-.01em}
-#app .btn.primary{background:linear-gradient(135deg,#7559da,#8a64e6);color:white;border-color:transparent;box-shadow:0 5px 13px rgba(108,82,207,.17)}
-#app .btn.primary:hover{filter:brightness(1.06)}
-#app .hero{border-radius:19px;overflow:hidden}
-#app .hero h2{font-size:clamp(23px,3.2vw,35px);line-height:1.2;letter-spacing:-.045em;overflow-wrap:anywhere}
-#app .hero p{font-size:13px;line-height:1.65}
-#app .admin-dashboard-grid,#app .student-dash-main-v16,#app .schedule-premium-summary-v17{min-width:0}
-#app .admin-dashboard-grid>*,#app .schedule-premium-summary-v17>*,#app .student-dash-main-v16>*{min-width:0;overflow-wrap:anywhere}
-#app .page-surface,#app .admin-focus-card,#app .schedule-premium-summary-v17>div,#app .messages-premium-v17,#app .student-dashboard-v16 .student-next-card-v16,#app .student-dashboard-v16 .student-focus-card-v16{border-radius:var(--vta-radius);box-shadow:var(--vta-shadow);border-color:var(--line)}
-#app .learner-row-v31,#app .quiz-student-card-v17,#app .resource-dash-card-v16,#app .finance-dash-card-v16{transition:border-color .18s ease,box-shadow .18s ease}
-#app .learner-row-v31:hover,#app .quiz-student-card-v17:hover,#app .resource-dash-card-v16:hover,#app .finance-dash-card-v16:hover{border-color:rgba(123,93,211,.45)!important;box-shadow:0 10px 26px rgba(48,39,92,.08)!important}
-#app .learner-row-v31:focus-within,#app .quiz-student-card-v17:focus-visible,#app .resource-dash-card-v16:focus-visible{box-shadow:var(--vta-focus)}
-#app .learner-hub-intro-v31{border-radius:19px;box-shadow:var(--vta-shadow);background:var(--panel)}
-#app .learner-row-details-v31>div{min-width:0;overflow-wrap:anywhere}
-#app .learner-row-actions-v31 button{min-height:38px}
-#app .student-workspace-summary-v33>div{border-radius:14px;box-shadow:var(--vta-shadow)}
-#app .student-workspace-actions-v33 button{transition:border-color .2s ease,background .2s ease}
-#app .student-workspace-actions-v33 button:hover{border-color:var(--vta-accent)}
-#app .messages-premium-v17{overflow:hidden;min-width:0;background:var(--panel)}
-#app .messages-list-v17,#app .message-thread-v17{min-width:0;overflow-wrap:anywhere}
-#app .messages-list-v17 button{min-width:0;overflow:hidden}
-#app .messages-list-v17 button .grow{min-width:0;overflow:hidden}
-#app .messages-list-v17 button .grow p{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
-#app .message-thread-v17 p,#app .message-thread-v17 .message-body{overflow-wrap:anywhere;word-break:break-word}
-#app .schedule-premium-summary-v17>div{overflow-wrap:anywhere}
-#app .calendar-block{overflow:hidden;overflow-wrap:anywhere}
-#app .calendar-block b,#app .calendar-block small{overflow-wrap:anywhere}
-#app .finance-dashboard-v30 .finance-dash-card-v16{border-radius:15px!important}
-#app .finance-dashboard-v30 .finance-dash-card-v16>b{font-variant-numeric:tabular-nums}
-#app .finance-dashboard-v30 .finance-dash-card-v16>span{max-width:100%;overflow-wrap:anywhere}
-#app .quiz-premium-grid-v17,#app .resource-dashboard-grid-v16{align-items:stretch}
-#app .quiz-student-card-v17,#app .resource-dash-card-v16{height:100%;border-radius:16px!important}
-#app .quiz-mini-stats-v17>div,#app .resource-dash-counts-v16>div{box-sizing:border-box;min-width:0}
-#app .quiz-mini-stats-v17 span,#app .resource-dash-counts-v16 span{overflow-wrap:anywhere;word-break:normal}
-#app .curriculum-modal-v27{border-radius:18px}
-#app .curriculum-modal-v27 summary{line-height:1.5;overflow-wrap:anywhere}
-#app .curriculum-modal-v27 button{min-height:38px}
-#app .mobile-nav{border-top:1px solid var(--line);background:var(--panel)}
-#app .mobile-nav button{min-width:0;font-size:10px;font-weight:700;line-height:1.25}
-#app .mobile-nav button.active{color:var(--vta-accent-strong)}
-#app .sync-pill{min-width:0;max-width:180px;overflow:hidden}
-#app .sync-pill #syncText{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
-@media(max-width:850px){#app .topbar{padding:12px 15px}#app .content{padding-left:13px;padding-right:13px}#app .top-actions{gap:5px}#app .top-search-trigger{min-width:0}#app .messages-premium-v17{min-height:0}}
-@media(max-width:600px){#app .content{padding-left:12px!important;padding-right:12px!important;padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))!important}#app .admin-page-header{gap:10px}#app .admin-page-action{width:100%}#app .admin-page-action .btn{min-height:41px}#app .topbar h1{font-size:21px}#app .top-actions .sync-pill{display:none}#app .studio-page-intro-v30{margin-top:12px!important}#app .learner-hub-intro-v31{padding:18px}#app .learner-hub-stats-v31{gap:0}#app .learner-hub-stats-v31>div{min-width:0}#app .finance-dashboard-v30 .finance-dash-card-v16{min-width:0!important;max-width:100%!important}#app .quiz-student-card-v17,#app .resource-dash-card-v16{max-width:100%!important}#app .messages-premium-v17{min-width:0}#app .message-thread-v17{min-width:0}}
-@media(prefers-reduced-motion:reduce){#app .learner-row-v31,#app .quiz-student-card-v17,#app .resource-dash-card-v16,#app .finance-dash-card-v16{transition:none}}
-
-/* v39 — deliberate editorial layout, not another layer of decorative gradients */
-#app .content{max-width:1240px!important}
-#app .vta-page-heading-v39{display:flex!important;align-items:flex-end!important;justify-content:space-between!important;gap:18px!important;margin:0 0 23px!important;padding:4px 0 17px!important;border-bottom:1px solid var(--line)!important;background:none!important;box-shadow:none!important}
-#app .vta-page-heading-v39 .admin-page-copy{min-width:0!important;flex:1!important}
-#app .vta-page-eyebrow-v39{display:block;font-size:10px;font-weight:850;letter-spacing:.14em;color:var(--vta-accent-strong);margin-bottom:9px}
-#app .vta-page-heading-v39 h2{font-size:clamp(27px,4vw,39px)!important;line-height:1.12!important;letter-spacing:-.055em!important;font-weight:820!important;margin:0 0 7px!important;color:var(--text)!important}
-#app .vta-page-heading-v39 p{font-size:13px!important;line-height:1.55!important;color:var(--muted)!important;max-width:590px}
-#app .vta-page-heading-v39 .admin-page-action{flex:0 0 auto!important;width:auto!important}
-#app .learner-hub-v31 .learner-hub-intro-v31{padding:18px 22px!important;background:var(--panel2)!important;border:1px solid var(--line)!important;border-radius:13px!important;box-shadow:none!important}
-#app .learner-hub-intro-v31 h2{font-size:22px!important;margin:6px 0!important}
-#app .learner-hub-intro-v31 p{font-size:12px!important}
+<style id="vta-studio-design-v40">
+/* Single current visual design layer. Existing legacy selectors remain for functional compatibility. */
+:root{--vta-brand:#6652b7;--vta-brand-light:#f1edff;--vta-radius:13px;--vta-stroke:#e8e7ed;--vta-elev:0 5px 25px rgba(35,35,63,.045)}
+#app{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+#app .main{min-width:0;background:var(--bg)}
+#app .content{box-sizing:border-box;width:100%;max-width:1260px;margin:auto;padding-top:25px;min-width:0}
+#app .topbar{background:var(--panel);border-bottom:1px solid var(--line);box-shadow:none;gap:12px}
+#app .topbar h1{font-size:21px;line-height:1.2;letter-spacing:-.04em}
+#app .top-date{font-size:10px;letter-spacing:.08em;font-weight:750}
+#app .sidebar{background:#1d2035!important;border-right:1px solid #30324a}
+#app .side-brand{border-bottom:1px solid #34374c;padding-bottom:19px}
+#app .nav{gap:4px}
+#app .nav button{min-height:43px;border-radius:10px;font-weight:650;font-size:12px}
+#app .nav button.active{background:#353650!important;color:#fff!important;box-shadow:inset 3px 0 #b9a7ff}
+#app .nav button:hover{background:#2b2e46}
+#app .btn{border-radius:9px;font-weight:750;letter-spacing:-.015em}
+#app .btn.primary{background:#6955bd!important;border-color:#6955bd!important;color:white!important;box-shadow:none!important}
+#app .btn.primary:hover{background:#5541a5!important}
+#app button:focus-visible,#app input:focus-visible,#app a:focus-visible,#app select:focus-visible{outline:2px solid #947deb!important;outline-offset:2px}
+#app .vta-page-heading-v39{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding:0 0 19px;margin:0 0 22px;box-shadow:none;background:transparent}
+#app .vta-page-heading-v39 .admin-page-copy{min-width:0;flex:1 1 210px}
+#app .vta-page-eyebrow-v39{display:block;color:#7b65be;font-size:10px;letter-spacing:.12em;font-weight:800;margin-bottom:8px}
+#app .vta-page-heading-v39 h2{font-size:clamp(28px,3.7vw,38px);font-weight:790;line-height:1.13;letter-spacing:-.055em;margin:0 0 6px;overflow-wrap:anywhere}
+#app .vta-page-heading-v39 p{font-size:12px;line-height:1.55;color:var(--muted);margin:0}
+#app .vta-page-heading-v39 .admin-page-action{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+#app .vta-editorial-hero-v40{position:relative!important;display:flex!important;align-items:center!important;justify-content:space-between!important;min-height:235px!important;padding:31px 36px!important;border-radius:16px!important;background:#262940!important;color:#fff!important;border:1px solid #3b3b59!important;box-shadow:none!important;overflow:hidden!important}
+#app .vta-editorial-hero-v40:before{content:none!important}
+#app .vta-hero-content-v40{position:relative;z-index:2;max-width:660px}
+#app .vta-hero-eyebrow-v40{font-size:10px;letter-spacing:.12em;font-weight:780;color:#c6b9ff;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+#app .vta-hero-eyebrow-v40 i{width:4px;height:4px;border-radius:50%;background:#b8abec}
+#app .vta-editorial-hero-v40 h2{font-size:clamp(27px,4vw,44px)!important;line-height:1.13!important;letter-spacing:-.055em!important;font-weight:770!important;color:#fff!important;margin:17px 0 11px!important}
+#app .vta-editorial-hero-v40 p{font-size:13px!important;line-height:1.65!important;color:#c5c6d6!important;max-width:510px!important;margin:0!important}
+#app .vta-hero-actions-v40{display:flex;flex-wrap:wrap;gap:9px;margin-top:23px}
+#app .vta-hero-actions-v40 button{display:inline-flex;align-items:center;gap:8px;border:1px solid #555775;background:#373a55;color:#fff;padding:10px 13px;border-radius:9px;font-size:12px;font-weight:750;cursor:pointer}
+#app .vta-hero-actions-v40 button:hover{background:#494c70}
+#app .vta-hero-monogram-v40{font-family:Georgia,serif;font-weight:700;font-size:160px;line-height:1;letter-spacing:-.12em;color:#444662;opacity:.8;flex:0 0 auto;padding-right:20px;transform:rotate(-8deg)}
+#app .vta-hero-monogram-v40 span{color:#9a88e2}
+#app .admin-dashboard-grid{gap:11px!important}
+#app .admin-focus-card{min-width:0;border:1px solid var(--line)!important;background:var(--panel)!important;border-radius:12px!important;box-shadow:none!important;padding:19px!important;overflow-wrap:anywhere}
+#app .admin-focus-card.accent{background:var(--panel2)!important}
+#app .admin-focus-card .eyebrow{font-size:10px!important;letter-spacing:.09em!important;color:var(--muted)!important}
+#app .admin-focus-card .big{font-size:clamp(26px,3.4vw,36px)!important;letter-spacing:-.05em!important;line-height:1.2!important}
+#app .dashboard-panel{border:1px solid var(--line)!important;border-radius:12px!important;box-shadow:none!important;min-width:0;overflow:hidden}
+#app .dashboard-panel-head{padding:16px 18px!important;border-bottom:1px solid var(--line)!important}
+#app .dashboard-panel-head h4{font-size:15px!important;letter-spacing:-.02em!important}
+#app .upcoming-premium{gap:12px!important;min-width:0}
+#app .upcoming-copy{min-width:0;overflow-wrap:anywhere}
+#app .upcoming-copy b{font-size:12px!important;line-height:1.45!important}
+#app .learner-hub-v31{min-width:0}
+#app .learner-hub-intro-v31{padding:18px 20px!important;border-radius:12px!important;border:1px solid var(--line)!important;background:var(--panel2)!important;box-shadow:none!important}
+#app .learner-hub-intro-v31 h2{font-size:21px!important;line-height:1.2!important;margin:7px 0!important}
 #app .learner-hub-stats-v31 strong{font-size:24px!important}
-#app .learner-row-v31{border-radius:12px!important;box-shadow:none!important}
-#app .learner-row-v31 .learner-row-actions-v31{background:var(--panel2)!important}
-#app .quiz-premium-grid-v17,#app .resource-dashboard-grid-v16{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
-#app .quiz-student-card-v17,#app .resource-dash-card-v16{border-radius:12px!important;box-shadow:none!important}
-#app .quiz-student-band-v17,#app .resource-dash-band-v16{background:transparent!important;border-bottom:0!important;padding:15px 16px 0!important}
-#app .quiz-student-body-v17,#app .resource-dash-body-v16{padding:11px 16px 16px!important}
-#app .quiz-mini-stats-v17,#app .resource-dash-counts-v16{margin-top:12px!important}
-#app .quiz-mini-stats-v17>div,#app .resource-dash-counts-v16>div{background:var(--panel2)!important;border:0!important;padding:9px 7px!important;border-radius:7px!important}
-#app .finance-dashboard-v30 .finance-cycle-line-v16{background:var(--panel2)!important;box-shadow:none!important;border-radius:11px!important}
-#app .finance-dashboard-v30 .finance-dash-grid-v16{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important}
-#app .finance-dashboard-v30 .finance-dash-card-v16{border-radius:12px!important;box-shadow:none!important;padding:17px!important;min-width:0!important}
-#app .finance-dashboard-v30 .finance-dash-card-v16>b{font-size:clamp(23px,2.4vw,30px)!important;letter-spacing:-.05em!important}
-#app .finance-dashboard-v30 .finance-total-v30{grid-column:1/-1!important;order:-1!important;background:#22243b!important;color:#fff!important;padding:22px 24px!important;border:1px solid #33344d!important}
-#app .finance-dashboard-v30 .finance-total-v30>b{font-size:clamp(32px,4.5vw,47px)!important;color:#fff!important}
-#app .finance-dashboard-v30 .finance-total-v30>span{color:#c3bfd9!important}
-#app .finance-dashboard-v30 .finance-total-v30>p{color:#e0ddeb!important}
-#app .finance-dashboard-v30 .finance-total-v30>em{color:#c4b5ff!important}
-#app .vta-library-toolbar-v37{padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:16px!important}
-#app .vta-library-toolbar-v37 label{background:var(--panel)!important;border-radius:10px!important}
-#app .student-workspace-summary-v33>div{box-shadow:none!important;border-radius:11px!important}
+#app .learner-tools-v31{margin:17px 0!important}
+#app .learner-row-v31{border:1px solid var(--line)!important;border-radius:12px!important;box-shadow:none!important;overflow:hidden}
+#app .learner-row-v31:hover{border-color:#b9a7e7!important;box-shadow:0 7px 22px rgba(38,32,70,.07)!important}
+#app .learner-row-details-v31>div{min-width:0;overflow-wrap:anywhere}
+#app .learner-row-actions-v31{background:var(--panel2)!important}
+#app .learner-row-actions-v31 button{min-height:37px;border-radius:8px!important}
+#app .student-dashboard-head-v16{gap:13px!important;flex-wrap:wrap!important}
+#app .student-dash-id-v16{min-width:0!important}
+#app .student-dash-id-v16 h2{font-size:clamp(22px,3vw,30px)!important;letter-spacing:-.04em!important;overflow-wrap:anywhere}
+#app .student-workspace-summary-v33{gap:9px!important}
+#app .student-workspace-summary-v33>div{border-radius:11px!important;box-shadow:none!important;border:1px solid var(--line)!important}
+#app .student-workspace-actions-v33{gap:8px!important}
 #app .student-workspace-actions-v33 button{border-radius:9px!important}
-#app .schedule-premium-summary-v17>div{box-shadow:none!important}
-#app .messages-premium-v17{box-shadow:none!important;border-radius:13px!important}
-@media(max-width:1000px){#app .finance-dashboard-v30 .finance-dash-grid-v16{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
-@media(max-width:680px){#app .vta-page-heading-v39{align-items:flex-start!important;flex-direction:column!important;gap:12px!important;margin-bottom:16px!important}#app .vta-page-heading-v39 h2{font-size:29px!important}#app .vta-page-heading-v39 .admin-page-action{width:100%!important}#app .finance-dashboard-v30 .finance-dash-grid-v16{grid-template-columns:minmax(0,1fr)!important}#app .quiz-premium-grid-v17,#app .resource-dashboard-grid-v16{grid-template-columns:minmax(0,1fr)!important}#app .finance-dashboard-v30 .finance-total-v30{padding:20px!important}#app .learner-hub-v31 .learner-hub-intro-v31{padding:15px!important}}
+#app .student-dash-main-v16>*{min-width:0!important;overflow-wrap:anywhere!important}
+#app .student-next-card-v16,#app .student-focus-card-v16,#app .student-tutor-side-v16>div{border-radius:12px!important;box-shadow:none!important}
+#app .schedule-premium-summary-v17{gap:10px!important}
+#app .schedule-premium-summary-v17>div{border:1px solid var(--line)!important;border-radius:12px!important;box-shadow:none!important;min-width:0;overflow-wrap:anywhere}
+#app .schedule-calendar-shell-v17{border:1px solid var(--line)!important;border-radius:12px!important;overflow:hidden;min-width:0}
+#app .messages-premium-v17{border:1px solid var(--line)!important;border-radius:12px!important;box-shadow:none!important;min-width:0;overflow:hidden}
+#app .messages-list-v17,#app .message-thread-v17{min-width:0;overflow-wrap:anywhere}
+#app .messages-list-v17 button .grow{min-width:0;overflow:hidden}
+#app .messages-list-v17 button .grow p{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#app .message-thread-v17 .messages{overflow-wrap:anywhere}
+#app .vta-library-toolbar-v37{border-bottom:1px solid var(--line)!important;padding-bottom:14px!important;margin-bottom:16px!important}
+#app .vta-library-toolbar-v37 label{border-radius:9px!important}
+#app .quiz-premium-grid-v17,#app .resource-dashboard-grid-v16{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:11px!important;align-items:stretch!important}
+#app .quiz-student-card-v17,#app .resource-dash-card-v16{display:block!important;width:100%!important;height:100%!important;min-width:0!important;box-sizing:border-box!important;border:1px solid var(--line)!important;border-radius:12px!important;background:var(--panel)!important;box-shadow:none!important;text-align:left!important;overflow:hidden!important;transform:none!important}
+#app .quiz-student-card-v17[hidden],#app .resource-dash-card-v16[hidden]{display:none!important}
+#app .quiz-student-band-v17,#app .resource-dash-band-v16{background:transparent!important;border-bottom:0!important;padding:16px 17px 0!important}
+#app .quiz-student-body-v17,#app .resource-dash-body-v16{background:transparent!important;padding:12px 17px 17px!important}
+#app .quiz-student-body-v17 h3,#app .resource-dash-body-v16 h3{font-size:16px!important;line-height:1.3!important;letter-spacing:-.02em!important;overflow-wrap:anywhere!important}
+#app .quiz-student-body-v17 p,#app .resource-dash-body-v16 p{font-size:11px!important;line-height:1.5!important;white-space:normal!important;overflow-wrap:anywhere!important}
+#app .quiz-mini-stats-v17,#app .resource-dash-counts-v16{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;margin-top:13px!important}
+#app .resource-dash-counts-v16{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+#app .quiz-mini-stats-v17>div,#app .resource-dash-counts-v16>div{min-width:0!important;border:0!important;border-radius:7px!important;background:var(--panel2)!important;padding:10px 8px!important;display:flex!important;flex-direction:column!important;gap:5px!important}
+#app .quiz-mini-stats-v17 b,#app .resource-dash-counts-v16 b{font-size:18px!important;line-height:1.15!important}
+#app .quiz-mini-stats-v17 span,#app .resource-dash-counts-v16 span{font-size:10px!important;line-height:1.35!important;white-space:normal!important;overflow-wrap:anywhere!important}
+#app .resource-dash-title-v16>div{min-width:0!important}
+#app .finance-dashboard-v30 .finance-cycle-line-v16{background:var(--panel2)!important;border:1px solid var(--line)!important;border-radius:10px!important;box-shadow:none!important;flex-wrap:wrap!important}
+#app .finance-dashboard-v30 .finance-dash-grid-v16{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important}
+#app .finance-dashboard-v30 .finance-dash-card-v16{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:8px!important;position:static!important;min-width:0!important;max-width:100%!important;width:100%!important;height:auto!important;min-height:0!important;margin:0!important;padding:18px!important;box-sizing:border-box!important;border:1px solid var(--line)!important;border-radius:12px!important;background:var(--panel)!important;color:var(--text)!important;box-shadow:none!important;overflow:visible!important;text-align:left!important;transform:none!important}
+#app .finance-dashboard-v30 .finance-dash-icon-v16{display:none!important}
+#app .finance-dashboard-v30 .finance-dash-card-v16>span{font-size:10px!important;font-weight:800!important;line-height:1.45!important;letter-spacing:.04em!important;white-space:normal!important;overflow-wrap:anywhere!important;color:var(--muted)!important}
+#app .finance-dashboard-v30 .finance-dash-card-v16>b{font-size:clamp(24px,2.7vw,32px)!important;line-height:1.12!important;letter-spacing:-.045em!important;color:var(--text)!important;font-variant-numeric:tabular-nums!important;overflow-wrap:anywhere!important}
+#app .finance-dashboard-v30 .finance-dash-card-v16>p{font-size:11px!important;line-height:1.6!important;white-space:normal!important;overflow-wrap:anywhere!important;color:var(--muted)!important;margin:0!important}
+#app .finance-dashboard-v30 .finance-dash-card-v16>em{font-size:10px!important;line-height:1.45!important;font-style:normal!important;color:#8065c2!important;margin-top:auto!important;white-space:normal!important}
+#app .finance-dashboard-v30 .finance-total-v30{grid-column:1/-1!important;order:-1!important;padding:24px!important;background:#282b43!important;color:white!important;border-color:#353853!important}
+#app .finance-dashboard-v30 .finance-total-v30>b{font-size:clamp(35px,4vw,47px)!important;color:#fff!important}
+#app .finance-dashboard-v30 .finance-total-v30>span{color:#c9c5e4!important}
+#app .finance-dashboard-v30 .finance-total-v30>p{color:#e0ddec!important}
+#app .finance-dashboard-v30 .finance-total-v30>em{color:#c8b8ff!important}
+#app .finance-dashboard-v30 .finance-dash-note-v16 p{font-size:11px!important;line-height:1.6!important;white-space:normal!important}
+#app .mobile-nav{background:var(--panel);border-top:1px solid var(--line)}
+#app .mobile-nav button{min-width:0;line-height:1.3;font-size:10px}
+#app .mobile-nav button.active{color:#7861c4}
+@media(max-width:1050px){#app .finance-dashboard-v30 .finance-dash-grid-v16{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:700px){#app .content{padding:15px 12px calc(90px + env(safe-area-inset-bottom,0px))!important}#app .vta-editorial-hero-v40{padding:23px 21px!important;min-height:0!important}#app .vta-hero-monogram-v40{display:none}#app .vta-editorial-hero-v40 h2{font-size:29px!important}#app .vta-page-heading-v39{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:16px}#app .vta-page-heading-v39 h2{font-size:30px}#app .vta-page-heading-v39 .admin-page-action{width:100%}#app .finance-dashboard-v30 .finance-dash-grid-v16,#app .quiz-premium-grid-v17,#app .resource-dashboard-grid-v16{grid-template-columns:minmax(0,1fr)!important}#app .finance-dashboard-v30 .finance-total-v30{padding:20px!important}#app .learner-hub-intro-v31{padding:15px!important}#app .schedule-premium-summary-v17>div{min-width:0}}
+@media(max-width:380px){#app .resource-dash-counts-v16{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(prefers-reduced-motion:reduce){#app *{scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
@@ -5652,7 +5655,7 @@ function adminHome(){
   const tasks=allTasks.filter(x=>x.status!=='Done'&&(!x.due_date||x.due_date>=today())),completed=allTasks.filter(x=>x.status==='Done'&&(!x.updated_at||String(x.updated_at).slice(0,10)>=addDays(today(),-7))).slice(-4);
   const thisLessons=lessonsInCalendarMonth(0,null,['Completed']),thisHours=completedHoursInCalendarMonth(0);
   const focus=tasks.slice(0,3),later=tasks.slice(3);
-  let h='<section class="hero"><div class="tiny strong" style="color:#fca58f">ADMIN WORKSPACE</div><h2>'+greeting()+', '+esc(data.user.displayName)+'.</h2><p>One calm view of your next lesson, bookings and the few things worth focusing on now.</p></section>';
+  let h='<section class="hero vta-editorial-hero-v40"><div class="vta-hero-content-v40"><span class="vta-hero-eyebrow-v40">YOUR TEACHING STUDIO <i></i> '+esc(new Date().toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long'}))+'</span><h2>'+greeting()+', '+esc(data.user.displayName)+'.</h2><p>Your next lesson, upcoming schedule and priorities — in one focused workspace.</p><div class="vta-hero-actions-v40"><button onclick="go(\'schedule\')">'+vtaIcon('calendar',16)+' Open calendar</button><button onclick="go(\'students\')">'+vtaIcon('user',16)+' My learners</button></div></div><div class="vta-hero-monogram-v40" aria-hidden="true">V<span>.</span></div></section>';
   h+='<div class="admin-dashboard-grid" style="margin-top:14px"><div class="admin-focus-card accent"><div class="eyebrow">NEXT LESSON · CALENDAR SYNC</div>'+(next?'<h4>'+esc(next.title)+'</h4><p>'+esc(dateFmt(next.event_date))+' at '+esc(timeFmt(next.start_time))+(next.description?' · '+esc(next.description):'')+'</p><div class="month-activity"><span class="chip">'+esc(next.source)+'</span></div>':'<div class="big">No lessons</div><p>Nothing scheduled right now.</p>')+'</div><div class="admin-focus-card"><div class="eyebrow">BOOKING REQUESTS</div><div class="big">'+pending.length+'</div><p>waiting for your response</p></div><div class="admin-focus-card"><div class="eyebrow">'+esc(monthBounds(0).label.toUpperCase())+'</div><div class="big">'+thisHours.toFixed(1)+'h</div><p>'+thisLessons.length+' completed lesson'+(thisLessons.length===1?'':'s')+' this month</p></div></div>';
 
   h+='<div class="dashboard-split" style="margin-top:14px"><div class="dashboard-panel"><div class="dashboard-panel-head"><h4>Upcoming lessons</h4><button class="btn small" onclick="go(\'schedule\')">View calendar</button></div>'+(upcoming.length?'<div class="upcoming-premium-list">'+upcoming.slice(0,5).map(e=>{const d=new Date(e.event_date+'T12:00:00');return '<div class="upcoming-premium"><div class="upcoming-date"><div><span>'+d.toLocaleDateString('en-ZA',{month:'short'})+'</span><b>'+d.getDate()+'</b></div></div><div class="upcoming-copy"><b>'+esc(e.title)+'</b><p>'+esc(e.description||'Lesson details not added yet')+'</p><div class="time-line">'+esc(d.toLocaleDateString('en-ZA',{weekday:'long'}))+' · '+esc(timeFmt(e.start_time))+(e.end_time?' – '+esc(timeFmt(e.end_time)):'')+'</div></div><span class="upcoming-source">'+esc(e.source)+'</span></div>'}).join('')+'</div>':emptyState('No lessons','Nothing scheduled.'))+'</div><div class="dashboard-panel"><div class="dashboard-panel-head"><h4>Your focus</h4><button class="btn small" onclick="openTaskCreate()">+ Task</button></div><div class="focus-task-shell">'+(focus.length?focus.map((t,i)=>'<div class="focus-task-primary"><div class="step">'+(i+1)+'</div><div><b>'+esc(t.title)+'</b><p>'+esc(studentName(t.student_id))+(t.notes?' · '+esc(t.notes):'')+'</p></div><label class="task-check-v2" title="Mark complete"><input type="checkbox" onchange="toggleTask(\''+t.id+'\',this.checked)"></label></div>').join(''):emptyState('You are clear','No open tasks right now.'))+(later.length?'<details class="focus-task-later"><summary>'+later.length+' later task'+(later.length===1?'':'s')+' · hidden to keep this calm</summary><div class="task-list">'+later.map(taskRow).join('')+'</div></details>':'')+(completed.length?'<details class="completed-task-shell"><summary>Completed recently · tap to undo if needed</summary><div class="task-list" style="padding:0 10px 10px">'+completed.map(taskRow).join('')+'</div></details>':'')+'</div></div></div>';
@@ -6350,5 +6353,5 @@ if(token)sync(true);else showLogin();
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 }
-</script><div id="vtaBuildMarkerV36" aria-label="Portal version 39">VTA · v39</div></body>
+</script><div id="vtaBuildMarkerV36" aria-label="Portal version 40">VTA · v40</div></body>
 </html>
