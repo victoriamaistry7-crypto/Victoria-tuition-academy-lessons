@@ -4926,6 +4926,13 @@ input,select,textarea{background:#fff!important;border:1px solid #e0dce8!importa
 @media(max-width:570px){.learner-hub-intro-v31{padding:19px;border-radius:16px}.learner-hub-stats-v31 strong{font-size:22px}.learner-hub-stats-v31 span{font-size:9px}.learner-tools-v31{margin-top:16px;gap:9px}.learner-search-v31{flex-basis:100%;max-width:none}.learner-filters-v31{width:100%}.learner-open-v31{padding:13px 14px;gap:11px}.learner-avatar-v31{width:41px;height:41px;flex-basis:41px}.learner-row-details-v31{grid-template-columns:repeat(2,minmax(0,1fr));margin:0 14px}.learner-row-details-v31>div{padding:11px 8px}.learner-row-details-v31>div:nth-child(3){grid-column:1/-1;border-left:0;border-top:1px solid var(--line);padding-left:0}.learner-row-actions-v31{padding:10px 13px;gap:6px}.learner-row-actions-v31 button{padding:9px 10px}}
 [data-theme="dark"] .learner-status-v31{background:#333154;color:#d0c8ff}[data-theme="dark"] .learner-status-v31.needs-review{background:#4a3b2b;color:#f2ca8d}[data-theme="dark"] .learner-row-actions-v31 button:first-child{background:#39345c;color:#e4dcff;border-color:#4e4474}
 </style>
+<style id="vta-stability-v32">
+.curriculum-modal-v27{min-width:0!important;max-width:min(740px,calc(100vw - 20px))!important;box-sizing:border-box!important}
+.curriculum-modal-v27 .curriculum-scroll-v27{min-height:0!important;overscroll-behavior:contain}
+.learner-hub-v31 button:focus-visible,.curriculum-modal-v27 button:focus-visible,.curriculum-modal-v27 summary:focus-visible,.finance-dashboard-v30 button:focus-visible{outline:3px solid #8264de!important;outline-offset:3px!important}
+@media(max-width:570px){.curriculum-modal-v27{max-width:calc(100vw - 12px)!important}.curriculum-modal-v27 .curriculum-scroll-v27{max-height:calc(100dvh - 175px)!important}}
+@media(prefers-reduced-motion:reduce){.learner-row-v31 *, .quiz-student-card-v17,.resource-dash-card-v16{transition:none!important;animation:none!important}}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -5118,7 +5125,7 @@ function progressClass(s){const v=curriculumStatus(s);return v==='Completed'?'co
 
 function curriculumStatus(s){return s==='Covered'?'Completed':s==='Current'||s==='Next'?'In progress':s==='Future'||s==='Resource Ready'?'Not started':s||'Not started'}
 function currentAcademicTerm(){const m=new Date(today()+'T12:00:00').getMonth()+1;return m<=3?1:m<=6?2:m<=9?3:4}
-function activeCurriculumScope(rows){const term=currentAcademicTerm(),scoped=(rows||[]).filter(x=>Number(x.term_number)===term);return scoped.length?scoped:(rows||[])}
+function activeCurriculumScope(rows){const term=currentAcademicTerm();return (rows||[]).filter(x=>Number(x.term_number)===term)}
 function termForDate(dateStr){
   if(!dateStr)return currentAcademicTerm();
   const m=new Date(dateStr+'T12:00:00').getMonth()+1;
@@ -5540,11 +5547,11 @@ function openStudentCurriculumV15(id){
       if(!tr.length){body+='<div class="curriculum-clean-term-v16 empty"><span>TERM '+term+'</span><b>No curriculum loaded</b></div>';continue}
       const done=tr.filter(x=>curriculumStatus(x.status)==='Completed').length,active=tr.filter(x=>['In progress','Revisit'].includes(curriculumStatus(x.status))).length;
       const label='Term '+term;
-      body+='<details class="curriculum-clean-term-v16 curriculum-term-v20 '+role.key+'"><summary><div><span>'+(role.key==='focus'?'CURRENT TERM':'CURRICULUM')+'</span><b>'+esc(label)+'</b><p>'+done+' completed'+(active?' · '+active+' active':'')+'</p></div><em class="curriculum-term-count-v22">'+topicsForTerm(tr)+' topics</em><span class="curriculum-term-chevron-v22" aria-hidden="true">⌄</span></summary><div class="curriculum-clean-term-body-v16">';
+      body+='<details class="curriculum-clean-term-v16 curriculum-term-v20 '+role.key+'"><summary><div><span>'+(role.key==='focus'?'CURRENT TERM':'CURRICULUM')+'</span><b>'+esc(label)+'</b><p>'+done+' completed'+(active?' · '+active+' active':'')+'</p></div><em class="curriculum-term-count-v22">'+topicsForTerm(tr)+' topics</em><span class="curriculum-term-chevron-v22" aria-hidden="true"></span></summary><div class="curriculum-clean-term-body-v16">';
       const topics=[...new Set(tr.map(x=>x.topic))];
       topics.forEach(topic=>{
         const ar=tr.filter(x=>x.topic===topic),td=ar.filter(x=>curriculumStatus(x.status)==='Completed').length;
-        body+='<details class="curriculum-clean-topic-v16 curriculum-topic-v20"><summary><div><b>'+esc(topic)+'</b><span>'+td+' / '+ar.length+' completed</span></div><i>⌄</i></summary><div>'+ar.map(x=>{
+        body+='<details class="curriculum-clean-topic-v16 curriculum-topic-v20"><summary><div><b>'+esc(topic)+'</b><span>'+td+' / '+ar.length+' completed</span></div><i aria-hidden="true"></i></summary><div>'+ar.map(x=>{
           const st=curriculumStatus(x.status),reference=false;
           return '<button class="curriculum-clean-subtopic-v16" onclick="openSubtopicDetail(\''+x.id+'\',true)"><div class="grow"><b>'+esc(x.subtopic)+'</b><p>'+esc(x.taught_content||x.notes||'Not covered yet')+'</p></div><span class="'+progressClass(x.status)+'">'+esc(progressDisplay(x.status))+'</span></button>';
         }).join('')+'</div></details>';
@@ -5952,7 +5959,7 @@ function adminFinance(){
   const previousEarned=x.prevCompleted.reduce((sum,l)=>sum+lessonValue(l,rate),0);
   const currentEarned=x.curCompleted.reduce((sum,l)=>sum+lessonValue(l,rate),0);
   const weekFuture=(data.lessons||[]).filter(l=>financeStudentActive(l.student_id)&&l.lesson_date>=today()&&l.lesson_date>=x.week.start&&l.lesson_date<=x.week.end&&l.status==='Confirmed'&&!!l.google_event_id);
-  const uniqueFuture=[...new Map(weekFuture.map(l=>[l.id||l.google_event_id||String(l.student_id)+l.lesson_date+l.start_time,l])).values()];
+  const uniqueFuture=[...new Map(weekFuture.map(l=>[l.google_event_id||l.id||String(l.student_id)+l.lesson_date+l.start_time,l])).values()];
   const futureEstimate=uniqueFuture.reduce((sum,l)=>sum+lessonValue(l,rate),0);
   const expected=currentEarned+outstanding+futureEstimate;
   let h=adminPageHeader('Finance','Verified earnings and confirmed calendar projections.','<button class="btn primary" onclick="openPayment()">Record payment</button>');
@@ -5968,7 +5975,7 @@ function adminFinance(){
 }
 function openFinanceFutureV30(){
   const week=currentWeekBounds(),rows=(data.lessons||[]).filter(l=>financeStudentActive(l.student_id)&&l.lesson_date>=today()&&l.lesson_date>=week.start&&l.lesson_date<=week.end&&l.status==='Confirmed'&&!!l.google_event_id);
-  const unique=[...new Map(rows.map(l=>[l.id||l.google_event_id||String(l.student_id)+l.lesson_date+l.start_time,l])).values()];
+  const unique=[...new Map(rows.map(l=>[l.google_event_id||l.id||String(l.student_id)+l.lesson_date+l.start_time,l])).values()];
   const total=unique.reduce((sum,l)=>sum+lessonValue(l,150),0);
   const body='<div class="finance-modal-hero-v14"><span>CONFIRMED FUTURE · THIS WEEK</span><b>R'+total.toFixed(0)+'</b><p>'+esc(week.label)+' · confirmed Google Calendar lessons only</p></div><div class="finance-modal-list-v14">'+(unique.length?unique.map(l=>'<div class="finance-modal-payment-v14"><div><b>'+esc(dateFmt(l.lesson_date))+'</b><span>'+esc(timeFmt(l.start_time))+'</span></div><p>'+esc(studentName(l.student_id))+' · '+esc(l.subject||'Lesson')+' · '+(Number(l.duration_minutes||0)/60).toFixed(1)+'h</p><strong>R'+lessonValue(l,150).toFixed(0)+'</strong></div>').join(''):emptyState('No confirmed future lessons','No qualifying calendar lessons this week.'))+'</div>';
   modal('Confirmed future lessons',body,'<button class="btn primary" onclick="closeModal()">Close</button>');
@@ -6077,7 +6084,7 @@ function studentQuizzes(){
 async function takeQuiz(id){try{const r=await api({action:'quizGet',id});let body='<p class="muted">'+esc(r.quiz.instructions||'Answer each question carefully.')+'</p><form id="quizForm" class="stack">'+r.questions.map((q,i)=>'<div class="card soft"><b>'+(i+1)+'. '+esc(q.prompt)+'</b><div class="tiny muted" style="margin:5px 0 10px">'+esc(q.marks)+' mark'+(Number(q.marks)===1?'':'s')+'</div>'+questionInput(q)+'</div>').join('')+'</form>';modal(r.quiz.title,body,'<button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="submitQuiz(\''+id+'\')">Submit quiz</button>')}catch(err){toast(err.message)}}
 function questionInput(q){const opts=Array.isArray(q.options)?q.options:[];if(opts.length)return opts.map(o=>'<label class="row" style="font-weight:600"><input style="width:auto" type="radio" name="q_'+q.id+'" value="'+esc(o)+'"> '+esc(o)+'</label>').join('');return '<input name="q_'+q.id+'" placeholder="Your answer">'}
 async function submitQuiz(id){const form=$('#quizForm'),answers={};new FormData(form).forEach((v,k)=>answers[k.slice(2)]=v);try{const r=await api({action:'quizSubmit',quizId:id,answers});let body='<div class="hero"><div class="tiny strong" style="color:#fca58f">RESULT</div><h2>'+r.score+' / '+r.total+'</h2><p>Review the feedback below.</p></div><div class="stack" style="margin-top:14px">'+r.results.map((x,i)=>'<div class="card soft"><b>Question '+(i+1)+' • '+(x.correct?'Correct':'Review')+'</b>'+(x.correct?'':'<p class="tiny">Correct answer: '+esc(x.answer)+'</p>')+'<p class="tiny muted">'+esc(x.explanation||'')+'</p></div>').join('')+'</div>';modal('Quiz complete',body,'<button class="btn primary" onclick="closeModal();sync()">Done</button>')}catch(err){toast(err.message)}}
-function modal(title,body,actions){const m=$('#modal'),isCurriculum=String(title).startsWith('Curriculum · ');m.innerHTML='<div class="modal-card'+(isCurriculum?' curriculum-modal-v27':'')+'"><div class="row between"><h3>'+esc(title)+'</h3><button class="iconbtn" onclick="closeModal()" aria-label="Close">×</button></div>'+(isCurriculum?'<div class="curriculum-scroll-v27">'+body+'</div>':body)+'<div class="modal-actions">'+(actions||'<button class="btn" onclick="closeModal()">Close</button>')+'</div></div>';m.classList.remove('hidden')}
+function modal(title,body,actions){const m=$('#modal'),isCurriculum=String(title).startsWith('Curriculum · ');m.innerHTML='<div class="modal-card'+(isCurriculum?' curriculum-modal-v27':'')+'"><div class="row between"><h3>'+esc(title)+'</h3><button class="iconbtn" onclick="closeModal()" aria-label="Close">×</button></div>'+(isCurriculum?'<div class="curriculum-scroll-v27">'+body+'</div>':body)+'<div class="modal-actions">'+(actions||'<button class="btn" onclick="closeModal()">Close</button>')+'</div></div>';m.classList.remove('hidden');const scroll=m.querySelector('.curriculum-scroll-v27');if(scroll)scroll.scrollTop=0}
 function closeModal(){$('#modal').classList.add('hidden');$('#modal').innerHTML=''}
 function field(label,id,val,type){return '<div class="field"><label>'+esc(label)+'</label><input id="'+id+'" type="'+(type||'text')+'" value="'+esc(val||'')+'"></div>'}
 function selectField(label,id,opts,val){return '<div class="field"><label>'+esc(label)+'</label><select id="'+id+'">'+opts.map(o=>'<option '+(o===val?'selected':'')+'>'+esc(o)+'</option>').join('')+'</select></div>'}
