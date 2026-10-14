@@ -5294,7 +5294,7 @@ function openStudentCurriculumV15(id){
       if(!tr.length){body+='<div class="curriculum-clean-term-v16 empty"><span>TERM '+term+'</span><b>No curriculum loaded</b></div>';continue}
       const done=tr.filter(x=>curriculumStatus(x.status)==='Completed').length,active=tr.filter(x=>['In progress','Revisit'].includes(curriculumStatus(x.status))).length;
       const label='Term '+term;
-      body+='<details class="curriculum-clean-term-v16 curriculum-term-v20 '+role.key+'" '+(role.key==='focus'?'open':'')+'><summary><div><span>'+(role.key==='focus'?'CURRENT TERM':'CURRICULUM')+'</span><b>'+esc(label)+'</b><p>'+done+' completed'+(active?' · '+active+' active':'')+'</p></div><em class="curriculum-term-count-v22">'+topicsForTerm(tr)+' topics</em><span class="curriculum-term-chevron-v22" aria-hidden="true">⌄</span></summary><div class="curriculum-clean-term-body-v16">';
+      body+='<details class="curriculum-clean-term-v16 curriculum-term-v20 '+role.key+'"><summary><div><span>'+(role.key==='focus'?'CURRENT TERM':'CURRICULUM')+'</span><b>'+esc(label)+'</b><p>'+done+' completed'+(active?' · '+active+' active':'')+'</p></div><em class="curriculum-term-count-v22">'+topicsForTerm(tr)+' topics</em><span class="curriculum-term-chevron-v22" aria-hidden="true">⌄</span></summary><div class="curriculum-clean-term-body-v16">';
       const topics=[...new Set(tr.map(x=>x.topic))];
       topics.forEach(topic=>{
         const ar=tr.filter(x=>x.topic===topic),td=ar.filter(x=>curriculumStatus(x.status)==='Completed').length;
