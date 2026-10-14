@@ -4722,7 +4722,7 @@ input,select,textarea{background:#fff!important;border:1px solid #e0dce8!importa
       <div class="field"><label>Username</label><input id="username" autocomplete="username" required placeholder="Your username"></div>
       <div class="field"><label>Password</label><input id="password" type="password" autocomplete="current-password" required placeholder="Your password"></div>
       <button id="loginBtn" class="btn primary" style="width:100%;margin-top:7px" type="submit">Sign in</button>
-      <div id="loginError" class="login-error"></div>
+      <div id="loginError" class="login-error" role="alert" aria-live="assertive" style="display:block;min-height:28px;font-size:14px;line-height:1.5;color:#b91c1c"></div><div id="loginStatus" role="status" aria-live="polite" style="font-size:13px;color:var(--muted);margin-top:8px"></div>
     </form>
   </div>
 </section>
@@ -4794,10 +4794,23 @@ async function api(payload,auth=true){
   return j;
 }
 $('#loginForm').addEventListener('submit',async e=>{
-  e.preventDefault();$('#loginError').textContent='';$('#loginBtn').disabled=true;$('#loginBtn').textContent='Signing in…';
-  try{const r=await api({action:'login',username:$('#username').value.trim(),password:$('#password').value},false);token=r.token;localStorage.setItem('vta_web_token',token);await sync(true)}
-  catch(err){$('#loginError').textContent=err.message}
-  finally{$('#loginBtn').disabled=false;$('#loginBtn').textContent='Sign in'}
+  e.preventDefault();
+  const error=$('#loginError'),status=$('#loginStatus'),btn=$('#loginBtn');
+  error.textContent='';status.textContent='Checking your login…';
+  btn.disabled=true;btn.textContent='Signing in…';
+  try{
+    const r=await api({action:'login',username:$('#username').value.trim(),password:$('#password').value},false);
+    if(!r||!r.token)throw new Error('The server did not return a login session.');
+    token=r.token;localStorage.setItem('vta_web_token',token);
+    status.textContent='Login accepted. Loading your dashboard…';
+    await sync(true);
+    if(!$('#login').classList.contains('hidden')&&!error.textContent)error.textContent='Your login was accepted, but the dashboard did not open. Please report this message.';
+    if($('#login').classList.contains('hidden'))status.textContent='';
+  }catch(err){
+    const message=String(err&&err.message||'Unknown sign-in error');
+    error.textContent=message==='Invalid login'?'Username or password not recognised. Check both fields.':message;
+    status.textContent='Sign-in failed. Your account data has not been changed.';
+  }finally{btn.disabled=false;btn.textContent='Sign in'}
 });
 async function sync(first=false){
   if(!token)return showLogin();
@@ -4820,7 +4833,7 @@ async function sync(first=false){
   }catch(err){
     console.error('VTA render error',err);
     if(s)s.textContent='Synced • display issue';
-    toast('The data synced, but one screen needs refreshing.');
+    toast('The data synced, but one screen needs refreshing.');if(first){showLogin();const le=$('#loginError');if(le)le.textContent='Login accepted but the dashboard could not display: '+String(err.message||err);}
   }finally{
     if(bar)bar.classList.add('hidden');
   }
