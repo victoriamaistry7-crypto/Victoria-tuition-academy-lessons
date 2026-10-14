@@ -4589,6 +4589,38 @@ input,select,textarea{background:#fff!important;border:1px solid #e0dce8!importa
 }
 @media(prefers-reduced-motion:reduce){.student-premium-card-v17{transition:none!important}}
 </style>
+<style id="vta-students-command-v19">
+/* Stronger visual identity with deliberate hierarchy and accessible contrast. */
+.students-command-v19{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:22px;align-items:center;margin:14px 0 23px;padding:27px 30px;border-radius:24px;background:linear-gradient(120deg,#192441 0%,#293b65 62%,#4d417d 100%);color:#fff;box-shadow:0 15px 40px rgba(18,30,60,.13);overflow:hidden;position:relative}
+.students-command-v19:after{content:"";position:absolute;width:220px;height:220px;border:1px solid rgba(255,255,255,.13);border-radius:50%;right:-95px;top:-130px;pointer-events:none}
+.students-command-title-v19{position:relative;z-index:1}
+.students-command-title-v19>span{font-size:11px;font-weight:850;letter-spacing:.14em;color:#c6c8f8}
+.students-command-title-v19 h2{font-size:clamp(23px,3vw,33px);line-height:1.2;letter-spacing:-.035em;margin:8px 0 10px;color:#fff}
+.students-command-title-v19 p{font-size:13px;line-height:1.65;color:#e3e7f4;margin:0;max-width:470px}
+.students-command-stats-v19{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;position:relative;z-index:1}
+.students-command-stats-v19>div{padding:17px 12px;border-radius:16px;background:rgba(255,255,255,.105);border:1px solid rgba(255,255,255,.17);backdrop-filter:blur(8px);min-width:0}
+.students-command-stats-v19 strong{display:block;font-size:26px;line-height:1.1;letter-spacing:-.03em;color:#fff}
+.students-command-stats-v19 span{display:block;font-size:11px;line-height:1.45;color:#e1e6f7;margin-top:7px}
+.student-premium-card-v17{position:relative}
+.student-premium-card-v17:after{content:"";position:absolute;inset:auto 18px 0;height:3px;border-radius:5px 5px 0 0;background:linear-gradient(90deg,#7864df,#b59df5);opacity:.8}
+.student-premium-card-v17.tone-1:after{background:linear-gradient(90deg,#567fd5,#9fb7ed)}
+.student-premium-card-v17.tone-2:after{background:linear-gradient(90deg,#cc6495,#f3a7c4)}
+.student-premium-card-v17.tone-3:after{background:linear-gradient(90deg,#369c89,#8bd4c5)}
+/* Explicit contrast, including dark mode and next-lesson white-on-white bug. */
+.student-premium-card-v17 .student-premium-meta-v17 b,.student-premium-card-v17 .student-premium-meta-v17 strong,.student-premium-card-v17 .student-premium-title-v17 h3{color:var(--text)!important;-webkit-text-fill-color:var(--text)!important}
+.student-premium-card-v17 .student-premium-meta-v17 span{color:var(--muted)!important;-webkit-text-fill-color:var(--muted)!important}
+.student-premium-card-v17 .student-premium-meta-v17>div{background:var(--panel2)!important}
+.student-next-card-v16,.student-next-card-v16 .student-next-copy-v16{color:var(--text)!important}
+.student-next-card-v16 .student-next-copy-v16 h3{color:var(--text)!important;-webkit-text-fill-color:var(--text)!important}
+.student-next-card-v16 .student-next-copy-v16 p{color:var(--muted)!important;-webkit-text-fill-color:var(--muted)!important}
+.student-next-card-v16 .student-next-copy-v16>span{color:var(--muted)!important;-webkit-text-fill-color:var(--muted)!important}
+[data-theme="dark"] .student-premium-card-v17 .student-premium-cover-v17{background:linear-gradient(125deg,#2a2d4d,#3b365b)!important}
+[data-theme="dark"] .student-premium-avatar-v17{background:#262c43;color:#d2c6ff}
+[data-theme="dark"] .student-premium-cover-v17>span{background:#29334d;color:#e0e7fa}
+[data-theme="dark"] .student-premium-card-v17 .student-premium-meta-v17>div{border-color:var(--line)!important}
+@media(max-width:820px){.students-command-v19{grid-template-columns:1fr;gap:19px;padding:23px 20px}}
+@media(max-width:440px){.students-command-stats-v19{gap:7px}.students-command-stats-v19>div{padding:12px 9px}.students-command-stats-v19 strong{font-size:23px}.students-command-stats-v19 span{font-size:10px}.students-command-v19{margin-top:10px;border-radius:19px}}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -5126,7 +5158,7 @@ function adminStudents(){
   const all=(data.students||[]).slice().sort((a,b)=>String(a.display_name||'').localeCompare(String(b.display_name||'')));
   const students=all.filter(s=>s.active!==false),archived=all.filter(s=>s.active===false);
   let h=adminPageHeader('Students','Current learners and the teaching information you need at a glance.','<button class="btn primary" onclick="openStudentCreate()">'+vtaIcon('plus',15)+' Add student</button>');
-  h+='<div class="students-premium-grid-v17">';
+  h+='<div class="students-command-v19"><div class="students-command-title-v19"><span>YOUR LEARNERS</span><h2>Teaching workspace</h2><p>Open a student to continue teaching, review their curriculum or prepare their next lesson.</p></div><div class="students-command-stats-v19"><div><strong>'+students.length+'</strong><span>Active learners</span></div><div><strong>'+students.filter(st=>(data.lessons||[]).some(l=>l.student_id===st.id&&l.lesson_date>=today()&&l.status==='Confirmed')).length+'</strong><span>With confirmed lessons</span></div><div><strong>'+students.filter(st=>(data.curriculumSubtopics||[]).some(x=>x.student_id===st.id&&['In progress','Revisit'].includes(curriculumStatus(x.status)))).length+'</strong><span>With topics in progress</span></div></div></div>';h+='<div class="students-premium-grid-v17">';
   students.forEach((s,idx)=>{
     const curriculum=(data.curriculumSubtopics||[]).filter(x=>x.student_id===s.id),scope=activeCurriculumScope(curriculum),done=scope.filter(x=>curriculumStatus(x.status)==='Completed').length,pct=scope.length?Math.round(done/scope.length*100):0;
     const lessons=(data.lessons||[]).filter(x=>x.student_id===s.id),completed=lessons.filter(x=>x.status==='Completed').sort((a,b)=>String(b.lesson_date).localeCompare(String(a.lesson_date))),upcoming=lessons.filter(x=>x.lesson_date>=today()&&x.status==='Confirmed').sort((a,b)=>(a.lesson_date+String(a.start_time||'')).localeCompare(b.lesson_date+String(b.start_time||'')));
