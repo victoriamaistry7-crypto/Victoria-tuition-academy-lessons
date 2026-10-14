@@ -4803,6 +4803,42 @@ input,select,textarea{background:#fff!important;border:1px solid #e0dce8!importa
 }
 [data-theme="dark"] .students-gallery-v20 .student-premium-card-v17{border-color:#36445e!important}
 </style>
+<style id="vta-studio-ultra-v29">
+/* Ultra redesign: crisp learner directory and icon-only disclosure */
+.studio-section-v29{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:21px 0 15px;padding:0 2px}
+.studio-eyebrow-v29{font-size:10px;font-weight:850;letter-spacing:.17em;color:#6c62ac}
+.studio-section-v29 h3{margin:5px 0 4px;font-size:24px;letter-spacing:-.045em;line-height:1.1;color:var(--text)}
+.studio-section-v29 h3 span{display:inline-grid;place-items:center;vertical-align:middle;font-size:12px;background:#eeeafe;color:#6352a8;min-width:27px;height:27px;border-radius:9px;letter-spacing:0}
+.studio-section-v29 p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+.studio-section-mark-v29{font-size:10px;letter-spacing:.12em;color:var(--muted);font-weight:800;white-space:nowrap}
+.students-gallery-v29{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))!important;gap:16px!important}
+.students-gallery-v29 .student-premium-card-v17{border-radius:21px!important;border:1px solid var(--line)!important;box-shadow:0 10px 30px rgba(19,31,58,.07)!important;overflow:hidden!important}
+.students-gallery-v29 .student-premium-cover-v17{height:82px!important;background:linear-gradient(115deg,#dce8f9,#e9e8fb 65%,#f8f2fa)!important;position:relative!important;justify-content:space-between!important}
+.students-gallery-v29 .student-premium-card-v17.tone-1 .student-premium-cover-v17{background:linear-gradient(115deg,#d6edea,#e4f5ef 65%,#f7faf5)!important}
+.students-gallery-v29 .student-premium-card-v17.tone-2 .student-premium-cover-v17{background:linear-gradient(115deg,#f6dfeb,#fce9e9 65%,#fcf6ee)!important}
+.students-gallery-v29 .student-premium-card-v17.tone-3 .student-premium-cover-v17{background:linear-gradient(115deg,#f7e7ce,#fff1e0 65%,#f8f7f0)!important}
+.students-gallery-v29 .student-premium-cover-v17:after{content:"";position:absolute;right:56px;top:-54px;width:140px;height:140px;border:1px solid rgba(51,62,102,.12);border-radius:50%;pointer-events:none}
+.students-gallery-v29 .student-premium-avatar-v17{width:51px!important;height:51px!important;border-radius:15px!important;font-size:19px!important;background:#fff!important;color:#283e63!important;box-shadow:0 7px 20px rgba(32,48,74,.12)!important}
+.students-gallery-v29 .student-premium-body-v17{padding:19px!important}
+.students-gallery-v29 .student-premium-title-v17 h3{font-size:22px!important}
+.students-gallery-v29 .student-premium-title-v17>svg{color:#6e75a5!important}
+.studio-current-topic-v29{margin:17px 0 0;padding:13px 14px;border-radius:13px;background:linear-gradient(110deg,#f4f3ff,#f8f9fe);border:1px solid #e5e5f3;display:grid;gap:6px}
+.studio-current-topic-v29 span{font-size:10px;font-weight:850;letter-spacing:.13em;color:#6e63b5}
+.studio-current-topic-v29 strong{font-size:14px;line-height:1.45;color:#263252;font-weight:800;overflow-wrap:anywhere}
+.students-gallery-v29 .student-premium-focus-v17{margin-top:10px!important;border:none!important;background:var(--panel2)!important}
+.students-gallery-v29 .student-premium-meta-v17>div{background:var(--panel2)!important}
+.curriculum-modal-v27 .curriculum-term-v20>summary .curriculum-term-chevron-v22,.curriculum-modal-v27 .curriculum-topic-v20>summary i{display:flex!important;align-items:center!important;justify-content:center!important;background:transparent!important;border:0!important;border-radius:0!important;width:22px!important;height:22px!important;flex:0 0 22px!important;font-size:0!important;color:#5c6582!important;box-shadow:none!important;transform:none!important}
+.curriculum-modal-v27 .curriculum-term-v20>summary .curriculum-term-chevron-v22:after,.curriculum-modal-v27 .curriculum-topic-v20>summary i:after{content:""!important;display:block!important;width:9px!important;height:9px!important;border-right:2px solid currentColor!important;border-bottom:2px solid currentColor!important;transform:translateY(-2px) rotate(45deg)!important}
+.curriculum-modal-v27 .curriculum-term-v20[open]>summary .curriculum-term-chevron-v22,.curriculum-modal-v27 .curriculum-topic-v20[open]>summary i{transform:rotate(180deg)!important}
+.curriculum-modal-v27 .curriculum-term-v20>summary{border-left:3px solid transparent!important}
+.curriculum-modal-v27 .curriculum-term-v20.focus>summary{border-left-color:#7862d6!important}
+.curriculum-modal-v27 .curriculum-topic-v20>summary{padding:14px 15px!important}
+.curriculum-modal-v27 .curriculum-topic-v20>summary b{font-weight:750!important}
+[data-theme="dark"] .studio-current-topic-v29{background:#242b47;border-color:#414566}
+[data-theme="dark"] .studio-current-topic-v29 strong{color:#f0efff}
+[data-theme="dark"] .studio-current-topic-v29 span{color:#c5baff}
+@media(max-width:600px){.studio-section-mark-v29{display:none}.students-gallery-v29 .student-premium-cover-v17{height:72px!important}.students-gallery-v29 .student-premium-body-v17{padding:17px!important}.students-command-v19{border-radius:18px!important}.students-gallery-v29{gap:12px!important}}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -5354,11 +5390,11 @@ function adminStudents(){
   const all=(data.students||[]).slice().sort((a,b)=>String(a.display_name||'').localeCompare(String(b.display_name||'')));
   const students=all.filter(s=>s.active!==false),archived=all.filter(s=>s.active===false);
   let h=adminPageHeader('Students','Current learners and the teaching information you need at a glance.','<button class="btn primary" onclick="openStudentCreate()">'+vtaIcon('plus',15)+' Add student</button>');
-  h+='<div class="students-command-v19"><div class="students-command-title-v19"><span>VTA · LEARNER MANAGEMENT</span><h2>Your teaching studio</h2><p>Every learner, lesson and learning milestone in one place.</p></div><div class="students-command-stats-v19"><div><strong>'+students.length+'</strong><span>Active learners</span></div><div><strong>'+students.filter(st=>(data.lessons||[]).some(l=>l.student_id===st.id&&l.lesson_date>=today()&&l.status==='Confirmed')).length+'</strong><span>With confirmed lessons</span></div><div><strong>'+students.filter(st=>(data.curriculumSubtopics||[]).some(x=>x.student_id===st.id&&['In progress','Revisit'].includes(curriculumStatus(x.status)))).length+'</strong><span>With topics in progress</span></div></div></div>';h+='<div class="students-premium-grid-v17 students-gallery-v20">';
+  h+='<div class="students-command-v19"><div class="students-command-title-v19"><span>VTA · LEARNER MANAGEMENT</span><h2>Your teaching studio</h2><p>Every learner, lesson and learning milestone in one place.</p></div><div class="students-command-stats-v19"><div><strong>'+students.length+'</strong><span>Active learners</span></div><div><strong>'+students.filter(st=>(data.lessons||[]).some(l=>l.student_id===st.id&&l.lesson_date>=today()&&l.status==='Confirmed')).length+'</strong><span>With confirmed lessons</span></div><div><strong>'+students.filter(st=>(data.curriculumSubtopics||[]).some(x=>x.student_id===st.id&&['In progress','Revisit'].includes(curriculumStatus(x.status)))).length+'</strong><span>With topics in progress</span></div></div></div>';h+='<div class="studio-section-v29"><div><span class="studio-eyebrow-v29">LEARNER DIRECTORY</span><h3>Students <span>'+students.length+'</span></h3><p>Select a learner to open their teaching workspace.</p></div><span class="studio-section-mark-v29">VTA / 2026</span></div><div class="students-premium-grid-v17 students-gallery-v20 students-gallery-v29">';
   students.forEach((s,idx)=>{
     const curriculum=(data.curriculumSubtopics||[]).filter(x=>x.student_id===s.id),scope=activeCurriculumScope(curriculum),done=scope.filter(x=>curriculumStatus(x.status)==='Completed').length,pct=scope.length?Math.round(done/scope.length*100):0;
     const lessons=(data.lessons||[]).filter(x=>x.student_id===s.id),completed=lessons.filter(x=>x.status==='Completed').sort((a,b)=>String(b.lesson_date).localeCompare(String(a.lesson_date))),upcoming=lessons.filter(x=>x.lesson_date>=today()&&x.status==='Confirmed').sort((a,b)=>(a.lesson_date+String(a.start_time||'')).localeCompare(b.lesson_date+String(b.start_time||'')));
-    const next=upcoming[0],last=completed[0],start=studentStartInfo(s.id);
+    const next=upcoming[0],last=completed[0],start=studentStartInfo(s.id),activeTopics=scope.filter(x=>['In progress','Revisit'].includes(curriculumStatus(x.status))),focusTopic=activeTopics[0]?.topic||scope.find(x=>curriculumStatus(x.status)!=='Completed')?.topic||'Ready for next topic';
     h+='<button class="student-premium-card-v17 tone-'+(idx%4)+'" onclick="studentDetail(\''+s.id+'\')"><div class="student-premium-cover-v17"><div class="student-premium-avatar-v17">'+esc(initials(s.display_name))+'</div><span>Active</span></div><div class="student-premium-body-v17"><div class="student-premium-title-v17"><div><h3>'+esc(s.display_name)+'</h3><p>'+esc(s.grade||'Grade not set')+' · '+esc(s.subjects||'Subjects not set')+'</p></div>'+vtaIcon('arrow',17)+'</div><div class="student-premium-focus-v17"><div class="row between"><span>Term '+currentAcademicTerm()+' focus</span><b>'+pct+'%</b></div><div class="student-premium-progress-v17"><i style="width:'+pct+'%"></i></div><p>'+done+' of '+scope.length+' current-term subtopics completed</p></div><div class="student-premium-meta-v17"><div><span>Next lesson</span><b>'+(next?esc(dateFmt(next.lesson_date))+' · '+esc(timeFmt(next.start_time)):'Not confirmed')+'</b></div><div><span>Last lesson</span><b>'+(last?esc(dateFmt(last.lesson_date)):'None yet')+'</b></div></div><div class="student-premium-foot-v17"><span>'+(start.date?'Started Term '+start.term+' · '+esc(dateFmt(start.date)):'Start date not recorded')+'</span><strong>'+completed.length+' verified lesson'+(completed.length===1?'':'s')+'</strong></div></div></button>';
   });
   h+='</div>';
