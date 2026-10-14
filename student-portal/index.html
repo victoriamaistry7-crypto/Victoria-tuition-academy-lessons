@@ -4839,6 +4839,46 @@ input,select,textarea{background:#fff!important;border:1px solid #e0dce8!importa
 [data-theme="dark"] .studio-current-topic-v29 span{color:#c5baff}
 @media(max-width:600px){.studio-section-mark-v29{display:none}.students-gallery-v29 .student-premium-cover-v17{height:72px!important}.students-gallery-v29 .student-premium-body-v17{padding:17px!important}.students-command-v19{border-radius:18px!important}.students-gallery-v29{gap:12px!important}}
 </style>
+<style id="vta-dashboard-unified-v30">
+/* Consistent dashboard design language across learner, quiz, resources and finance pages */
+.studio-page-intro-v30{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:23px 25px;margin:12px 0 20px;border:1px solid #dce3ef;border-radius:21px;background:linear-gradient(125deg,#f6f8fe,#f0f2ff 60%,#f9f8ff);overflow:hidden}
+.studio-kicker-v30{font-size:10px;font-weight:850;letter-spacing:.16em;color:#7566ac}
+.studio-page-intro-v30 h2{margin:8px 0 5px;color:#1b2944;font-size:clamp(20px,3vw,27px);line-height:1.2;letter-spacing:-.045em}
+.studio-page-intro-v30 p{margin:0;color:#66748c;font-size:13px;line-height:1.6;max-width:530px}
+.studio-intro-icon-v30{display:grid;place-items:center;flex:0 0 56px;height:56px;border:1px solid #e0dff3;background:#fff;border-radius:17px;color:#7161a5}
+.studio-intro-icon-v30 svg{max-width:26px;max-height:26px}
+.quiz-premium-grid-v17,.resource-dashboard-grid-v16{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))!important;gap:15px!important;align-items:stretch}
+.quiz-student-card-v17,.resource-dash-card-v16{width:100%!important;min-width:0!important;height:100%!important;overflow:hidden!important;border:1px solid var(--line)!important;border-radius:19px!important;background:var(--panel)!important;box-shadow:0 9px 26px rgba(20,32,55,.065)!important;text-align:left!important;transition:transform .15s ease,box-shadow .15s ease!important}
+.quiz-student-card-v17:hover,.resource-dash-card-v16:hover{transform:translateY(-2px)!important;box-shadow:0 16px 32px rgba(20,32,55,.12)!important}
+.quiz-student-band-v17,.resource-dash-band-v16{background:linear-gradient(115deg,#e2e9f8,#ede9fa)!important;border-bottom:1px solid var(--line)!important}
+.quiz-student-card-v17.tone-1 .quiz-student-band-v17,.resource-dash-card-v16.tone-1 .resource-dash-band-v16{background:linear-gradient(115deg,#def1ed,#eaf6ef)!important}
+.quiz-student-card-v17.tone-2 .quiz-student-band-v17,.resource-dash-card-v16.tone-2 .resource-dash-band-v16{background:linear-gradient(115deg,#f8e5ed,#faedf1)!important}
+.quiz-student-card-v17.tone-3 .quiz-student-band-v17,.resource-dash-card-v16.tone-3 .resource-dash-band-v16{background:linear-gradient(115deg,#f9eddb,#fcf4e8)!important}
+.quiz-student-body-v17,.resource-dash-body-v16{min-width:0!important;padding:18px!important}
+.quiz-student-body-v17 h3,.resource-dash-body-v16 h3{font-size:20px!important;letter-spacing:-.03em!important;overflow-wrap:anywhere}
+.quiz-mini-stats-v17,.resource-dash-counts-v16{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;min-width:0!important}
+.resource-dash-counts-v16{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.quiz-mini-stats-v17>div,.resource-dash-counts-v16>div{min-width:0!important;overflow:hidden!important;padding:10px 7px!important;border-radius:12px!important;background:var(--panel2)!important;border:1px solid var(--line)!important}
+.quiz-mini-stats-v17 span,.resource-dash-counts-v16 span{font-size:10px!important;overflow-wrap:anywhere!important}
+.resource-dash-title-v16 i{font-style:normal!important;font-size:0!important;width:12px;height:12px;border-right:2px solid #71809a;border-top:2px solid #71809a;transform:rotate(45deg);margin-right:6px;flex-shrink:0}
+.finance-dashboard-v30{width:100%!important;max-width:100%!important;min-width:0!important;overflow:visible!important}
+.finance-dashboard-v30 .finance-dash-grid-v16{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:13px!important;align-items:stretch!important}
+.finance-dashboard-v30 .finance-dash-card-v16{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:7px!important;min-width:0!important;max-width:100%!important;width:100%!important;height:auto!important;min-height:190px!important;padding:18px!important;box-sizing:border-box!important;overflow:hidden!important;text-align:left!important;border-radius:18px!important}
+.finance-dashboard-v30 .finance-dash-card-v16>span{font-size:10px!important;line-height:1.5!important;letter-spacing:.09em!important;overflow-wrap:anywhere!important;white-space:normal!important}
+.finance-dashboard-v30 .finance-dash-card-v16>b{font-size:clamp(25px,4vw,38px)!important;line-height:1.18!important;letter-spacing:-.04em!important;max-width:100%!important;overflow-wrap:anywhere!important;white-space:normal!important}
+.finance-dashboard-v30 .finance-dash-card-v16>p{font-size:12px!important;line-height:1.55!important;max-width:100%!important;overflow-wrap:anywhere!important;margin:0!important}
+.finance-dashboard-v30 .finance-dash-card-v16>em{font-size:11px!important;line-height:1.5!important;max-width:100%!important;overflow-wrap:anywhere!important;margin-top:auto!important}
+.finance-dashboard-v30 .finance-total-v30{grid-column:1/-1!important;min-height:155px!important}
+.finance-dashboard-v30 .finance-cycle-line-v16{display:flex!important;flex-wrap:wrap!important;gap:12px!important;align-items:center!important}
+.finance-dashboard-v30 .finance-cycle-line-v16>div,.finance-dashboard-v30 .finance-cycle-line-v16>p{min-width:0!important;max-width:100%!important;overflow-wrap:anywhere!important}
+.finance-dashboard-v30 .finance-dash-note-v16{min-width:0!important;max-width:100%!important}
+[data-theme="dark"] .studio-page-intro-v30{background:linear-gradient(125deg,#242d43,#292d4c);border-color:#3b4762}
+[data-theme="dark"] .studio-page-intro-v30 h2{color:#f5f6ff}
+[data-theme="dark"] .studio-page-intro-v30 p{color:#bdc9dd}
+[data-theme="dark"] .studio-intro-icon-v30{background:#303b55;border-color:#4b5374;color:#d4c8ff}
+[data-theme="dark"] .quiz-student-band-v17,[data-theme="dark"] .resource-dash-band-v16{background:#34415c!important}
+@media(max-width:650px){.studio-page-intro-v30{padding:17px!important;border-radius:16px!important}.studio-intro-icon-v30{flex-basis:42px;height:42px;border-radius:13px}.finance-dashboard-v30 .finance-dash-grid-v16{grid-template-columns:minmax(0,1fr)!important}.finance-dashboard-v30 .finance-dash-card-v16{min-height:0!important;padding:17px!important}.finance-dashboard-v30 .finance-total-v30{grid-column:auto!important}.quiz-student-body-v17,.resource-dash-body-v16{padding:15px!important}}
+</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -5562,7 +5602,7 @@ function studentResourceLibraryV13(studentId,resources,admin){
 function adminResources(){
   const all=(data.resources||[]).slice(),students=(data.students||[]).filter(s=>s.active!==false).slice().sort((a,b)=>String(a.display_name||'').localeCompare(String(b.display_name||'')));
   let h=adminPageHeader('Resources','Teaching material organised by student.','<div class="row"><button class="btn soft-v13" onclick="openLinkResource()">Add link</button><button class="btn primary" onclick="openUpload()">Upload</button></div>');
-  h+='<div class="resource-dashboard-grid-v16">';
+  h+='<div class="studio-page-intro-v30"><div><span class="studio-kicker-v30">LEARNING LIBRARY</span><h2>Resources, beautifully organised.</h2><p>Find interactive lessons, notes, worksheets and assessments for each learner.</p></div><span class="studio-intro-icon-v30">'+vtaIcon('folder',24)+'</span></div><div class="resource-dashboard-grid-v16">';
   students.forEach((s,idx)=>{
     const sr=all.filter(r=>r.student_id===s.id),used=sr.filter(r=>String(r.completion_status||'').toLowerCase()==='used').length;
     const interactive=sr.filter(r=>/interactive/i.test(String(r.resource_type||''))).length;
@@ -5668,7 +5708,7 @@ function adminQuizzes(){
   const qs=(data.quizzes||[]).slice().sort((a,b)=>String(b.scheduled_for||b.created_at).localeCompare(String(a.scheduled_for||a.created_at))),attempts=data.quizAttempts||[];
   const students=(data.students||[]).filter(s=>s.active!==false).slice().sort((a,b)=>String(a.display_name||'').localeCompare(String(b.display_name||'')));
   let h=adminPageHeader('Quizzes & Assessments','Open a learner to manage quizzes, submissions and reports.','<button class="btn primary" onclick="openUnifiedQuizAdd()">'+vtaIcon('plus',15)+' Add quiz</button>');
-  h+='<div class="quiz-premium-grid-v17">';
+  h+='<div class="studio-page-intro-v30"><div><span class="studio-kicker-v30">ASSESSMENT CENTRE</span><h2>Quizzes & learner progress</h2><p>Manage assignments, submissions and marking by learner.</p></div><span class="studio-intro-icon-v30">'+vtaIcon('quiz',24)+'</span></div><div class="quiz-premium-grid-v17">';
   students.forEach((s,idx)=>{
     const sq=qs.filter(q=>q.student_id===s.id),sa=attempts.filter(a=>a.student_id===s.id),review=sa.filter(a=>a.mark_status!=='MARKED').length,marked=sa.filter(a=>a.mark_status==='MARKED').length;
     h+='<button class="quiz-student-card-v17 tone-'+(idx%4)+'" onclick="openQuizStudentV17(\''+s.id+'\')"><div class="quiz-student-band-v17"><div class="quiz-icon-v17">'+vtaIcon('quiz',18)+'</div><span>'+sq.length+' quiz'+(sq.length===1?'':'zes')+'</span></div><div class="quiz-student-body-v17"><div class="row between"><div><h3>'+esc(s.display_name)+'</h3><p>'+esc(s.grade||'')+' · '+esc(s.subjects||'')+'</p></div>'+vtaIcon('arrow',17)+'</div><div class="quiz-mini-stats-v17"><div><b>'+sa.length+'</b><span>Submissions</span></div><div><b>'+marked+'</b><span>Marked</span></div><div><b>'+review+'</b><span>Review</span></div></div></div></button>';
@@ -5848,25 +5888,30 @@ function financeDetailModalV14(kind){
   modal(title,body,'<button class="btn primary" onclick="closeModal()">Close</button>');
 }
 function adminFinance(){
-  const rate=150,prev=previousFinanceCycleBounds(),week=currentWeekBounds();
-  const prevCompleted=financeLessonsBetween(prev.start,prev.end,['Completed']);
-  const previousEarned=prevCompleted.reduce((s,l)=>s+lessonValue(l,rate),0);
-  const outstanding=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
-  const weekLessons=(data.lessons||[]).filter(l=>{
-    const active=financeStudentActive(l.student_id),inWeek=l.lesson_date>=week.start&&l.lesson_date<=week.end;
-    const completed=l.status==='Completed';
-    const confirmedCalendar=l.status==='Confirmed'&&!!l.google_event_id;
-    return active&&inWeek&&(completed||confirmedCalendar);
-  }).slice().sort((a,b)=>(a.lesson_date+String(a.start_time||'')).localeCompare(b.lesson_date+String(b.start_time||'')));
-  const weekEstimate=weekLessons.reduce((s,l)=>s+lessonValue(l,rate),0),weekHours=financeHours(weekLessons),totalVisible=previousEarned+outstanding+weekEstimate;
-  let h=adminPageHeader('Finance','Previous cycle, older balance and this week only.','<button class="btn primary" onclick="openPayment()">Record payment</button>');
-  h+='<div class="finance-dashboard-v16"><div class="finance-cycle-line-v16"><div><span>THIS WEEK</span><b>'+esc(week.label)+'</b></div><p>Only completed lessons and <strong>confirmed Google Calendar</strong> lessons are included.</p></div><div class="finance-dash-grid-v16">';
-  h+='<button class="finance-dash-card-v16 lilac" onclick="openFinancePreviousV16()"><div class="finance-dash-icon-v16">PC</div><span>PREVIOUS CYCLE EARNED</span><b>R'+previousEarned.toFixed(0)+'</b><p>'+prevCompleted.length+' verified lesson'+(prevCompleted.length===1?'':'s')+'</p><em>View breakdown</em></button>';
-  h+='<button class="finance-dash-card-v16 blush" onclick="financeDetailModalV14(\'outstanding\')"><div class="finance-dash-icon-v16">OB</div><span>OLDER OUTSTANDING</span><b>R'+outstanding.toFixed(0)+'</b><p>Kept separate from new teaching</p><em>View balance</em></button>';
-  h+='<button class="finance-dash-card-v16 mint" onclick="openFinanceWeekV16()"><div class="finance-dash-icon-v16">WK</div><span>THIS WEEK ESTIMATE</span><b>R'+weekEstimate.toFixed(0)+'</b><p>'+weekLessons.length+' confirmed/completed · '+weekHours.toFixed(1)+'h</p><em>View lessons</em></button>';
-  h+='<div class="finance-dash-card-v16 dark"><div class="finance-dash-icon-v16">Σ</div><span>VISIBLE TOTAL</span><b>R'+totalVisible.toFixed(0)+'</b><p>Previous earned + outstanding + this week estimate</p><em>No later weeks included</em></div>';
-  h+='</div><div class="finance-dash-note-v16"><span></span><p>Unconfirmed lessons are excluded. I will not project beyond this week unless you ask me to.</p></div></div>';
+  const rate=150, x=financeBreakdownData(),outstanding=Number((settingValue('finance_outstanding')||{}).amount_cents||0)/100;
+  const previousEarned=x.prevCompleted.reduce((sum,l)=>sum+lessonValue(l,rate),0);
+  const currentEarned=x.curCompleted.reduce((sum,l)=>sum+lessonValue(l,rate),0);
+  const weekFuture=(data.lessons||[]).filter(l=>financeStudentActive(l.student_id)&&l.lesson_date>=today()&&l.lesson_date>=x.week.start&&l.lesson_date<=x.week.end&&l.status==='Confirmed'&&!!l.google_event_id);
+  const uniqueFuture=[...new Map(weekFuture.map(l=>[l.id||l.google_event_id||String(l.student_id)+l.lesson_date+l.start_time,l])).values()];
+  const futureEstimate=uniqueFuture.reduce((sum,l)=>sum+lessonValue(l,rate),0);
+  const expected=currentEarned+outstanding+futureEstimate;
+  let h=adminPageHeader('Finance','Verified earnings and confirmed calendar projections.','<button class="btn primary" onclick="openPayment()">Record payment</button>');
+  h+='<div class="studio-page-intro-v30"><div><span class="studio-kicker-v30">FINANCIAL OVERVIEW</span><h2>Clear numbers. Confident decisions.</h2><p>Completed teaching is separate from future estimates. Tap any figure for its supporting records.</p></div><span class="studio-intro-icon-v30">'+vtaIcon('finance',24)+'</span></div>';
+  h+='<div class="finance-dashboard-v16 finance-dashboard-v30"><div class="finance-cycle-line-v16"><div><span>THIS WEEK</span><b>'+esc(x.week.label)+'</b></div><p>Future estimates require confirmed lessons linked to Google Calendar.</p></div><div class="finance-dash-grid-v16">';
+  h+='<button class="finance-dash-card-v16 lilac" onclick="financeDetailModalV14(\'previous\')"><div class="finance-dash-icon-v16">01</div><span>PREVIOUS CYCLE · COMPLETED</span><b>R'+previousEarned.toFixed(0)+'</b><p>'+x.prevCompleted.length+' completed lesson'+(x.prevCompleted.length===1?'':'s')+'</p><em>Review teaching history ↗</em></button>';
+  h+='<button class="finance-dash-card-v16 mint" onclick="financeDetailModalV14(\'earned\')"><div class="finance-dash-icon-v16">02</div><span>CURRENT CYCLE · EARNED</span><b>R'+currentEarned.toFixed(0)+'</b><p>'+x.curCompleted.length+' completed lesson'+(x.curCompleted.length===1?'':'s')+'</p><em>View breakdown ↗</em></button>';
+  h+='<button class="finance-dash-card-v16 blush" onclick="financeDetailModalV14(\'outstanding\')"><div class="finance-dash-icon-v16">03</div><span>OLDER OUTSTANDING</span><b>R'+outstanding.toFixed(0)+'</b><p>Recorded balance, separate from teaching</p><em>Review balance ↗</em></button>';
+  h+='<button class="finance-dash-card-v16 lilac" onclick="openFinanceFutureV30()"><div class="finance-dash-icon-v16">04</div><span>CONFIRMED FUTURE · THIS WEEK</span><b>R'+futureEstimate.toFixed(0)+'</b><p>'+uniqueFuture.length+' confirmed calendar lesson'+(uniqueFuture.length===1?'':'s')+'</p><em>Review upcoming lessons ↗</em></button>';
+  h+='<div class="finance-dash-card-v16 dark finance-total-v30"><div class="finance-dash-icon-v16">Σ</div><span>EXPECTED · CURRENT + OUTSTANDING + THIS WEEK FUTURE</span><b>R'+expected.toFixed(0)+'</b><p>R'+currentEarned.toFixed(0)+' earned + R'+outstanding.toFixed(0)+' outstanding + R'+futureEstimate.toFixed(0)+' confirmed future</p><em>Previous cycle excluded to prevent double-counting</em></div>';
+  h+='</div><div class="finance-dash-note-v16"><span></span><p>Historical earnings are shown for reference only, not added to the expected total. Disputed or unconfirmed lessons are excluded.</p></div></div>';
   $('#content').innerHTML=h;
+}
+function openFinanceFutureV30(){
+  const week=currentWeekBounds(),rows=(data.lessons||[]).filter(l=>financeStudentActive(l.student_id)&&l.lesson_date>=today()&&l.lesson_date>=week.start&&l.lesson_date<=week.end&&l.status==='Confirmed'&&!!l.google_event_id);
+  const unique=[...new Map(rows.map(l=>[l.id||l.google_event_id||String(l.student_id)+l.lesson_date+l.start_time,l])).values()];
+  const total=unique.reduce((sum,l)=>sum+lessonValue(l,150),0);
+  const body='<div class="finance-modal-hero-v14"><span>CONFIRMED FUTURE · THIS WEEK</span><b>R'+total.toFixed(0)+'</b><p>'+esc(week.label)+' · confirmed Google Calendar lessons only</p></div><div class="finance-modal-list-v14">'+(unique.length?unique.map(l=>'<div class="finance-modal-payment-v14"><div><b>'+esc(dateFmt(l.lesson_date))+'</b><span>'+esc(timeFmt(l.start_time))+'</span></div><p>'+esc(studentName(l.student_id))+' · '+esc(l.subject||'Lesson')+' · '+(Number(l.duration_minutes||0)/60).toFixed(1)+'h</p><strong>R'+lessonValue(l,150).toFixed(0)+'</strong></div>').join(''):emptyState('No confirmed future lessons','No qualifying calendar lessons this week.'))+'</div>';
+  modal('Confirmed future lessons',body,'<button class="btn primary" onclick="closeModal()">Close</button>');
 }
 function openFinancePreviousV16(){
   const x=financeBreakdownData(),rows=x.prevCompleted,value=rows.reduce((s,l)=>s+lessonValue(l,150),0),sums=financeStudentSummaryV14(rows);
